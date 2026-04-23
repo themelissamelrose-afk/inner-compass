@@ -1,0 +1,22 @@
+{
+  "name": "The Inner Compass",
+  "short_name": "Inner Compass",
+  "description": "Melissa Melrose's voice, frameworks and wisdom. Available to you 24/7.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0e0c",
+  "theme_color": "#0f0e0c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head><style>body{margin:0;background:#0f0e0c;}</style></head>
+<body>
+<canvas id="c192" width="192" height="192" style="display:none"></canvas>
+<canvas id="c512" width="512" height="512" style="display:none"></canvas>
+<script>
+function drawCompass(canvas, size) {
+  const ctx = canvas.getContext('2d');
+  const cx = size/2, cy = size/2, r = size/2;
+  
+  // Background
+  ctx.fillStyle = '#0f0e0c';
+  ctx.fillRect(0,0,size,size);
+  
+  // Rounded rect background
+  ctx.beginPath();
+  const rad = size * 0.22;
+  ctx.roundRect(0, 0, size, size, rad);
+  ctx.fillStyle = '#1a1814';
+  ctx.fill();
+  
+  // Outer circle
+  ctx.beginPath();
+  ctx.arc(cx, cy, r*0.78, 0, Math.PI*2);
+  ctx.strokeStyle = 'rgba(200,169,110,0.4)';
+  ctx.lineWidth = size*0.012;
+  ctx.stroke();
+  
+  // Inner circle
+  ctx.beginPath();
+  ctx.arc(cx, cy, r*0.52, 0, Math.PI*2);
+  ctx.strokeStyle = 'rgba(200,169,110,0.2)';
+  ctx.lineWidth = size*0.008;
+  ctx.stroke();
+  
+  // North needle
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - r*0.62);
+  ctx.lineTo(cx + r*0.08, cy - r*0.18);
+  ctx.lineTo(cx, cy - r*0.28);
+  ctx.lineTo(cx - r*0.08, cy - r*0.18);
+  ctx.closePath();
+  ctx.fillStyle = '#c8a96e';
+  ctx.fill();
+  
+  // South needle
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + r*0.62);
+  ctx.lineTo(cx - r*0.08, cy + r*0.18);
+  ctx.lineTo(cx, cy + r*0.28);
+  ctx.lineTo(cx + r*0.08, cy + r*0.18);
+  ctx.closePath();
+  ctx.fillStyle = '#4a4540';
+  ctx.fill();
+  
+  // Center dot
+  ctx.beginPath();
+  ctx.arc(cx, cy, r*0.06, 0, Math.PI*2);
+  ctx.fillStyle = '#c8a96e';
+  ctx.fill();
+}
+
+const c192 = document.getElementById('c192');
+const c512 = document.getElementById('c512');
+drawCompass(c192, 192);
+drawCompass(c512, 512);
+
+// Download both
+[['c192','icon-192.png'],['c512','icon-512.png']].forEach(([id,name]) => {
+  const a = document.createElement('a');
+  a.download = name;
+  a.href = document.getElementById(id).toDataURL('image/png');
+  document.body.appendChild(a);
+  a.click();
+});
+document.body.innerHTML = '<p style="color:white;font-family:serif;padding:20px">Icons downloaded. You can close this tab.</p>';
+</script>
+</body>
+</html>
