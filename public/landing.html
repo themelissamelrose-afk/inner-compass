@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Inner Compass. Powered by Melissa Melrose</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0e0c;
+      --surface: #1a1814;
+      --surface2: #221f1a;
+      --border: #2e2a24;
+      --gold: #c8a96e;
+      --gold-soft: #a8864e;
+      --text: #e8e0d4;
+      --text-muted: #9a9088;
+      --text-dim: #4a4540;
+      --dusty-pink: #c4998a;
+      --pink-soft: #d4b0a0;
+      --earthy: #8b6b52;
+      --burgundy: #7a3f3f;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      line-height: 1.7;
+    }
+
+    /* Hero with photo */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-photo {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .hero-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 60%, #0f0e0c 100%);
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px 80px 40px;
+      background: var(--bg);
+    }
+
+    .compass-icon {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 28px;
+      opacity: 0.7;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: normal;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .powered {
+      font-size: 12px;
+      color: var(--dusty-pink);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .tagline {
+      font-size: clamp(17px, 2vw, 22px);
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1.55;
+      max-width: 440px;
+    }
+
+    .sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 420px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .price-tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--dusty-pink);
+      border-radius: 14px;
+      padding: 20px 28px;
+      margin-bottom: 28px;
+      display: inline-block;
+    }
+
+    .founders-badge {
+      font-size: 10px;
+      color: var(--dusty-pink);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .price {
+      font-size: 44px;
+      color: var(--gold);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .price span {
+      font-size: 18px;
+      color: var(--text-muted);
+      vertical-align: top;
+      margin-top: 8px;
+      display: inline-block;
+    }
+
+    .price-period {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: 'Georgia', serif;
+      font-size: 16px;
+      padding: 16px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.03em;
+    }
+
+    .cta-btn:hover { background: var(--gold-soft); transform: translateY(-1px); }
+    .cta-btn:active { transform: scale(0.98); }
+
+    .founders-note {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    .login-link {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 20px;
+    }
+
+    .login-link a {
+      color: var(--gold-soft);
+      text-decoration: none;
+    }
+
+    .login-link a:hover { color: var(--gold); }
+
+    /* Divider */
+    .divider {
+      text-align: center;
+      padding: 12px;
+      color: var(--text-dim);
+      font-size: 18px;
+      letter-spacing: 6px;
+    }
+
+    /* What it is */
+    .intro-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .intro-text h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: normal;
+      color: var(--gold);
+      margin-bottom: 20px;
+      letter-spacing: 0.03em;
+    }
+
+    .intro-text p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      max-width: 440px;
+    }
+
+    .intro-text p strong {
+      color: var(--text);
+      font-weight: normal;
+    }
+
+    .intro-photo {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      max-height: 520px;
+    }
+
+    .intro-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border-radius: 24px;
+      filter: sepia(10%) brightness(0.9);
+    }
+
+    /* Features */
+    .features {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px;
+    }
+
+    .features-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .features h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: normal;
+      color: var(--gold);
+      margin-bottom: 32px;
+      letter-spacing: 0.03em;
+      text-align: center;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-list li {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--dusty-pink);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .feature-list li .icon {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .feature-list li h3 {
+      font-size: 16px;
+      font-weight: normal;
+      color: var(--pink-soft);
+      margin-bottom: 8px;
+    }
+
+    .feature-list li p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Quote */
+    .quote-section {
+      text-align: center;
+      padding: 80px 24px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    blockquote {
+      font-size: clamp(20px, 3vw, 28px);
+      color: var(--text);
+      font-style: italic;
+      line-height: 1.6;
+      max-width: 620px;
+      margin: 0 auto 20px;
+    }
+
+    blockquote::before { content: '\201C'; color: var(--dusty-pink); }
+    blockquote::after { content: '\201D'; color: var(--dusty-pink); }
+
+    .quote-author {
+      font-size: 12px;
+      color: var(--dusty-pink);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Bottom CTA */
+    .cta-section {
+      text-align: center;
+      background: radial-gradient(ellipse at center, #1e1814 0%, #0f0e0c 70%);
+      border-top: 1px solid var(--border);
+      padding: 80px 24px;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: normal;
+      color: var(--gold);
+      margin-bottom: 16px;
+      letter-spacing: 0.03em;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 12px;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: 50vh auto;
+      }
+      .hero-photo::after {
+        background: linear-gradient(to bottom, transparent 50%, #0f0e0c 100%);
+      }
+      .hero-content {
+        padding: 40px 24px 60px;
+      }
+      .intro-section {
+        grid-template-columns: 1fr;
+        padding: 60px 24px;
+        gap: 40px;
+      }
+      .intro-photo { max-height: 320px; }
+      .price-tag { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-photo">
+    <img src="/melissa-hero.jpg" alt="Melissa Melrose" />
+  </div>
+  <div class="hero-content">
+    <svg class="compass-icon" viewBox="0 0 52 52" fill="none">
+      <circle cx="26" cy="26" r="24" stroke="#c8a96e" stroke-width="1.5" opacity="0.4"/>
+      <circle cx="26" cy="26" r="16" stroke="#c8a96e" stroke-width="1" opacity="0.2"/>
+      <circle cx="26" cy="26" r="2.5" fill="#c8a96e"/>
+      <polygon points="26,6 28.5,20 26,17 23.5,20" fill="#c8a96e"/>
+      <polygon points="26,46 23.5,32 26,35 28.5,32" fill="#4a4540"/>
+    </svg>
+
+    <h1>The Inner Compass</h1>
+    <p class="powered">Powered by Melissa Melrose</p>
+
+    <p class="tagline">Melissa's voice, frameworks and wisdom. The support that holds you when life triggers you.</p>
+    <p class="sub">Not another AI. Your personal pattern disrupter, available at 3am, between sessions, whenever you need to come back to yourself.</p>
+
+    <div class="price-tag">
+      <p class="founders-badge">Founders Pricing. Limited Time.</p>
+      <div class="price"><span>$</span>17</div>
+      <p class="price-period">AUD per month</p>
+    </div>
+
+    <a href="/subscribe" class="cta-btn">Begin Your Journey</a>
+    <p class="founders-note">Founders price locked in for life. Cancel any time.</p>
+    <p class="login-link">Already a member? <a href="/login">Sign in here</a></p>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- What is it -->
+<div class="intro-section">
+  <div class="intro-text">
+    <h2>This isn't just any AI.</h2>
+    <p>ChatGPT doesn't know Melissa's frameworks. It doesn't know the Trigger as Portal. It doesn't know how to bring you back into your body when your head is running the show.</p>
+    <p><strong>The Inner Compass does.</strong></p>
+    <p>It has been trained in Melissa's specific voice, methodology, and lived wisdom. It holds space the way she does. Warm, direct, and always bringing you back to yourself.</p>
+    <p>Think of it as Melissa available every single day of the month, for less than the price of a coffee a week.</p>
+  </div>
+  <div class="intro-photo">
+    <img src="/melissa-warmth.jpg" alt="Melissa Melrose" />
+  </div>
+</div>
+
+<!-- Features -->
+<div class="features">
+  <div class="features-inner">
+    <h2>What it holds for you.</h2>
+    <ul class="feature-list">
+      <li>
+        <div class="icon">🌀</div>
+        <h3>Pattern Disruption</h3>
+        <p>When you are in the loop, it names what it sees and helps you get underneath the story.</p>
+      </li>
+      <li>
+        <div class="icon">🫁</div>
+        <h3>Breathwork and Regulation</h3>
+        <p>Guided practices from Melissa's breathwork toolkit to regulate your nervous system.</p>
+      </li>
+      <li>
+        <div class="icon">🧭</div>
+        <h3>Body-Based Presence</h3>
+        <p>Always brings you back to your body. Because insight isn't integration.</p>
+      </li>
+      <li>
+        <div class="icon">💛</div>
+        <h3>Accountability</h3>
+        <p>Holds you to your commitments and your truth. Without judgement. Without rushing.</p>
+      </li>
+      <li>
+        <div class="icon">🌙</div>
+        <h3>Available 24/7</h3>
+        <p>3am spiral? Triggered before a big meeting? It is here. Always.</p>
+      </li>
+      <li>
+        <div class="icon">🔥</div>
+        <h3>Trigger as Portal</h3>
+        <p>Walks you through Melissa's 8-step process to turn every trigger into an opportunity.</p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Quote -->
+<div class="quote-section">
+  <blockquote>You don't have to fix this. You have to feel it.</blockquote>
+  <p class="quote-author">Melissa Melrose</p>
+</div>
+
+<!-- Bottom CTA -->
+<div class="cta-section">
+  <h2>Ready to come back to yourself?</h2>
+  <p>Join as a founding member today and lock in $17 per month for life.</p>
+  <a href="/subscribe" class="cta-btn">Begin Your Journey</a>
+  <p style="font-size:13px;color:var(--text-dim);margin-top:14px;font-style:italic;">Cancel any time. No lock-in. Just support.</p>
+  <p style="font-size:13px;color:var(--text-dim);margin-top:16px;">Already a member? <a href="/login" style="color:var(--gold-soft);text-decoration:none;">Sign in here</a></p>
+</div>
+
+<footer>
+  The Inner Compass. Powered by Melissa Melrose. Foundations of Self.<br>
+  <span style="margin-top:6px;display:block;">Questions? themelissamelrose@gmail.com</span>
+</footer>
+
+</body>
+</html>

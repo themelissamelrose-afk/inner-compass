@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Inner Compass</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0e0c;
+      --surface: #1a1814;
+      --surface2: #221f1a;
+      --border: #2e2a24;
+      --gold: #c8a96e;
+      --gold-soft: #a8864e;
+      --text: #e8e0d4;
+      --text-muted: #7a7068;
+      --text-dim: #4a4540;
+      --user-bg: #1e2a1e;
+      --user-border: #2a3d2a;
+      --ai-bg: #1a1814;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Header */
+    header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+
+    .compass-icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      font-size: 18px;
+      font-weight: normal;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .header-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* Messages area */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      scroll-behavior: smooth;
+    }
+
+    #messages::-webkit-scrollbar { width: 4px; }
+    #messages::-webkit-scrollbar-track { background: transparent; }
+    #messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* Welcome screen */
+    .welcome {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      text-align: center;
+      padding: 40px 24px;
+      gap: 20px;
+    }
+
+    .welcome-compass {
+      width: 72px;
+      height: 72px;
+      opacity: 0.6;
+    }
+
+    .welcome h2 {
+      font-size: 22px;
+      font-weight: normal;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+
+    .welcome p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 340px;
+    }
+
+    .welcome-quote {
+      font-size: 13px;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-top: 8px;
+    }
+
+    /* Message bubbles */
+    .message {
+      display: flex;
+      flex-direction: column;
+      max-width: 85%;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.user { align-self: flex-end; }
+    .message.assistant { align-self: flex-start; }
+
+    .bubble {
+      padding: 14px 18px;
+      border-radius: 18px;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .message.user .bubble {
+      background: var(--user-bg);
+      border: 1px solid var(--user-border);
+      border-bottom-right-radius: 4px;
+      color: var(--text);
+    }
+
+    .message.assistant .bubble {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 4px;
+      color: var(--text);
+    }
+
+    .message-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      padding: 0 4px;
+    }
+
+    .message.user .message-label { text-align: right; }
+
+    .compass-label {
+      color: var(--gold-soft);
+    }
+
+    /* Typing indicator */
+    .typing {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 14px 18px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      border-bottom-left-radius: 4px;
+      width: fit-content;
+    }
+
+    .typing span {
+      width: 6px;
+      height: 6px;
+      background: var(--gold-soft);
+      border-radius: 50%;
+      animation: pulse 1.2s infinite;
+    }
+
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes pulse {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Input area */
+    footer {
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    textarea {
+      flex: 1;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      font-size: 15px;
+      line-height: 1.5;
+      resize: none;
+      outline: none;
+      max-height: 140px;
+      min-height: 48px;
+      transition: border-color 0.2s;
+    }
+
+    textarea::placeholder { color: var(--text-dim); }
+    textarea:focus { border-color: var(--gold-soft); }
+
+    button {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--gold);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    button:hover { background: var(--gold-soft); }
+    button:active { transform: scale(0.95); }
+    button:disabled { background: var(--border); cursor: not-allowed; }
+
+    button svg { width: 18px; height: 18px; fill: var(--bg); }
+
+    .footer-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .message { max-width: 92%; }
+      header { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <svg class="compass-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="22" cy="22" r="20" stroke="#c8a96e" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="22" cy="22" r="14" stroke="#c8a96e" stroke-width="1" opacity="0.25"/>
+    <circle cx="22" cy="22" r="2" fill="#c8a96e"/>
+    <!-- N -->
+    <polygon points="22,6 24.5,18 22,15 19.5,18" fill="#c8a96e"/>
+    <!-- S -->
+    <polygon points="22,38 19.5,26 22,29 24.5,26" fill="#4a4540"/>
+    <!-- E -->
+    <circle cx="38" cy="22" r="1.5" fill="#4a4540"/>
+    <!-- W -->
+    <circle cx="6" cy="22" r="1.5" fill="#4a4540"/>
+    <!-- tick marks -->
+    <line x1="22" y1="3" x2="22" y2="5" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
+    <line x1="22" y1="39" x2="22" y2="41" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
+    <line x1="3" y1="22" x2="5" y2="22" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
+    <line x1="39" y1="22" x2="41" y2="22" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
+  </svg>
+  <div class="header-text">
+    <h1>The Inner Compass</h1>
+    <p>Powered by Melissa Melrose</p>
+  </div>
+</header>
+
+<div id="messages">
+  <div class="welcome" id="welcome">
+    <svg class="welcome-compass" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="36" cy="36" r="34" stroke="#c8a96e" stroke-width="1" opacity="0.3"/>
+      <circle cx="36" cy="36" r="22" stroke="#c8a96e" stroke-width="1" opacity="0.2"/>
+      <circle cx="36" cy="36" r="3" fill="#c8a96e" opacity="0.6"/>
+      <polygon points="36,8 39,28 36,24 33,28" fill="#c8a96e" opacity="0.8"/>
+      <polygon points="36,64 33,44 36,48 39,44" fill="#4a4540"/>
+    </svg>
+    <h2>Welcome back.</h2>
+    <p>This is your space to come back to yourself. No fixing. No rushing. Just presence.</p>
+    <p class="welcome-quote">"Insight isn't integration. Come back to yourself."</p>
+  </div>
+</div>
+
+<footer>
+  <div class="input-row">
+    <textarea
+      id="input"
+      placeholder="How are you feeling right now, in your body?"
+      rows="1"
+      autofocus
+    ></textarea>
+    <button id="send" title="Send">
+      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+    </button>
+  </div>
+  <p class="footer-note">The Inner Compass — Powered by Melissa Melrose &nbsp;·&nbsp; Foundations of Self</p>
+</footer>
+
+<script>
+  const messagesEl = document.getElementById('messages');
+  const welcomeEl = document.getElementById('welcome');
+  const inputEl = document.getElementById('input');
+  const sendBtn = document.getElementById('send');
+
+  let history = [];
+  let isStreaming = false;
+
+  // Auto-resize textarea
+  inputEl.addEventListener('input', () => {
+    inputEl.style.height = 'auto';
+    inputEl.style.height = Math.min(inputEl.scrollHeight, 140) + 'px';
+  });
+
+  // Send on Enter (Shift+Enter for new line)
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      send();
+    }
+  });
+
+  sendBtn.addEventListener('click', send);
+
+  function removeWelcome() {
+    if (welcomeEl && welcomeEl.parentNode) {
+      welcomeEl.remove();
+    }
+  }
+
+  function addMessage(role, content) {
+    removeWelcome();
+    const wrapper = document.createElement('div');
+    wrapper.className = `message ${role}`;
+
+    const label = document.createElement('div');
+    label.className = 'message-label' + (role === 'assistant' ? ' compass-label' : '');
+    label.textContent = role === 'assistant' ? 'The Inner Compass' : 'You';
+    wrapper.appendChild(label);
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.textContent = content;
+    wrapper.appendChild(bubble);
+
+    messagesEl.appendChild(wrapper);
+    scrollToBottom();
+    return bubble;
+  }
+
+  function addTyping() {
+    removeWelcome();
+    const wrapper = document.createElement('div');
+    wrapper.className = 'message assistant';
+    wrapper.id = 'typing-wrapper';
+
+    const label = document.createElement('div');
+    label.className = 'message-label compass-label';
+    label.textContent = 'The Inner Compass';
+    wrapper.appendChild(label);
+
+    const typing = document.createElement('div');
+    typing.className = 'typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    wrapper.appendChild(typing);
+
+    messagesEl.appendChild(wrapper);
+    scrollToBottom();
+    return wrapper;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typing-wrapper');
+    if (t) t.remove();
+  }
+
+  function scrollToBottom() {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  async function send() {
+    const text = inputEl.value.trim();
+    if (!text || isStreaming) return;
+
+    isStreaming = true;
+    sendBtn.disabled = true;
+    inputEl.value = '';
+    inputEl.style.height = 'auto';
+
+    addMessage('user', text);
+    history.push({ role: 'user', content: text });
+
+    const typingWrapper = addTyping();
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+      });
+
+      if (!response.ok) throw new Error('Server error');
+
+      removeTyping();
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'message assistant';
+
+      const label = document.createElement('div');
+      label.className = 'message-label compass-label';
+      label.textContent = 'The Inner Compass';
+      wrapper.appendChild(label);
+
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      wrapper.appendChild(bubble);
+      messagesEl.appendChild(wrapper);
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let fullText = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.slice(6);
+            if (data === '[DONE]') break;
+            try {
+              const parsed = JSON.parse(data);
+              if (parsed.text) {
+                fullText += parsed.text;
+                bubble.textContent = fullText;
+                scrollToBottom();
+              }
+            } catch {}
+          }
+        }
+      }
+
+      history.push({ role: 'assistant', content: fullText });
+
+    } catch (err) {
+      removeTyping();
+      addMessage('assistant', "Something interrupted us. Take a breath — and try again when you're ready.");
+    }
+
+    isStreaming = false;
+    sendBtn.disabled = false;
+    inputEl.focus();
+  }
+</script>
+</body>
+</html>

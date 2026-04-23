@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — The Inner Compass</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f0e0c; --surface: #1a1814; --surface2: #221f1a;
+      --border: #2e2a24; --gold: #c8a96e; --gold-soft: #a8864e;
+      --text: #e8e0d4; --text-muted: #9a9088; --text-dim: #4a4540;
+      --error: #c47070; --success: #7ab87a;
+    }
+    body {
+      background: var(--bg); color: var(--text); font-family: 'Georgia', serif;
+      min-height: 100vh; padding: 40px 16px;
+    }
+    .container { max-width: 680px; margin: 0 auto; }
+    h1 { font-size: 22px; font-weight: normal; color: var(--gold); margin-bottom: 6px; }
+    .subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 40px; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 32px; margin-bottom: 24px;
+    }
+    .card h2 { font-size: 16px; font-weight: normal; color: var(--gold); margin-bottom: 20px; }
+
+    label {
+      display: block; font-size: 12px; color: var(--text-muted);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; margin-top: 16px;
+    }
+    input {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 16px; color: var(--text);
+      font-family: 'Georgia', serif; font-size: 15px; outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: var(--gold-soft); }
+    input::placeholder { color: var(--text-dim); }
+
+    .btn {
+      display: inline-block; background: var(--gold); color: var(--bg);
+      font-family: 'Georgia', serif; font-size: 15px; padding: 12px 28px;
+      border-radius: 50px; border: none; cursor: pointer; margin-top: 20px;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--gold-soft); }
+    .btn:disabled { background: var(--border); cursor: not-allowed; }
+    .btn-danger {
+      background: transparent; border: 1px solid #c47070; color: #c47070;
+      font-size: 13px; padding: 8px 20px; margin-top: 0;
+    }
+    .btn-danger:hover { background: rgba(196,112,112,0.1); }
+
+    .msg { font-size: 14px; margin-top: 12px; min-height: 20px; }
+    .msg.success { color: var(--success); }
+    .msg.error { color: var(--error); }
+
+    .result-box {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin-top: 16px; display: none;
+    }
+    .result-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; }
+    .result-box .temp-pass {
+      font-size: 20px; color: var(--gold); letter-spacing: 0.1em;
+      font-family: monospace; margin: 8px 0;
+    }
+    .result-box .note { font-size: 12px; color: var(--text-dim); margin-top: 8px; }
+
+    /* Users table */
+    .users-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .users-table th {
+      font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 8px 12px; text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .users-table td {
+      font-size: 14px; color: var(--text-muted); padding: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .status-active { color: var(--success); }
+    .status-cancelled { color: var(--error); }
+    .status-pending { color: var(--gold-soft); }
+    .status-free { color: #a0c4c4; }
+
+    #login-screen { max-width: 400px; margin: 80px auto; text-align: center; }
+    #login-screen h1 { margin-bottom: 24px; }
+    #main-screen { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login-screen">
+  <h1>Admin Access</h1>
+  <p style="color:var(--text-muted);margin-bottom:24px;font-size:14px;">The Inner Compass</p>
+  <input type="password" id="admin-pass" placeholder="Admin password" />
+  <br>
+  <button class="btn" onclick="adminLogin()" style="margin-top:16px;">Enter</button>
+  <p id="login-error" class="msg error"></p>
+</div>
+
+<!-- Main -->
+<div id="main-screen">
+  <div class="container">
+    <h1>The Inner Compass — Admin</h1>
+    <p class="subtitle">Manage client access</p>
+
+    <!-- Give free access -->
+    <div class="card">
+      <h2>Give Free Access to a Client</h2>
+      <label>Client Name</label>
+      <input type="text" id="grant-name" placeholder="e.g. Sarah" />
+      <label>Client Email</label>
+      <input type="email" id="grant-email" placeholder="client@email.com" />
+      <br>
+      <button class="btn" id="grant-btn" onclick="grantAccess()">Give Access</button>
+      <p id="grant-msg" class="msg"></p>
+      <div class="result-box" id="grant-result">
+        <p>Access granted! Send your client this temporary password:</p>
+        <div class="temp-pass" id="temp-pass-display"></div>
+        <p>Tell them to go to:</p>
+        <div class="temp-pass" style="font-size:14px;" id="login-url-display"></div>
+        <p class="note">They can change their password after logging in. Their email is their username.</p>
+      </div>
+    </div>
+
+    <!-- Remove access -->
+    <div class="card">
+      <h2>Remove Access</h2>
+      <label>Client Email</label>
+      <input type="email" id="remove-email" placeholder="client@email.com" />
+      <br>
+      <button class="btn btn-danger" id="remove-btn" onclick="removeAccess()">Remove Access</button>
+      <p id="remove-msg" class="msg"></p>
+    </div>
+
+    <!-- All users -->
+    <div class="card">
+      <h2>All Members</h2>
+      <button class="btn" onclick="loadUsers()" style="margin-top:0;margin-bottom:16px;font-size:13px;padding:8px 20px;">Refresh</button>
+      <div id="users-list"><p style="color:var(--text-dim);font-size:14px;">Click refresh to load.</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let adminToken = '';
+
+  function adminLogin() {
+    const pass = document.getElementById('admin-pass').value;
+    fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pass }),
+    }).then(r => r.json()).then(data => {
+      if (data.success) {
+        adminToken = data.token;
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('main-screen').style.display = 'block';
+        loadUsers();
+      } else {
+        document.getElementById('login-error').textContent = 'Incorrect password.';
+      }
+    });
+  }
+
+  document.getElementById('admin-pass').addEventListener('keydown', e => {
+    if (e.key === 'Enter') adminLogin();
+  });
+
+  async function grantAccess() {
+    const name = document.getElementById('grant-name').value;
+    const email = document.getElementById('grant-email').value;
+    const btn = document.getElementById('grant-btn');
+    const msg = document.getElementById('grant-msg');
+    const result = document.getElementById('grant-result');
+
+    if (!name || !email) { msg.className = 'msg error'; msg.textContent = 'Please fill in both fields.'; return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Granting...';
+    msg.textContent = '';
+    result.style.display = 'none';
+
+    const res = await fetch('/api/admin/grant', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}` },
+      body: JSON.stringify({ name, email }),
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      msg.className = 'msg success';
+      msg.textContent = 'Access granted!';
+      document.getElementById('temp-pass-display').textContent = data.tempPassword;
+      document.getElementById('login-url-display').textContent = window.location.origin + '/login';
+      result.style.display = 'block';
+      document.getElementById('grant-name').value = '';
+      document.getElementById('grant-email').value = '';
+      loadUsers();
+    } else {
+      msg.className = 'msg error';
+      msg.textContent = data.error || 'Something went wrong.';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Give Access';
+  }
+
+  async function removeAccess() {
+    const email = document.getElementById('remove-email').value;
+    const btn = document.getElementById('remove-btn');
+    const msg = document.getElementById('remove-msg');
+    if (!email) { msg.className = 'msg error'; msg.textContent = 'Please enter an email.'; return; }
+
+    btn.disabled = true;
+    const res = await fetch('/api/admin/remove', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}` },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json();
+    msg.className = data.success ? 'msg success' : 'msg error';
+    msg.textContent = data.success ? 'Access removed.' : (data.error || 'Something went wrong.');
+    btn.disabled = false;
+    if (data.success) { document.getElementById('remove-email').value = ''; loadUsers(); }
+  }
+
+  async function loadUsers() {
+    const res = await fetch('/api/admin/users', {
+      headers: { 'Authorization': `Bearer ${adminToken}` },
+    });
+    const data = await res.json();
+    const el = document.getElementById('users-list');
+    if (!data.users || data.users.length === 0) {
+      el.innerHTML = '<p style="color:var(--text-dim);font-size:14px;">No members yet.</p>';
+      return;
+    }
+    el.innerHTML = `<table class="users-table">
+      <tr><th>Name</th><th>Email</th><th>Status</th><th>Joined</th></tr>
+      ${data.users.map(u => `
+        <tr>
+          <td>${u.name}</td>
+          <td>${u.email}</td>
+          <td class="status-${u.status}">${u.status}</td>
+          <td>${new Date(u.createdAt).toLocaleDateString('en-AU')}</td>
+        </tr>
+      `).join('')}
+    </table>`;
+  }
+</script>
+</body>
+</html>

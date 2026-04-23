@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome — The Inner Compass</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f0e0c; --surface: #1a1814; --border: #2e2a24;
+      --gold: #c8a96e; --gold-soft: #a8864e; --text: #e8e0d4; --text-muted: #9a9088;
+    }
+    body {
+      background: var(--bg); color: var(--text); font-family: 'Georgia', serif;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 40px 16px; text-align: center;
+    }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 24px; padding: 56px 40px; max-width: 500px; width: 100%;
+    }
+    .compass { width: 56px; height: 56px; margin-bottom: 28px; opacity: 0.8; }
+    h1 { font-size: 28px; font-weight: normal; color: var(--gold); margin-bottom: 16px; letter-spacing: 0.04em; }
+    p { font-size: 16px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.7; }
+    .cta {
+      display: inline-block; background: var(--gold); color: var(--bg);
+      font-family: 'Georgia', serif; font-size: 17px; padding: 16px 40px;
+      border-radius: 50px; text-decoration: none; margin-top: 16px;
+      transition: background 0.2s;
+    }
+    .cta:hover { background: var(--gold-soft); }
+  </style>
+</head>
+<body>
+<div class="card">
+  <svg class="compass" viewBox="0 0 56 56" fill="none">
+    <circle cx="28" cy="28" r="26" stroke="#c8a96e" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="28" cy="28" r="3" fill="#c8a96e"/>
+    <polygon points="28,7 31,22 28,19 25,22" fill="#c8a96e"/>
+    <polygon points="28,49 25,34 28,37 31,34" fill="#4a4540"/>
+  </svg>
+  <h1>Welcome. You're in.</h1>
+  <p>The Inner Compass is ready for you.</p>
+  <p>Come here whenever you need to come back to yourself — morning check-ins, moments of activation, or simply when you need presence.</p>
+  <p style="color: #c8a96e; font-style: italic;">"Insight isn't integration. Come back to yourself."</p>
+  <a href="/app" class="cta">Open The Inner Compass</a>
+</div>
+</body>
+</html>

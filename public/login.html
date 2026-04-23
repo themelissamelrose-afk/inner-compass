@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — The Inner Compass</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f0e0c;
+      --surface: #1a1814;
+      --surface2: #221f1a;
+      --border: #2e2a24;
+      --gold: #c8a96e;
+      --gold-soft: #a8864e;
+      --text: #e8e0d4;
+      --text-muted: #9a9088;
+      --text-dim: #4a4540;
+      --error: #c47070;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+    .compass { width: 48px; height: 48px; margin-bottom: 24px; opacity: 0.7; }
+    h1 { font-size: 22px; font-weight: normal; color: var(--gold); letter-spacing: 0.04em; margin-bottom: 4px; }
+    .sub { font-size: 13px; color: var(--text-muted); margin-bottom: 36px; }
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      margin-top: 20px;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: var(--gold-soft); }
+    input::placeholder { color: var(--text-dim); }
+    #error-msg { color: var(--error); font-size: 13px; margin-top: 12px; min-height: 20px; }
+    .submit-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: 'Georgia', serif;
+      font-size: 17px;
+      padding: 16px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      margin-top: 28px;
+      transition: background 0.2s;
+    }
+    .submit-btn:hover { background: var(--gold-soft); }
+    .submit-btn:disabled { background: var(--border); cursor: not-allowed; }
+    .footer-links { margin-top: 24px; font-size: 13px; color: var(--text-dim); }
+    .footer-links a { color: var(--gold-soft); text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <svg class="compass" viewBox="0 0 48 48" fill="none">
+    <circle cx="24" cy="24" r="22" stroke="#c8a96e" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="24" cy="24" r="2.5" fill="#c8a96e"/>
+    <polygon points="24,6 26.5,20 24,17 21.5,20" fill="#c8a96e"/>
+    <polygon points="24,42 21.5,28 24,31 26.5,28" fill="#4a4540"/>
+  </svg>
+  <h1>Welcome back.</h1>
+  <p class="sub">Sign in to The Inner Compass</p>
+
+  <form id="login-form">
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="your@email.com" required />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Your password" required />
+
+    <div id="error-msg"></div>
+
+    <button type="submit" class="submit-btn" id="submit-btn">Come back to yourself</button>
+  </form>
+
+  <div class="footer-links">
+    <p style="margin-top:16px;">Not yet a member? <a href="/subscribe">Join here</a></p>
+    <p style="margin-top:8px;"><a href="/">← Back to the page</a></p>
+  </div>
+</div>
+
+<script>
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        window.location.href = '/app';
+      } else {
+        document.getElementById('error-msg').textContent = data.error || 'Incorrect email or password.';
+        btn.disabled = false;
+        btn.textContent = 'Come back to yourself';
+      }
+    } catch {
+      document.getElementById('error-msg').textContent = 'Something went wrong. Please try again.';
+      btn.disabled = false;
+      btn.textContent = 'Come back to yourself';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join The Inner Compass</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f0e0c;
+      --surface: #1a1814;
+      --surface2: #221f1a;
+      --border: #2e2a24;
+      --gold: #c8a96e;
+      --gold-soft: #a8864e;
+      --text: #e8e0d4;
+      --text-muted: #9a9088;
+      --text-dim: #4a4540;
+      --error: #c47070;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 460px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .logo h1 {
+      font-size: 22px;
+      font-weight: normal;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .logo p {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .price-display {
+      text-align: center;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 32px;
+    }
+    .founders-badge {
+      font-size: 10px;
+      color: #c4998a;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .price-display .amount {
+      font-size: 36px;
+      color: var(--gold);
+    }
+    .price-display .period {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+    input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: var(--gold-soft); }
+    input::placeholder { color: var(--text-dim); }
+    #card-element {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 0;
+    }
+    #card-element.StripeElement--focus { border-color: var(--gold-soft); }
+    #card-errors {
+      color: var(--error);
+      font-size: 13px;
+      margin-top: 8px;
+      min-height: 20px;
+    }
+    .submit-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: 'Georgia', serif;
+      font-size: 17px;
+      padding: 16px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      margin-top: 28px;
+      transition: background 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .submit-btn:hover { background: var(--gold-soft); }
+    .submit-btn:disabled { background: var(--border); cursor: not-allowed; }
+    .fine-print {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .back-link a { color: var(--gold-soft); text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <h1>The Inner Compass</h1>
+    <p>Powered by Melissa Melrose</p>
+  </div>
+
+  <div class="price-display">
+    <p class="founders-badge">Founders Pricing</p>
+    <div class="amount">$17 AUD</div>
+    <div class="period">per month — locked in for life</div>
+  </div>
+
+  <form id="payment-form">
+    <label for="name">Your Name</label>
+    <input type="text" id="name" placeholder="First name" required />
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" placeholder="your@email.com" required />
+
+    <label for="password">Create a Password</label>
+    <input type="password" id="password" placeholder="At least 8 characters" required minlength="8" />
+
+    <label>Card Details</label>
+    <div id="card-element"></div>
+    <div id="card-errors"></div>
+
+    <button type="submit" class="submit-btn" id="submit-btn">Begin My Journey — $17/month</button>
+  </form>
+
+  <p class="fine-print">Billed monthly in AUD. Cancel any time. Your card is processed securely by Stripe.</p>
+  <p class="back-link"><a href="/">← Back to the sales page</a></p>
+</div>
+
+<script>
+  const stripe = Stripe('pk_live_51TPHWaCphmYhkmnaNXdU3OSHrMZkI08tagoILEVtakC4sUHzg9FRurMQRqCc2GNu5gsOWLgtOPvWUs4pgLtnUkLa006UofZ9n6');
+  const elements = stripe.elements();
+
+  const cardElement = elements.create('card', {
+    style: {
+      base: {
+        color: '#e8e0d4',
+        fontFamily: 'Georgia, serif',
+        fontSize: '15px',
+        '::placeholder': { color: '#4a4540' },
+      },
+      invalid: { color: '#c47070' },
+    }
+  });
+  cardElement.mount('#card-element');
+
+  cardElement.on('change', (e) => {
+    document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
+  });
+
+  document.getElementById('payment-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Processing...';
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const { clientSecret, error } = await res.json();
+
+      if (error) {
+        document.getElementById('card-errors').textContent = error;
+        btn.disabled = false;
+        btn.textContent = 'Begin My Journey — $17/month';
+        return;
+      }
+
+      const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: { card: cardElement, billing_details: { name, email } }
+      });
+
+      if (result.error) {
+        document.getElementById('card-errors').textContent = result.error.message;
+        btn.disabled = false;
+        btn.textContent = 'Begin My Journey — $17/month';
+      } else {
+        // Activate the account
+        const activate = await fetch('/api/activate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const activateData = await activate.json();
+        if (activateData.success) {
+          window.location.href = '/welcome';
+        } else {
+          document.getElementById('card-errors').textContent = 'Payment received but activation failed — please contact themelissamelrose@gmail.com';
+        }
+      }
+    } catch (err) {
+      document.getElementById('card-errors').textContent = 'Something went wrong. Please try again.';
+      btn.disabled = false;
+      btn.textContent = 'Begin My Journey — $17/month';
+    }
+  });
+</script>
+</body>
+</html>
