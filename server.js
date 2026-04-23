@@ -353,6 +353,7 @@ app.post('/api/activate', async (req, res) => {
     if (subscription.status === 'active' || subscription.status === 'trialing') {
       users[email].status = 'active';
       saveUsers(users);
+      addToMailerLite(users[email].name, email);
       const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '30d' });
       res.cookie('token', token, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
       res.json({ success: true });
@@ -385,6 +386,27 @@ app.get('/api/logout', (req, res) => {
   res.clearCookie('token');
   res.redirect('/');
 });
+
+// Add subscriber to MailerLite
+async function addToMailerLite(name, email) {
+  try {
+    const firstName = name.split(' ')[0];
+    await fetch('https://connect.mailerlite.com/api/subscribers', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        fields: { name: firstName },
+        groups: [process.env.MAILERLITE_GROUP_ID],
+      }),
+    });
+  } catch (err) {
+    console.error('MailerLite error:', err.message);
+  }
+}
 
 // Admin middleware
 function requireAdmin(req, res, next) {
@@ -429,6 +451,7 @@ app.post('/api/admin/grant', requireAdmin, async (req, res) => {
     createdAt: new Date().toISOString(),
   };
   saveUsers(users);
+  addToMailerLite(name, email);
   res.json({ success: true, tempPassword });
 });
 
