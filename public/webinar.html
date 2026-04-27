@@ -4,110 +4,131 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>From Exhaustion to Embodied — Free Training with Melissa Melrose</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream: #faf6f1;
-      --cream2: #f2ebe0;
-      --burgundy: #4d1c0d;
-      --burgundy-soft: #7a3020;
-      --rose: #bb8a7b;
-      --terracotta: #b07156;
-      --peach: #efcbab;
-      --text: #2c1a12;
-      --text-muted: #7a5c50;
+      --linen: #faf5ee;
+      --sand: #f2e8d9;
+      --sand2: #e8d9c4;
+      --rose: #c4967a;
+      --rose-soft: #ddb89a;
+      --dusty: #b07a6a;
+      --burgundy: #5c2318;
+      --text: #3a2218;
+      --text-muted: #8a6a5a;
       --white: #ffffff;
+      --cream: #fdf8f2;
     }
 
     body {
-      background: var(--cream);
+      background: var(--linen);
       color: var(--text);
-      font-family: 'Georgia', serif;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
       line-height: 1.7;
+    }
+
+    h1, h2, h3, h4, blockquote {
+      font-family: 'Playfair Display', serif;
     }
 
     /* NAV */
     nav {
-      background: var(--white);
-      padding: 16px 32px;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      padding: 24px 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px solid var(--peach);
     }
 
     .nav-logo {
-      font-size: 13px;
-      letter-spacing: 0.2em;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--burgundy);
-      font-family: 'Georgia', serif;
-    }
-
-    /* HERO */
-    .hero {
-      background: var(--burgundy);
-      padding: 80px 24px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .hero-inner {
-      max-width: 1100px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: end;
-    }
-
-    .hero-content { padding-bottom: 60px; }
-
-    .hero-tag {
-      display: inline-block;
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--peach);
-      margin-bottom: 20px;
-      opacity: 0.85;
-    }
-
-    .hero-title {
-      font-size: 44px;
-      font-weight: normal;
       color: var(--white);
-      line-height: 1.2;
-      margin-bottom: 12px;
-    }
-
-    .hero-title span { color: var(--peach); }
-
-    .hero-subtitle {
-      font-size: 19px;
-      color: var(--peach);
-      font-style: italic;
-      margin-bottom: 28px;
       opacity: 0.9;
     }
 
-    .hero-desc {
-      font-size: 16px;
-      color: rgba(255,255,255,0.8);
-      line-height: 1.8;
-      margin-bottom: 36px;
-      max-width: 460px;
+    /* HERO — full bleed photo */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .hero-photo {
-      width: 100%;
-      max-height: 580px;
-      object-fit: cover;
-      object-position: center top;
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1600&q=80');
+      background-size: cover;
+      background-position: center 30%;
+      filter: brightness(0.62);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+      max-width: 780px;
+    }
+
+    .hero-tag {
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--rose-soft);
       display: block;
-      border-radius: 4px 4px 0 0;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: 62px;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.12;
+      margin-bottom: 16px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--rose-soft);
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 40px;
+    }
+
+    .hero-exhale {
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    .hero-scroll {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+      margin: 0 auto;
     }
 
     /* FORM CARD */
@@ -115,23 +136,23 @@
       display: flex;
       justify-content: center;
       padding: 0 24px;
-    }
-
-    .form-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 36px 32px;
-      box-shadow: 0 8px 40px rgba(77,28,13,0.15);
-      max-width: 480px;
-      width: 100%;
-      margin-top: -60px;
+      margin-top: -72px;
       position: relative;
       z-index: 10;
     }
 
+    .form-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 44px 40px;
+      box-shadow: 0 16px 60px rgba(92,35,24,0.12);
+      max-width: 520px;
+      width: 100%;
+    }
+
     .form-card h3 {
-      font-size: 22px;
-      font-weight: normal;
+      font-size: 24px;
+      font-weight: 400;
       color: var(--burgundy);
       margin-bottom: 6px;
       text-align: center;
@@ -141,52 +162,47 @@
       font-size: 14px;
       color: var(--text-muted);
       text-align: center;
-      margin-bottom: 24px;
-      line-height: 1.6;
+      margin-bottom: 28px;
+      font-style: italic;
     }
 
     .form-group { margin-bottom: 16px; }
 
-    .form-group label {
-      display: block;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
     .form-group input {
       width: 100%;
-      padding: 13px 16px;
-      border: 1px solid #ddd0c4;
-      border-radius: 8px;
-      font-family: 'Georgia', serif;
+      padding: 15px 20px;
+      border: 1px solid var(--sand2);
+      border-radius: 50px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
       font-size: 15px;
       color: var(--text);
-      background: var(--cream);
+      background: var(--linen);
       outline: none;
       transition: border-color 0.2s;
     }
 
+    .form-group input::placeholder { color: var(--text-muted); }
     .form-group input:focus { border-color: var(--rose); }
 
     .btn-register {
       width: 100%;
       padding: 17px;
-      background: var(--burgundy);
+      background: var(--rose);
       color: var(--white);
       border: none;
-      border-radius: 8px;
-      font-family: 'Georgia', serif;
-      font-size: 16px;
-      letter-spacing: 0.04em;
+      border-radius: 50px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       cursor: pointer;
       margin-top: 8px;
       transition: background 0.2s, transform 0.1s;
     }
 
-    .btn-register:hover { background: var(--burgundy-soft); }
+    .btn-register:hover { background: var(--dusty); }
     .btn-register:active { transform: scale(0.98); }
     .btn-register:disabled { background: #ccc; cursor: not-allowed; }
 
@@ -194,111 +210,181 @@
       font-size: 11px;
       color: var(--text-muted);
       text-align: center;
-      margin-top: 12px;
+      margin-top: 14px;
+      letter-spacing: 0.05em;
     }
 
     .form-success { display: none; text-align: center; padding: 20px 0; }
-    .form-success h3 { color: var(--burgundy); font-size: 22px; margin-bottom: 12px; }
-    .form-success p { color: var(--text-muted); font-size: 15px; line-height: 1.7; }
+    .form-success h3 { color: var(--burgundy); font-size: 24px; margin-bottom: 12px; }
+    .form-success p { color: var(--text-muted); font-size: 15px; line-height: 1.7; font-style: italic; }
+
+    /* DIVIDER */
+    .divider {
+      text-align: center;
+      padding: 60px 0 20px;
+      color: var(--rose-soft);
+      font-size: 22px;
+      letter-spacing: 0.3em;
+      opacity: 0.6;
+    }
 
     /* ANCHOR SECTION */
     .anchor {
-      background: var(--cream2);
-      padding: 90px 24px;
+      padding: 80px 24px 60px;
       text-align: center;
+      background: var(--cream);
     }
 
-    .anchor-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
+    .anchor-inner { max-width: 720px; margin: 0 auto; }
 
     .anchor blockquote {
-      font-size: 30px;
-      font-weight: normal;
-      color: var(--burgundy);
-      line-height: 1.35;
+      font-size: 36px;
+      font-weight: 400;
       font-style: italic;
-      margin-bottom: 40px;
+      color: var(--burgundy);
+      line-height: 1.3;
+      margin-bottom: 36px;
     }
 
-    .anchor-divider {
-      width: 48px;
-      height: 2px;
-      background: var(--rose);
-      margin: 0 auto 40px;
+    .anchor-line {
+      width: 60px;
+      height: 1px;
+      background: var(--rose-soft);
+      margin: 0 auto 36px;
     }
 
     .anchor p {
       font-size: 17px;
       color: var(--text-muted);
-      line-height: 1.9;
+      line-height: 1.95;
       margin-bottom: 20px;
       text-align: center;
-      max-width: 660px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
-    /* TRUTH SECTION */
-    .truth {
-      background: var(--white);
+    /* FULL BLEED IMAGE */
+    .full-img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+    }
+
+    /* FOR YOU SECTION */
+    .foryou {
+      background: var(--sand);
       padding: 90px 24px;
+      text-align: center;
     }
 
-    .truth-inner {
-      max-width: 860px;
-      margin: 0 auto;
-    }
+    .foryou-inner { max-width: 860px; margin: 0 auto; }
 
-    .section-label {
+    .section-tag {
+      font-family: 'Lato', sans-serif;
       font-size: 11px;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--rose);
-      text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      display: block;
     }
 
-    .section-title {
-      font-size: 33px;
-      font-weight: normal;
+    .section-heading {
+      font-size: 38px;
+      font-weight: 400;
       color: var(--burgundy);
-      text-align: center;
-      margin-bottom: 40px;
-      line-height: 1.3;
+      line-height: 1.25;
+      margin-bottom: 50px;
     }
 
-    .truth p {
-      font-size: 17px;
+    .foryou-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      text-align: left;
+    }
+
+    .foryou-item {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 26px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .foryou-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--rose-soft);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    .foryou-item p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    /* SPLIT SECTION */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+    }
+
+    .split-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .split-content {
+      background: var(--cream);
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .split-content .section-tag { text-align: left; }
+
+    .split-content h2 {
+      font-size: 34px;
+      font-weight: 400;
+      color: var(--burgundy);
+      line-height: 1.3;
+      margin-bottom: 24px;
+    }
+
+    .split-content p {
+      font-size: 16px;
       color: var(--text-muted);
       line-height: 1.9;
-      margin-bottom: 20px;
-      max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-bottom: 16px;
     }
 
-    .truth-highlight {
-      background: var(--cream2);
-      border-left: 3px solid var(--rose);
-      padding: 24px 28px;
-      border-radius: 0 8px 8px 0;
-      margin: 36px auto;
-      max-width: 680px;
-      font-size: 18px;
-      color: var(--burgundy);
+    .split-quote {
+      border-left: 2px solid var(--rose-soft);
+      padding-left: 20px;
+      margin: 24px 0;
+      font-family: 'Playfair Display', serif;
       font-style: italic;
+      font-size: 17px;
+      color: var(--burgundy);
       line-height: 1.7;
     }
 
-    /* WHAT IS INSIDE */
-    .inside {
-      background: var(--cream2);
+    /* LEARNS */
+    .learns {
+      background: var(--linen);
       padding: 90px 24px;
     }
 
-    .inside-inner { max-width: 1000px; margin: 0 auto; }
+    .learns-inner { max-width: 1000px; margin: 0 auto; }
 
     .learn-grid {
       display: grid;
@@ -309,22 +395,31 @@
 
     .learn-item {
       background: var(--white);
-      border-radius: 12px;
-      padding: 28px 24px;
-      border-top: 3px solid var(--rose);
+      border-radius: 16px;
+      padding: 32px 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .learn-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--rose-soft), var(--sand2));
     }
 
     .learn-num {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      color: var(--rose);
-      text-transform: uppercase;
-      margin-bottom: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--sand2);
+      line-height: 1;
+      margin-bottom: 12px;
     }
 
     .learn-item h4 {
       font-size: 16px;
-      font-weight: normal;
+      font-weight: 400;
       color: var(--burgundy);
       margin-bottom: 10px;
       line-height: 1.4;
@@ -338,130 +433,161 @@
 
     /* ABOUT */
     .about {
-      background: var(--white);
-      padding: 90px 24px;
-    }
-
-    .about-inner {
-      max-width: 1000px;
-      margin: 0 auto;
       display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 64px;
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
     }
 
-    .about-photo {
+    .about-img {
       width: 100%;
-      border-radius: 12px;
+      height: 100%;
       object-fit: cover;
-      aspect-ratio: 3/4;
+      object-position: center top;
+      display: block;
     }
 
-    .about-content .section-label { text-align: left; }
-    .about-content .section-title { text-align: left; margin-bottom: 20px; }
+    .about-content {
+      background: var(--sand);
+      padding: 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about-content h2 {
+      font-size: 38px;
+      font-weight: 400;
+      color: var(--burgundy);
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
 
     .about-content p {
       font-size: 16px;
       color: var(--text-muted);
-      line-height: 1.85;
-      margin-bottom: 18px;
+      line-height: 1.9;
+      margin-bottom: 16px;
     }
 
     .about-sig {
-      color: var(--burgundy);
+      font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 17px;
+      font-size: 18px;
+      color: var(--rose);
+      margin-top: 8px;
     }
 
-    /* CTA BOTTOM */
-    .cta-bottom {
-      background: var(--burgundy);
-      padding: 90px 24px;
+    /* CTA */
+    .cta {
+      position: relative;
       text-align: center;
+      padding: 120px 24px;
+      overflow: hidden;
     }
 
-    .cta-bottom h2 {
-      font-size: 36px;
-      font-weight: normal;
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1529693662653-9d480da3234f?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.45);
+    }
+
+    .cta-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta h2 {
+      font-size: 42px;
+      font-weight: 400;
       color: var(--white);
-      margin-bottom: 16px;
-      line-height: 1.3;
+      line-height: 1.25;
+      margin-bottom: 20px;
     }
 
-    .cta-bottom p {
-      font-size: 17px;
-      color: rgba(255,255,255,0.75);
-      margin-bottom: 36px;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
+    .cta p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.8);
+      font-style: italic;
+      margin-bottom: 40px;
       line-height: 1.7;
+      font-family: 'Playfair Display', serif;
     }
 
     .btn-cta {
       display: inline-block;
       padding: 18px 52px;
-      background: var(--peach);
-      color: var(--burgundy);
-      border: none;
-      border-radius: 8px;
-      font-family: 'Georgia', serif;
-      font-size: 17px;
-      letter-spacing: 0.04em;
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 50px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: background 0.2s, border-color 0.2s;
     }
 
-    .btn-cta:hover { background: var(--rose); color: var(--white); }
+    .btn-cta:hover { background: rgba(255,255,255,0.15); border-color: white; }
 
     /* FOOTER */
     footer {
-      background: var(--cream);
+      background: var(--burgundy);
       padding: 32px 24px;
       text-align: center;
-      border-top: 1px solid var(--peach);
     }
 
-    footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.08em; }
+    footer p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.12em;
+      font-family: 'Lato', sans-serif;
+    }
 
     /* MOBILE */
     @media (max-width: 900px) {
       .learn-grid { grid-template-columns: repeat(2, 1fr); }
+      .split { grid-template-columns: 1fr; }
+      .split-img { height: 340px; }
+      .split-content { padding: 60px 32px; }
+      .about { grid-template-columns: 1fr; }
+      .about-img { height: 380px; }
+      .about-content { padding: 60px 32px; }
+      .hero-title { font-size: 42px; }
     }
 
-    @media (max-width: 768px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero-title { font-size: 32px; }
-      .hero-photo { max-height: 400px; border-radius: 4px; }
-      .about-inner { grid-template-columns: 1fr; }
-      .about-photo { aspect-ratio: 4/3; }
-      .form-card { margin: -40px 16px 0; padding: 28px 20px; }
-      .anchor blockquote { font-size: 22px; }
-    }
-
-    @media (max-width: 560px) {
+    @media (max-width: 600px) {
+      .foryou-grid { grid-template-columns: 1fr; }
       .learn-grid { grid-template-columns: 1fr; }
+      .form-card { padding: 32px 24px; }
+      .hero-title { font-size: 34px; }
+      .anchor blockquote { font-size: 26px; }
     }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <span class="nav-logo">Melissa Melrose &nbsp;&middot;&nbsp; Breathe. Release. Align.</span>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-content">
-      <span class="hero-tag">Free Training with Melissa Melrose</span>
-      <h1 class="hero-title">From Exhaustion<br>to <span>Embodied</span></h1>
-      <p class="hero-subtitle">What to do when rest does not restore you.</p>
-      <p class="hero-desc">You have the awareness. You have done the work. So why does nothing shift? This free training is for the woman who is ready to stop surviving and finally come home to herself.</p>
-    </div>
-    <img src="/melissa-karma.jpg" alt="Melissa Melrose" class="hero-photo" />
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-tag">A free training for women</span>
+    <h1 class="hero-title">From Exhaustion<br>to <em>Embodied</em></h1>
+    <p class="hero-subtitle">What to do when rest does not restore you.</p>
+    <span class="hero-exhale">You can exhale now. You are in the right place.</span>
+    <div class="hero-scroll"></div>
   </div>
 </section>
 
@@ -469,16 +595,14 @@
 <div class="form-wrap">
   <div class="form-card">
     <h3>Watch the Free Training</h3>
-    <p>Enter your details below and I will send you instant access. Come as you are.</p>
+    <p>Enter your details and I will send you instant access. Come as you are.</p>
 
     <div id="formArea">
       <div class="form-group">
-        <label>Your First Name</label>
-        <input type="text" id="firstName" placeholder="First name" />
+        <input type="text" id="firstName" placeholder="Your first name" />
       </div>
       <div class="form-group">
-        <label>Your Email</label>
-        <input type="email" id="emailInput" placeholder="Email address" />
+        <input type="email" id="emailInput" placeholder="Your email address" />
       </div>
       <button class="btn-register" id="registerBtn" onclick="registerWebinar()">
         Yes, I want to watch this
@@ -488,99 +612,111 @@
 
     <div class="form-success" id="formSuccess">
       <h3>You are in.</h3>
-      <p>Check your inbox now. I have sent you the link to watch the training. See you inside. Big love, Melissa x</p>
+      <p>Check your inbox. I have sent you the link to watch the training. See you inside. Big love, Melissa x</p>
     </div>
   </div>
 </div>
 
-<!-- ANCHOR SECTION -->
+<div class="divider">&#8212; &nbsp; &#10022; &nbsp; &#8212;</div>
+
+<!-- ANCHOR -->
 <section class="anchor">
   <div class="anchor-inner">
-    <blockquote>"I am just the anchor. So you can finally hold yourself."</blockquote>
-    <div class="anchor-divider"></div>
+    <span class="section-tag" style="display:block; text-align:center; margin-bottom:24px; letter-spacing:0.28em;">You can exhale now. You are in the right place.</span>
+    <blockquote>"I am just the anchor.<br>So you can finally hold yourself."</blockquote>
+    <div class="anchor-line"></div>
     <p>You have been holding everyone else for so long. You know yourself. You understand your patterns. And yet here you are, exhausted again, wondering why nothing seems to stick.</p>
     <p>Here is the truth. It was never about more information. It is about learning to feel safe enough in your own body to actually stop. To land. To stay. That is a nervous system skill. And it is one no one ever taught you.</p>
-    <p>The patterns you carry are not character flaws. They are the ways you learned to stay close to love when love did not always feel safe. You created those survival patterns before you had the words to understand what was happening. You made it personal. About your lack. But it was never about your lack. It was about the capacity those around you had to meet your needs and truly see you.</p>
-    <p>Under all of it, beneath every belief and every loop and every moment of exhaustion, lays you. The real you. Whole. Worthy. Waiting.</p>
-    <p>That is what we find together in this work.</p>
+    <p>The patterns you carry are not character flaws. They are the ways you learned to stay close to love when love did not always feel safe. You created those survival patterns before you had the words to understand. You made it personal. About your lack. But it was never about your lack.</p>
+    <p>Under all of it, beneath every belief and every loop and every moment of exhaustion, lays you. Whole. Worthy. Waiting.</p>
   </div>
 </section>
 
-<!-- FOR YOU IF -->
-<section style="background: var(--burgundy); padding: 90px 24px;">
-  <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-    <p style="font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--peach); opacity: 0.8; margin-bottom: 16px;">This training is for you if</p>
-    <h2 style="font-size: 34px; font-weight: normal; color: var(--white); line-height: 1.3; margin-bottom: 48px;">You feel it in your body.<br>You just cannot name it yet.</h2>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left;">
-      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
-        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You understand yourself deeply but still end up back in the same exhausting loop.</p>
+<!-- FULL BLEED IMAGE -->
+<img class="full-img" src="https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?w=1600&q=80" alt="" />
+
+<!-- FOR YOU -->
+<section class="foryou">
+  <div class="foryou-inner">
+    <span class="section-tag">This training is for you if</span>
+    <h2 class="section-heading">You feel it in your body.<br><em>You just cannot name it yet.</em></h2>
+    <div class="foryou-grid">
+      <div class="foryou-item">
+        <div class="foryou-dot"></div>
+        <p>You understand yourself deeply but still end up back in the same exhausting loop.</p>
       </div>
-      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
-        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You rest but never actually recover. The tiredness lives somewhere deeper than sleep can reach.</p>
+      <div class="foryou-item">
+        <div class="foryou-dot"></div>
+        <p>You rest but never actually recover. The tiredness lives somewhere deeper than sleep can reach.</p>
       </div>
-      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
-        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You hold everyone else together while quietly falling apart inside, then feel guilty for it.</p>
+      <div class="foryou-item">
+        <div class="foryou-dot"></div>
+        <p>You hold everyone else together while quietly falling apart inside, then feel guilty for it.</p>
       </div>
-      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
-        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You know there is more for you. You just cannot figure out why you keep ending up back here.</p>
+      <div class="foryou-item">
+        <div class="foryou-dot"></div>
+        <p>You know there is more for you. You just cannot figure out why you keep ending up back here.</p>
       </div>
-      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
-        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You push hard until you crash. You hide until you feel guilty enough to push again. Repeat.</p>
+      <div class="foryou-item">
+        <div class="foryou-dot"></div>
+        <p>You push hard until you crash. You hide until you feel guilty enough to push again. Repeat.</p>
       </div>
-      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
-        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You are ready to stop surviving and finally come home to yourself. You just need the missing key.</p>
+      <div class="foryou-item">
+        <div class="foryou-dot"></div>
+        <p>You are ready to stop surviving and finally come home to yourself. You just need the missing key.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THE TRUTH -->
-<section class="truth">
-  <div class="truth-inner">
-    <p class="section-label">What makes this different</p>
-    <h2 class="section-title">You have the awareness.<br>So why does nothing shift?</h2>
-    <p>Most personal development work lives in the mind. You understand your patterns. You can trace them back. You have read the books and done the work. But understanding alone does not create change. Real change happens when the body feels safe enough to let go of what it has been carrying.</p>
-    <p>That is the missing piece. Not more knowledge. Not another framework. The nervous system capacity to release the past and hold your future with trust instead of fear. To flip the familiar into the freedom you know is possible.</p>
-    <div class="truth-highlight">
+<!-- SPLIT — WHAT MAKES THIS DIFFERENT -->
+<section class="split">
+  <img class="split-img" src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=900&q=80" alt="" />
+  <div class="split-content">
+    <span class="section-tag">What makes this different</span>
+    <h2>You have the awareness.<br><em>So why does nothing shift?</em></h2>
+    <p>Most personal development work lives in the mind. You understand your patterns. You can trace them back. But understanding alone does not create change.</p>
+    <p>Real change happens when the body feels safe enough to let go of what it has been carrying. That is the missing piece.</p>
+    <div class="split-quote">
       "When you believe without a doubt who you are and what you are worth, life begins to fall into place. Your burdens become your strengths. Not through adapting. Through knowing."
     </div>
-    <p>This free training is your first step into that knowing. You will not just learn something new. You will feel something shift. Many women say this is the first time they have truly rested.</p>
+    <p>This free training is your first step into that knowing.</p>
   </div>
 </section>
 
-<!-- WHAT IS INSIDE -->
-<section class="inside">
-  <div class="inside-inner">
-    <p class="section-label">Inside this free training</p>
-    <h2 class="section-title">What you will discover</h2>
+<!-- LEARNS -->
+<section class="learns">
+  <div class="learns-inner">
+    <span class="section-tag" style="display:block; text-align:center;">Inside this free training</span>
+    <h2 class="section-heading" style="font-size:36px; color:var(--burgundy); text-align:center; margin-bottom:0;">What you will discover</h2>
     <div class="learn-grid">
       <div class="learn-item">
-        <p class="learn-num">01</p>
+        <div class="learn-num">01</div>
         <h4>Why the loop keeps repeating</h4>
         <p>Your patterns are not weakness. They are survival. You will understand exactly why you keep ending up back here and why it has nothing to do with not trying hard enough.</p>
       </div>
       <div class="learn-item">
-        <p class="learn-num">02</p>
+        <div class="learn-num">02</div>
         <h4>Why rest does not restore you</h4>
         <p>Most women are never truly in rest, even when they stop. The mind stays activated. The body stays braced. You will understand why and what to do instead.</p>
       </div>
       <div class="learn-item">
-        <p class="learn-num">03</p>
+        <div class="learn-num">03</div>
         <h4>The thread from then to now</h4>
         <p>For the first time, someone traces the path from your childhood to where you stand today. Not with blame. With understanding. And something in you will finally exhale.</p>
       </div>
       <div class="learn-item">
-        <p class="learn-num">04</p>
+        <div class="learn-num">04</div>
         <h4>How to find acceptance in all of it</h4>
         <p>The good and the bad. The light and the dark. You will begin to understand why everything happened for you, not to you, and how that recognition sets you free.</p>
       </div>
       <div class="learn-item">
-        <p class="learn-num">05</p>
+        <div class="learn-num">05</div>
         <h4>Your first experience of landing</h4>
         <p>This is not just a teaching. You will be guided into a felt sense of what it means to come home to yourself. Presence. Safety. You, without the armour.</p>
       </div>
       <div class="learn-item">
-        <p class="learn-num">06</p>
+        <div class="learn-num">06</div>
         <h4>The path beyond this moment</h4>
         <p>What becomes possible when you stop surviving and start living from the inside out. Your next steps toward emotional sovereignty and a life that finally feels like yours.</p>
       </div>
@@ -588,31 +724,33 @@
   </div>
 </section>
 
-<!-- ABOUT MELISSA -->
+<!-- ABOUT -->
 <section class="about">
-  <div class="about-inner">
-    <img src="/melissastandindkarmashot.jpg" alt="Melissa Melrose" class="about-photo" />
-    <div class="about-content">
-      <p class="section-label">Your guide</p>
-      <h2 class="section-title">About Melissa</h2>
-      <p>I have been doing this work for over 30 years. Not from a textbook. From living it, surviving it, and eventually coming all the way home to myself.</p>
-      <p>I work in an intuitive way. I see people without turning away. I can explain logically how it feels in their body and how their life led them to this moment. I see all the threads and I help people see them too, through conversation, understanding, and the space to be loved without falling into blame.</p>
-      <p>I help women see where they feel helpless and meet that with: of course. How could you have survived any other way? That moment of understanding changes everything. Not because it fixes anything. Because it finally makes sense.</p>
-      <p>I am not here to fix you. I am here to be the anchor so you can remember how to hold yourself. To become the person you always needed. That is the work. And it starts here.</p>
-      <p class="about-sig">Big love, Melissa x</p>
-    </div>
+  <img class="about-img" src="/melissa-karma.jpg" alt="Melissa Melrose" />
+  <div class="about-content">
+    <span class="section-tag">Your guide</span>
+    <h2>About<br><em>Melissa</em></h2>
+    <p>I have been doing this work for over 30 years. Not from a textbook. From living it, surviving it, and eventually coming all the way home to myself.</p>
+    <p>I work in an intuitive way. I see people without turning away. I help women trace the thread from their childhood to the present moment and in that seeing, something finally makes sense.</p>
+    <p>I help women see where they feel helpless and meet that place with: of course. How could you have survived any other way? That moment changes everything.</p>
+    <p>I am not here to fix you. I am here to be the anchor so you can remember how to hold yourself.</p>
+    <span class="about-sig">Big love, Melissa x</span>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-bottom">
-  <h2>Under all of it, lays you.</h2>
-  <p>This training is free. It is real. And it might be the most important hour you spend this year. Come as you are.</p>
-  <a href="#" class="btn-cta" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
-    Yes, I want to watch this
-  </a>
+<section class="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <h2>Under all of it,<br><em>lays you.</em></h2>
+    <p>This training is free. It is real. And it might be the most important hour you spend this year.</p>
+    <a href="#" class="btn-cta" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+      Yes, I want to watch this
+    </a>
+  </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <p>Melissa Melrose &nbsp;&middot;&nbsp; breathe@melissamelrose.com &nbsp;&middot;&nbsp; melissamelrose.com</p>
 </footer>
