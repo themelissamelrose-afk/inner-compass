@@ -60,6 +60,25 @@ app.get('/subscribe', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'subscribe.html'));
 });
 
+// Webinar registration page (public)
+app.get('/webinar', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'webinar.html'));
+});
+
+// Webinar registration API
+app.post('/api/webinar-register', async (req, res) => {
+  const { firstName, email } = req.body;
+  if (!firstName || !email) return res.status(400).json({ error: 'Missing fields' });
+
+  try {
+    await addToMailerLite(firstName, email);
+    res.json({ ok: true });
+  } catch (e) {
+    console.error('Webinar register error:', e.message);
+    res.status(500).json({ error: 'Failed to register' });
+  }
+});
+
 // Serve login page
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));

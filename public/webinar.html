@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From Exhaustion to Embodied — Free Training with Melissa Melrose</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf6f1;
+      --cream2: #f2ebe0;
+      --burgundy: #4d1c0d;
+      --burgundy-soft: #7a3020;
+      --rose: #bb8a7b;
+      --terracotta: #b07156;
+      --peach: #efcbab;
+      --text: #2c1a12;
+      --text-muted: #7a5c50;
+      --white: #ffffff;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--white);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--peach);
+    }
+
+    .nav-logo {
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      font-family: 'Georgia', serif;
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--burgundy);
+      padding: 80px 24px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+    }
+
+    .hero-content {
+      padding-bottom: 60px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--peach);
+      margin-bottom: 20px;
+      opacity: 0.85;
+    }
+
+    .hero-title {
+      font-size: 42px;
+      font-weight: normal;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .hero-title span {
+      color: var(--peach);
+    }
+
+    .hero-subtitle {
+      font-size: 19px;
+      color: var(--peach);
+      font-style: italic;
+      margin-bottom: 28px;
+      opacity: 0.9;
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 460px;
+    }
+
+    .hero-photo {
+      width: 100%;
+      max-height: 560px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border-radius: 4px 4px 0 0;
+    }
+
+    /* FORM CARD */
+    .form-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 8px 40px rgba(77,28,13,0.15);
+      max-width: 420px;
+      width: 100%;
+      margin: -60px auto 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .form-card h3 {
+      font-size: 20px;
+      font-weight: normal;
+      color: var(--burgundy);
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .form-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1px solid #ddd0c4;
+      border-radius: 8px;
+      font-family: 'Georgia', serif;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--cream);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--rose);
+    }
+
+    .btn-register {
+      width: 100%;
+      padding: 16px;
+      background: var(--burgundy);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-family: 'Georgia', serif;
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-register:hover { background: var(--burgundy-soft); }
+    .btn-register:active { transform: scale(0.98); }
+    .btn-register:disabled { background: #ccc; cursor: not-allowed; }
+
+    .form-note {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .form-success h3 {
+      color: var(--burgundy);
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .form-success p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* HOOK SECTION */
+    .hook {
+      background: var(--cream2);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .hook-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .hook h2 {
+      font-size: 34px;
+      font-weight: normal;
+      color: var(--burgundy);
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .hook p {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .hook-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--rose);
+      margin: 32px auto;
+    }
+
+    /* WHAT YOU WILL LEARN */
+    .learns {
+      background: var(--white);
+      padding: 80px 24px;
+    }
+
+    .learns-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--rose);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: normal;
+      color: var(--burgundy);
+      text-align: center;
+      margin-bottom: 48px;
+      line-height: 1.3;
+    }
+
+    .learn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+    }
+
+    .learn-item {
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 28px 24px;
+      border-left: 3px solid var(--rose);
+    }
+
+    .learn-item h4 {
+      font-size: 16px;
+      font-weight: normal;
+      color: var(--burgundy);
+      margin-bottom: 10px;
+    }
+
+    .learn-item p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ABOUT MELISSA */
+    .about {
+      background: var(--cream2);
+      padding: 80px 24px;
+    }
+
+    .about-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-photo {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      aspect-ratio: 3/4;
+    }
+
+    .about-content .section-label { text-align: left; }
+    .about-content .section-title { text-align: left; margin-bottom: 20px; }
+
+    .about-content p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    /* CTA BOTTOM */
+    .cta-bottom {
+      background: var(--burgundy);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .cta-bottom h2 {
+      font-size: 34px;
+      font-weight: normal;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .cta-bottom p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 36px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      padding: 18px 48px;
+      background: var(--peach);
+      color: var(--burgundy);
+      border: none;
+      border-radius: 8px;
+      font-family: 'Georgia', serif;
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-cta:hover { background: var(--rose); color: var(--white); }
+
+    /* FOOTER */
+    footer {
+      background: var(--cream);
+      padding: 32px 24px;
+      text-align: center;
+      border-top: 1px solid var(--peach);
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-photo {
+        max-height: 400px;
+        border-radius: 4px;
+      }
+
+      .hero-title { font-size: 30px; }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .about-photo { aspect-ratio: 4/3; }
+
+      .form-card { margin: -40px 16px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Melissa Melrose &nbsp;&middot;&nbsp; Breathe. Release. Align.</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <span class="hero-tag">Free Training with Melissa Melrose</span>
+      <h1 class="hero-title">From Exhaustion<br>to <span>Embodied</span></h1>
+      <p class="hero-subtitle">What to do when rest does not restore you.</p>
+      <p class="hero-desc">You have the awareness. You have done the work. So why does nothing shift? This free training is for the woman who is ready to stop surviving and finally come home to herself.</p>
+    </div>
+    <img src="/melissa-warmth.jpg" alt="Melissa Melrose" class="hero-photo" />
+  </div>
+</section>
+
+<!-- FORM -->
+<div style="display:flex; justify-content:center; padding: 0 24px;">
+  <div class="form-card">
+    <h3>Watch the Free Training</h3>
+    <p>Enter your details and I will send you instant access.</p>
+
+    <div id="formArea">
+      <div class="form-group">
+        <label>Your First Name</label>
+        <input type="text" id="firstName" placeholder="First name" />
+      </div>
+      <div class="form-group">
+        <label>Your Email</label>
+        <input type="email" id="emailInput" placeholder="Email address" />
+      </div>
+      <button class="btn-register" id="registerBtn" onclick="registerWebinar()">
+        Yes, I want to watch this
+      </button>
+      <p class="form-note">No spam. Ever. Unsubscribe any time.</p>
+    </div>
+
+    <div class="form-success" id="formSuccess">
+      <h3>You are in.</h3>
+      <p>Check your inbox now. I have sent you the link to watch the training. See you inside. Big love, Melissa x</p>
+    </div>
+  </div>
+</div>
+
+<!-- HOOK SECTION -->
+<section class="hook">
+  <div class="hook-inner">
+    <h2>"You have the awareness.<br>So why does nothing shift?"</h2>
+    <p>You know yourself. You understand your patterns. You have read the books, done the breathwork, sat in therapy. And yet here you are. Exhausted again. In the same loop. Wondering what is wrong with you.</p>
+    <div class="hook-divider"></div>
+    <p>Nothing is wrong with you. You are missing one thing. And it is not more information. It is the capacity to actually land in your body and stay there. That is what this training is about.</p>
+  </div>
+</section>
+
+<!-- WHAT YOU WILL LEARN -->
+<section class="learns">
+  <div class="learns-inner">
+    <p class="section-label">What you will discover</p>
+    <h2 class="section-title">Inside this free training</h2>
+    <div class="learn-grid">
+      <div class="learn-item">
+        <h4>Why the exhaustion loop keeps repeating</h4>
+        <p>It is not because you are broken or not trying hard enough. It is because the nervous system is doing exactly what it was designed to do. We change the design.</p>
+      </div>
+      <div class="learn-item">
+        <h4>Why rest does not restore you</h4>
+        <p>Most women are never truly in rest, even when they stop. The mind stays activated, the body stays braced. You will understand why and what to do instead.</p>
+      </div>
+      <div class="learn-item">
+        <h4>The missing key to lasting change</h4>
+        <p>Awareness is not enough. Integration is. You will experience the difference between understanding your patterns and actually shifting them at a body level.</p>
+      </div>
+      <div class="learn-item">
+        <h4>Your first experience of coming home</h4>
+        <p>This is not just a teaching. You will be guided into a felt sense of what it means to land in yourself. Many women say this is the first time they have truly rested.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT MELISSA -->
+<section class="about">
+  <div class="about-inner">
+    <img src="/melissa-hero.jpg" alt="Melissa Melrose" class="about-photo" />
+    <div class="about-content">
+      <p class="section-label">Your guide</p>
+      <h2 class="section-title">About Melissa</h2>
+      <p>I have been doing this work for over 30 years. Not from a textbook. From living it, surviving it, and eventually coming all the way home to myself.</p>
+      <p>I work with women who are high functioning on the outside and falling apart on the inside. Women who have the awareness but cannot find the shift. Women who are exhausted from carrying everyone else and have forgotten how to carry themselves.</p>
+      <p>My work is nervous system based, body led, and deeply rooted in the belief that you are not here just to push and survive. You are here to live from the inside out.</p>
+      <p>This training is my gift to you. Come as you are.</p>
+      <p style="color: var(--burgundy); font-style: italic;">Big love, Melissa x</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BOTTOM -->
+<section class="cta-bottom">
+  <h2>You were not built to just survive.</h2>
+  <p>This training is free. It is real. And it might be the most important hour you spend this year.</p>
+  <a href="#top" class="btn-cta" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+    Watch the Free Training
+  </a>
+</section>
+
+<footer>
+  <p>Melissa Melrose &nbsp;&middot;&nbsp; breathe@melissamelrose.com &nbsp;&middot;&nbsp; melissamelrose.com</p>
+</footer>
+
+<script>
+  async function registerWebinar() {
+    const firstName = document.getElementById('firstName').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    const btn = document.getElementById('registerBtn');
+
+    if (!firstName || !email) {
+      alert('Please enter your name and email.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    try {
+      const res = await fetch('/api/webinar-register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, email })
+      });
+
+      if (res.ok) {
+        document.getElementById('formArea').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        alert('Something went wrong. Please try again.');
+        btn.disabled = false;
+        btn.textContent = 'Yes, I want to watch this';
+      }
+    } catch {
+      alert('Something went wrong. Please try again.');
+      btn.disabled = false;
+      btn.textContent = 'Yes, I want to watch this';
+    }
+  }
+</script>
+
+</body>
+</html>
