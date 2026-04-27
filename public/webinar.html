@@ -63,9 +63,7 @@
       align-items: end;
     }
 
-    .hero-content {
-      padding-bottom: 60px;
-    }
+    .hero-content { padding-bottom: 60px; }
 
     .hero-tag {
       display: inline-block;
@@ -78,16 +76,14 @@
     }
 
     .hero-title {
-      font-size: 42px;
+      font-size: 44px;
       font-weight: normal;
       color: var(--white);
       line-height: 1.2;
       margin-bottom: 12px;
     }
 
-    .hero-title span {
-      color: var(--peach);
-    }
+    .hero-title span { color: var(--peach); }
 
     .hero-subtitle {
       font-size: 19px;
@@ -100,14 +96,14 @@
     .hero-desc {
       font-size: 16px;
       color: rgba(255,255,255,0.8);
-      line-height: 1.75;
+      line-height: 1.8;
       margin-bottom: 36px;
       max-width: 460px;
     }
 
     .hero-photo {
       width: 100%;
-      max-height: 560px;
+      max-height: 580px;
       object-fit: cover;
       object-position: center top;
       display: block;
@@ -115,20 +111,26 @@
     }
 
     /* FORM CARD */
+    .form-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 0 24px;
+    }
+
     .form-card {
       background: var(--white);
       border-radius: 16px;
       padding: 36px 32px;
       box-shadow: 0 8px 40px rgba(77,28,13,0.15);
-      max-width: 420px;
+      max-width: 480px;
       width: 100%;
-      margin: -60px auto 0;
+      margin-top: -60px;
       position: relative;
       z-index: 10;
     }
 
     .form-card h3 {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: normal;
       color: var(--burgundy);
       margin-bottom: 6px;
@@ -136,20 +138,19 @@
     }
 
     .form-card p {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       text-align: center;
       margin-bottom: 24px;
+      line-height: 1.6;
     }
 
-    .form-group {
-      margin-bottom: 16px;
-    }
+    .form-group { margin-bottom: 16px; }
 
     .form-group label {
       display: block;
-      font-size: 12px;
-      letter-spacing: 0.1em;
+      font-size: 11px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-muted);
       margin-bottom: 6px;
@@ -168,20 +169,18 @@
       transition: border-color 0.2s;
     }
 
-    .form-group input:focus {
-      border-color: var(--rose);
-    }
+    .form-group input:focus { border-color: var(--rose); }
 
     .btn-register {
       width: 100%;
-      padding: 16px;
+      padding: 17px;
       background: var(--burgundy);
       color: var(--white);
       border: none;
       border-radius: 8px;
       font-family: 'Georgia', serif;
       font-size: 16px;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       cursor: pointer;
       margin-top: 8px;
       transition: background 0.2s, transform 0.1s;
@@ -198,66 +197,54 @@
       margin-top: 12px;
     }
 
-    .form-success {
-      display: none;
-      text-align: center;
-      padding: 20px 0;
-    }
+    .form-success { display: none; text-align: center; padding: 20px 0; }
+    .form-success h3 { color: var(--burgundy); font-size: 22px; margin-bottom: 12px; }
+    .form-success p { color: var(--text-muted); font-size: 15px; line-height: 1.7; }
 
-    .form-success h3 {
-      color: var(--burgundy);
-      font-size: 22px;
-      margin-bottom: 12px;
-    }
-
-    .form-success p {
-      color: var(--text-muted);
-      font-size: 15px;
-      line-height: 1.7;
-    }
-
-    /* HOOK SECTION */
-    .hook {
+    /* ANCHOR SECTION */
+    .anchor {
       background: var(--cream2);
-      padding: 80px 24px;
+      padding: 90px 24px;
       text-align: center;
     }
 
-    .hook-inner {
-      max-width: 700px;
+    .anchor-inner {
+      max-width: 780px;
       margin: 0 auto;
     }
 
-    .hook h2 {
-      font-size: 34px;
+    .anchor blockquote {
+      font-size: 30px;
       font-weight: normal;
       color: var(--burgundy);
-      margin-bottom: 24px;
-      line-height: 1.3;
+      line-height: 1.35;
+      font-style: italic;
+      margin-bottom: 40px;
     }
 
-    .hook p {
-      font-size: 17px;
-      color: var(--text-muted);
-      line-height: 1.8;
-      margin-bottom: 16px;
-    }
-
-    .hook-divider {
+    .anchor-divider {
       width: 48px;
       height: 2px;
       background: var(--rose);
-      margin: 32px auto;
+      margin: 0 auto 40px;
     }
 
-    /* WHAT YOU WILL LEARN */
-    .learns {
+    .anchor p {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    /* TRUTH SECTION */
+    .truth {
       background: var(--white);
-      padding: 80px 24px;
+      padding: 90px 24px;
     }
 
-    .learns-inner {
-      max-width: 900px;
+    .truth-inner {
+      max-width: 860px;
       margin: 0 auto;
     }
 
@@ -271,25 +258,65 @@
     }
 
     .section-title {
-      font-size: 32px;
+      font-size: 33px;
       font-weight: normal;
       color: var(--burgundy);
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
       line-height: 1.3;
     }
 
+    .truth p {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 20px;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .truth-highlight {
+      background: var(--cream2);
+      border-left: 3px solid var(--rose);
+      padding: 24px 28px;
+      border-radius: 0 8px 8px 0;
+      margin: 36px auto;
+      max-width: 680px;
+      font-size: 18px;
+      color: var(--burgundy);
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    /* WHAT IS INSIDE */
+    .inside {
+      background: var(--cream2);
+      padding: 90px 24px;
+    }
+
+    .inside-inner { max-width: 1000px; margin: 0 auto; }
+
     .learn-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 32px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
     }
 
     .learn-item {
-      background: var(--cream);
+      background: var(--white);
       border-radius: 12px;
       padding: 28px 24px;
-      border-left: 3px solid var(--rose);
+      border-top: 3px solid var(--rose);
+    }
+
+    .learn-num {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--rose);
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
 
     .learn-item h4 {
@@ -297,26 +324,27 @@
       font-weight: normal;
       color: var(--burgundy);
       margin-bottom: 10px;
+      line-height: 1.4;
     }
 
     .learn-item p {
       font-size: 14px;
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
-    /* ABOUT MELISSA */
+    /* ABOUT */
     .about {
-      background: var(--cream2);
-      padding: 80px 24px;
+      background: var(--white);
+      padding: 90px 24px;
     }
 
     .about-inner {
       max-width: 1000px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 60px;
+      grid-template-columns: 360px 1fr;
+      gap: 64px;
       align-items: center;
     }
 
@@ -333,19 +361,25 @@
     .about-content p {
       font-size: 16px;
       color: var(--text-muted);
-      line-height: 1.8;
-      margin-bottom: 16px;
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+
+    .about-sig {
+      color: var(--burgundy);
+      font-style: italic;
+      font-size: 17px;
     }
 
     /* CTA BOTTOM */
     .cta-bottom {
       background: var(--burgundy);
-      padding: 80px 24px;
+      padding: 90px 24px;
       text-align: center;
     }
 
     .cta-bottom h2 {
-      font-size: 34px;
+      font-size: 36px;
       font-weight: normal;
       color: var(--white);
       margin-bottom: 16px;
@@ -356,14 +390,15 @@
       font-size: 17px;
       color: rgba(255,255,255,0.75);
       margin-bottom: 36px;
-      max-width: 500px;
+      max-width: 520px;
       margin-left: auto;
       margin-right: auto;
+      line-height: 1.7;
     }
 
     .btn-cta {
       display: inline-block;
-      padding: 18px 48px;
+      padding: 18px 52px;
       background: var(--peach);
       color: var(--burgundy);
       border: none;
@@ -373,7 +408,7 @@
       letter-spacing: 0.04em;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s, transform 0.1s;
+      transition: background 0.2s;
     }
 
     .btn-cta:hover { background: var(--rose); color: var(--white); }
@@ -386,33 +421,25 @@
       border-top: 1px solid var(--peach);
     }
 
-    footer p {
-      font-size: 12px;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-    }
+    footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.08em; }
 
     /* MOBILE */
+    @media (max-width: 900px) {
+      .learn-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 768px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .hero-photo {
-        max-height: 400px;
-        border-radius: 4px;
-      }
-
-      .hero-title { font-size: 30px; }
-
-      .about-inner {
-        grid-template-columns: 1fr;
-      }
-
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-title { font-size: 32px; }
+      .hero-photo { max-height: 400px; border-radius: 4px; }
+      .about-inner { grid-template-columns: 1fr; }
       .about-photo { aspect-ratio: 4/3; }
+      .form-card { margin: -40px 16px 0; padding: 28px 20px; }
+      .anchor blockquote { font-size: 22px; }
+    }
 
-      .form-card { margin: -40px 16px 0; }
+    @media (max-width: 560px) {
+      .learn-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -431,15 +458,15 @@
       <p class="hero-subtitle">What to do when rest does not restore you.</p>
       <p class="hero-desc">You have the awareness. You have done the work. So why does nothing shift? This free training is for the woman who is ready to stop surviving and finally come home to herself.</p>
     </div>
-    <img src="/melissa-warmth.jpg" alt="Melissa Melrose" class="hero-photo" />
+    <img src="/melissa-karma.jpg" alt="Melissa Melrose" class="hero-photo" />
   </div>
 </section>
 
 <!-- FORM -->
-<div style="display:flex; justify-content:center; padding: 0 24px;">
+<div class="form-wrap">
   <div class="form-card">
     <h3>Watch the Free Training</h3>
-    <p>Enter your details and I will send you instant access.</p>
+    <p>Enter your details below and I will send you instant access. Come as you are.</p>
 
     <div id="formArea">
       <div class="form-group">
@@ -463,37 +490,102 @@
   </div>
 </div>
 
-<!-- HOOK SECTION -->
-<section class="hook">
-  <div class="hook-inner">
-    <h2>"You have the awareness.<br>So why does nothing shift?"</h2>
-    <p>You know yourself. You understand your patterns. You have read the books, done the breathwork, sat in therapy. And yet here you are. Exhausted again. In the same loop. Wondering what is wrong with you.</p>
-    <div class="hook-divider"></div>
-    <p>Nothing is wrong with you. You are missing one thing. And it is not more information. It is the capacity to actually land in your body and stay there. That is what this training is about.</p>
+<!-- ANCHOR SECTION -->
+<section class="anchor">
+  <div class="anchor-inner">
+    <blockquote>"I am just the anchor. So you can finally hold yourself."</blockquote>
+    <div class="anchor-divider"></div>
+    <p>You have been holding everyone else for so long. You know yourself. You understand your patterns. And yet here you are, exhausted again, wondering why nothing seems to stick.</p>
+    <p>Here is the truth. It was never about more information. It is about learning to feel safe enough in your own body to actually stop. To land. To stay. That is a nervous system skill. And it is one no one ever taught you.</p>
+    <p>The patterns you carry are not character flaws. They are the ways you learned to stay close to love when love did not always feel safe. You created those survival patterns before you had the words to understand what was happening. You made it personal. About your lack. But it was never about your lack. It was about the capacity those around you had to meet your needs and truly see you.</p>
+    <p>Under all of it, beneath every belief and every loop and every moment of exhaustion, lays you. The real you. Whole. Worthy. Waiting.</p>
+    <p>That is what we find together in this work.</p>
   </div>
 </section>
 
-<!-- WHAT YOU WILL LEARN -->
-<section class="learns">
-  <div class="learns-inner">
-    <p class="section-label">What you will discover</p>
-    <h2 class="section-title">Inside this free training</h2>
+<!-- FOR YOU IF -->
+<section style="background: var(--burgundy); padding: 90px 24px;">
+  <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+    <p style="font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--peach); opacity: 0.8; margin-bottom: 16px;">This training is for you if</p>
+    <h2 style="font-size: 34px; font-weight: normal; color: var(--white); line-height: 1.3; margin-bottom: 48px;">You feel it in your body.<br>You just cannot name it yet.</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left;">
+      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
+        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You understand yourself deeply but still end up back in the same exhausting loop.</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
+        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You rest but never actually recover. The tiredness lives somewhere deeper than sleep can reach.</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
+        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You hold everyone else together while quietly falling apart inside, then feel guilty for it.</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
+        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You know there is more for you. You just cannot figure out why you keep ending up back here.</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
+        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You push hard until you crash. You hide until you feel guilty enough to push again. Repeat.</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.07); border-radius: 12px; padding: 24px 22px; border-left: 3px solid var(--rose);">
+        <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.75;">You are ready to stop surviving and finally come home to yourself. You just need the missing key.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STOCK PHOTO STRIP -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; height: 420px;">
+  <img src="/photo-heart.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover;" />
+  <img src="/photo-breathwork.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover;" />
+</div>
+
+<!-- THE TRUTH -->
+<section class="truth">
+  <div class="truth-inner">
+    <p class="section-label">What makes this different</p>
+    <h2 class="section-title">You have the awareness.<br>So why does nothing shift?</h2>
+    <p>Most personal development work lives in the mind. You understand your patterns. You can trace them back. You have read the books and done the work. But understanding alone does not create change. Real change happens when the body feels safe enough to let go of what it has been carrying.</p>
+    <p>That is the missing piece. Not more knowledge. Not another framework. The nervous system capacity to release the past and hold your future with trust instead of fear. To flip the familiar into the freedom you know is possible.</p>
+    <div class="truth-highlight">
+      "When you believe without a doubt who you are and what you are worth, life begins to fall into place. Your burdens become your strengths. Not through adapting. Through knowing."
+    </div>
+    <p>This free training is your first step into that knowing. You will not just learn something new. You will feel something shift. Many women say this is the first time they have truly rested.</p>
+  </div>
+</section>
+
+<!-- WHAT IS INSIDE -->
+<section class="inside">
+  <div class="inside-inner">
+    <p class="section-label">Inside this free training</p>
+    <h2 class="section-title">What you will discover</h2>
     <div class="learn-grid">
       <div class="learn-item">
-        <h4>Why the exhaustion loop keeps repeating</h4>
-        <p>It is not because you are broken or not trying hard enough. It is because the nervous system is doing exactly what it was designed to do. We change the design.</p>
+        <p class="learn-num">01</p>
+        <h4>Why the loop keeps repeating</h4>
+        <p>Your patterns are not weakness. They are survival. You will understand exactly why you keep ending up back here and why it has nothing to do with not trying hard enough.</p>
       </div>
       <div class="learn-item">
+        <p class="learn-num">02</p>
         <h4>Why rest does not restore you</h4>
-        <p>Most women are never truly in rest, even when they stop. The mind stays activated, the body stays braced. You will understand why and what to do instead.</p>
+        <p>Most women are never truly in rest, even when they stop. The mind stays activated. The body stays braced. You will understand why and what to do instead.</p>
       </div>
       <div class="learn-item">
-        <h4>The missing key to lasting change</h4>
-        <p>Awareness is not enough. Integration is. You will experience the difference between understanding your patterns and actually shifting them at a body level.</p>
+        <p class="learn-num">03</p>
+        <h4>The thread from then to now</h4>
+        <p>For the first time, someone traces the path from your childhood to where you stand today. Not with blame. With understanding. And something in you will finally exhale.</p>
       </div>
       <div class="learn-item">
-        <h4>Your first experience of coming home</h4>
-        <p>This is not just a teaching. You will be guided into a felt sense of what it means to land in yourself. Many women say this is the first time they have truly rested.</p>
+        <p class="learn-num">04</p>
+        <h4>How to find acceptance in all of it</h4>
+        <p>The good and the bad. The light and the dark. You will begin to understand why everything happened for you, not to you, and how that recognition sets you free.</p>
+      </div>
+      <div class="learn-item">
+        <p class="learn-num">05</p>
+        <h4>Your first experience of landing</h4>
+        <p>This is not just a teaching. You will be guided into a felt sense of what it means to come home to yourself. Presence. Safety. You, without the armour.</p>
+      </div>
+      <div class="learn-item">
+        <p class="learn-num">06</p>
+        <h4>The path beyond this moment</h4>
+        <p>What becomes possible when you stop surviving and start living from the inside out. Your next steps toward emotional sovereignty and a life that finally feels like yours.</p>
       </div>
     </div>
   </div>
@@ -502,25 +594,25 @@
 <!-- ABOUT MELISSA -->
 <section class="about">
   <div class="about-inner">
-    <img src="/melissa-hero.jpg" alt="Melissa Melrose" class="about-photo" />
+    <img src="/melissastandindkarmashot.jpg" alt="Melissa Melrose" class="about-photo" />
     <div class="about-content">
       <p class="section-label">Your guide</p>
       <h2 class="section-title">About Melissa</h2>
       <p>I have been doing this work for over 30 years. Not from a textbook. From living it, surviving it, and eventually coming all the way home to myself.</p>
-      <p>I work with women who are high functioning on the outside and falling apart on the inside. Women who have the awareness but cannot find the shift. Women who are exhausted from carrying everyone else and have forgotten how to carry themselves.</p>
-      <p>My work is nervous system based, body led, and deeply rooted in the belief that you are not here just to push and survive. You are here to live from the inside out.</p>
-      <p>This training is my gift to you. Come as you are.</p>
-      <p style="color: var(--burgundy); font-style: italic;">Big love, Melissa x</p>
+      <p>I work in an intuitive way. I see people without turning away. I can explain logically how it feels in their body and how their life led them to this moment. I see all the threads and I help people see them too, through conversation, understanding, and the space to be loved without falling into blame.</p>
+      <p>I help women see where they feel helpless and meet that with: of course. How could you have survived any other way? That moment of understanding changes everything. Not because it fixes anything. Because it finally makes sense.</p>
+      <p>I am not here to fix you. I am here to be the anchor so you can remember how to hold yourself. To become the person you always needed. That is the work. And it starts here.</p>
+      <p class="about-sig">Big love, Melissa x</p>
     </div>
   </div>
 </section>
 
-<!-- CTA BOTTOM -->
+<!-- CTA -->
 <section class="cta-bottom">
-  <h2>You were not built to just survive.</h2>
-  <p>This training is free. It is real. And it might be the most important hour you spend this year.</p>
-  <a href="#top" class="btn-cta" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
-    Watch the Free Training
+  <h2>Under all of it, lays you.</h2>
+  <p>This training is free. It is real. And it might be the most important hour you spend this year. Come as you are.</p>
+  <a href="#" class="btn-cta" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+    Yes, I want to watch this
   </a>
 </section>
 
