@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survival Pattern Identifier | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 620px; width: 100%; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2.1rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.97rem; line-height: 1.85; color: #6b5144; margin-bottom: 30px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+
+    .info-card { background: #f9f3eb; border-radius: 14px; padding: 20px 22px; margin: 16px 0; border-left: 3px solid #c4967a; }
+
+    /* Statements grid */
+    .statements { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+    .stmt { display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px; border: 1.5px solid #e8d9c4; border-radius: 12px; background: #fdf9f4; cursor: pointer; transition: all 0.2s; user-select: none; }
+    .stmt:hover { border-color: #c4967a; background: #fdf5ec; }
+    .stmt.sel { border-color: #5c2318; background: #f2e8d9; }
+    .stmt-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #c4967a; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #5c2318; transition: all 0.2s; margin-top: 1px; }
+    .stmt.sel .stmt-check { background: #5c2318; border-color: #5c2318; color: #faf5ee; }
+    .stmt-text { font-size: 0.93rem; line-height: 1.65; color: #4a3728; }
+    .stmt.sel .stmt-text { color: #5c2318; }
+
+    /* Selected count */
+    .sel-count { text-align: center; font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; color: #c4967a; margin: 10px 0; }
+
+    /* Results */
+    .pattern-bars { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
+    .p-bar-row { }
+    .p-bar-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+    .p-bar-name { font-family: 'Playfair Display', serif; font-size: 0.97rem; color: #5c2318; }
+    .p-bar-score { font-size: 0.78rem; letter-spacing: 1px; color: #9a7d6e; text-transform: uppercase; }
+    .p-bar-track { height: 8px; background: #f2e8d9; border-radius: 10px; overflow: hidden; }
+    .p-bar-fill { height: 100%; border-radius: 10px; background: #c4967a; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+    .p-bar-row.primary .p-bar-name { color: #5c2318; font-weight: 600; }
+    .p-bar-row.primary .p-bar-fill { background: #5c2318; }
+
+    /* Pattern detail card */
+    .pattern-reveal { background: #f9f3eb; border-radius: 16px; padding: 28px 24px; margin: 24px 0; border-left: 4px solid #c4967a; }
+    .pattern-reveal.primary { border-left-color: #5c2318; background: #f2e8d9; }
+    .pr-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; display: block; }
+    .pattern-reveal.primary .pr-tag { color: #5c2318; }
+    .pr-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; margin-bottom: 6px; }
+    .pr-subtitle { font-size: 0.85rem; color: #9a7d6e; font-style: italic; margin-bottom: 14px; }
+    .pr-body { font-size: 0.93rem; line-height: 1.8; color: #4a3728; }
+    .pr-body em { color: #5c2318; font-style: italic; }
+
+    /* Reflection questions */
+    .reflect-list { display: flex; flex-direction: column; gap: 10px; margin: 18px 0; }
+    .r-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; background: #fdf9f4; border-radius: 10px; border: 1px solid #ede3d4; }
+    .r-bullet { color: #c4967a; flex-shrink: 0; font-family: 'Playfair Display', serif; font-size: 0.9rem; margin-top: 2px; }
+    .r-text { font-size: 0.92rem; line-height: 1.65; color: #4a3728; }
+
+    /* Closing vow */
+    .vow-block { background: #5c2318; border-radius: 16px; padding: 28px 24px; text-align: center; margin: 24px 0; }
+    .vow-text { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #faf5ee; line-height: 1.9; }
+    .vow-em { color: #f2d4bc; font-style: italic; }
+
+    .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Melissa Melrose</div>
+
+  <!-- STEP 0: Intro -->
+  <div class="step on" id="s0">
+    <h1>Identify Your<br>Survival Patterns</h1>
+    <div class="divider"></div>
+    <p class="intro">Before you can change what's quietly running your life, you need to be able to see it. This practice will help you recognise the coping mechanisms your nervous system created — as a child — to stay close to love, safety, and belonging.</p>
+
+    <div class="card">
+      <span class="section-tag">Before You Begin</span>
+      <p class="body">These are not flaws. They are not signs that something is wrong with you. They are adaptations — brilliant, clever ways your nervous system learned to maintain connection and survive in the family system you grew up inside.</p>
+      <div class="info-card">
+        <p style="font-size:0.93rem; line-height:1.85; color:#4a3728;">You will see 15 statements. Select every one that resonates with you — even a little. There are no right or wrong answers. The more honest you are, the clearer your pattern becomes.</p>
+      </div>
+      <button class="btn" onclick="go(1)">I'm ready — begin</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: Statements -->
+  <div class="step" id="s1">
+    <h1>Which of These<br>Feel True for You?</h1>
+    <div class="divider"></div>
+    <p class="intro">Read each one slowly. Tap everything that resonates — even if it feels uncomfortable to admit.</p>
+
+    <div class="card">
+      <span class="section-tag">Select All That Apply</span>
+      <div class="statements" id="stmtList"></div>
+      <div class="sel-count" id="selCount">0 of 15 selected</div>
+      <button class="btn" onclick="showResults()">See My Pattern</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Results -->
+  <div class="step" id="s2">
+    <h1>Your Pattern<br>Profile</h1>
+    <div class="divider"></div>
+    <p class="intro">Here is what your nervous system has been doing quietly in the background — and what it was trying to protect.</p>
+
+    <div class="card">
+      <span class="section-tag">Your Patterns</span>
+      <div class="pattern-bars" id="patternBars"></div>
+    </div>
+
+    <div id="primaryPattern" style="margin-top:6px;"></div>
+    <div id="secondaryPattern" style="margin-top:6px;"></div>
+
+    <div class="card" style="margin-top:16px;">
+      <span class="section-tag">Reflection — Your Dominant Pattern</span>
+      <p class="body" style="font-style:italic; color:#6b5144;">Take a breath before you answer these. Let the response come from your body, not just your mind.</p>
+      <div class="reflect-list" id="reflectQuestions"></div>
+      <button class="btn" onclick="go(3)">Continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: The Truth -->
+  <div class="step" id="s3">
+    <div class="card">
+      <div class="seal">✦</div>
+      <span class="section-tag" style="text-align:center; display:block;">The Most Important Thing to Know</span>
+      <p class="body" style="text-align:center; font-family:'Playfair Display', serif; font-size:1.1rem; color:#5c2318; line-height:1.7; margin-bottom:20px;">These patterns kept you connected.<br>They kept you safe.<br>They kept you loved — the only way you knew how.</p>
+
+      <div class="vow-block">
+        <div class="vow-text">
+          These behaviours are not your identity.<br>
+          They are not your fault.<br>
+          They are not permanent.<br><br>
+          <span class="vow-em">They are the beginning of your map home.</span>
+        </div>
+      </div>
+
+      <div class="info-card" style="margin-top:4px; border-left-color:#e8d9c4;">
+        <p style="font-size:0.93rem; line-height:1.85; color:#4a3728;">When the foundation begins to shift, something powerful happens. <em style="color:#5c2318;">Self-abandonment softens. Self-trust returns. Self-love emerges naturally.</em> What once felt like your weakness becomes your wisdom. Sensitivity becomes intuition. Control becomes leadership. Protection becomes discernment.</p>
+      </div>
+
+      <p class="body" style="text-align:center; font-style:italic; color:#9a7d6e; margin-top:16px;">This is the process of becoming whole — not fixing yourself, but learning to hold the full spectrum of who you are.</p>
+      <button class="btn-outline" onclick="restart()" style="display:block; text-align:center;">Begin Again</button>
+    </div>
+  </div>
+
+  <div class="footer">Created by Melissa Melrose · Foundations of Self</div>
+</div>
+
+<script>
+const patterns = [
+  {
+    id: 'pp',
+    name: 'The People Pleaser',
+    subtitle: 'Safety Through Approval',
+    color: '#c4967a',
+    core: 'You learned that harmony and connection were maintained by keeping others happy. Your nervous system became highly attuned to the emotions and needs of others — <em>before your own</em>.',
+    gift: 'Deep empathy and the ability to hold space for others.',
+    shadow: 'Self-abandonment — silencing your own needs to keep the peace.',
+    reflect: [
+      'Where in your life are you currently saying yes when you mean no?',
+      'Whose emotions do you feel most responsible for right now?',
+      'What would you do differently if you trusted that people could handle your truth?'
+    ]
+  },
+  {
+    id: 'oe',
+    name: 'The Over-Explainer',
+    subtitle: 'Safety Through Justification',
+    color: '#a87e68',
+    core: 'You developed in an environment where your choices, feelings, or boundaries were questioned or misunderstood. Your nervous system learned that <em>explaining everything</em> was the path to safety.',
+    gift: 'Clear communication and a deep desire to be understood.',
+    shadow: 'Exhausting over-justification — as if your needs must be earned.',
+    reflect: [
+      'When did you last justify a boundary that required no explanation?',
+      'What are you afraid will happen if someone misunderstands you?',
+      'What would it feel like to simply say "this is what I need" — and stop there?'
+    ]
+  },
+  {
+    id: 'ha',
+    name: 'The High Achiever',
+    subtitle: 'Safety Through Performance',
+    color: '#9a6e58',
+    core: 'You learned that recognition, approval, and love came through achievement. Your nervous system became wired toward productivity, success, and <em>constant striving</em>.',
+    gift: 'Incredible drive, discipline, and the ability to create results.',
+    shadow: 'Tying your worth to output — unable to rest, unable to feel enough.',
+    reflect: [
+      'When was the last time you rested without guilt?',
+      'If you achieved nothing this week, would you still believe you were lovable?',
+      'What are you afraid would happen if you slowed down?'
+    ]
+  },
+  {
+    id: 'of',
+    name: 'The Over-Functioner',
+    subtitle: 'Safety Through Control',
+    color: '#8a5e4a',
+    core: 'You learned early that stability required you to take charge. Control became your nervous system\'s way of <em>reducing uncertainty</em> and maintaining a sense of safety.',
+    gift: 'Natural leadership, reliability, and the ability to hold things together.',
+    shadow: 'Burnout and inner pressure — carrying more than your fair share.',
+    reflect: [
+      'What are you currently controlling that isn\'t yours to carry?',
+      'What would need to be true for you to ask for help today?',
+      'What does your nervous system believe will happen if you let go?'
+    ]
+  },
+  {
+    id: 'og',
+    name: 'The Over-Giver',
+    subtitle: 'Safety Through Self-Abandonment',
+    color: '#7a4e3a',
+    core: 'You learned that love and connection came through giving and supporting others. Your own needs <em>slowly moved into the background</em> as a way of earning belonging.',
+    gift: 'Generosity, warmth, and the capacity to make others feel deeply cared for.',
+    shadow: 'Depletion — giving from an empty well, disconnected from your own needs.',
+    reflect: [
+      'When did you last receive something — and let yourself fully accept it?',
+      'What do you need right now that you haven\'t asked for?',
+      'What are you afraid will happen if you put yourself first?'
+    ]
+  }
+];
+
+const statements = [
+  { pattern: 'pp', text: 'I say yes when I mean no — to avoid upsetting someone or causing tension' },
+  { pattern: 'pp', text: 'I feel responsible for the emotions and comfort of people around me' },
+  { pattern: 'pp', text: 'I go out of my way to avoid conflict, even when something is genuinely bothering me' },
+  { pattern: 'oe', text: 'I over-explain my decisions and choices, especially when setting a boundary' },
+  { pattern: 'oe', text: 'I feel anxious and unsettled if I sense someone has misunderstood me' },
+  { pattern: 'oe', text: 'When I feel uncomfortable or challenged, I find myself talking more' },
+  { pattern: 'ha', text: 'I struggle to rest without feeling guilty, lazy, or unproductive' },
+  { pattern: 'ha', text: 'Deep down, I tie my worth to how much I achieve or produce' },
+  { pattern: 'ha', text: 'I push myself constantly — even when I am exhausted or depleted' },
+  { pattern: 'of', text: 'I take on more responsibility than my fair share — it just feels easier' },
+  { pattern: 'of', text: 'When things are out of my control, I feel genuine anxiety' },
+  { pattern: 'of', text: 'I find it very hard to ask for help, even when I clearly need it' },
+  { pattern: 'og', text: 'I give more than I receive in most of my relationships' },
+  { pattern: 'og', text: 'I feel uncomfortable, even guilty, when people try to give to me' },
+  { pattern: 'og', text: 'I stay in situations that deplete me because others still seem to need me' }
+];
+
+// Shuffle for variety
+function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+const displayed = shuffle([...statements]);
+
+function go(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  window.scrollTo(0, 0);
+}
+function restart() { go(0); document.querySelectorAll('.stmt').forEach(s => s.classList.remove('sel')); updateCount(); }
+
+// Build statement list
+const list = document.getElementById('stmtList');
+displayed.forEach((s, i) => {
+  const div = document.createElement('div');
+  div.className = 'stmt';
+  div.dataset.pattern = s.pattern;
+  div.innerHTML = `<div class="stmt-check">✓</div><div class="stmt-text">${s.text}</div>`;
+  div.onclick = () => { div.classList.toggle('sel'); updateCount(); };
+  list.appendChild(div);
+});
+
+function updateCount() {
+  const n = document.querySelectorAll('.stmt.sel').length;
+  document.getElementById('selCount').textContent = n + ' of 15 selected';
+}
+
+function showResults() {
+  // Score
+  const scores = { pp: 0, oe: 0, ha: 0, of: 0, og: 0 };
+  document.querySelectorAll('.stmt.sel').forEach(s => scores[s.dataset.pattern]++);
+
+  // Render bars
+  const barsEl = document.getElementById('patternBars');
+  barsEl.innerHTML = '';
+  const sorted = [...patterns].sort((a, b) => scores[b.id] - scores[a.id]);
+  const max = Math.max(...Object.values(scores), 1);
+
+  sorted.forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'p-bar-row' + (i === 0 && scores[p.id] > 0 ? ' primary' : '');
+    const pct = Math.round(scores[p.id] / 3 * 100);
+    row.innerHTML = `
+      <div class="p-bar-header">
+        <span class="p-bar-name">${p.name}</span>
+        <span class="p-bar-score">${scores[p.id]} / 3</span>
+      </div>
+      <div class="p-bar-track"><div class="p-bar-fill" style="width:0%" data-pct="${pct}"></div></div>
+    `;
+    barsEl.appendChild(row);
+  });
+
+  // Animate bars after render
+  setTimeout(() => {
+    document.querySelectorAll('.p-bar-fill').forEach(el => {
+      el.style.width = el.dataset.pct + '%';
+    });
+  }, 100);
+
+  // Primary pattern
+  const primary = sorted[0];
+  const secondary = sorted[1];
+  const primaryScore = scores[primary.id];
+
+  const primEl = document.getElementById('primaryPattern');
+  if (primaryScore > 0) {
+    primEl.innerHTML = `
+      <div class="pattern-reveal primary">
+        <span class="pr-tag">Your Dominant Pattern</span>
+        <div class="pr-title">${primary.name}</div>
+        <div class="pr-subtitle">${primary.subtitle}</div>
+        <div class="pr-body">${primary.core}<br><br><strong style="color:#5c2318;">The hidden gift:</strong> ${primary.gift}<br><strong style="color:#5c2318;">The shadow:</strong> ${primary.shadow}</div>
+      </div>
+    `;
+  } else {
+    primEl.innerHTML = `<div class="pattern-reveal"><span class="pr-tag">No Strong Pattern</span><div class="pr-body">You selected very few statements — which may mean you have already done significant healing work, or that the patterns feel less prominent right now. Come back when you're feeling triggered and try again.</div></div>`;
+  }
+
+  // Secondary pattern (if score > 0)
+  const secEl = document.getElementById('secondaryPattern');
+  if (scores[secondary.id] > 0 && secondary.id !== primary.id) {
+    secEl.innerHTML = `
+      <div class="pattern-reveal">
+        <span class="pr-tag">Also Present</span>
+        <div class="pr-title">${secondary.name}</div>
+        <div class="pr-subtitle">${secondary.subtitle}</div>
+        <div class="pr-body">${secondary.core}</div>
+      </div>
+    `;
+  } else {
+    secEl.innerHTML = '';
+  }
+
+  // Reflection questions
+  const reflEl = document.getElementById('reflectQuestions');
+  reflEl.innerHTML = '';
+  const reflections = primaryScore > 0 ? primary.reflect : patterns[0].reflect;
+  reflections.forEach(q => {
+    reflEl.innerHTML += `<div class="r-item"><span class="r-bullet">✦</span><div class="r-text">${q}</div></div>`;
+  });
+
+  go(2);
+}
+</script>
+</body>
+</html>

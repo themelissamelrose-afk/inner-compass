@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 5 Survival Patterns | Melissa Melrose</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; }
+    .page { max-width: 640px; margin: 0 auto; padding: 60px 24px 80px; }
+
+    /* Header */
+    .guide-header { text-align: center; padding-bottom: 48px; border-bottom: 1px solid #e8d9c4; margin-bottom: 48px; }
+    .brand-tag { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 20px; }
+    .guide-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #5c2318; line-height: 1.25; margin-bottom: 16px; }
+    .guide-subtitle { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #9a7d6e; font-style: italic; line-height: 1.7; margin-bottom: 24px; }
+    .author-block { display: inline-block; }
+    .author-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; }
+    .author-role { font-size: 0.82rem; color: #9a7d6e; margin-top: 4px; line-height: 1.55; }
+
+    /* Body text */
+    .section { margin-bottom: 48px; }
+    .section-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 18px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: #5c2318; line-height: 1.35; margin-bottom: 20px; }
+    p.body-text { font-size: 0.97rem; line-height: 1.9; color: #4a3728; margin-bottom: 16px; }
+    p.body-text:last-child { margin-bottom: 0; }
+
+    /* Pull quote */
+    .pull-quote { border-left: 3px solid #c4967a; padding: 18px 24px; margin: 28px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: #5c2318; line-height: 1.8; background: #f9f3eb; border-radius: 0 12px 12px 0; }
+
+    /* Pattern card */
+    .pattern-card { background: #fff; border-radius: 18px; padding: 32px 28px; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(92,35,24,0.06); border: 1px solid #f0e6d8; }
+    .pc-num { font-size: 2rem; font-family: 'Playfair Display', serif; color: #f2e8d9; display: block; margin-bottom: 4px; line-height: 1; }
+    .pc-safety { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 8px; }
+    .pc-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #5c2318; margin-bottom: 14px; }
+    .pc-body { font-size: 0.95rem; line-height: 1.85; color: #4a3728; margin-bottom: 16px; }
+    .pc-notices { display: flex; flex-direction: column; gap: 6px; margin: 14px 0; }
+    .pc-notice { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9rem; line-height: 1.6; color: #4a3728; }
+    .pc-dot { color: #c4967a; flex-shrink: 0; margin-top: 4px; }
+    .pc-footer { font-size: 0.88rem; line-height: 1.7; color: #9a7d6e; font-style: italic; padding-top: 14px; border-top: 1px solid #f2e8d9; margin-top: 14px; }
+
+    /* Divider */
+    .section-divider { width: 48px; height: 2px; background: #c4967a; margin: 40px 0; }
+
+    /* Reflection */
+    .reflect-box { background: #f2e8d9; border-radius: 16px; padding: 28px 26px; margin: 28px 0; }
+    .reflect-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #5c2318; margin-bottom: 16px; }
+    .reflect-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+    .reflect-item:last-child { margin-bottom: 0; }
+    .ri-bullet { color: #c4967a; font-family: 'Playfair Display', serif; flex-shrink: 0; margin-top: 2px; }
+    .ri-text { font-size: 0.93rem; line-height: 1.7; color: #4a3728; }
+
+    /* Becoming whole */
+    .becoming-list { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .becoming-item { display: flex; gap: 14px; align-items: center; padding: 12px 16px; background: #fff; border-radius: 10px; border: 1px solid #ede3d4; }
+    .bi-arrow { font-size: 0.85rem; color: #c4967a; flex-shrink: 0; }
+    .bi-text { font-size: 0.93rem; color: #4a3728; }
+    .bi-arrow-to { font-size: 0.85rem; color: #5c2318; flex-shrink: 0; }
+    .bi-to { font-family: 'Playfair Display', serif; font-size: 0.93rem; color: #5c2318; font-style: italic; }
+
+    /* CTA */
+    .cta-card { background: #5c2318; border-radius: 18px; padding: 36px 28px; text-align: center; margin-top: 40px; }
+    .cta-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #faf5ee; margin-bottom: 12px; line-height: 1.5; }
+    .cta-body { font-size: 0.93rem; color: #e8c4b2; line-height: 1.75; margin-bottom: 24px; }
+    .cta-btn { display: inline-block; padding: 14px 36px; background: #faf5ee; color: #5c2318; border-radius: 30px; font-family: 'Playfair Display', serif; font-size: 1rem; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
+    .cta-btn:hover { background: #f2e8d9; }
+
+    /* Footer */
+    .guide-footer { text-align: center; padding-top: 40px; border-top: 1px solid #e8d9c4; margin-top: 60px; }
+    .gf-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #5c2318; }
+    .gf-role { font-size: 0.8rem; color: #9a7d6e; margin-top: 4px; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="guide-header">
+    <span class="brand-tag">Inner Compass · Melissa Melrose</span>
+    <h1 class="guide-title">The 5 Survival Patterns<br>That Quietly Run Your Life</h1>
+    <p class="guide-subtitle">Understanding the adaptations your nervous system created to survive — and how to build a new foundation.</p>
+    <div class="author-block">
+      <div class="author-name">Melissa Melrose</div>
+      <div class="author-role">Creator of the Foundations of Self Method<br>Breathwork Practitioner · Emotional Integration Guide</div>
+    </div>
+  </div>
+
+  <!-- WE CAN'T CHANGE WHAT WE CAN'T SEE -->
+  <div class="section">
+    <span class="section-label">The Foundation</span>
+    <h2 class="section-title">We Can't Change<br>What We Can't See</h2>
+    <p class="body-text">Most of us don't even realise the foundation we're built on. It was formed unconsciously through adaptation, protection, and survival — long before we had language for what we were feeling.</p>
+    <p class="body-text">Our earliest adaptations weren't choices. They were responses to the family nervous system we grew up inside.</p>
+    <div class="pull-quote">We learned how to belong. How to stay connected. How to remain safe — and in doing so, those adaptations slowly became our identity.</div>
+    <p class="body-text">Not because we were unaware or unwilling to see them, but because our survival once depended on not seeing them clearly.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- MELISSA'S BIO CONTEXT -->
+  <div class="section">
+    <p class="body-text">Melissa Melrose has spent over three decades exploring the deeper nature of human transformation and what truly allows people to change. Through working with individuals and groups over many years, she began to see a common thread: many people understand their patterns intellectually, yet still find themselves repeating the same emotional cycles in relationships, decisions, and self-worth.</p>
+    <p class="body-text">This insight led to the creation of the <strong>Foundations of Self method</strong> — which focuses on helping people recognise the unconscious survival adaptations they developed in childhood: people pleasing, over-performing, over-explaining, controlling, or abandoning their own needs in order to maintain connection and safety.</p>
+    <div class="pull-quote">"Her work invites people to move beyond simply understanding themselves — and into the embodied experience of becoming whole."</div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- NERVOUS SYSTEM GUILT -->
+  <div class="section">
+    <span class="section-label">The Deeper Truth</span>
+    <h2 class="section-title">When Growth Triggers<br>the Nervous System</h2>
+    <p class="body-text">What many people don't realise is that growth can trigger a very specific kind of guilt. Not logical guilt. <em>Nervous system guilt.</em></p>
+    <p class="body-text">Because separating from family patterns can feel like betrayal, abandonment, disloyalty, or danger. So even when we know something isn't aligned anymore, our body pulls us back into what feels familiar.</p>
+    <div class="pull-quote">Familiarity becomes mistaken for love.<br>Repetition becomes mistaken for safety.<br>And the nervous system receives a quiet payoff: <em>I belong. I'm still connected. I'm safe.</em><br>Even if it costs us ourselves.</div>
+    <p class="body-text">This is why we repeat patterns we consciously want to leave. Not because we are weak — but because we are <strong>unconsciously loyal</strong>. Loyal to the version of us that kept the peace. Loyal to the role that maintained connection. Loyal to adaptations that once protected us.</p>
+    <p class="body-text" style="font-style:italic; color:#5c2318; font-family:'Playfair Display', serif; font-size:1.05rem;">"I know better — so why can't I change?"</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- THE SHIFT -->
+  <div class="section">
+    <span class="section-label">The Path Forward</span>
+    <h2 class="section-title">The Shift Happens<br>Through Capacity</h2>
+    <p class="body-text">Real change does not happen through force. It happens through <em>capacity</em>.</p>
+    <div class="pull-quote">Capacity to stay present.<br>Capacity to witness what shaped us.<br>Capacity to see clearly — without collapsing, dissociating, or abandoning ourselves.</div>
+    <p class="body-text">This is nervous system work. Not just calming. Not just coping. But revealing the unconscious programs that quietly run our lives — so they no longer have to.</p>
+    <p class="body-text">When we can see what shaped us, we are no longer trapped inside it. And that is where real change begins.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- THE 5 PATTERNS -->
+  <div class="section">
+    <span class="section-label">The Patterns</span>
+    <h2 class="section-title">The 5 Survival Patterns<br>That Quietly Run Your Life</h2>
+    <p class="body-text" style="margin-bottom:28px;">When we grow up inside a family system, our nervous system learns what is required to stay safe and connected. Over time, these adaptations become automatic. Below are five common patterns. You may recognise one — or you may see yourself in several.</p>
+
+    <!-- Pattern 1 -->
+    <div class="pattern-card">
+      <span class="pc-num">01</span>
+      <span class="pc-safety">Safety Through Approval</span>
+      <h3 class="pc-title">The People Pleaser</h3>
+      <p class="pc-body">The people pleaser learned that harmony and connection were maintained by keeping others happy. The nervous system becomes highly attuned to the emotions and needs of others — often at the expense of one's own.</p>
+      <p style="font-size:0.82rem; letter-spacing:1.5px; text-transform:uppercase; color:#c4967a; margin-bottom:8px;">You may notice yourself:</p>
+      <div class="pc-notices">
+        <div class="pc-notice"><span class="pc-dot">·</span>Saying yes when you want to say no</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Avoiding conflict or tension, even when it hurts</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Feeling responsible for other people's emotions</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Prioritising others' needs consistently over your own</div>
+      </div>
+      <p class="pc-footer">While this pattern can create deep empathy and care for others, it often leads to self-abandonment. The gift lives in the capacity for connection — the healing is learning to include yourself.</p>
+    </div>
+
+    <!-- Pattern 2 -->
+    <div class="pattern-card">
+      <span class="pc-num">02</span>
+      <span class="pc-safety">Safety Through Justification</span>
+      <h3 class="pc-title">The Over-Explainer</h3>
+      <p class="pc-body">The over-explainer often develops in environments where choices, feelings, or boundaries were questioned or misunderstood. The nervous system learns to stay safe by explaining everything — as if needs must be earned through sufficient justification.</p>
+      <p style="font-size:0.82rem; letter-spacing:1.5px; text-transform:uppercase; color:#c4967a; margin-bottom:8px;">You may notice yourself:</p>
+      <div class="pc-notices">
+        <div class="pc-notice"><span class="pc-dot">·</span>Over-explaining decisions or boundaries</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Feeling anxious about being misunderstood</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Justifying your needs before stating them</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Talking more when you feel uncomfortable</div>
+      </div>
+      <p class="pc-footer">Beneath this pattern is often a deep desire to feel seen and understood. The gift is clarity and articulacy. The healing is learning that your needs require no permission.</p>
+    </div>
+
+    <!-- Pattern 3 -->
+    <div class="pattern-card">
+      <span class="pc-num">03</span>
+      <span class="pc-safety">Safety Through Performance</span>
+      <h3 class="pc-title">The High Achiever</h3>
+      <p class="pc-body">The high achiever learned that recognition and approval came through achievement. The nervous system becomes wired toward productivity, success, and striving — because stillness once felt unsafe.</p>
+      <p style="font-size:0.82rem; letter-spacing:1.5px; text-transform:uppercase; color:#c4967a; margin-bottom:8px;">You may notice yourself:</p>
+      <div class="pc-notices">
+        <div class="pc-notice"><span class="pc-dot">·</span>Struggling to rest without guilt</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Tying your worth to productivity</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Constantly pushing, even when exhausted</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Feeling like nothing is ever quite enough</div>
+      </div>
+      <p class="pc-footer">While this pattern creates incredible drive, it can lead to exhaustion and disconnection from your true self. The gift is the capacity to create. The healing is learning that your worth was never tied to your output.</p>
+    </div>
+
+    <!-- Pattern 4 -->
+    <div class="pattern-card">
+      <span class="pc-num">04</span>
+      <span class="pc-safety">Safety Through Control</span>
+      <h3 class="pc-title">The Over-Functioner</h3>
+      <p class="pc-body">The over-functioner often learned early in life that stability required them to take responsibility. Control became the nervous system's way of reducing uncertainty and maintaining a sense of safety in an unpredictable environment.</p>
+      <p style="font-size:0.82rem; letter-spacing:1.5px; text-transform:uppercase; color:#c4967a; margin-bottom:8px;">You may notice yourself:</p>
+      <div class="pc-notices">
+        <div class="pc-notice"><span class="pc-dot">·</span>Taking responsibility for everything and everyone</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Struggling deeply to ask for help</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Feeling anxious when things are out of your control</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Carrying far more than your fair share</div>
+      </div>
+      <p class="pc-footer">This pattern creates natural strength and leadership — but often at the cost of internal pressure and burnout. The gift is reliability. The healing is learning that you are allowed to be held, too.</p>
+    </div>
+
+    <!-- Pattern 5 -->
+    <div class="pattern-card">
+      <span class="pc-num">05</span>
+      <span class="pc-safety">Safety Through Self-Abandonment</span>
+      <h3 class="pc-title">The Over-Giver</h3>
+      <p class="pc-body">The over-giver learned that love and connection came through giving and supporting others. Their own needs slowly moved into the background — not because they didn't matter, but because placing others first once kept them safe and loved.</p>
+      <p style="font-size:0.82rem; letter-spacing:1.5px; text-transform:uppercase; color:#c4967a; margin-bottom:8px;">You may notice yourself:</p>
+      <div class="pc-notices">
+        <div class="pc-notice"><span class="pc-dot">·</span>Giving significantly more than you receive</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Feeling uncomfortable receiving support or care</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Struggling to recognise or name your own needs</div>
+        <div class="pc-notice"><span class="pc-dot">·</span>Staying in depleting situations because others need you</div>
+      </div>
+      <p class="pc-footer">This pattern often looks generous on the surface. The gift is extraordinary warmth and care. The healing requires learning to extend that same generosity to yourself.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- REFLECTION -->
+  <div class="section">
+    <span class="section-label">The Practice</span>
+    <h2 class="section-title">Reflection</h2>
+    <p class="body-text">Take a moment to pause here. Breathe. Let these questions land in your body — not just your mind.</p>
+    <div class="reflect-box">
+      <div class="reflect-title">Questions to sit with:</div>
+      <div class="reflect-item"><span class="ri-bullet">✦</span><div class="ri-text">Which of these patterns feels most familiar to you?</div></div>
+      <div class="reflect-item"><span class="ri-bullet">✦</span><div class="ri-text">Where do you see it appearing in your relationships or decisions right now?</div></div>
+      <div class="reflect-item"><span class="ri-bullet">✦</span><div class="ri-text">What might this pattern have once protected you from?</div></div>
+    </div>
+    <div class="pull-quote">Simply noticing these patterns is the beginning of change. These behaviours are not flaws — they are adaptations your nervous system created to survive. They once helped you maintain connection, safety, and belonging.</div>
+    <p class="body-text">When they remain unconscious, they quietly continue shaping your life long after the circumstances that created them have passed. This is why understanding alone is not enough. Real change requires creating a new foundation within yourself.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- BECOMING WHOLE -->
+  <div class="section">
+    <span class="section-label">The Promise</span>
+    <h2 class="section-title">Becoming Whole</h2>
+    <p class="body-text">When the foundation begins to shift, something powerful happens.</p>
+    <div class="becoming-list">
+      <div class="becoming-item"><span class="bi-arrow">Self-abandonment</span><span class="bi-arrow-to"> → </span><span class="bi-to">softens</span></div>
+      <div class="becoming-item"><span class="bi-arrow">Self-trust</span><span class="bi-arrow-to"> → </span><span class="bi-to">begins to return</span></div>
+      <div class="becoming-item"><span class="bi-arrow">Self-love</span><span class="bi-arrow-to"> → </span><span class="bi-to">emerges naturally</span></div>
+      <div class="becoming-item"><span class="bi-arrow">Force</span><span class="bi-arrow-to"> → </span><span class="bi-to">is replaced by acceptance</span></div>
+      <div class="becoming-item"><span class="bi-arrow">Fixing</span><span class="bi-arrow-to"> → </span><span class="bi-to">is replaced by remembering</span></div>
+    </div>
+    <p class="body-text" style="margin-top:20px;">Instead of being controlled by past patterns, you begin to meet them consciously. And within those patterns are often the very gifts that were hidden in order to survive.</p>
+    <div class="pull-quote">
+      Sensitivity becomes intuition.<br>
+      Hyper-awareness becomes emotional intelligence.<br>
+      Control becomes leadership.<br>
+      Protection becomes discernment.<br><br>
+      What once felt like your weakness becomes your wisdom.
+    </div>
+    <p class="body-text">This is the process of becoming whole. Not fixing yourself. Not perfecting yourself. But learning to hold the full spectrum of who you are — with awareness, responsibility, and compassion.</p>
+    <p class="body-text">Because wholeness is not about removing the past. It is about integrating it.</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-card">
+    <div class="cta-title">Ready to Identify<br>Your Pattern?</div>
+    <div class="cta-body">Take the interactive assessment to discover which pattern is most active in you — and receive personalised reflection questions to begin your healing.</div>
+    <button class="cta-btn" onclick="window.location.href='pattern-identifier.html'">Identify My Pattern →</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="guide-footer">
+    <div class="gf-name">Melissa Melrose</div>
+    <div class="gf-role">Foundations of Self · Inner Compass</div>
+  </div>
+
+</div>
+</body>
+</html>
