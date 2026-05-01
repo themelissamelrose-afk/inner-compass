@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Inner Compass — Powered by Melissa Melrose</title>
+  <title>The Inner Compass. Powered by Melissa Melrose</title>
   <link rel="manifest" href="/manifest.json" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Inner Compass" />
@@ -78,7 +78,7 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       overflow: hidden;
     }
 
@@ -87,7 +87,7 @@
       inset: 0;
       background-image: url('/melissa-hero.jpg');
       background-size: cover;
-      background-position: center 25%;
+      background-position: 68% 20%;
     }
 
     .hero-bg::after {
@@ -95,19 +95,19 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        to bottom,
-        rgba(40,18,10,0.38) 0%,
-        rgba(40,18,10,0.55) 60%,
-        rgba(40,18,10,0.72) 100%
+        to right,
+        rgba(40,18,10,0.88) 0%,
+        rgba(40,18,10,0.65) 45%,
+        rgba(40,18,10,0.18) 100%
       );
     }
 
     .hero-inner {
       position: relative;
       z-index: 2;
-      text-align: center;
-      padding: 120px 24px 80px;
-      max-width: 720px;
+      text-align: left;
+      padding: 140px 48px 100px 7%;
+      max-width: 620px;
     }
 
     .hero-eyebrow {
@@ -135,8 +135,8 @@
     .hero-sub {
       font-size: clamp(16px, 2vw, 20px);
       color: rgba(255,255,255,0.82);
-      margin: 20px auto 36px;
-      max-width: 520px;
+      margin: 20px 0 36px;
+      max-width: 480px;
       line-height: 1.65;
       font-weight: 300;
     }
@@ -461,7 +461,8 @@
     /* ── MOBILE ── */
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
-      .hero-inner { padding: 100px 20px 60px; }
+      .hero-inner { padding: 100px 24px 60px; text-align: left; }
+      .hero-bg { background-position: 72% 20%; }
       .split { grid-template-columns: 1fr; gap: 40px; }
       .split.flip { direction: ltr; }
       .split-photo { aspect-ratio: 4/3; }
@@ -485,7 +486,7 @@
     <span class="hero-eyebrow">Powered by Melissa Melrose</span>
     <h1>The Inner<br><em>Compass</em></h1>
     <p class="hero-sub">Melissa's voice, frameworks, and wisdom. The support that holds you when life triggers you — available every single day.</p>
-    <div class="hero-price-pill">Founding Member Pricing — <strong>$17 AUD / month</strong></div>
+    <div class="hero-price-pill">Founding Member Pricing. <strong>$17 AUD / month</strong></div>
     <br>
     <a href="/subscribe" class="btn-primary">Begin Your Journey</a>
     <p class="hero-note">Founders price locked in for life. Cancel any time.</p>
@@ -505,7 +506,7 @@
   <div class="section-inner">
     <div class="split">
       <div class="split-photo">
-        <img src="/melissa-warmth.jpg" alt="Melissa Melrose" />
+        <img src="/melissa-hero.jpg" alt="Melissa Melrose" style="object-position: center 15%;" />
       </div>
       <div class="split-text">
         <span class="section-label">What Is It</span>
@@ -613,7 +614,7 @@
   <h2 class="section-title" style="text-align:center; margin-bottom:40px;">Ready to come back<br>to <em>yourself?</em></h2>
 
   <div class="price-card">
-    <span class="price-badge">Founders Pricing — Limited Time</span>
+    <span class="price-badge">Founders Pricing. Limited Time.</span>
     <div class="price-amount"><sup>$</sup>17</div>
     <p class="price-period">AUD per month</p>
     <p class="price-forever">Locked in for life when you join today</p>
@@ -622,7 +623,7 @@
       <div class="pi-row"><span class="pi-check">✓</span>Full access to all 23 practice tools</div>
       <div class="pi-row"><span class="pi-check">✓</span>Breathwork, somatic tools, and pattern work</div>
       <div class="pi-row"><span class="pi-check">✓</span>New tools added as Melissa's library grows</div>
-      <div class="pi-row"><span class="pi-check">✓</span>Cancel any time — no lock-in</div>
+      <div class="pi-row"><span class="pi-check">✓</span>Cancel any time. No lock-in.</div>
     </div>
     <a href="/subscribe" class="btn-primary" style="display:block; text-align:center; width:100%;">Begin Your Journey</a>
     <p style="font-size:12px; color:var(--text-muted); margin-top:14px; text-align:center; font-style:italic;">Cancel any time. No contracts. Just support.</p>
