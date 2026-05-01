@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Return to Presence | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 600px; width: 100%; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2.1rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.97rem; line-height: 1.8; color: #6b5144; margin-bottom: 30px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .card.centre { text-align: center; }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    .card-h { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; line-height: 1.45; margin-bottom: 10px; }
+    p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
+    .validate-box { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 18px 22px; border-radius: 0 12px 12px 0; margin: 18px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: #5c2318; line-height: 1.75; }
+    textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 90px; line-height: 1.6; outline: none; transition: border-color 0.2s; margin-top: 12px; }
+    textarea:focus { border-color: #c4967a; }
+    input[type="text"] { width: 100%; padding: 12px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; outline: none; transition: border-color 0.2s; margin-top: 10px; }
+    input[type="text"]:focus { border-color: #c4967a; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 22px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+    .btn-ghost { background: transparent; border: none; color: #9a7d6e; font-size: 0.88rem; font-family: 'Lato', sans-serif; cursor: pointer; margin-top: 12px; display: block; text-align: center; text-decoration: underline; }
+    .opts { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .opt { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; cursor: pointer; transition: all 0.2s; background: #fdf9f4; font-size: 0.94rem; line-height: 1.5; }
+    .opt:hover, .opt.sel { border-color: #c4967a; background: #fdf5ec; }
+    .opt input { accent-color: #c4967a; margin-top: 2px; flex-shrink: 0; }
+
+    /* 3-breath section */
+    .breath-mini { display: flex; flex-direction: column; align-items: center; margin: 24px 0; }
+    .mini-ring { width: 120px; height: 120px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; transition: transform 4s ease-in-out, background 4s ease; }
+    .mini-ring.expand { transform: scale(1.28); background: #e8d4be; }
+    .mini-inner { width: 58px; height: 58px; border-radius: 50%; background: #c4967a; opacity: 0.28; }
+    .mini-word { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; margin-top: 18px; min-height: 32px; }
+    .mini-guide { font-size: 0.82rem; color: #9a7d6e; font-style: italic; margin-top: 4px; min-height: 18px; }
+    .mini-count { font-size: 0.75rem; letter-spacing: 2px; color: #c4967a; text-transform: uppercase; margin-top: 6px; }
+    .ground-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: #5c2318; text-align: center; line-height: 1.7; margin-top: 20px; min-height: 48px; transition: opacity 0.5s; }
+    .start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 14px 36px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 20px; transition: background 0.2s; }
+    .start-btn:hover { background: #7a2f21; }
+
+    /* Body location */
+    .body-opts { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+    .body-tag { padding: 10px 18px; border: 1.5px solid #e8d9c4; border-radius: 30px; background: #fdf9f4; font-size: 0.9rem; color: #4a3728; cursor: pointer; transition: all 0.2s; }
+    .body-tag:hover, .body-tag.sel { background: #f2e8d9; border-color: #c4967a; color: #5c2318; }
+
+    /* Deeper */
+    .depth-box { background: #f2e8d9; border-radius: 14px; padding: 24px 22px; margin: 20px 0; text-align: center; }
+    .depth-box p { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; line-height: 1.65; }
+
+    /* Complete */
+    .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .seal svg { opacity: 0.8; }
+
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Melissa Melrose</div>
+  <h1>Return to<br>Presence</h1>
+  <div class="divider"></div>
+  <p class="intro">Something has activated you. Before you react — pause. This practice brings you from your head back into your body, so you can respond from presence rather than pattern.</p>
+
+  <!-- S1: The truth -->
+  <div class="step on" id="s1">
+    <div class="card">
+      <span class="section-tag">The First Truth</span>
+      <div class="card-h">No one is responsible for your emotional reactions except you.</div>
+      <p class="body">Ouch, I know.</p>
+      <div class="validate-box">"My reaction is my shit.<br>Their reaction is theirs."</div>
+      <p class="body">Instead of going into blame or shame when you react — use these steps to create space to respond. This is not about excusing what happened. It is about taking your power back.</p>
+      <p class="body" style="margin-top:16px;font-size:0.95rem;color:#6b5144;">Now — what has activated you?</p>
+      <textarea id="situation" placeholder="Right now I am dealing with... / Something happened that... / Someone said or did..."></textarea>
+      <button class="btn" onclick="goValidate()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S2: Validation -->
+  <div class="step" id="s2">
+    <div class="card">
+      <span class="section-tag">Step 2 — You Are Seen</span>
+      <div class="card-h">What you are experiencing is real.</div>
+      <div class="validate-box" id="validationBox"></div>
+      <p class="body">Whatever is here — it makes sense that it is here. You do not need to have it figured out. You do not need to be further along. You just need to be honest about where you are — and you just were.</p>
+      <p class="body">Now — what is this triggering in you?</p>
+      <p class="body" style="font-size:0.88rem;color:#9a7d6e;font-style:italic;">Not the story. The reaction. What is the feeling that rises when you think about it?</p>
+      <div class="opts">
+        <label class="opt" onclick="pickReaction(this,'anger')"><input type="radio" name="react"><span>Anger or frustration — something in me wants to push back</span></label>
+        <label class="opt" onclick="pickReaction(this,'hurt')"><input type="radio" name="react"><span>Hurt or sadness — something in me feels wounded</span></label>
+        <label class="opt" onclick="pickReaction(this,'fear')"><input type="radio" name="react"><span>Fear or anxiety — something in me feels unsafe</span></label>
+        <label class="opt" onclick="pickReaction(this,'shame')"><input type="radio" name="react"><span>Shame or unworthiness — something in me wants to disappear</span></label>
+        <label class="opt" onclick="pickReaction(this,'numb')"><input type="radio" name="react"><span>Numbness or shut down — something in me has gone quiet</span></label>
+        <label class="opt" onclick="pickReaction(this,'other')"><input type="radio" name="react"><span>Something else — I will write it</span></label>
+      </div>
+      <input type="text" id="otherReaction" placeholder="What are you feeling?" style="display:none;margin-top:12px;">
+      <button class="btn" id="reactBtn" onclick="goBreath()" style="display:none">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S3: Validate reaction + 3 breaths -->
+  <div class="step" id="s3">
+    <div class="card centre">
+      <span class="section-tag">Step 3 — Validate</span>
+      <div class="validate-box" id="reactionValidation" style="text-align:left;"></div>
+      <p class="body" style="margin-top:8px;text-align:left;">Validating does not mean you are right — but acceptance helps soften the emotionally reactive state into one of awareness, so you can understand the deeper feeling underneath.</p>
+      <p class="body" style="text-align:left;font-size:0.88rem;color:#9a7d6e;">Our reactions are always connected to our deeper wounds. Understanding them is the portal to your healing — and the first step in becoming self-responsible for the emotions you carry.</p>
+      <p class="body" style="margin-top:4px;color:#9a7d6e;font-style:italic;font-size:0.9rem;">Now — three breaths. In through the nose, out through the mouth. Let your nervous system come home.</p>
+      <div class="breath-mini">
+        <div class="mini-ring" id="miniRing"><div class="mini-inner"></div></div>
+        <div class="mini-word" id="miniWord">Press begin</div>
+        <div class="mini-guide" id="miniGuide"></div>
+        <div class="mini-count" id="miniCount"></div>
+        <div class="ground-text" id="groundText"></div>
+        <button class="start-btn" id="breathBtn" onclick="threeBreaths()">Begin breaths</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- S4: Feeling underneath -->
+  <div class="step" id="s4">
+    <div class="card">
+      <span class="section-tag">Step 4 — Underneath</span>
+      <div class="card-h" id="underHeading">Now we go a little deeper.</div>
+      <p class="body">Underneath the <span id="reactionWord" style="font-style:italic;color:#5c2318;"></span> — there is usually a softer, more tender feeling. The reaction is the surface. This is the root.</p>
+      <p class="body" style="color:#9a7d6e;font-style:italic;font-size:0.9rem;">When you sit with the <span id="reactionWord2" style="color:#5c2318;"></span> and breathe into it — what do you actually feel underneath?</p>
+      <textarea id="deeper" placeholder="Underneath it, I actually feel... / What it really is, is... / If I am honest, there is..."></textarea>
+      <button class="btn" onclick="goBody()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S5: Body location -->
+  <div class="step" id="s5">
+    <div class="card">
+      <span class="section-tag">Step 5 — Into the Body</span>
+      <div class="card-h">Where does this feeling live in your body?</div>
+      <p class="body">Place your attention inward. Scan slowly — head to toe. Where do you feel this? There is no wrong answer. Even "everywhere" or "I am not sure" is something.</p>
+      <div class="body-opts">
+        <button class="body-tag" onclick="pickBody(this)">Head or mind</button>
+        <button class="body-tag" onclick="pickBody(this)">Throat</button>
+        <button class="body-tag" onclick="pickBody(this)">Chest or heart</button>
+        <button class="body-tag" onclick="pickBody(this)">Shoulders</button>
+        <button class="body-tag" onclick="pickBody(this)">Solar plexus</button>
+        <button class="body-tag" onclick="pickBody(this)">Stomach</button>
+        <button class="body-tag" onclick="pickBody(this)">Lower back</button>
+        <button class="body-tag" onclick="pickBody(this)">Hips</button>
+        <button class="body-tag" onclick="pickBody(this)">Everywhere</button>
+        <button class="body-tag" onclick="pickBody(this)">I am not sure</button>
+      </div>
+      <p class="body" style="margin-top:16px;color:#9a7d6e;font-size:0.88rem;">Stay with it for a moment. Just notice. You do not need to fix it. Noticing it IS the work.</p>
+      <button class="btn" id="bodyBtn" onclick="goDepth()" style="display:none">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S6: Where have you felt this before (optional) -->
+  <div class="step" id="s6">
+    <div class="card">
+      <span class="section-tag">Step 6 — Going Deeper</span>
+      <div class="depth-box">
+        <p>You have come a long way already.<br><br>If you feel settled and safe enough — there is one more question available to you. It is the doorway to the deeper work.<br><br>You can take it — or you can rest here.</p>
+      </div>
+      <button class="btn" onclick="goDeeper()">I am ready to go deeper →</button>
+      <button class="btn-ghost" onclick="goComplete()">I will rest here today</button>
+    </div>
+  </div>
+
+  <!-- S7: Where have you felt this before -->
+  <div class="step" id="s7">
+    <div class="card">
+      <span class="section-tag">The Deeper Question</span>
+      <div class="card-h">Where have you felt this before?</div>
+      <p class="body">This feeling — the one in your body right now — it is not new. It has a history. It belongs to a younger version of you who felt this and did not have the words or the safety to fully be with it.</p>
+      <p class="body" style="color:#9a7d6e;font-style:italic;font-size:0.9rem;">Let whatever comes, come. There is no wrong answer. Even an age, an image, or a sense is enough.</p>
+      <textarea id="origin" placeholder="I have felt this before when... / This reminds me of... / I first felt this as..."></textarea>
+      <button class="btn" onclick="goComplete()">Complete →</button>
+    </div>
+  </div>
+
+  <!-- S8: Complete -->
+  <div class="step" id="s8">
+    <div class="card centre">
+      <div class="seal">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M8 16l5 5 9-9" stroke="#c4967a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="card-h">You did something courageous today.</div>
+      <p class="body">You did not run from what you were feeling. You turned toward it. You named it, felt it, and found it in your body. That is the work. That is how we move from reaction to response — one breath, one layer at a time.</p>
+      <div class="validate-box">Sit with this question before you move on:<br><br><em>"If I respond from presence rather than reaction — what would I choose differently?"</em></div>
+      <p class="body" style="margin-top:8px;font-size:0.9rem;color:#9a7d6e;">Journal your reflections. Come back to this practice any time you feel yourself spinning. It is always here.</p>
+      <button class="btn-outline" onclick="location.reload()">Return to presence again</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+  let reactionKey = '';
+  const reactionLabels = {
+    anger:  'anger',
+    hurt:   'hurt',
+    fear:   'fear or anxiety',
+    shame:  'shame',
+    numb:   'numbness',
+    other:  'what you are feeling'
+  };
+  const reactionValidations = {
+    anger:  'Your anger is valid. It does not mean you are wrong to feel it — it means a boundary was crossed, or something you care deeply about has been touched. Anger is not the enemy. It is a signal. And right now, it is asking to be heard.',
+    hurt:   'Your hurt is valid. To feel hurt means something mattered enough to wound you. That is not weakness — it is the evidence of how much you care. You are allowed to feel this.',
+    fear:   'Your fear is valid. It does not mean you are not strong. It means your nervous system is doing its job — scanning for safety. Right now, we are going to help it find some.',
+    shame:  'Your shame is valid — as an experience, not as a truth. Whatever you are ashamed of does not define you. It is a feeling that arose in a moment. It is not who you are. You are safe here.',
+    numb:   'Your numbness is valid. Sometimes shutting down is the most intelligent thing our system can do. It protected you when feeling was too much. We are going to find you gently — no force, no rush.',
+    other:  'What you are feeling is valid. Whatever is here — it belongs to this moment and to you. You do not have to justify it or explain it. It is simply true right now.'
+  };
+
+  function goValidate() {
+    const sit = document.getElementById('situation').value.trim();
+    if (!sit) { alert('Write whatever is here — even one sentence.'); return; }
+    // Build validation message
+    const box = document.getElementById('validationBox');
+    box.textContent = 'What you are experiencing with "' + sit.substring(0,60) + (sit.length>60?'...':'"') + ' is real and it makes sense that it has activated you. It is okay that you are here.';
+    showStep('s2');
+  }
+
+  function pickReaction(el, key) {
+    reactionKey = key;
+    document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+    el.classList.add('sel');
+    el.querySelector('input').checked = true;
+    document.getElementById('otherReaction').style.display = key==='other' ? 'block' : 'none';
+    document.getElementById('reactBtn').style.display = 'block';
+  }
+
+  function goBreath() {
+    const label = reactionKey==='other'
+      ? (document.getElementById('otherReaction').value.trim() || 'what you are feeling')
+      : reactionLabels[reactionKey];
+    document.getElementById('reactionWord').textContent = label;
+    document.getElementById('reactionWord2').textContent = label;
+    document.getElementById('reactionValidation').textContent = reactionValidations[reactionKey] || reactionValidations.other;
+    showStep('s3');
+  }
+
+  // 3 breaths: in through nose, out through mouth
+  const groundPhrases = [
+    'My feet are on the ground.',
+    'My hands are beside me.',
+    'I am here. I am safe. I am present.'
+  ];
+
+  function threeBreaths() {
+    document.getElementById('breathBtn').style.display = 'none';
+    runBr(0);
+  }
+
+  function runBr(r) {
+    if (r >= 3) {
+      document.getElementById('miniWord').textContent = 'Here.';
+      document.getElementById('miniGuide').textContent = '';
+      document.getElementById('miniCount').textContent = '';
+      document.getElementById('groundText').textContent = 'You are back in your body.';
+      setTimeout(()=>showStep('s4'), 2500);
+      return;
+    }
+    const ring = document.getElementById('miniRing');
+    const gt   = document.getElementById('groundText');
+    document.getElementById('miniCount').textContent = 'Breath ' + (r+1) + ' of 3';
+    gt.textContent = groundPhrases[r];
+
+    // Inhale (nose): 4s
+    document.getElementById('miniWord').textContent = 'Inhale';
+    document.getElementById('miniGuide').textContent = 'Deep breath in through the nose';
+    ring.classList.add('expand');
+    setTimeout(()=>{
+      // Exhale (mouth): 4s
+      document.getElementById('miniWord').textContent = 'Exhale';
+      document.getElementById('miniGuide').textContent = 'Slow breath out through the mouth';
+      ring.classList.remove('expand');
+      setTimeout(()=>runBr(r+1), 4200);
+    }, 4200);
+  }
+
+  let selectedBody = '';
+  function pickBody(el) {
+    document.querySelectorAll('.body-tag').forEach(b=>b.classList.remove('sel'));
+    el.classList.add('sel');
+    selectedBody = el.textContent;
+    document.getElementById('bodyBtn').style.display = 'block';
+  }
+
+  function goBody()   { showStep('s5'); }
+  function goDepth()  { showStep('s6'); }
+  function goDeeper() { showStep('s7'); }
+  function goComplete() {
+    const origin = document.getElementById('origin');
+    if (origin && !origin.value.trim() && document.getElementById('s7').classList.contains('on')) {
+      alert('Take your time — write whatever comes.'); return;
+    }
+    showStep('s8');
+  }
+
+  function showStep(id) {
+    document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>

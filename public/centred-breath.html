@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Centred Breath | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 580px; width: 100%; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2.1rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.97rem; line-height: 1.8; color: #6b5144; margin-bottom: 32px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .card.centre { text-align: center; }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    .card-h { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #5c2318; line-height: 1.45; margin-bottom: 12px; }
+    p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
+    .hand-diagram { display: flex; gap: 20px; margin: 22px 0; }
+    .hand-box { flex: 1; background: #f9f3eb; border-radius: 12px; padding: 16px; text-align: center; border: 1px solid #ede3d4; }
+    .hand-icon { font-size: 2rem; margin-bottom: 8px; }
+    .hand-label { font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; color: #c4967a; margin-bottom: 4px; }
+    .hand-text { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: #5c2318; line-height: 1.45; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+
+    /* Breath chooser */
+    .choose-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 20px 0; }
+    .choose-btn { padding: 10px 20px; border: 1.5px solid #e8d9c4; border-radius: 30px; background: #fdf9f4; font-family: 'Playfair Display', serif; font-size: 0.95rem; color: #4a3728; cursor: pointer; transition: all 0.2s; }
+    .choose-btn:hover, .choose-btn.sel { background: #f2e8d9; border-color: #c4967a; color: #5c2318; }
+
+    /* Breath animation */
+    .breath-area { display: flex; flex-direction: column; align-items: center; margin: 24px 0 16px; }
+    .flow-wrap { position: relative; width: 180px; height: 300px; }
+    /* Upper circle = heart */
+    .circle-heart { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 100px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; transition: all 6s ease-in-out; }
+    .circle-heart .c-label { font-family: 'Playfair Display', serif; font-size: 0.75rem; color: #c4967a; letter-spacing: 1px; text-transform: uppercase; }
+    /* Lower circle = belly */
+    .circle-belly { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 100px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; transition: all 6s ease-in-out; }
+    .circle-belly .c-label { font-family: 'Playfair Display', serif; font-size: 0.75rem; color: #c4967a; letter-spacing: 1px; text-transform: uppercase; }
+    /* Connecting line */
+    .connect-line { position: absolute; left: 50%; top: 100px; bottom: 100px; width: 2px; background: linear-gradient(to bottom, #c4967a, #e8d9c4); transform: translateX(-50%); }
+    /* Moving dot */
+    .breath-dot { position: absolute; left: 50%; width: 16px; height: 16px; border-radius: 50%; background: #c4967a; transform: translate(-50%, -50%); top: 250px; /* starts at belly */ transition: top 6s ease-in-out; opacity: 0.8; }
+    .breath-dot.to-heart { top: 50px; }
+    .breath-dot.to-belly { top: 250px; }
+    /* active glow */
+    .circle-heart.glow { background: #ecdccc; border-color: #5c2318; box-shadow: 0 0 24px rgba(196,150,122,0.4); }
+    .circle-belly.glow { background: #ecdccc; border-color: #5c2318; box-shadow: 0 0 24px rgba(196,150,122,0.4); }
+
+    .b-word { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #5c2318; margin-top: 20px; min-height: 34px; }
+    .b-guide { font-size: 0.85rem; color: #9a7d6e; font-style: italic; margin-top: 6px; min-height: 20px; }
+    .b-count { font-size: 1.8rem; font-family: 'Playfair Display', serif; color: #c4967a; margin-top: 4px; min-height: 40px; }
+    .b-progress { font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; color: #c4967a; margin-top: 8px; }
+    .start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 14px 36px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .start-btn:hover { background: #7a2f21; }
+    .music-row { display: flex; justify-content: center; margin-top: 14px; }
+    .music-btn { background: transparent; border: 1px solid #e8d9c4; border-radius: 20px; padding: 6px 16px; font-size: 0.8rem; color: #9a7d6e; cursor: pointer; transition: all 0.2s; }
+    .music-btn:hover, .music-btn.on { background: #f2e8d9; color: #5c2318; border-color: #c4967a; }
+
+    /* Reflection */
+    .reflect-steps { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+    .r-step { display: flex; gap: 14px; align-items: flex-start; background: #fdf9f4; border-radius: 12px; padding: 14px 16px; border: 1px solid #ede3d4; }
+    .r-icon { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #c4967a; flex-shrink: 0; margin-top: 2px; width: 20px; }
+    .r-text { font-size: 0.94rem; line-height: 1.65; color: #4a3728; }
+    .r-text em { color: #5c2318; font-style: italic; }
+    .quote-block { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 18px 22px; border-radius: 0 12px 12px 0; margin: 20px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #5c2318; line-height: 1.75; }
+
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Melissa Melrose</div>
+  <h1>The Centred<br>Breath</h1>
+  <div class="divider"></div>
+  <p class="intro">This practice is designed to bring you back into your body, return you to presence, and centre your energy. It is simple yet profound — reconnecting the heart and gut through the breath.</p>
+
+  <!-- S1: Prepare -->
+  <div class="step on" id="s1">
+    <div class="card">
+      <span class="section-tag">Prepare</span>
+      <div class="card-h">Find a quiet spot. Sit or lie comfortably.</div>
+      <p class="body">Close your eyes and bring your attention inward. Notice your breath as it flows naturally. Feel your hands, your feet, the sensations within.</p>
+      <p class="body">Now place your hands:</p>
+      <div class="hand-diagram">
+        <div class="hand-box">
+          <div class="hand-icon">🤲</div>
+          <div class="hand-label">Left hand</div>
+          <div class="hand-text">Lower abdomen<br><span style="font-size:0.82rem;color:#9a7d6e;">just below the belly button</span></div>
+        </div>
+        <div class="hand-box">
+          <div class="hand-icon">🫶</div>
+          <div class="hand-label">Right hand</div>
+          <div class="hand-text">Heart centre<br><span style="font-size:0.82rem;color:#9a7d6e;">middle of your chest</span></div>
+        </div>
+      </div>
+      <p class="body" style="margin-top:4px;">Imagine your breath as energy gently moving between your hands — rising from belly to heart as you inhale, and softening back from heart to belly as you exhale.</p>
+      <button class="btn" onclick="go(1)">I am ready →</button>
+    </div>
+  </div>
+
+  <!-- S2: Choose rounds -->
+  <div class="step" id="s2">
+    <div class="card centre">
+      <span class="section-tag">Choose your practice</span>
+      <div class="card-h">How many breaths would you like today?</div>
+      <p class="body" style="text-align:center;">Start with 10 if this is new for you. Build to 20 as the practice deepens.</p>
+      <div class="choose-row">
+        <button class="choose-btn" onclick="pickRounds(10, this)">10 breaths</button>
+        <button class="choose-btn" onclick="pickRounds(15, this)">15 breaths</button>
+        <button class="choose-btn" onclick="pickRounds(20, this)">20 breaths</button>
+      </div>
+      <button class="btn" id="startChoice" onclick="go(2)" style="display:none">Begin →</button>
+    </div>
+  </div>
+
+  <!-- S3: The breath -->
+  <div class="step" id="s3">
+    <div class="card centre">
+      <span class="section-tag">The Centred Breath</span>
+      <div class="breath-area">
+        <div class="flow-wrap">
+          <div class="circle-heart" id="cHeart"><div class="c-label">Heart</div></div>
+          <div class="connect-line"></div>
+          <div class="circle-belly" id="cBelly"><div class="c-label">Belly</div></div>
+          <div class="breath-dot" id="bDot"></div>
+        </div>
+        <div class="b-word" id="bWord">Press begin</div>
+        <div class="b-guide" id="bGuide"></div>
+        <div class="b-count" id="bCount"></div>
+        <div class="b-progress" id="bProgress"></div>
+        <button class="start-btn" id="startBtn" onclick="startBreath()">Begin</button>
+        <div class="music-row"><button class="music-btn" id="musicBtn" onclick="toggleMusic()">♪ Add music</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S4: Reflection -->
+  <div class="step" id="s4">
+    <div class="card">
+      <span class="section-tag">Reflection & Grounding</span>
+      <div class="card-h">Return gently.</div>
+      <p class="body">Sit quietly and tune in to any sensations, emotions, or insights that arose during your breath.</p>
+      <div class="reflect-steps">
+        <div class="r-step"><div class="r-icon">1</div><div class="r-text">Gently wiggle your fingers and toes. Feel your breath and energy move down through your body — into your legs, your feet, and deep into the earth.</div></div>
+        <div class="r-step"><div class="r-icon">2</div><div class="r-text">Visualise roots growing from the soles of your feet, anchoring you into the support of the earth beneath you.</div></div>
+        <div class="r-step"><div class="r-icon">3</div><div class="r-text">Sit with this question: <em>"What do I need to feel nourished and supported today?"</em></div></div>
+        <div class="r-step"><div class="r-icon">4</div><div class="r-text">And this one: <em>"Is there anything I can do to honour what I have just released or remembered?"</em></div></div>
+      </div>
+      <div class="quote-block">Trust your body's wisdom to guide you back into centre. It always knows the way home.</div>
+      <div style="text-align:center"><button class="btn-outline" onclick="location.reload()">Begin again</button></div>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+  let totalRounds = 10;
+  let currentRound = 0;
+
+  function go(from) {
+    const next = from + 1;
+    document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+    document.getElementById('s'+next).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function pickRounds(n, el) {
+    totalRounds = n;
+    document.querySelectorAll('.choose-btn').forEach(b=>b.classList.remove('sel'));
+    el.classList.add('sel');
+    document.getElementById('startChoice').style.display = 'block';
+  }
+
+  // Centred Breath: inhale belly→heart (6s), exhale heart→belly (6s)
+  function startBreath() {
+    document.getElementById('startBtn').style.display = 'none';
+    runRound(0);
+  }
+
+  function runRound(r) {
+    if (r >= totalRounds) {
+      // Done
+      document.getElementById('bWord').textContent = 'Beautiful.';
+      document.getElementById('bGuide').textContent = 'You are here.';
+      document.getElementById('bCount').textContent = '';
+      document.getElementById('bProgress').textContent = '';
+      document.getElementById('cHeart').classList.remove('glow');
+      document.getElementById('cBelly').classList.remove('glow');
+      stopMusic();
+      setTimeout(()=>go(3), 2500);
+      return;
+    }
+
+    currentRound = r;
+    document.getElementById('bProgress').textContent = 'Breath ' + (r+1) + ' of ' + totalRounds;
+
+    // ── Inhale: belly → heart (6 counts)
+    document.getElementById('bWord').textContent = 'Inhale';
+    document.getElementById('bGuide').textContent = 'Belly to heart — feel the energy rise';
+    document.getElementById('cBelly').classList.add('glow');
+    document.getElementById('cHeart').classList.remove('glow');
+    document.getElementById('bDot').classList.remove('to-heart','to-belly');
+    // small delay then animate dot upward
+    setTimeout(()=>document.getElementById('bDot').classList.add('to-heart'), 50);
+    countdown(6, ()=>{
+      // heart glows as breath arrives
+      document.getElementById('cHeart').classList.add('glow');
+      document.getElementById('cBelly').classList.remove('glow');
+
+      // ── Exhale: heart → belly (6 counts)
+      document.getElementById('bWord').textContent = 'Exhale';
+      document.getElementById('bGuide').textContent = 'Heart to belly — let the energy soften back';
+      document.getElementById('bDot').classList.remove('to-heart');
+      setTimeout(()=>document.getElementById('bDot').classList.add('to-belly'), 50);
+      countdown(6, ()=>{
+        document.getElementById('cBelly').classList.add('glow');
+        document.getElementById('cHeart').classList.remove('glow');
+        runRound(r + 1);
+      });
+    });
+  }
+
+  function countdown(secs, cb) {
+    let s = secs;
+    document.getElementById('bCount').textContent = s;
+    const t = setInterval(()=>{
+      s--;
+      document.getElementById('bCount').textContent = s > 0 ? s : '';
+      if (s <= 0) { clearInterval(t); cb(); }
+    }, 1000);
+  }
+
+  // ── Ambient Music ─────────────────────────────────────
+  let audioCtx = null, masterGain = null, musicOn = false;
+
+  function toggleMusic() {
+    const btn = document.getElementById('musicBtn');
+    if (!musicOn) {
+      startMusic(); musicOn = true;
+      btn.textContent = '♫ Music on'; btn.classList.add('on');
+    } else {
+      stopMusic(); musicOn = false;
+      btn.textContent = '♪ Add music'; btn.classList.remove('on');
+    }
+  }
+
+  function startMusic() {
+    try {
+      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(0.13, audioCtx.currentTime+4);
+      masterGain.connect(audioCtx.destination);
+      // Warm heart-centred drone (F natural, heart chakra)
+      [174, 348, 528, 696].forEach((freq, i) => {
+        const osc=audioCtx.createOscillator(), g=audioCtx.createGain();
+        osc.type='sine'; osc.frequency.value=freq;
+        g.gain.value=[0.45,0.25,0.18,0.08][i];
+        const lfo=audioCtx.createOscillator(), lg=audioCtx.createGain();
+        lfo.type='sine'; lfo.frequency.value=0.05+i*0.02; lg.gain.value=freq*0.003;
+        lfo.connect(lg); lg.connect(osc.frequency); lfo.start();
+        osc.connect(g); g.connect(masterGain); osc.start();
+      });
+    } catch(e){}
+  }
+
+  function stopMusic() {
+    if (masterGain && audioCtx) {
+      masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime+2);
+      setTimeout(()=>{ try{audioCtx.close();}catch(e){} audioCtx=null; masterGain=null; musicOn=false;
+        const b=document.getElementById('musicBtn'); if(b){b.textContent='♪ Add music';b.classList.remove('on');}
+      }, 2200);
+    }
+  }
+</script>
+</body>
+</html>
