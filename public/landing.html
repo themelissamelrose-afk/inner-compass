@@ -3,507 +3,638 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Inner Compass. Powered by Melissa Melrose</title>
+  <title>The Inner Compass — Powered by Melissa Melrose</title>
   <link rel="manifest" href="/manifest.json" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Inner Compass" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
-  <meta name="theme-color" content="#0f0e0c" />
+  <meta name="theme-color" content="#faf5ee" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f0e0c;
-      --surface: #1a1814;
-      --surface2: #221f1a;
-      --border: #2e2a24;
-      --gold: #c8a96e;
-      --gold-soft: #a8864e;
-      --text: #e8e0d4;
-      --text-muted: #9a9088;
-      --text-dim: #4a4540;
-      --rose: #bb8a7b;
-      --pink-light: #dec2b6;
-      --peach: #efcbab;
-      --deep-brown: #4d1c0d;
-      --terracotta: #b07156;
-      --taupe: #c4a287;
+      --linen: #faf5ee;
+      --sand: #f2e8d9;
+      --sand2: #e8d9c4;
+      --rose: #c4967a;
+      --rose-soft: #ddb89a;
+      --dusty: #b07a6a;
+      --burgundy: #5c2318;
+      --text: #3a2218;
+      --text-muted: #7a5a4a;
+      --cream: #fdf8f2;
+      --white: #ffffff;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
+      background: var(--linen);
       color: var(--text);
-      font-family: 'Georgia', serif;
-      line-height: 1.7;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
     }
 
-    /* Hero with photo */
+    h1, h2, h3, h4, blockquote {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .nav-signin {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-signin:hover { color: #fff; }
+
+    /* ── HERO ── */
     .hero {
+      position: relative;
       min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
     }
 
-    .hero-photo {
-      position: relative;
-      overflow: hidden;
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('/melissa-hero.jpg');
+      background-size: cover;
+      background-position: center 25%;
     }
 
-    .hero-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
-    .hero-photo::after {
+    .hero-bg::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to right, transparent 60%, #0f0e0c 100%);
+      background: linear-gradient(
+        to bottom,
+        rgba(40,18,10,0.38) 0%,
+        rgba(40,18,10,0.55) 60%,
+        rgba(40,18,10,0.72) 100%
+      );
     }
 
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 60px 80px 40px;
-      background: var(--bg);
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 120px 24px 80px;
+      max-width: 720px;
     }
 
-    .compass-icon {
-      width: 52px;
-      height: 52px;
-      margin-bottom: 28px;
-      opacity: 0.7;
-    }
-
-    .hero-content h1 {
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: normal;
-      color: var(--gold);
-      letter-spacing: 0.04em;
-      margin-bottom: 6px;
-      line-height: 1.2;
-    }
-
-    .powered {
-      font-size: 12px;
-      color: var(--rose);
-      letter-spacing: 0.18em;
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
-      margin-bottom: 32px;
+      color: var(--rose-soft);
+      margin-bottom: 20px;
+      display: block;
     }
 
-    .tagline {
-      font-size: clamp(17px, 2vw, 22px);
-      color: var(--text);
-      margin-bottom: 16px;
-      line-height: 1.55;
-      max-width: 440px;
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 66px);
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      letter-spacing: 0.01em;
     }
 
-    .sub {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 420px;
-      margin-bottom: 40px;
-      line-height: 1.7;
+    .hero h1 em {
+      color: var(--rose-soft);
+      font-style: italic;
     }
 
-    .price-tag {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--rose);
-      border-radius: 14px;
-      padding: 20px 28px;
-      margin-bottom: 28px;
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255,255,255,0.82);
+      margin: 20px auto 36px;
+      max-width: 520px;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .hero-price-pill {
       display: inline-block;
-    }
-
-    .founders-badge {
-      font-size: 10px;
-      color: var(--rose);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .price {
-      font-size: 44px;
-      color: var(--gold);
-      letter-spacing: -0.02em;
-      line-height: 1;
-    }
-
-    .price span {
-      font-size: 18px;
-      color: var(--text-muted);
-      vertical-align: top;
-      margin-top: 8px;
-      display: inline-block;
-    }
-
-    .price-period {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px;
+      padding: 8px 22px;
       font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 4px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.08em;
+      margin-bottom: 24px;
     }
 
-    .cta-btn {
+    .hero-price-pill strong {
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .btn-primary {
       display: inline-block;
-      background: var(--gold);
-      color: var(--bg);
-      font-family: 'Georgia', serif;
-      font-size: 16px;
-      padding: 16px 40px;
+      background: var(--rose);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      padding: 17px 44px;
       border-radius: 50px;
       text-decoration: none;
       border: none;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
     }
+    .btn-primary:hover { background: var(--dusty); transform: translateY(-1px); }
+    .btn-primary:active { transform: scale(0.98); }
 
-    .cta-btn:hover { background: var(--gold-soft); transform: translateY(-1px); }
-    .cta-btn:active { transform: scale(0.98); }
-
-    .founders-note {
+    .hero-note {
       font-size: 12px;
-      color: var(--text-dim);
-      margin-top: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 14px;
       font-style: italic;
     }
 
-    .login-link {
-      font-size: 13px;
-      color: var(--text-dim);
-      margin-top: 20px;
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.5;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.6));
     }
 
-    .login-link a {
-      color: var(--gold-soft);
-      text-decoration: none;
-    }
-
-    .login-link a:hover { color: var(--gold); }
-
-    /* Divider */
-    .divider {
+    /* ── TRUTH BAR ── */
+    .truth-bar {
+      background: var(--burgundy);
+      padding: 20px 24px;
       text-align: center;
-      padding: 12px;
-      color: var(--text-dim);
-      font-size: 18px;
-      letter-spacing: 6px;
+    }
+    .truth-bar p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(255,255,255,0.88);
+      letter-spacing: 0.02em;
     }
 
-    /* What it is */
-    .intro-section {
+    /* ── SECTIONS ── */
+    .section { padding: 88px 24px; }
+    .section-inner { max-width: 1080px; margin: 0 auto; }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 44px);
+      color: var(--burgundy);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+    .section-title em { color: var(--rose); font-style: italic; }
+    .section-body {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.85;
+      max-width: 580px;
+    }
+    .section-body strong { color: var(--text); font-weight: 400; }
+
+    /* ── SPLIT ── */
+    .split {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0;
+      gap: 80px;
       align-items: center;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 80px 40px;
     }
+    .split.flip { direction: rtl; }
+    .split.flip > * { direction: ltr; }
 
-    .intro-text h2 {
-      font-size: clamp(24px, 3vw, 36px);
-      font-weight: normal;
-      color: var(--gold);
-      margin-bottom: 20px;
-      letter-spacing: 0.03em;
-    }
-
-    .intro-text p {
-      font-size: 16px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      max-width: 440px;
-    }
-
-    .intro-text p strong {
-      color: var(--text);
-      font-weight: normal;
-    }
-
-    .intro-photo {
-      position: relative;
+    .split-photo {
       border-radius: 24px;
       overflow: hidden;
-      min-height: 600px;
+      aspect-ratio: 3/4;
+      position: relative;
     }
-
-    .intro-photo img {
+    .split-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center top;
       display: block;
-      border-radius: 24px;
-      filter: sepia(10%) brightness(0.9);
-      position: absolute;
-      inset: 0;
     }
 
-    /* Features */
-    .features {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 80px 24px;
+    .split-text { display: flex; flex-direction: column; justify-content: center; }
+
+    /* ── WHAT IT HOLDS ── */
+    .features-bg {
+      background: var(--sand);
+      padding: 88px 24px;
     }
 
-    .features-inner {
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
-    .features h2 {
-      font-size: clamp(24px, 3vw, 36px);
-      font-weight: normal;
-      color: var(--gold);
-      margin-bottom: 32px;
-      letter-spacing: 0.03em;
-      text-align: center;
-    }
-
-    .feature-list {
-      list-style: none;
+    .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
+      margin-top: 44px;
     }
 
-    .feature-list li {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-top: 2px solid var(--rose);
-      border-radius: 16px;
-      padding: 24px;
+    .feature-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 28px 26px;
+      border-top: 3px solid var(--rose);
+      box-shadow: 0 2px 20px rgba(92,35,24,0.06);
     }
 
-    .feature-list li .icon {
-      font-size: 22px;
-      margin-bottom: 10px;
+    .f-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 14px;
     }
 
-    .feature-list li h3 {
-      font-size: 16px;
-      font-weight: normal;
-      color: var(--peach);
+    .feature-card h3 {
+      font-size: 17px;
+      color: var(--burgundy);
       margin-bottom: 8px;
     }
 
-    .feature-list li p {
+    .feature-card p {
       font-size: 14px;
       color: var(--text-muted);
-      margin: 0;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    /* Quote */
+    /* ── TOOLS ── */
+    .tools-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .tool-pill {
+      padding: 9px 18px;
+      background: var(--white);
+      border: 1px solid var(--sand2);
+      border-radius: 30px;
+      font-size: 13px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .tool-pill strong { color: var(--burgundy); font-weight: 400; }
+
+    /* ── QUOTE ── */
     .quote-section {
-      text-align: center;
+      background: var(--burgundy);
       padding: 80px 24px;
-      max-width: 760px;
-      margin: 0 auto;
+      text-align: center;
     }
-
-    blockquote {
-      font-size: clamp(20px, 3vw, 28px);
-      color: var(--text);
+    .quote-section blockquote {
+      font-size: clamp(22px, 3vw, 34px);
+      color: #fff;
       font-style: italic;
       line-height: 1.6;
-      max-width: 620px;
+      max-width: 680px;
       margin: 0 auto 20px;
     }
+    .quote-section blockquote::before { content: '\201C'; color: var(--rose-soft); }
+    .quote-section blockquote::after { content: '\201D'; color: var(--rose-soft); }
+    .quote-attr {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--rose-soft);
+    }
 
-    blockquote::before { content: '\201C'; color: var(--rose); }
-    blockquote::after { content: '\201D'; color: var(--rose); }
+    /* ── PRICE SECTION ── */
+    .price-section {
+      padding: 88px 24px;
+      text-align: center;
+    }
 
-    .quote-author {
+    .price-card {
+      max-width: 520px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 28px;
+      padding: 48px 40px;
+      box-shadow: 0 8px 48px rgba(92,35,24,0.1);
+      border: 1px solid var(--sand2);
+    }
+
+    .price-badge {
+      display: inline-block;
+      background: var(--sand);
+      color: var(--rose);
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 30px;
+      margin-bottom: 24px;
+    }
+
+    .price-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px;
+      color: var(--burgundy);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .price-amount sup {
+      font-size: 28px;
+      vertical-align: top;
+      margin-top: 14px;
+      display: inline-block;
+    }
+
+    .price-period {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .price-forever {
       font-size: 12px;
       color: var(--rose);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-style: italic;
+      margin-bottom: 32px;
     }
 
-    /* Bottom CTA */
-    .cta-section {
-      text-align: center;
-      background: radial-gradient(ellipse at center, #1e1814 0%, #0f0e0c 70%);
-      border-top: 1px solid var(--border);
-      padding: 80px 24px;
+    .price-includes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      margin-bottom: 32px;
     }
 
-    .cta-section h2 {
-      font-size: clamp(24px, 3vw, 36px);
-      font-weight: normal;
-      color: var(--gold);
-      margin-bottom: 16px;
-      letter-spacing: 0.03em;
-    }
-
-    .cta-section p {
-      font-size: 16px;
+    .pi-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
       color: var(--text-muted);
-      margin-bottom: 28px;
     }
 
+    .pi-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--sand);
+      color: var(--rose);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      margin-top: 1px;
+    }
+
+    /* ── ABOUT ── */
+    .about-bg {
+      background: var(--cream);
+      padding: 88px 24px;
+    }
+
+    /* ── FOOTER ── */
     footer {
+      background: var(--burgundy);
+      padding: 36px 24px;
       text-align: center;
-      padding: 28px 24px;
       font-size: 12px;
-      color: var(--text-dim);
-      border-top: 1px solid var(--border);
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
     }
+    footer a { color: var(--rose-soft); text-decoration: none; }
+    footer a:hover { color: #fff; }
 
-    /* Mobile */
+    /* ── MOBILE ── */
     @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: 1fr;
-        grid-template-rows: 50vh auto;
-      }
-      .hero-photo::after {
-        background: linear-gradient(to bottom, transparent 50%, #0f0e0c 100%);
-      }
-      .hero-content {
-        padding: 40px 24px 60px;
-      }
-      .intro-section {
-        grid-template-columns: 1fr;
-        padding: 60px 24px;
-        gap: 40px;
-      }
-      .intro-photo { max-height: 320px; }
-      .price-tag { display: block; }
+      nav { padding: 20px 24px; }
+      .hero-inner { padding: 100px 20px 60px; }
+      .split { grid-template-columns: 1fr; gap: 40px; }
+      .split.flip { direction: ltr; }
+      .split-photo { aspect-ratio: 4/3; }
+      .price-card { padding: 36px 24px; }
+      .price-amount { font-size: 56px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Hero -->
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Inner Compass · Melissa Melrose</span>
+  <a href="/login" class="nav-signin">Sign In</a>
+</nav>
+
+<!-- HERO -->
 <div class="hero">
-  <div class="hero-photo">
-    <img src="/melissa-hero.jpg" alt="Melissa Melrose" />
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Powered by Melissa Melrose</span>
+    <h1>The Inner<br><em>Compass</em></h1>
+    <p class="hero-sub">Melissa's voice, frameworks, and wisdom. The support that holds you when life triggers you — available every single day.</p>
+    <div class="hero-price-pill">Founding Member Pricing — <strong>$17 AUD / month</strong></div>
+    <br>
+    <a href="/subscribe" class="btn-primary">Begin Your Journey</a>
+    <p class="hero-note">Founders price locked in for life. Cancel any time.</p>
   </div>
-  <div class="hero-content">
-    <svg class="compass-icon" viewBox="0 0 52 52" fill="none">
-      <circle cx="26" cy="26" r="24" stroke="#c8a96e" stroke-width="1.5" opacity="0.4"/>
-      <circle cx="26" cy="26" r="16" stroke="#c8a96e" stroke-width="1" opacity="0.2"/>
-      <circle cx="26" cy="26" r="2.5" fill="#c8a96e"/>
-      <polygon points="26,6 28.5,20 26,17 23.5,20" fill="#c8a96e"/>
-      <polygon points="26,46 23.5,32 26,35 28.5,32" fill="#4a4540"/>
-    </svg>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+  </div>
+</div>
 
-    <h1>The Inner Compass</h1>
-    <p class="powered">Powered by Melissa Melrose</p>
+<!-- TRUTH BAR -->
+<div class="truth-bar">
+  <p>"You don't have to fix this. You have to feel it." — Melissa Melrose</p>
+</div>
 
-    <p class="tagline">Melissa's voice, frameworks and wisdom. The support that holds you when life triggers you.</p>
-    <p class="sub">Not another AI. Your personal pattern disrupter, available at 3am, between sessions, whenever you need to come back to yourself.</p>
-
-    <div class="price-tag">
-      <p class="founders-badge">Founders Pricing. Limited Time.</p>
-      <div class="price"><span>$</span>17</div>
-      <p class="price-period">AUD per month</p>
+<!-- WHAT IT IS -->
+<div class="section">
+  <div class="section-inner">
+    <div class="split">
+      <div class="split-photo">
+        <img src="/melissa-warmth.jpg" alt="Melissa Melrose" />
+      </div>
+      <div class="split-text">
+        <span class="section-label">What Is It</span>
+        <h2 class="section-title">This isn't just<br>any <em>AI.</em></h2>
+        <p class="section-body">ChatGPT doesn't know Melissa's frameworks. It doesn't know how to bring you back into your body when your head is running the show. It doesn't know the Trigger as Portal.</p>
+        <p class="section-body" style="margin-top:16px;"><strong>The Inner Compass does.</strong></p>
+        <p class="section-body" style="margin-top:16px;">It has been trained in Melissa's specific voice, methodology, and lived wisdom. It holds space the way she does — warm, direct, and always bringing you back to yourself.</p>
+        <p class="section-body" style="margin-top:16px;">Think of it as Melissa available every single day — for less than the price of a coffee a week.</p>
+      </div>
     </div>
-
-    <a href="/subscribe" class="cta-btn">Begin Your Journey</a>
-    <p class="founders-note">Founders price locked in for life. Cancel any time.</p>
-    <p class="login-link">Already a member? <a href="/login">Sign in here</a></p>
   </div>
 </div>
 
-<div class="divider">· · ·</div>
-
-<!-- What is it -->
-<div class="intro-section">
-  <div class="intro-text">
-    <h2>This isn't just any AI.</h2>
-    <p>ChatGPT doesn't know Melissa's frameworks. It doesn't know the Trigger as Portal. It doesn't know how to bring you back into your body when your head is running the show.</p>
-    <p><strong>The Inner Compass does.</strong></p>
-    <p>It has been trained in Melissa's specific voice, methodology, and lived wisdom. It holds space the way she does. Warm, direct, and always bringing you back to yourself.</p>
-    <p>Think of it as Melissa available every single day of the month, for less than the price of a coffee a week.</p>
-  </div>
-  <div class="intro-photo">
-    <img src="/melissa-warmth.jpg" alt="Melissa Melrose" />
-  </div>
-</div>
-
-<!-- Features -->
-<div class="features">
-  <div class="features-inner">
-    <h2>What it holds for you.</h2>
-    <ul class="feature-list">
-      <li>
-        <div class="icon">🌀</div>
+<!-- WHAT IT HOLDS -->
+<div class="features-bg">
+  <div class="section-inner">
+    <div style="text-align:center; max-width:560px; margin:0 auto;">
+      <span class="section-label">What It Holds For You</span>
+      <h2 class="section-title">Everything you need<br>between <em>sessions.</em></h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="f-icon">🌀</div>
         <h3>Pattern Disruption</h3>
-        <p>When you are in the loop, it names what it sees and helps you get underneath the story.</p>
-      </li>
-      <li>
-        <div class="icon">🫁</div>
-        <h3>Breathwork and Regulation</h3>
-        <p>Guided practices from Melissa's breathwork toolkit to regulate your nervous system.</p>
-      </li>
-      <li>
-        <div class="icon">🧭</div>
+        <p>When you are in the loop, it names what it sees and helps you get underneath the story — back into your body, back to yourself.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">🫁</div>
+        <h3>Breathwork & Regulation</h3>
+        <p>Guided practices from Melissa's breathwork toolkit — Sacred 6, Centred Breath, Return to Presence — to regulate your nervous system.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">🧭</div>
         <h3>Body-Based Presence</h3>
-        <p>Always brings you back to your body. Because insight isn't integration.</p>
-      </li>
-      <li>
-        <div class="icon">💛</div>
-        <h3>Accountability</h3>
-        <p>Holds you to your commitments and your truth. Without judgement. Without rushing.</p>
-      </li>
-      <li>
-        <div class="icon">🌙</div>
-        <h3>Available 24/7</h3>
-        <p>3am spiral? Triggered before a big meeting? It is here. Always.</p>
-      </li>
-      <li>
-        <div class="icon">🔥</div>
+        <p>Always brings you back into your body. Because insight isn't integration. Presence is where the real shift happens.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">🌙</div>
+        <h3>Available 24 / 7</h3>
+        <p>3am spiral? Triggered before a big meeting? It is here. Always. No waiting for the next session.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">🔥</div>
         <h3>Trigger as Portal</h3>
-        <p>Walks you through Melissa's 8-step process to turn every trigger into an opportunity.</p>
-      </li>
-    </ul>
+        <p>Walks you through Melissa's 8-step process to turn every trigger into an opportunity to go deeper.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">💛</div>
+        <h3>Accountability Without Judgement</h3>
+        <p>Holds you to your commitments and your truth. Without rushing. Without fixing. Just real presence.</p>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- About Melissa -->
-<div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 24px;">
-  <div style="max-width:700px;margin:0 auto;text-align:center;">
-    <p style="font-size:11px;color:var(--rose);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:16px;">About Melissa</p>
-    <h2 style="font-size:clamp(22px,3vw,34px);font-weight:normal;color:var(--gold);letter-spacing:0.03em;margin-bottom:24px;">30 years of inner work. Now available to you.</h2>
-    <p style="font-size:17px;color:var(--text-muted);margin-bottom:16px;line-height:1.8;">Melissa Melrose is a nervous system coach, breathwork facilitator, and founder of Foundations of Self. Her work is rooted in one truth: you cannot build a new life on an old foundation.</p>
-    <p style="font-size:17px;color:var(--text-muted);margin-bottom:0;line-height:1.8;">For over 30 years she has helped men and women get out of their heads, back into their bodies, and into the life they actually want. Not through advice or fixing. Through presence, pattern disruption, and deep inner work.</p>
-    <p style="font-size:17px;color:var(--taupe);margin-top:20px;font-style:italic;">The Inner Compass brings that same work to you. Every day.</p>
+<!-- TOOLS LIBRARY -->
+<div class="section">
+  <div class="section-inner">
+    <div class="split flip">
+      <div class="split-photo">
+        <img src="/melissa-hero.jpg" alt="Melissa Melrose" style="object-position: center 15%;" />
+      </div>
+      <div class="split-text">
+        <span class="section-label">The Practice Library</span>
+        <h2 class="section-title">23 interactive tools<br>built from <em>Melissa's</em> frameworks.</h2>
+        <p class="section-body">Every session unlocks a library of guided practices — built directly from Melissa's Foundations of Self and Reclaim You methodology. Not generic. Not scripted. Hers.</p>
+        <div class="tools-row">
+          <span class="tool-pill"><strong>Survival Pattern Identifier</strong></span>
+          <span class="tool-pill"><strong>Return to Presence</strong></span>
+          <span class="tool-pill"><strong>Sacred 6 Breathwork</strong></span>
+          <span class="tool-pill"><strong>Personal Lie Session</strong></span>
+          <span class="tool-pill"><strong>Abandonment Wound</strong></span>
+          <span class="tool-pill"><strong>Grounding Breath</strong></span>
+          <span class="tool-pill"><strong>22×11 Rewiring</strong></span>
+          <span class="tool-pill"><strong>Shame Work</strong></span>
+          <span class="tool-pill">+ 15 more</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Quote -->
+<!-- QUOTE -->
 <div class="quote-section">
-  <blockquote>You don't have to fix this. You have to feel it.</blockquote>
-  <p class="quote-author">Melissa Melrose</p>
+  <blockquote>You are not broken. You are built on a foundation that was formed before you had words for what you were feeling.</blockquote>
+  <p class="quote-attr">Melissa Melrose</p>
 </div>
 
-<!-- Bottom CTA -->
-<div class="cta-section">
-  <h2>Ready to come back to yourself?</h2>
-  <p>Join as a founding member today and lock in $17 per month for life.</p>
-  <a href="/subscribe" class="cta-btn">Begin Your Journey</a>
-  <p style="font-size:13px;color:var(--text-dim);margin-top:14px;font-style:italic;">Cancel any time. No lock-in. Just support.</p>
-  <p style="font-size:13px;color:var(--text-dim);margin-top:16px;">Already a member? <a href="/login" style="color:var(--gold-soft);text-decoration:none;">Sign in here</a></p>
+<!-- ABOUT MELISSA -->
+<div class="about-bg">
+  <div class="section-inner">
+    <div style="max-width:680px; margin:0 auto; text-align:center;">
+      <span class="section-label">About Melissa</span>
+      <h2 class="section-title" style="margin-bottom:24px;">30 years of inner work.<br>Now available to <em>you.</em></h2>
+      <p class="section-body" style="margin: 0 auto 18px; max-width:100%;">Melissa Melrose is a nervous system coach, breathwork facilitator, and founder of Foundations of Self. Her work is rooted in one truth: you cannot build a new life on an old foundation.</p>
+      <p class="section-body" style="margin: 0 auto 18px; max-width:100%;">For over 30 years she has helped people get out of their heads, back into their bodies, and into the life they actually want. Not through advice or fixing — through presence, pattern disruption, and deep inner work.</p>
+      <p style="font-family:'Playfair Display', serif; font-style:italic; font-size:18px; color:var(--rose); margin-top:20px;">The Inner Compass brings that same work to you. Every day.</p>
+    </div>
+  </div>
 </div>
 
+<!-- PRICE -->
+<div class="price-section">
+  <span class="section-label" style="display:block; text-align:center;">Founding Member Access</span>
+  <h2 class="section-title" style="text-align:center; margin-bottom:40px;">Ready to come back<br>to <em>yourself?</em></h2>
+
+  <div class="price-card">
+    <span class="price-badge">Founders Pricing — Limited Time</span>
+    <div class="price-amount"><sup>$</sup>17</div>
+    <p class="price-period">AUD per month</p>
+    <p class="price-forever">Locked in for life when you join today</p>
+    <div class="price-includes">
+      <div class="pi-row"><span class="pi-check">✓</span>Unlimited conversations with your Inner Compass</div>
+      <div class="pi-row"><span class="pi-check">✓</span>Full access to all 23 practice tools</div>
+      <div class="pi-row"><span class="pi-check">✓</span>Breathwork, somatic tools, and pattern work</div>
+      <div class="pi-row"><span class="pi-check">✓</span>New tools added as Melissa's library grows</div>
+      <div class="pi-row"><span class="pi-check">✓</span>Cancel any time — no lock-in</div>
+    </div>
+    <a href="/subscribe" class="btn-primary" style="display:block; text-align:center; width:100%;">Begin Your Journey</a>
+    <p style="font-size:12px; color:var(--text-muted); margin-top:14px; text-align:center; font-style:italic;">Cancel any time. No contracts. Just support.</p>
+  </div>
+
+  <p style="text-align:center; margin-top:24px; font-size:14px; color:var(--text-muted);">Already a member? <a href="/login" style="color:var(--rose); text-decoration:none;">Sign in here →</a></p>
+</div>
+
+<!-- FOOTER -->
 <footer>
-  The Inner Compass. Powered by Melissa Melrose. Foundations of Self.<br>
-  <span style="margin-top:6px;display:block;">Questions? breathe@melissamelrose.com</span>
+  <p>The Inner Compass · Powered by Melissa Melrose · Foundations of Self</p>
+  <p style="margin-top:8px;"><a href="mailto:breathe@melissamelrose.com">breathe@melissamelrose.com</a></p>
 </footer>
 
 </body>
