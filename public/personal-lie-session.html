@@ -40,14 +40,21 @@
     .breath-center h2 { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: #5c2318; margin-bottom: 10px; }
     .breath-center .sub { font-size: 0.92rem; color: #9a7d6e; margin-bottom: 28px; line-height: 1.7; }
     .b-circle-wrap { display: flex; flex-direction: column; align-items: center; margin: 20px 0; }
-    .b-ring { width: 160px; height: 160px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; transition: transform 2s ease-in-out, background 2s ease; }
-    .b-ring.expand { transform: scale(1.3); background: #e8d4be; }
+    .b-ring { width: 160px; height: 160px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; transition: transform 6s ease-in-out, background 6s ease; }
+    .b-ring.expand { transform: scale(1.32); background: #e8d4be; }
+    .b-ring.hold-top { transform: scale(1.32); background: #dcc9b2; animation: holdPulse 1.5s ease-in-out infinite; }
+    .b-ring.hold-bot { transform: scale(1.0); background: #f2e8d9; animation: holdPulse 1.5s ease-in-out infinite; }
+    @keyframes holdPulse { 0%,100%{opacity:1} 50%{opacity:0.65} }
     .b-inner { width: 80px; height: 80px; border-radius: 50%; background: #c4967a; opacity: 0.28; }
-    .b-word { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #5c2318; margin-top: 24px; min-height: 36px; }
-    .b-count { font-size: 0.8rem; letter-spacing: 2px; color: #c4967a; text-transform: uppercase; margin-top: 8px; min-height: 20px; }
+    .b-word { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #5c2318; margin-top: 24px; min-height: 34px; }
+    .b-guide { font-size: 0.82rem; color: #9a7d6e; font-style: italic; margin-top: 6px; min-height: 20px; }
+    .b-count { font-size: 1.6rem; font-family: 'Playfair Display', serif; color: #c4967a; margin-top: 4px; min-height: 36px; }
     .b-aff { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #5c2318; margin-top: 12px; min-height: 24px; }
     .start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 14px 36px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
     .start-btn:hover { background: #7a2f21; }
+    .music-row { display: flex; justify-content: center; margin-top: 16px; }
+    .music-btn { background: transparent; border: 1px solid #e8d9c4; border-radius: 20px; padding: 6px 16px; font-size: 0.8rem; color: #9a7d6e; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; }
+    .music-btn:hover, .music-btn.on { background: #f2e8d9; color: #5c2318; border-color: #c4967a; }
 
     /* Clearing */
     .clearing-h { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #5c2318; text-align: center; margin-bottom: 6px; }
@@ -105,8 +112,10 @@
       <div class="b-circle-wrap">
         <div class="b-ring" id="r1"><div class="b-inner"></div></div>
         <div class="b-word" id="w1">Press begin</div>
+        <div class="b-guide" id="g1"></div>
         <div class="b-count" id="c1"></div>
-        <button class="start-btn" id="b1" onclick="s6('r1','w1','c1',null,null,'b1',()=>go(2))">Begin Sacred 6</button>
+        <button class="start-btn" id="b1" onclick="openBreath()">Begin Sacred 6</button>
+        <div class="music-row"><button class="music-btn" id="mb1" onclick="toggleMusic('mb1')">♪ Add music</button></div>
       </div>
     </div>
   </div>
@@ -221,9 +230,11 @@
       <div class="b-circle-wrap">
         <div class="b-ring" id="r2"><div class="b-inner"></div></div>
         <div class="b-word" id="w2">Press begin</div>
+        <div class="b-guide" id="g2"></div>
         <div class="b-count" id="c2"></div>
         <div class="b-aff" id="a2"></div>
         <button class="start-btn" id="b2" onclick="closingBreath()">Begin Sacred 6</button>
+        <div class="music-row"><button class="music-btn" id="mb2" onclick="toggleMusic('mb2')">♪ Add music</button></div>
       </div>
     </div>
   </div>
@@ -266,6 +277,7 @@
   let lie = '';
   let affirmation = '';
 
+  // ── Navigation ───────────────────────────────────────────
   function go(from) {
     const next = from + 1;
     document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
@@ -288,45 +300,102 @@
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  function syncAff() {
-    affirmation = document.getElementById('aff1').value.trim();
+  function syncAff() { affirmation = document.getElementById('aff1').value.trim(); }
+
+  function openBreath() {
+    document.getElementById('b1').style.display = 'none';
+    s6Run('r1','w1','g1','c1',null,null,0,6,()=>{
+      document.getElementById('w1').textContent = 'Beautiful.';
+      document.getElementById('g1').textContent = '';
+      document.getElementById('c1').textContent = '';
+      stopMusic();
+      setTimeout(()=>go(2), 2200);
+    });
   }
 
   function closingBreath() {
     affirmation = document.getElementById('aff1').value.trim() || 'I am enough. I am lovable. I am as the universe created me.';
-    const commit = document.getElementById('commit1').value.trim();
     document.getElementById('finalTruth').textContent = affirmation;
     document.getElementById('b2').style.display = 'none';
-    const affs = Array(6).fill(affirmation);
-    s6('r2','w2','c2','a2',affs,'b2',()=>{
+    s6Run('r2','w2','g2','c2','a2',affirmation,0,6,()=>{
       document.getElementById('w2').textContent = 'Complete.';
+      document.getElementById('g2').textContent = '';
       document.getElementById('c2').textContent = '';
       document.getElementById('a2').textContent = '';
-      setTimeout(()=>{ go(10); }, 2500);
+      stopMusic();
+      setTimeout(()=>go(10), 2500);
     });
   }
 
-  // Universal Sacred 6 runner
-  function s6(ringId, wordId, countId, affId, affs, btnId, onDone) {
-    if (btnId) document.getElementById(btnId).style.display = 'none';
-    run6(ringId, wordId, countId, affId, affs, 0, onDone);
+  // ── Sacred 6: inhale 6 · hold 6 · exhale 6 · hold 6 ───
+  const phases = [
+    { label:'Inhale', guide:'Belly fills... then chest...', cls:'expand',   dur:6000 },
+    { label:'Hold',   guide:'Receive. Listen.',             cls:'hold-top', dur:6000 },
+    { label:'Exhale', guide:'Chest softens... belly relaxes...', cls:'',    dur:6000 },
+    { label:'Hold',   guide:'Rest. Be still.',              cls:'hold-bot', dur:6000 }
+  ];
+
+  function s6Run(rId,wId,gId,cId,aId,aText,round,total,onDone) {
+    if (round >= total) { onDone(); return; }
+    const ring  = document.getElementById(rId);
+    const word  = document.getElementById(wId);
+    const guide = gId ? document.getElementById(gId) : null;
+    const aff   = aId ? document.getElementById(aId) : null;
+    if (aff && aText) aff.textContent = aText;
+
+    let pi = 0;
+    function next() {
+      if (pi >= phases.length) { s6Run(rId,wId,gId,cId,aId,aText,round+1,total,onDone); return; }
+      const ph = phases[pi];
+      ring.classList.remove('expand','hold-top','hold-bot');
+      if (ph.cls) ring.classList.add(ph.cls);
+      word.textContent = ph.label;
+      if (guide) guide.textContent = ph.guide;
+      let s = ph.dur/1000;
+      const el = document.getElementById(cId);
+      el.textContent = s;
+      const t = setInterval(()=>{ s--; el.textContent = s>0?s:''; if(s<=0) clearInterval(t); }, 1000);
+      pi++;
+      setTimeout(next, ph.dur);
+    }
+    next();
   }
 
-  function run6(ringId, wordId, countId, affId, affs, round, onDone) {
-    if (round >= 6) { onDone(); return; }
-    const ring = document.getElementById(ringId);
-    const word = document.getElementById(wordId);
-    const cnt = document.getElementById(countId);
-    const aff = affId ? document.getElementById(affId) : null;
-    cnt.textContent = 'Breath ' + (round+1) + ' of 6';
-    if (aff && affs) aff.textContent = affs[round] || '';
-    word.textContent = 'Inhale';
-    ring.classList.add('expand');
-    setTimeout(()=>{
-      word.textContent = 'Exhale';
-      ring.classList.remove('expand');
-      setTimeout(()=>{ run6(ringId, wordId, countId, affId, affs, round+1, onDone); }, 2100);
-    }, 2200);
+  // ── Ambient Music ────────────────────────────────────────
+  let audioCtx = null, masterGain = null, musicActive = false;
+
+  function toggleMusic(btnId) {
+    ['mb1','mb2'].forEach(id=>{ const b=document.getElementById(id); if(b){ b.textContent=musicActive?'♪ Add music':'♫ Music on'; b.classList.toggle('on',!musicActive); }});
+    musicActive ? stopMusic() : startMusic();
+    musicActive = !musicActive;
+  }
+
+  function startMusic() {
+    try {
+      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(0.14, audioCtx.currentTime+4);
+      masterGain.connect(audioCtx.destination);
+      [110,220,330,440,550].forEach((freq,i)=>{
+        const osc=audioCtx.createOscillator(), g=audioCtx.createGain();
+        osc.type='sine'; osc.frequency.value=freq;
+        g.gain.value=[0.5,0.28,0.14,0.07,0.04][i];
+        const lfo=audioCtx.createOscillator(), lg=audioCtx.createGain();
+        lfo.type='sine'; lfo.frequency.value=0.06+i*0.02; lg.gain.value=freq*0.004;
+        lfo.connect(lg); lg.connect(osc.frequency); lfo.start();
+        osc.connect(g); g.connect(masterGain); osc.start();
+      });
+    } catch(e){}
+  }
+
+  function stopMusic() {
+    if (masterGain && audioCtx) {
+      masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime+2);
+      setTimeout(()=>{ try{audioCtx.close();}catch(e){} audioCtx=null; masterGain=null; musicActive=false;
+        document.querySelectorAll('.music-btn').forEach(b=>{b.textContent='♪ Add music';b.classList.remove('on');});
+      }, 2200);
+    }
   }
 </script>
 </body>
