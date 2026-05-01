@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 3 — Reconnect to Your Body | Foundations of Self</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; padding: 40px 20px; }
+    .container { max-width: 820px; margin: 0 auto; }
+    .week-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.97rem; line-height: 1.75; color: #6b5144; margin-bottom: 36px; max-width: 560px; }
+    .body-layout { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; }
+    .body-side { flex: 0 0 260px; position: relative; }
+    .body-instruction { font-size: 0.88rem; color: #9a7d6e; text-align: center; margin-bottom: 16px; font-style: italic; }
+    svg.body { width: 100%; cursor: default; }
+    .region { cursor: pointer; transition: opacity 0.2s; }
+    .region:hover { opacity: 0.8; }
+    .region.active ellipse, .region.active rect, .region.active path, .region.active circle { fill: #c4967a !important; }
+    .info-side { flex: 1; min-width: 260px; }
+    .info-card { background: #fff; border-radius: 18px; padding: 28px 28px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); min-height: 300px; transition: all 0.3s; }
+    .info-default { text-align: center; color: #c4967a; padding: 40px 0; }
+    .info-default svg { opacity: 0.4; margin-bottom: 16px; }
+    .info-default p { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #9a7d6e; }
+    .info-body { display: none; }
+    .region-name { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 10px; }
+    .info-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #5c2318; margin-bottom: 12px; line-height: 1.3; }
+    .info-emotion { font-size: 0.95rem; color: #6b5144; line-height: 1.75; margin-bottom: 20px; }
+    .info-prompt-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; }
+    .info-prompt { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: #5c2318; line-height: 1.65; margin-bottom: 24px; background: #f9f3eb; border-left: 3px solid #c4967a; padding: 14px 18px; border-radius: 0 10px 10px 0; }
+    .journal-label { font-size: 0.88rem; color: #9a7d6e; margin-bottom: 8px; }
+    textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.92rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 90px; line-height: 1.6; outline: none; transition: border-color 0.2s; }
+    textarea:focus { border-color: #c4967a; }
+    .breath-note { margin-top: 16px; background: #f2e8d9; border-radius: 10px; padding: 14px 16px; font-size: 0.9rem; color: #6b5144; line-height: 1.65; }
+    .breath-note strong { color: #5c2318; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 48px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="week-label">Week 3 · Foundations of Self</div>
+  <h1>Reconnect to Your Body</h1>
+  <div class="divider"></div>
+  <p class="intro">Your body is not a problem to manage. It is a messenger. Every sensation, every ache, every area of tension is trying to tell you something. Tap a part of the body below to discover what it may be holding.</p>
+
+  <div class="body-layout">
+    <div class="body-side">
+      <p class="body-instruction">Tap where you feel it</p>
+      <svg class="body" viewBox="0 0 200 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body outline -->
+        <ellipse cx="100" cy="48" rx="34" ry="38" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
+        <!-- Neck -->
+        <rect x="88" y="82" width="24" height="20" rx="6" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
+        <!-- Torso -->
+        <path d="M62 98 Q60 160 62 220 L138 220 Q140 160 138 98 Q118 88 100 88 Q82 88 62 98Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
+        <!-- Hips/pelvis -->
+        <ellipse cx="100" cy="230" rx="44" ry="20" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
+        <!-- Left leg -->
+        <path d="M66 245 Q58 310 60 380 L78 380 Q80 310 80 245Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
+        <!-- Right leg -->
+        <path d="M122 245 Q124 310 122 380 L140 380 Q142 310 134 245Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
+        <!-- Left arm -->
+        <path d="M64 100 Q44 140 42 200 L54 202 Q58 144 74 104Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
+        <!-- Right arm -->
+        <path d="M136 100 Q156 140 158 200 L146 202 Q142 144 126 104Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
+
+        <!-- Clickable regions (transparent overlays) -->
+        <!-- Head -->
+        <ellipse class="region" cx="100" cy="48" rx="34" ry="38" fill="transparent" onclick="showInfo('head')" id="r-head"/>
+        <!-- Throat -->
+        <ellipse class="region" cx="100" cy="92" rx="18" ry="14" fill="transparent" onclick="showInfo('throat')" id="r-throat"/>
+        <!-- Shoulders -->
+        <rect class="region" x="52" y="96" width="26" height="22" rx="6" fill="transparent" onclick="showInfo('shoulders')" id="r-shoulders-l"/>
+        <rect class="region" x="122" y="96" width="26" height="22" rx="6" fill="transparent" onclick="showInfo('shoulders')" id="r-shoulders-r"/>
+        <!-- Heart/chest -->
+        <ellipse class="region" cx="100" cy="135" rx="26" ry="22" fill="transparent" onclick="showInfo('heart')" id="r-heart"/>
+        <!-- Solar plexus / stomach -->
+        <ellipse class="region" cx="100" cy="175" rx="24" ry="18" fill="transparent" onclick="showInfo('solar')" id="r-solar"/>
+        <!-- Lower back / hips -->
+        <ellipse class="region" cx="100" cy="222" rx="40" ry="18" fill="transparent" onclick="showInfo('hips')" id="r-hips"/>
+      </svg>
+    </div>
+
+    <div class="info-side">
+      <div class="info-card" id="infoCard">
+        <div class="info-default" id="infoDefault">
+          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" stroke="#c4967a" stroke-width="2" fill="none"/><path d="M24 14v14M24 32v2" stroke="#c4967a" stroke-width="2" stroke-linecap="round"/></svg>
+          <p>Tap any part of<br>the body to begin</p>
+        </div>
+        <div class="info-body" id="infoBody">
+          <div class="region-name" id="iRegion"></div>
+          <div class="info-title" id="iTitle"></div>
+          <div class="info-emotion" id="iEmotion"></div>
+          <div class="info-prompt-label">A question to sit with</div>
+          <div class="info-prompt" id="iPrompt"></div>
+          <div class="journal-label">Write whatever comes...</div>
+          <textarea id="iJournal" placeholder="Let your body speak through your words..."></textarea>
+          <div class="breath-note"><strong>Grounding breath:</strong> Place your hand here. Take one slow breath in through your nose. Let the exhale be twice as long. Feel your hand rise and fall. You do not have to fix anything — just listen.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+  const data = {
+    head: {
+      region: 'Head & Mind',
+      title: 'Overwhelm and loss of control',
+      emotion: 'When your mind is carrying more than it can hold — too many decisions, too many responsibilities, too much noise — it often shows up as pressure, tension, or pain in the head. This is your body asking you to put something down.',
+      prompt: '"What am I trying to control right now that is not mine to control?"'
+    },
+    throat: {
+      region: 'Throat',
+      title: 'Suppressed truth and unspoken words',
+      emotion: 'The throat holds the things we have not said — the truth we swallowed, the boundaries we didn\'t voice, the feelings we spoke around instead of through. Tightness here often means something in you needs to be expressed.',
+      prompt: '"What am I afraid to say out loud — and who am I afraid to say it to?"'
+    },
+    shoulders: {
+      region: 'Shoulders',
+      title: 'The weight of responsibility',
+      emotion: 'Shoulders carry what we feel responsible for — often the wellbeing of others. When we hold ourselves as the ones who must hold everyone else together, the body shoulders that load literally. Notice how much you are carrying that is not yours.',
+      prompt: '"What am I carrying for others that they are capable of carrying themselves?"'
+    },
+    heart: {
+      region: 'Heart & Chest',
+      title: 'Grief, heartbreak and longing',
+      emotion: 'The heart centre holds love — and everything that happens to love. Grief, longing, tenderness, loss. Tightness or heaviness here is often unexpressed emotion that needs space, not solutions. Let yourself feel it rather than manage it.',
+      prompt: '"What am I grieving that I haven\'t fully allowed myself to grieve?"'
+    },
+    solar: {
+      region: 'Solar Plexus & Stomach',
+      title: 'Anxiety and personal power',
+      emotion: 'The solar plexus is your power centre — your sense of self, your will, your confidence. Anxiety often lives here as a fluttering, tightness or nausea. It is asking: where am I giving my power away? Where am I not trusting myself?',
+      prompt: '"Where in my life am I dimming myself to keep others comfortable?"'
+    },
+    hips: {
+      region: 'Hips & Lower Back',
+      title: 'Stored resentment, fatigue and anger',
+      emotion: 'The hips and lower back store what we have not allowed ourselves to feel — particularly anger, resentment, and deep exhaustion. These are not negative emotions. They are signals. Anger often means a boundary has been crossed. Fatigue often means you have been giving from empty for too long.',
+      prompt: '"Where have I been betraying myself by saying yes when I meant no?"'
+    }
+  };
+
+  function showInfo(key) {
+    document.querySelectorAll('.region').forEach(r => r.classList.remove('active'));
+    document.querySelectorAll(`[id^="r-${key}"]`).forEach(r => r.classList.add('active'));
+    const d = data[key];
+    document.getElementById('infoDefault').style.display = 'none';
+    const b = document.getElementById('infoBody');
+    b.style.display = 'block';
+    document.getElementById('iRegion').textContent = d.region;
+    document.getElementById('iTitle').textContent = d.title;
+    document.getElementById('iEmotion').textContent = d.emotion;
+    document.getElementById('iPrompt').textContent = d.prompt;
+    document.getElementById('iJournal').value = '';
+    document.getElementById('iJournal').placeholder = 'Let your body speak through your words...';
+  }
+</script>
+</body>
+</html>

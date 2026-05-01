@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 6 — Leave Shame Behind | Foundations of Self</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+    .container { max-width: 600px; width: 100%; }
+    .week-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.97rem; line-height: 1.75; color: #6b5144; margin-bottom: 28px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 18px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); text-align: center; }
+    .step-num { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 16px; }
+    .card h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #5c2318; margin-bottom: 14px; line-height: 1.4; }
+    .card p { font-size: 0.96rem; color: #6b5144; line-height: 1.8; margin-bottom: 16px; }
+    .card em { color: #5c2318; font-style: italic; }
+    textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 90px; line-height: 1.6; outline: none; transition: border-color 0.2s; text-align: left; margin-top: 16px; }
+    textarea:focus { border-color: #c4967a; }
+    .btn { display: inline-block; padding: 14px 36px; background: #5c2318; color: #fff; border: none; border-radius: 30px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-family: 'Lato', sans-serif; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; margin-top: 12px; display: inline-block; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+    .callout { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 16px 20px; border-radius: 0 10px 10px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: #5c2318; line-height: 1.7; margin: 20px 0; text-align: left; }
+    .big-quote { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #5c2318; line-height: 1.6; margin: 20px 0; font-style: italic; }
+    .affirmation-box { background: #f2e8d9; border-radius: 14px; padding: 28px 24px; margin: 20px 0; }
+    .aff-line { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; line-height: 1.7; }
+    .breath-mini { display: flex; flex-direction: column; align-items: center; margin: 20px 0; }
+    .mini-ring { width: 100px; height: 100px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; transition: transform 1.8s ease-in-out, background 1.8s ease; }
+    .mini-ring.expand { transform: scale(1.3); background: #e8d4be; }
+    .mini-inner { width: 52px; height: 52px; border-radius: 50%; background: #c4967a; opacity: 0.3; }
+    .mini-word { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; margin-top: 16px; min-height: 28px; }
+    .movement-steps { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; text-align: left; }
+    .mstep { display: flex; gap: 14px; align-items: flex-start; background: #fdf9f4; border-radius: 12px; padding: 14px 16px; border: 1px solid #ede3d4; }
+    .micon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .mtext { font-size: 0.94rem; line-height: 1.65; color: #4a3728; }
+    .complete-seal { width: 80px; height: 80px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .complete-seal svg { opacity: 0.8; }
+    .progress { display: flex; gap: 8px; margin-bottom: 28px; justify-content: center; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #e8d9c4; transition: background 0.4s; }
+    .dot.on { background: #c4967a; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="week-label">Week 6 · Foundations of Self</div>
+  <h1>Leave Shame Behind</h1>
+  <div class="divider"></div>
+  <p class="intro">Shame thrives in silence. It cannot survive being seen with compassion. This week we move through a ceremony — in five steps — to meet your shame and walk away from it.</p>
+
+  <div class="progress">
+    <div class="dot on" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
+    <div class="dot" id="d4"></div>
+    <div class="dot" id="d5"></div>
+  </div>
+
+  <!-- Step 1: Name it -->
+  <div class="step on" id="s1">
+    <div class="card">
+      <div class="step-num">Step 1 of 5 — Name It</div>
+      <h2>What shame are you carrying right now?</h2>
+      <p>Shame lives in the unsaid. Name it here — just for you. No one else will see this. Say the quiet thing out loud onto the page.</p>
+      <textarea placeholder="I feel ashamed of... / I carry shame around... / I have never told anyone that..."></textarea>
+      <br><button class="btn" onclick="go(1)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- Step 2: See it -->
+  <div class="step" id="s2">
+    <div class="card">
+      <div class="step-num">Step 2 of 5 — See It</div>
+      <h2>The Sacred Presence Practice</h2>
+      <p>Read this slowly. Say it out loud if you can.</p>
+      <div class="big-quote">"This is shame. I see you.<br>I won't push you away.<br>I won't fight you or fix you.<br>I am simply here with you."</div>
+      <p>Place one hand on your heart. Breathe. Let whatever is here, be here. You are not broken for feeling this. You are human.</p>
+      <p><em>Presence dissolves shame more powerfully than perfection ever could.</em></p>
+      <button class="btn" onclick="go(2)">I have done this →</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Breathe -->
+  <div class="step" id="s3">
+    <div class="card">
+      <div class="step-num">Step 3 of 5 — Breathe It Through</div>
+      <h2>Let the breath move it through you</h2>
+      <p>Shame gets stuck in the body when we hold our breath. Let these three breaths create space.</p>
+      <div class="breath-mini">
+        <div class="mini-ring" id="mring"><div class="mini-inner"></div></div>
+        <div class="mini-word" id="mword">Press begin</div>
+      </div>
+      <button class="btn" id="mb" onclick="miniBreath()">Begin breath →</button>
+    </div>
+  </div>
+
+  <!-- Step 4: Move -->
+  <div class="step" id="s4">
+    <div class="card">
+      <div class="step-num">Step 4 of 5 — Leave It Behind</div>
+      <h2>The Movement Practice</h2>
+      <p>Stand up if you are able. This is a physical ceremony — your body needs to feel the shift, not just your mind.</p>
+      <div class="movement-steps">
+        <div class="mstep"><div class="micon">1</div><div class="mtext">Stand where you are. Feel shame in your body — where does it sit? Notice it without running from it.</div></div>
+        <div class="mstep"><div class="micon">2</div><div class="mtext">Take one step physically to the side. As you step, say: <em>"I leave this behind. This is not who I am."</em></div></div>
+        <div class="mstep"><div class="micon">3</div><div class="mtext">Now take one step forward. As you step, say: <em>"I am lovable. I am worthy. I am safe to be me."</em></div></div>
+        <div class="mstep"><div class="micon">4</div><div class="mtext">Stand tall in your new position. Take a breath. This is your body claiming a new story.</div></div>
+      </div>
+      <button class="btn" onclick="go(4)">I have done this →</button>
+    </div>
+  </div>
+
+  <!-- Step 5: Complete -->
+  <div class="step" id="s5">
+    <div class="card">
+      <div class="step-num">Step 5 of 5 — Claim Your Truth</div>
+      <div class="complete-seal">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M10 18l6 6 10-10" stroke="#c4967a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2>You did something profound today.</h2>
+      <p>You did not run. You did not suppress. You looked at shame directly — and you walked away from it.</p>
+      <div class="affirmation-box">
+        <div class="aff-line">I am lovable.</div>
+        <div class="aff-line">I am worthy.</div>
+        <div class="aff-line">I am safe to be me.</div>
+      </div>
+      <div class="callout">"Shame cannot survive being witnessed with compassion. Every time you do this practice, you make it smaller — and you make yourself bigger."<br><br>— Melissa</div>
+      <button class="btn-outline" onclick="location.reload()">Begin again</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+  function go(from) {
+    const ta = document.querySelector('#s'+from+' textarea');
+    if (ta && !ta.value.trim()) { alert('Write whatever comes — even one word.'); return; }
+    const next = from + 1;
+    document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+    document.getElementById('s'+next).classList.add('on');
+    if (document.getElementById('d'+next)) document.getElementById('d'+next).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  let breathDone = false;
+  function miniBreath() {
+    if (breathDone) return;
+    breathDone = true;
+    document.getElementById('mb').style.display = 'none';
+    const ring = document.getElementById('mring');
+    const word = document.getElementById('mword');
+    let r = 0;
+    const words = [['Inhale','Exhale'],['Inhale','Exhale'],['Inhale','Exhale']];
+    function next() {
+      if (r >= 3) {
+        word.textContent = 'Beautiful.';
+        setTimeout(()=>go(3), 2000);
+        return;
+      }
+      word.textContent = words[r][0];
+      ring.classList.add('expand');
+      setTimeout(()=>{
+        word.textContent = words[r][1];
+        ring.classList.remove('expand');
+        r++;
+        setTimeout(next, 2200);
+      }, 2200);
+    }
+    next();
+  }
+</script>
+</body>
+</html>

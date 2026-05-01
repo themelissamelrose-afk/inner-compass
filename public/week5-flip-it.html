@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 5 — Shift from Blame to Self-Responsibility | Foundations of Self</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+    .container { max-width: 600px; width: 100%; }
+    .week-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.97rem; line-height: 1.75; color: #6b5144; margin-bottom: 28px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 18px; padding: 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .q-label { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; margin-bottom: 8px; line-height: 1.5; }
+    .q-note { font-size: 0.88rem; color: #9a7d6e; font-style: italic; margin-bottom: 14px; line-height: 1.6; }
+    textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 100px; line-height: 1.6; outline: none; transition: border-color 0.2s; }
+    textarea:focus { border-color: #c4967a; }
+    .opts { display: flex; flex-direction: column; gap: 10px; }
+    .opt { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; cursor: pointer; transition: all 0.2s; background: #fdf9f4; }
+    .opt:hover { border-color: #c4967a; background: #fdf5ec; }
+    .opt.sel { border-color: #c4967a; background: #fdf5ec; }
+    .opt input { accent-color: #c4967a; margin-top: 3px; flex-shrink: 0; }
+    .opt span { font-size: 0.94rem; line-height: 1.55; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .progress { display: flex; gap: 8px; margin-bottom: 28px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #e8d9c4; transition: background 0.4s; }
+    .dot.on { background: #c4967a; }
+
+    /* Flip card */
+    .flip-area { margin: 24px 0; }
+    .flip-from { background: #fdf9f4; border: 1.5px solid #e8d9c4; border-radius: 12px; padding: 18px 20px; }
+    .flip-from-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #9a7d6e; margin-bottom: 6px; }
+    .flip-from-text { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #5c2318; font-style: italic; line-height: 1.6; }
+    .flip-arrow { text-align: center; padding: 12px 0; color: #c4967a; font-size: 1.4rem; }
+    .flip-to { background: #f9f3eb; border: 1.5px solid #c4967a; border-radius: 12px; padding: 18px 20px; opacity: 0; transform: translateY(8px); transition: all 0.6s ease; }
+    .flip-to.show { opacity: 1; transform: translateY(0); }
+    .flip-to-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 6px; }
+    .flip-to-text { font-family: 'Playfair Display', serif; font-size: 1.08rem; color: #5c2318; line-height: 1.65; }
+    .callout { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 16px 20px; border-radius: 0 10px 10px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: #5c2318; line-height: 1.7; margin: 20px 0; }
+    .restart { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: block; margin: 16px auto 0; }
+    .restart:hover { background: #c4967a; color: #fff; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="week-label">Week 5 · Foundations of Self</div>
+  <h1>Shift from Blame<br>to Self-Responsibility</h1>
+  <div class="divider"></div>
+  <p class="intro">Self-responsibility is not self-blame. It is not your fault — but it is in your power. This practice helps you move from the story of what happened to you, into the power of what you do next.</p>
+
+  <div class="progress">
+    <div class="dot on" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
+    <div class="dot" id="d4"></div>
+  </div>
+
+  <!-- S1: The blame statement -->
+  <div class="step on" id="s1">
+    <div class="card">
+      <div class="q-label">What is the situation or person you find yourself blaming right now?</div>
+      <div class="q-note">This could be a person, a circumstance, a past version of yourself. Write it honestly — no filter needed here.</div>
+      <textarea id="blame" placeholder="Because of [person/situation], I feel... / It is [their] fault that I..."></textarea>
+      <button class="btn" onclick="nextStep(1)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S2: The feeling underneath -->
+  <div class="step" id="s2">
+    <div class="card">
+      <div class="q-label">Underneath the blame, what are you actually feeling?</div>
+      <div class="q-note">Blame is usually a lid on a deeper emotion. Lift the lid.</div>
+      <div class="opts">
+        <label class="opt" onclick="pickOpt(this,'feel','hurt')"><input type="radio" name="feel"><span>Hurt — something wounded a part of me that needed protection</span></label>
+        <label class="opt" onclick="pickOpt(this,'feel','powerless')"><input type="radio" name="feel"><span>Powerless — I felt like I had no control or no voice</span></label>
+        <label class="opt" onclick="pickOpt(this,'feel','fear')"><input type="radio" name="feel"><span>Fear — this triggered something I am afraid of</span></label>
+        <label class="opt" onclick="pickOpt(this,'feel','grief')"><input type="radio" name="feel"><span>Grief — something was lost that mattered to me</span></label>
+        <label class="opt" onclick="pickOpt(this,'feel','anger')"><input type="radio" name="feel"><span>Anger — a boundary was crossed or a need went unmet</span></label>
+      </div>
+      <button class="btn" id="s2btn" onclick="nextStep(2)" style="display:none">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S3: The reframe question -->
+  <div class="step" id="s3">
+    <div class="card">
+      <div class="q-label">What is the one thing — small or large — that is within your power to do differently now?</div>
+      <div class="q-note">Not what you should have done. Not what they should do. What can you — right now — choose?</div>
+      <textarea id="power" placeholder="I could... / I can choose to... / I have the power to..."></textarea>
+      <button class="btn" onclick="nextStep(3)">Flip it →</button>
+    </div>
+  </div>
+
+  <!-- S4: The flip -->
+  <div class="step" id="s4">
+    <div class="card">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#5c2318;margin-bottom:20px;">Here is your shift.</h2>
+      <div class="flip-area">
+        <div class="flip-from">
+          <div class="flip-from-label">Where you were</div>
+          <div class="flip-from-text" id="flipFrom"></div>
+        </div>
+        <div class="flip-arrow">↓</div>
+        <div class="flip-to" id="flipTo">
+          <div class="flip-to-label">Where your power lives</div>
+          <div class="flip-to-text" id="flipToText"></div>
+        </div>
+      </div>
+      <div class="callout">"Self-responsibility is not punishment — it is freedom. The moment you stop waiting for them to change, you take back your life."<br><br>— Melissa</div>
+      <button class="restart" onclick="location.reload()">Explore another situation</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+  const A = {};
+  function nextStep(from) {
+    if (from===1) {
+      if (!document.getElementById('blame').value.trim()) { alert('Write your truth — this is a safe space.'); return; }
+      A.blame = document.getElementById('blame').value.trim();
+    }
+    if (from===3) {
+      if (!document.getElementById('power').value.trim()) { alert('Even one small thing counts.'); return; }
+      A.power = document.getElementById('power').value.trim();
+      buildFlip();
+    }
+    const next = from + 1;
+    document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+    document.getElementById('s'+next).classList.add('on');
+    document.getElementById('d'+next).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function pickOpt(el, key, val) {
+    el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+    el.classList.add('sel');
+    el.querySelector('input').checked = true;
+    A[key] = val;
+    document.getElementById('s2btn').style.display = 'block';
+  }
+
+  const feelLabels = {
+    hurt: 'I was hurt, and that hurt matters.',
+    powerless: 'I felt powerless, and that is real.',
+    fear: 'I was afraid, and fear is always asking for safety.',
+    grief: 'I was grieving something real.',
+    anger: 'My anger was telling me something important.'
+  };
+
+  function buildFlip() {
+    document.getElementById('flipFrom').textContent = A.blame;
+    const feel = feelLabels[A.feel] || 'Something real is happening in me.';
+    const power = A.power;
+    document.getElementById('flipToText').innerHTML = feel + '<br><br>' + power;
+    setTimeout(()=>{ document.getElementById('flipTo').classList.add('show'); }, 400);
+  }
+</script>
+</body>
+</html>
