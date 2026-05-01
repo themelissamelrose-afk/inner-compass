@@ -78,7 +78,7 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       overflow: hidden;
     }
 
@@ -87,7 +87,7 @@
       inset: 0;
       background-image: url('/melissa-hero.jpg');
       background-size: cover;
-      background-position: 68% 20%;
+      background-position: 62% 25%;
     }
 
     .hero-bg::after {
@@ -95,19 +95,19 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        to right,
-        rgba(40,18,10,0.88) 0%,
-        rgba(40,18,10,0.65) 45%,
-        rgba(40,18,10,0.18) 100%
+        to bottom,
+        rgba(40,18,10,0.38) 0%,
+        rgba(40,18,10,0.55) 60%,
+        rgba(40,18,10,0.72) 100%
       );
     }
 
     .hero-inner {
       position: relative;
       z-index: 2;
-      text-align: left;
-      padding: 140px 48px 100px 7%;
-      max-width: 620px;
+      text-align: center;
+      padding: 120px 24px 80px;
+      max-width: 720px;
     }
 
     .hero-eyebrow {
@@ -135,8 +135,8 @@
     .hero-sub {
       font-size: clamp(16px, 2vw, 20px);
       color: rgba(255,255,255,0.82);
-      margin: 20px 0 36px;
-      max-width: 480px;
+      margin: 20px auto 36px;
+      max-width: 520px;
       line-height: 1.65;
       font-weight: 300;
     }
@@ -461,8 +461,7 @@
     /* ── MOBILE ── */
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
-      .hero-inner { padding: 100px 24px 60px; text-align: left; }
-      .hero-bg { background-position: 72% 20%; }
+      .hero-inner { padding: 100px 20px 60px; }
       .split { grid-template-columns: 1fr; gap: 40px; }
       .split.flip { direction: ltr; }
       .split-photo { aspect-ratio: 4/3; }
@@ -485,7 +484,7 @@
   <div class="hero-inner">
     <span class="hero-eyebrow">Powered by Melissa Melrose</span>
     <h1>The Inner<br><em>Compass</em></h1>
-    <p class="hero-sub">Melissa's voice, frameworks, and wisdom. The support that holds you when life triggers you — available every single day.</p>
+    <p class="hero-sub">Melissa's voice, frameworks, and wisdom. The support that holds you when life triggers you. Available every single day.</p>
     <div class="hero-price-pill">Founding Member Pricing. <strong>$17 AUD / month</strong></div>
     <br>
     <a href="/subscribe" class="btn-primary">Begin Your Journey</a>
@@ -498,7 +497,7 @@
 
 <!-- TRUTH BAR -->
 <div class="truth-bar">
-  <p>"You don't have to fix this. You have to feel it." — Melissa Melrose</p>
+  <p>"You don't have to fix this. You have to feel it." Melissa Melrose</p>
 </div>
 
 <!-- WHAT IT IS -->
@@ -506,15 +505,15 @@
   <div class="section-inner">
     <div class="split">
       <div class="split-photo">
-        <img src="/melissa-hero.jpg" alt="Melissa Melrose" style="object-position: center 15%;" />
+        <img src="/melissa-warmth.jpg" alt="Melissa Melrose" />
       </div>
       <div class="split-text">
         <span class="section-label">What Is It</span>
         <h2 class="section-title">This isn't just<br>any <em>AI.</em></h2>
         <p class="section-body">ChatGPT doesn't know Melissa's frameworks. It doesn't know how to bring you back into your body when your head is running the show. It doesn't know the Trigger as Portal.</p>
         <p class="section-body" style="margin-top:16px;"><strong>The Inner Compass does.</strong></p>
-        <p class="section-body" style="margin-top:16px;">It has been trained in Melissa's specific voice, methodology, and lived wisdom. It holds space the way she does — warm, direct, and always bringing you back to yourself.</p>
-        <p class="section-body" style="margin-top:16px;">Think of it as Melissa available every single day — for less than the price of a coffee a week.</p>
+        <p class="section-body" style="margin-top:16px;">It has been trained in Melissa's specific voice, methodology, and lived wisdom. It holds space the way she does: warm, direct, and always bringing you back to yourself.</p>
+        <p class="section-body" style="margin-top:16px;">Think of it as Melissa available every single day, for less than the price of a coffee a week.</p>
       </div>
     </div>
   </div>
@@ -531,12 +530,12 @@
       <div class="feature-card">
         <div class="f-icon">🌀</div>
         <h3>Pattern Disruption</h3>
-        <p>When you are in the loop, it names what it sees and helps you get underneath the story — back into your body, back to yourself.</p>
+        <p>When you are in the loop, it names what it sees and helps you get underneath the story and back into your body, back to yourself.</p>
       </div>
       <div class="feature-card">
         <div class="f-icon">🫁</div>
         <h3>Breathwork & Regulation</h3>
-        <p>Guided practices from Melissa's breathwork toolkit — Sacred 6, Centred Breath, Return to Presence — to regulate your nervous system.</p>
+        <p>Guided practices from Melissa's breathwork toolkit: Sacred 6, Centred Breath, Return to Presence. All designed to regulate your nervous system.</p>
       </div>
       <div class="feature-card">
         <div class="f-icon">🧭</div>
@@ -567,12 +566,12 @@
   <div class="section-inner">
     <div class="split flip">
       <div class="split-photo">
-        <img src="/melissa-hero.jpg" alt="Melissa Melrose" style="object-position: center 15%;" />
+        <img src="/melissa-warmth.jpg" alt="Melissa Melrose" />
       </div>
       <div class="split-text">
         <span class="section-label">The Practice Library</span>
         <h2 class="section-title">23 interactive tools<br>built from <em>Melissa's</em> frameworks.</h2>
-        <p class="section-body">Every session unlocks a library of guided practices — built directly from Melissa's Foundations of Self and Reclaim You methodology. Not generic. Not scripted. Hers.</p>
+        <p class="section-body">Every session unlocks a library of guided practices built directly from Melissa's Foundations of Self and Reclaim You methodology. Not generic. Not scripted. Hers.</p>
         <div class="tools-row">
           <span class="tool-pill"><strong>Survival Pattern Identifier</strong></span>
           <span class="tool-pill"><strong>Return to Presence</strong></span>
@@ -602,7 +601,7 @@
       <span class="section-label">About Melissa</span>
       <h2 class="section-title" style="margin-bottom:24px;">30 years of inner work.<br>Now available to <em>you.</em></h2>
       <p class="section-body" style="margin: 0 auto 18px; max-width:100%;">Melissa Melrose is a nervous system coach, breathwork facilitator, and founder of Foundations of Self. Her work is rooted in one truth: you cannot build a new life on an old foundation.</p>
-      <p class="section-body" style="margin: 0 auto 18px; max-width:100%;">For over 30 years she has helped people get out of their heads, back into their bodies, and into the life they actually want. Not through advice or fixing — through presence, pattern disruption, and deep inner work.</p>
+      <p class="section-body" style="margin: 0 auto 18px; max-width:100%;">For over 30 years she has helped people get out of their heads, back into their bodies, and into the life they actually want. Not through advice or fixing. Through presence, pattern disruption, and deep inner work.</p>
       <p style="font-family:'Playfair Display', serif; font-style:italic; font-size:18px; color:var(--rose); margin-top:20px;">The Inner Compass brings that same work to you. Every day.</p>
     </div>
   </div>
