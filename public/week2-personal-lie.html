@@ -8,48 +8,71 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
-    .container { max-width: 620px; width: 100%; }
+    .container { max-width: 640px; width: 100%; }
     .week-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
     h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
     .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
     .intro { font-size: 0.97rem; line-height: 1.75; color: #6b5144; margin-bottom: 28px; }
-    .progress { display: flex; gap: 8px; margin-bottom: 28px; align-items: center; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: #e8d9c4; transition: background 0.4s; }
-    .dot.on { background: #c4967a; }
-    .prog-label { font-size: 11px; letter-spacing: 1px; color: #c4967a; margin-left: 8px; }
-    .card { background: #fff; border-radius: 18px; padding: 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
-    .q-num { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 10px; }
-    .q-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #5c2318; line-height: 1.5; margin-bottom: 18px; }
-    .q-note { font-size: 0.88rem; color: #9a7d6e; font-style: italic; margin-bottom: 16px; line-height: 1.6; }
-    textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 110px; line-height: 1.6; outline: none; transition: border-color 0.2s; }
-    textarea:focus { border-color: #c4967a; }
-    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
-    .btn:hover { background: #7a2f21; }
     .step { display: none; }
     .step.on { display: block; }
+    .card { background: #fff; border-radius: 18px; padding: 34px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
 
-    /* Breath section */
-    .breath-intro { text-align: center; margin-bottom: 32px; }
-    .breath-intro h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #5c2318; margin-bottom: 12px; line-height: 1.4; }
-    .breath-intro p { font-size: 0.95rem; color: #6b5144; line-height: 1.75; }
-    .breath-circle-wrap { display: flex; flex-direction: column; align-items: center; margin: 32px 0; }
-    .breath-outer { width: 180px; height: 180px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; transition: transform 1.8s ease-in-out, background 1.8s ease; position: relative; }
-    .breath-outer.expand { transform: scale(1.28); background: #ecdccc; }
-    .breath-inner { width: 100px; height: 100px; border-radius: 50%; background: #c4967a; opacity: 0.35; }
-    .breath-word { margin-top: 28px; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #5c2318; letter-spacing: 1px; min-height: 36px; text-align: center; transition: opacity 0.4s; }
-    .breath-counter { font-size: 0.88rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-top: 12px; }
-    .breath-affirmation { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: #5c2318; text-align: center; margin-top: 8px; min-height: 32px; opacity: 0; transition: opacity 0.8s; }
-    .breath-affirmation.show { opacity: 1; }
-    .breath-start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 14px 36px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 28px; transition: background 0.2s; }
-    .breath-start-btn:hover { background: #7a2f21; }
+    /* Progress */
+    .progress { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #e8d9c4; transition: background 0.4s; flex-shrink: 0; }
+    .dot.on { background: #c4967a; }
+    .prog-text { font-size: 11px; letter-spacing: 1px; color: #c4967a; margin-left: 6px; }
 
-    /* Completion */
-    .complete { text-align: center; padding: 8px 0; }
-    .complete h2 { font-family: 'Playfair Display', serif; font-size: 1.65rem; color: #5c2318; margin-bottom: 16px; line-height: 1.4; }
-    .complete p { font-size: 0.95rem; line-height: 1.8; color: #4a3728; margin-bottom: 16px; }
-    .callout { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 16px 20px; border-radius: 0 10px 10px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: #5c2318; line-height: 1.7; margin: 24px 0; text-align: left; }
-    .restart { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; }
-    .restart:hover { background: #c4967a; color: #fff; }
+    /* Cards shared */
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 12px; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; line-height: 1.5; margin-bottom: 8px; }
+    .card-note { font-size: 0.88rem; color: #9a7d6e; font-style: italic; line-height: 1.65; margin-bottom: 16px; }
+    textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 100px; line-height: 1.6; outline: none; transition: border-color 0.2s; }
+    textarea:focus { border-color: #c4967a; }
+    input[type="text"] { width: 100%; padding: 12px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; outline: none; transition: border-color 0.2s; }
+    input[type="text"]:focus { border-color: #c4967a; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 22px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 16px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+
+    /* Opening breath */
+    .breath-wrap { text-align: center; padding: 8px 0; }
+    .breath-wrap h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #5c2318; margin-bottom: 10px; }
+    .breath-wrap .sub { font-size: 0.92rem; color: #9a7d6e; margin-bottom: 28px; line-height: 1.7; }
+    .circle-area { display: flex; flex-direction: column; align-items: center; margin: 16px 0 24px; }
+    .b-ring { width: 140px; height: 140px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; transition: transform 1.8s ease-in-out, background 1.8s ease; }
+    .b-ring.expand { transform: scale(1.28); background: #e8d4be; }
+    .b-inner { width: 72px; height: 72px; border-radius: 50%; background: #c4967a; opacity: 0.28; }
+    .b-word { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #5c2318; margin-top: 22px; min-height: 34px; }
+    .b-count { font-size: 0.8rem; letter-spacing: 2px; color: #c4967a; text-transform: uppercase; margin-top: 8px; min-height: 20px; }
+    .start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 14px 36px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 20px; transition: background 0.2s; }
+    .start-btn:hover { background: #7a2f21; }
+
+    /* Quote block */
+    .quote-block { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 18px 22px; border-radius: 0 12px 12px 0; margin: 20px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #5c2318; line-height: 1.75; }
+
+    /* Clearing sequence */
+    .clearing-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #5c2318; text-align: center; margin-bottom: 8px; }
+    .clearing-sub { font-size: 0.9rem; color: #9a7d6e; text-align: center; margin-bottom: 24px; line-height: 1.65; }
+    .clearing-lines { display: flex; flex-direction: column; gap: 12px; }
+    .c-line { padding: 14px 18px; background: #fdf9f4; border-radius: 10px; border: 1px solid #ede3d4; }
+    .c-line.highlight { background: #f9f3eb; border-color: #dcc9b0; }
+    .c-line p { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; line-height: 1.65; }
+    .c-line p em { color: #c4967a; font-style: italic; }
+    .c-line p strong { color: #5c2318; font-weight: 600; }
+    .c-fill { width: 100%; border: none; border-bottom: 1.5px solid #c4967a; background: transparent; font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; padding: 4px 0 4px 0; outline: none; margin-top: 4px; }
+    .c-fill::placeholder { color: #c4967a; opacity: 0.6; font-style: italic; }
+    .c-lie-display { font-style: italic; color: #7a2f21; font-weight: 600; }
+
+    /* Complete */
+    .complete-wrap { text-align: center; }
+    .complete-wrap h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #5c2318; margin-bottom: 14px; line-height: 1.4; }
+    .complete-wrap p { font-size: 0.95rem; line-height: 1.8; color: #4a3728; margin-bottom: 14px; }
+    .affirmation-seal { background: #f2e8d9; border-radius: 14px; padding: 28px 24px; margin: 20px 0; }
+    .seal-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 10px; }
+    .seal-text { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; line-height: 1.7; }
+
     .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
   </style>
 </head>
@@ -58,7 +81,7 @@
   <div class="week-label">Week 2 · Foundations of Self</div>
   <h1>Uncover Your<br>Personal Lie</h1>
   <div class="divider"></div>
-  <p class="intro">The Personal Lie is the subconscious belief that sits beneath every pattern, every loop, every moment of holding yourself back. It lives in the mind and in the body. Today we bring it into the light — and then we release it.</p>
+  <p class="intro">At the core of human suffering lies one fundamental block — the Personal Lie. It is the deepest false belief you carry about yourself, formed so early it feels like truth. Today we bring it into the light. Then we clear it.</p>
 
   <div class="progress">
     <div class="dot on" id="d1"></div>
@@ -68,93 +91,174 @@
     <div class="dot" id="d5"></div>
     <div class="dot" id="d6"></div>
     <div class="dot" id="d7"></div>
-    <span class="prog-label" id="plabel">Question 1 of 5</span>
+    <div class="dot" id="d8"></div>
+    <div class="dot" id="d9"></div>
+    <span class="prog-text" id="prog-label">Opening</span>
   </div>
 
-  <!-- Q1 -->
+  <!-- S1: What is the Personal Lie -->
   <div class="step on" id="s1">
     <div class="card">
-      <div class="q-num">Question 1</div>
-      <div class="q-text">Take a breath. Close your eyes for a moment. Now — what is the most negative thought you have about yourself?</div>
-      <div class="q-note">Write it exactly as it sounds. No softening, no editing. What is the harshest thing your inner voice says to you?</div>
-      <textarea placeholder="I am not good enough... I am too much... I will never be..."></textarea>
-      <button class="btn" onclick="nextQ(1)">Continue →</button>
+      <span class="section-tag">The Foundation</span>
+      <div class="card-title">What is the Personal Lie?</div>
+      <p style="font-size:0.95rem;line-height:1.8;color:#4a3728;margin-bottom:16px;">
+        Sondra Ray, known as the Mother of Rebirthing, identified the Personal Lie as the deepest unconscious pattern keeping us stuck. It is often formed in your earliest moments — conception, birth, or the preverbal years.
+      </p>
+      <p style="font-size:0.95rem;line-height:1.8;color:#4a3728;margin-bottom:16px;">
+        Because you could not make sense of overwhelming experiences with language, your young mind created a story: <em>"I am not enough." "I am unwanted." "I am too much."</em>
+      </p>
+      <p style="font-size:0.95rem;line-height:1.8;color:#4a3728;margin-bottom:16px;">
+        This lie became the lens through which you perceived everything. And because the subconscious is powerful, you then gathered evidence to prove it true. Dr Bruce Lipton's research shows this is not just a thought — it is a physiological state held in your very cells.
+      </p>
+      <div class="quote-block">"It's not the truth. It never was." — Sondra Ray</div>
+      <p style="font-size:0.95rem;line-height:1.8;color:#4a3728;margin-top:16px;">Today we uncover it. And then we clear it from your body.</p>
+      <button class="btn" onclick="go(1)">I am ready →</button>
     </div>
   </div>
 
-  <!-- Q2 -->
+  <!-- S2: Opening breath -->
   <div class="step" id="s2">
-    <div class="card">
-      <div class="q-num">Question 2</div>
-      <div class="q-text">What are you most afraid people will find out about you?</div>
-      <div class="q-note">This is often where the Personal Lie hides — in the gap between who you show the world and what you secretly fear is true.</div>
-      <textarea placeholder="That I'm actually... That deep down I'm..."></textarea>
-      <button class="btn" onclick="nextQ(2)">Continue →</button>
+    <div class="card breath-wrap">
+      <span class="section-tag">Opening</span>
+      <h2>Settle in with the Sacred 6</h2>
+      <p class="sub">Before we begin the inquiry, let the breath bring you into your body. Six connected breaths — inhale straight into exhale, no pause. Through your mouth.</p>
+      <div class="circle-area">
+        <div class="b-ring" id="openRing"><div class="b-inner"></div></div>
+        <div class="b-word" id="openWord">Press begin</div>
+        <div class="b-count" id="openCount"></div>
+        <button class="start-btn" id="openBtn" onclick="openBreath()">Begin Sacred 6</button>
+      </div>
     </div>
   </div>
 
-  <!-- Q3 -->
+  <!-- S3–S7: The 5 Questions -->
   <div class="step" id="s3">
     <div class="card">
-      <div class="q-num">Question 3</div>
-      <div class="q-text">When do you first remember feeling this way about yourself?</div>
-      <div class="q-note">You do not need a specific memory — even a feeling, an age, or a moment is enough. Let whatever comes, come.</div>
-      <textarea placeholder="I remember feeling this when... It started around the time... I first felt this as a child when..."></textarea>
+      <span class="section-tag">Question 1 of 5</span>
+      <div class="card-title">What is your most negative thought about yourself?</div>
+      <div class="card-note">Write it exactly as it sounds inside you. No softening. No editing. The precision of your wording matters — your nervous system holds the exact phrase.</div>
+      <textarea id="q1" placeholder="I am not good enough... I am too much... I am not worthy of..."></textarea>
       <button class="btn" onclick="nextQ(3)">Continue →</button>
     </div>
   </div>
 
-  <!-- Q4 -->
   <div class="step" id="s4">
     <div class="card">
-      <div class="q-num">Question 4</div>
-      <div class="q-text">How has this belief tried to protect you?</div>
-      <div class="q-note">Your Personal Lie was never just cruelty — it was a survival strategy. How did it serve you? What did it try to keep you safe from?</div>
-      <textarea placeholder="It kept me from being rejected by... It stopped me from risking... It made sure I never..."></textarea>
+      <span class="section-tag">Question 2 of 5</span>
+      <div class="card-title">Why doesn't life work perfectly for you?</div>
+      <div class="card-note">Let yourself be honest here. Notice the story you carry about why things don't quite go the way you want them to.</div>
+      <textarea id="q2" placeholder="Life doesn't work for me because... I always seem to... Things never quite..."></textarea>
       <button class="btn" onclick="nextQ(4)">Continue →</button>
     </div>
   </div>
 
-  <!-- Q5 -->
   <div class="step" id="s5">
     <div class="card">
-      <div class="q-num">Question 5</div>
-      <div class="q-text">If this belief were completely untrue — what would become possible for you?</div>
-      <div class="q-note">Let yourself dream here. No limits, no "but." What opens up when the lie dissolves?</div>
-      <textarea placeholder="I would be free to... I would finally... I could stop hiding..."></textarea>
-      <button class="btn" onclick="nextQ(5)">Move to the clearing →</button>
+      <span class="section-tag">Question 3 of 5</span>
+      <div class="card-title">What are you afraid people will find out about you?</div>
+      <div class="card-note">This is often where the lie hides — in the gap between who you show the world and what you secretly fear is true beneath the surface.</div>
+      <textarea id="q3" placeholder="That I'm actually... That deep down I'm... That if people really knew me they would see..."></textarea>
+      <button class="btn" onclick="nextQ(5)">Continue →</button>
     </div>
   </div>
 
-  <!-- Sacred 6 Breath -->
   <div class="step" id="s6">
     <div class="card">
-      <div class="breath-intro">
-        <h2>The Sacred 6 Breath</h2>
-        <p>You have named the lie. Now we release it from your body.<br><br>
-        The Sacred 6 is a connected circular breath — no pause between the inhale and the exhale. Breathe through your mouth. Let each breath be full and complete. Six rounds. That is all.</p>
-        <p style="margin-top:14px; font-style:italic; color:#9a7d6e;">Find a comfortable position. Place your hands on your heart if you feel called to.</p>
-      </div>
-      <div class="breath-circle-wrap">
-        <div class="breath-outer" id="bc">
-          <div class="breath-inner"></div>
+      <span class="section-tag">Question 4 of 5</span>
+      <div class="card-title">What is your most negative thought about your birth?</div>
+      <div class="card-note">You may not have a memory — that is perfectly fine. Notice what arises. Even a feeling, a sense, or a story you have heard about your arrival into the world.</div>
+      <textarea id="q4" placeholder="I have always felt that when I was born... I came into the world feeling... My birth was..."></textarea>
+      <button class="btn" onclick="nextQ(6)">Continue →</button>
+    </div>
+  </div>
+
+  <div class="step" id="s7">
+    <div class="card">
+      <span class="section-tag">Question 5 of 5</span>
+      <div class="card-title">What is the worst thought you have about yourself?</div>
+      <div class="card-note">Allow yourself to go deeper than question 1. The worst thought — the one you would never say out loud. Say it here. This is a safe container.</div>
+      <textarea id="q5" placeholder="The worst thing I believe about myself is... The thought I never say aloud is..."></textarea>
+      <button class="btn" onclick="nextQ(7)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S8: Name the Lie -->
+  <div class="step" id="s8">
+    <div class="card">
+      <span class="section-tag">Revealing the Lie</span>
+      <div class="card-title">Read back your answers slowly.</div>
+      <p style="font-size:0.95rem;line-height:1.8;color:#4a3728;margin-bottom:16px;">Look at what you wrote. Notice the theme that runs through all five answers. The Personal Lie often appears as one core phrase — the belief that sits beneath every answer.</p>
+      <p style="font-size:0.95rem;line-height:1.8;color:#4a3728;margin-bottom:20px;">It may be: <em>"I am not enough." "I am unlovable." "I am too much." "I don't deserve." "I am broken." "I am alone."</em></p>
+      <div class="card-note">In your own exact wording — what is your Personal Lie?</div>
+      <input type="text" id="lie" placeholder="I am...  /  I am not...  /  I don't...">
+      <button class="btn" onclick="buildClearing()">This is my lie →</button>
+    </div>
+  </div>
+
+  <!-- S9: The Clearing -->
+  <div class="step" id="s9">
+    <div class="card">
+      <div class="clearing-title">The Clearing</div>
+      <div class="clearing-sub">Read each line slowly and out loud if you can. Sound deepens integration. Where there is a blank — write your truth.</div>
+
+      <div class="clearing-lines">
+        <div class="c-line highlight">
+          <p>I forgive myself for thinking <span class="c-lie-display" id="lieDisplay"></span>.</p>
         </div>
-        <div class="breath-word" id="bword">Ready</div>
-        <div class="breath-affirmation" id="baff"></div>
-        <div class="breath-counter" id="bctr"></div>
-        <button class="breath-start-btn" id="startbtn" onclick="startBreath()">Begin the Sacred 6</button>
+        <div class="c-line">
+          <p>The universe did not create me with that negative.</p>
+        </div>
+        <div class="c-line highlight">
+          <p>The universe created me as:</p>
+          <input class="c-fill" type="text" id="affirmation" placeholder="I am enough... I am lovable... I am worthy..." oninput="updateAff()">
+        </div>
+        <div class="c-line">
+          <p>I am as the universe created me.<br>Therefore that negative about me is a lie.</p>
+        </div>
+        <div class="c-line">
+          <p>I let go of the stubborn refusal to let go of that thought.</p>
+        </div>
+        <div class="c-line">
+          <p>I allow my guides, angels, and the Holy Spirit to undo this for me.</p>
+        </div>
+        <div class="c-line highlight">
+          <p>I am now willing to see myself as:</p>
+          <input class="c-fill" type="text" id="commitment" placeholder="Someone who is...">
+        </div>
+      </div>
+
+      <button class="btn" onclick="goToBreath()" style="margin-top:28px;">I have read the clearing →</button>
+    </div>
+  </div>
+
+  <!-- S10: Closing Sacred 6 with affirmation -->
+  <div class="step" id="s10">
+    <div class="card breath-wrap">
+      <span class="section-tag">Integration</span>
+      <h2>Seal it with the Sacred 6</h2>
+      <p class="sub" id="closeBreathSub">Now we carry the truth into the body. Six connected breaths paired with your affirmation. Inhale straight into exhale. Let the breath do the healing.</p>
+      <div class="circle-area">
+        <div class="b-ring" id="closeRing"><div class="b-inner"></div></div>
+        <div class="b-word" id="closeWord">Press begin</div>
+        <div class="b-count" id="closeCount"></div>
+        <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:#5c2318;min-height:28px;margin-top:12px;" id="closeAff"></div>
+        <button class="start-btn" id="closeBtn" onclick="closeBreath()">Begin Sacred 6</button>
       </div>
     </div>
   </div>
 
   <!-- Complete -->
-  <div class="step" id="s7">
-    <div class="card complete">
-      <h2>You did something beautiful today.</h2>
-      <p>You looked the lie in the eye. You traced it back to where it came from. And you breathed it out of your body.</p>
-      <p>This is not a one-time fix — it is the beginning of a new conversation with yourself. Every time you notice the lie surfacing, you can return to this practice.</p>
-      <div class="callout">"Insight isn't integration — but you just took one step beyond insight. You felt it, and you let it move through you."<br><br>— Melissa</div>
-      <button class="restart" onclick="location.reload()">Begin again</button>
+  <div class="step" id="s11">
+    <div class="card complete-wrap">
+      <h2>You did something profound today.</h2>
+      <p>You looked the lie in the eye. You forgave yourself for carrying it. And you breathed the truth into your body.</p>
+      <p>This is not a one-time fix — it is the beginning of remembering. Every time the lie surfaces, you can return to the clearing and the breath.</p>
+      <div class="affirmation-seal">
+        <div class="seal-label">Your truth</div>
+        <div class="seal-text" id="finalAff"></div>
+      </div>
+      <div class="quote-block">"This is not about erasing the thought — it is about remembering you are more than it. Every time it arises, you now have a choice: observe, breathe, and return to truth."<br><br>— Melissa</div>
+      <button class="btn-outline" onclick="location.reload()">Begin again</button>
     </div>
   </div>
 
@@ -162,65 +266,108 @@
 </div>
 
 <script>
-  const dots = 7;
-  function nextQ(from) {
-    const ta = document.querySelectorAll('#s'+from+' textarea')[0];
-    if (ta && !ta.value.trim()) { alert('Take your time — write whatever comes.'); return; }
+  const labels = ['','Opening','Sacred 6 Opening','Question 1 of 5','Question 2 of 5','Question 3 of 5','Question 4 of 5','Question 5 of 5','Revealing the Lie','The Clearing','Sacred 6 Closing','Complete'];
+  let userLie = '';
+  let userAff = '';
+
+  function go(from) {
     const next = from + 1;
-    document.getElementById('s'+from).classList.remove('on');
+    document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
     document.getElementById('s'+next).classList.add('on');
-    document.getElementById('d'+next).classList.add('on');
-    const labels = ['','Question 1 of 5','Question 2 of 5','Question 3 of 5','Question 4 of 5','Question 5 of 5','The Clearing','Complete'];
-    document.getElementById('plabel').textContent = labels[next] || '';
+    if (document.getElementById('d'+next)) document.getElementById('d'+next).classList.add('on');
+    document.getElementById('prog-label').textContent = labels[next] || '';
+    window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  // Sacred 6 Breath
-  let breathRunning = false;
-  const affirmations = [
-    'I release what is not mine to carry.',
-    'I am safe to let this go.',
-    'My body knows how to heal.',
-    'I am more than any lie.',
-    'I return to myself.',
-    'I am whole. I am enough. I am free.'
-  ];
-
-  function startBreath() {
-    if (breathRunning) return;
-    breathRunning = true;
-    document.getElementById('startbtn').style.display = 'none';
-    runBreath(0);
+  function nextQ(from) {
+    const ta = document.querySelector('#s'+from+' textarea');
+    if (ta && !ta.value.trim()) { alert('Take your time — write whatever comes, even a few words.'); return; }
+    const next = from + 1;
+    document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+    document.getElementById('s'+next).classList.add('on');
+    if (document.getElementById('d'+next)) document.getElementById('d'+next).classList.add('on');
+    document.getElementById('prog-label').textContent = labels[next] || '';
+    window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  function runBreath(round) {
-    if (round >= 6) {
-      document.getElementById('bword').textContent = 'Complete';
-      document.getElementById('bctr').textContent = '';
-      document.getElementById('baff').textContent = 'Sit with this for a moment. You are held.';
-      document.getElementById('baff').classList.add('show');
-      setTimeout(()=>{ nextQ(6); }, 4000);
-      return;
+  function buildClearing() {
+    const lie = document.getElementById('lie').value.trim();
+    if (!lie) { alert('Name the lie — even a rough version is enough.'); return; }
+    userLie = lie;
+    document.getElementById('lieDisplay').textContent = '"' + lie + '"';
+    document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+    document.getElementById('s9').classList.add('on');
+    document.getElementById('d9').classList.add('on');
+    document.getElementById('prog-label').textContent = 'The Clearing';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function updateAff() {
+    userAff = document.getElementById('affirmation').value.trim();
+  }
+
+  function goToBreath() {
+    userAff = document.getElementById('affirmation').value.trim() || 'I am enough. I am lovable. I am as the universe created me.';
+    const commit = document.getElementById('commitment').value.trim();
+    const sub = document.getElementById('closeBreathSub');
+    if (userAff) {
+      sub.innerHTML = 'Six connected breaths. Between each breath, let yourself feel:<br><br><em style="font-family:\'Playfair Display\',serif;font-size:1.05rem;color:#5c2318;">"' + userAff + '"</em>';
     }
-    const aff = document.getElementById('baff');
-    const ctr = document.getElementById('bctr');
-    const word = document.getElementById('bword');
-    const circle = document.getElementById('bc');
+    document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+    document.getElementById('s10').classList.add('on');
+    document.getElementById('d10') && document.getElementById('d10').classList.add('on');
+    document.getElementById('prog-label').textContent = 'Sacred 6 Closing';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
 
-    ctr.textContent = 'Breath ' + (round+1) + ' of 6';
-    aff.textContent = affirmations[round];
-    aff.classList.add('show');
+  // Opening Sacred 6 — 6 connected breaths
+  function openBreath() {
+    document.getElementById('openBtn').style.display = 'none';
+    runSacred6('openRing', 'openWord', 'openCount', null, 0, 6, ()=>{
+      document.getElementById('openWord').textContent = 'Beautiful.';
+      setTimeout(()=>{ go(2); }, 2000);
+    });
+  }
 
-    // Inhale
-    word.textContent = 'Inhale';
-    circle.classList.add('expand');
-    setTimeout(()=>{
-      // Exhale
-      word.textContent = 'Exhale';
-      circle.classList.remove('expand');
+  // Closing Sacred 6 — 6 connected breaths with affirmation
+  function closeBreath() {
+    document.getElementById('closeBtn').style.display = 'none';
+    const affirmations = [
+      userAff, userAff, userAff, userAff, userAff, userAff
+    ];
+    runSacred6('closeRing', 'closeWord', 'closeCount', 'closeAff', 0, 6, ()=>{
+      document.getElementById('closeWord').textContent = 'Complete.';
+      document.getElementById('closeCount').textContent = '';
+      document.getElementById('closeAff').textContent = '';
+      document.getElementById('finalAff').textContent = userAff || 'I am enough. I am lovable. I am as the universe created me.';
       setTimeout(()=>{
-        runBreath(round + 1);
+        document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+        document.getElementById('s11').classList.add('on');
+        document.getElementById('prog-label').textContent = 'Complete';
+        window.scrollTo({top:0,behavior:'smooth'});
       }, 2000);
-    }, 2000);
+    }, affirmations);
+  }
+
+  function runSacred6(ringId, wordId, countId, affId, round, total, onComplete, affirmations) {
+    if (round >= total) { onComplete(); return; }
+    const ring = document.getElementById(ringId);
+    const word = document.getElementById(wordId);
+    const cnt = document.getElementById(countId);
+    const aff = affId ? document.getElementById(affId) : null;
+
+    cnt.textContent = 'Breath ' + (round+1) + ' of ' + total;
+    if (aff && affirmations) aff.textContent = affirmations[round] || '';
+
+    word.textContent = 'Inhale';
+    ring.classList.add('expand');
+    setTimeout(()=>{
+      word.textContent = 'Exhale';
+      ring.classList.remove('expand');
+      setTimeout(()=>{
+        runSacred6(ringId, wordId, countId, affId, round+1, total, onComplete, affirmations);
+      }, 2000);
+    }, 2200);
   }
 </script>
 </body>
