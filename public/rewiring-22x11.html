@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>22×11 Rewiring Method | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 600px; width: 100%; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.96rem; line-height: 1.85; color: #6b5144; margin-bottom: 30px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+
+    .info-card { background: #f9f3eb; border-radius: 14px; padding: 20px 22px; margin: 16px 0; border-left: 3px solid #c4967a; }
+
+    input[type="text"] { width: 100%; padding: 13px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Playfair Display', serif; font-size: 1rem; color: #4a3728; background: #fdf9f4; outline: none; transition: border-color 0.2s; margin-top: 10px; }
+    input[type="text"]:focus { border-color: #c4967a; }
+    textarea { width: 100%; padding: 13px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.94rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 90px; line-height: 1.65; outline: none; transition: border-color 0.2s; margin-top: 8px; }
+    textarea:focus { border-color: #c4967a; }
+
+    /* Affirmation examples */
+    .aff-examples { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
+    .aff-ex { padding: 10px 16px; background: #fdf9f4; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #5c2318; cursor: pointer; transition: all 0.2s; font-style: italic; }
+    .aff-ex:hover, .aff-ex.sel { border-color: #c4967a; background: #fdf5ec; }
+
+    /* Day tracker */
+    .day-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
+    .day-btn { padding: 14px 8px; border: 1.5px solid #e8d9c4; border-radius: 12px; background: #fdf9f4; text-align: center; cursor: pointer; transition: all 0.2s; }
+    .day-btn:hover { border-color: #c4967a; background: #f2e8d9; }
+    .day-btn.done { background: #5c2318; border-color: #5c2318; }
+    .day-btn.done .day-n { color: #fff; }
+    .day-btn.done .day-label { color: #e8c4b2; }
+    .day-btn.today { border-color: #c4967a; border-width: 2px; background: #fdf5ec; }
+    .day-n { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; display: block; }
+    .day-label { font-size: 0.72rem; letter-spacing: 1px; color: #9a7d6e; text-transform: uppercase; display: block; margin-top: 2px; }
+
+    /* Today practice */
+    .today-aff { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #5c2318; font-style: italic; background: #f2e8d9; border-radius: 10px; padding: 14px 18px; margin: 14px 0; text-align: center; }
+    .line-pair { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+    .line-row { background: #fdf9f4; border-radius: 10px; padding: 12px 16px; border: 1px solid #ede3d4; }
+    .line-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 6px; display: block; }
+    .line-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #e8d9c4; padding: 6px 0; font-family: 'Playfair Display', serif; font-size: 0.94rem; color: #4a3728; outline: none; }
+    .line-input:focus { border-bottom-color: #c4967a; }
+    .line-response { width: 100%; background: transparent; border: none; border-bottom: 1px solid #e8d9c4; padding: 6px 0; font-family: 'Lato', sans-serif; font-size: 0.88rem; color: #6b5144; font-style: italic; outline: none; margin-top: 8px; }
+    .line-response:focus { border-bottom-color: #c4967a; }
+
+    /* Progress */
+    .progress-bar { height: 6px; background: #f2e8d9; border-radius: 10px; margin: 14px 0; overflow: hidden; }
+    .progress-fill { height: 100%; background: #c4967a; border-radius: 10px; transition: width 0.6s ease; }
+
+    /* Seal */
+    .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Melissa Melrose</div>
+
+  <!-- STEP 0: Intro -->
+  <div class="step on" id="s0">
+    <h1>22×11 Rewiring<br>Method</h1>
+    <div class="divider"></div>
+    <p class="intro">A powerful writing process to challenge and clear limiting beliefs while gently introducing new ones that your subconscious can actually accept.</p>
+
+    <div class="card">
+      <span class="section-tag">Why This is Different from Affirmations</span>
+      <p class="body">Saying "I am wealthy" when you feel broke creates inner resistance. But saying "I am open to feeling supported financially" begins the shift with safety and curiosity.</p>
+      <div class="info-card">
+        <p style="font-size:0.93rem; line-height:1.85; color:#4a3728;">
+          <strong style="color:#5c2318;">The Method:</strong><br>
+          Write your chosen belief <strong>22 times per day</strong>. After each line, write your gut-level response — without filtering. These responses are your subconscious revealing what's in the way. Your job is simply to witness them with compassion.<br><br>
+          Do this <strong>for 11 days</strong>. By day 11, you may notice subtle shifts — more spaciousness, softer inner dialogue, spontaneous new actions.
+        </p>
+      </div>
+      <div class="info-card" style="border-left-color:#e8d9c4; margin-top:6px;">
+        <p style="font-size:0.88rem; line-height:1.8; color:#6b5144; font-style:italic;">Keep the process sacred. Start fresh if interrupted. Let this be your quiet daily devotion.</p>
+      </div>
+      <button class="btn" onclick="go(1)">Choose My Belief</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: Choose Belief -->
+  <div class="step" id="s1">
+    <h1>Choose Your<br>New Belief</h1>
+    <div class="divider"></div>
+    <p class="intro">Choose something slightly challenging but not completely unbelievable — your subconscious needs to find it credible. The sweet spot is a gentle stretch, not a leap.</p>
+
+    <div class="card">
+      <span class="section-tag">Step 1 — Select or Write Your Belief</span>
+      <p class="body">Tap one of these to use it, or write your own below:</p>
+      <div class="aff-examples">
+        <div class="aff-ex" onclick="selectAff(this, 'I am open to trusting life.')">"I am open to trusting life."</div>
+        <div class="aff-ex" onclick="selectAff(this, 'I am willing to receive love with ease.')">"I am willing to receive love with ease."</div>
+        <div class="aff-ex" onclick="selectAff(this, 'I let go of what no longer supports me.')">"I let go of what no longer supports me."</div>
+        <div class="aff-ex" onclick="selectAff(this, 'I am safe to be fully seen.')">"I am safe to be fully seen."</div>
+        <div class="aff-ex" onclick="selectAff(this, 'I am open to feeling supported.')">"I am open to feeling supported."</div>
+        <div class="aff-ex" onclick="selectAff(this, 'I am willing to feel peace.')">"I am willing to feel peace."</div>
+      </div>
+      <p class="body" style="margin-top:10px;">Or write your own:</p>
+      <input type="text" id="customAff" placeholder="I am open to..." oninput="typeAff(this.value)">
+      <button class="btn" id="chooseBtn" onclick="confirmBelief()" style="opacity:0.5; pointer-events:none;">Set This as My Belief</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: 11-Day Tracker -->
+  <div class="step" id="s2">
+    <h1>Your 11-Day<br>Practice</h1>
+    <div class="divider"></div>
+
+    <div class="card">
+      <span class="section-tag">Your Belief</span>
+      <div class="today-aff" id="beliefDisplay"></div>
+
+      <span class="section-tag" style="margin-top:20px;">11-Day Progress</span>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="day-grid" id="dayGrid"></div>
+
+      <button class="btn" onclick="go(3)">Open Today's Practice</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Today's Practice -->
+  <div class="step" id="s3">
+    <h1>Today's<br>22 Lines</h1>
+    <div class="divider"></div>
+    <p class="intro">Write your belief 22 times. After each line, write whatever comes up — resistance, doubt, emotion, or even support. No filtering. Just witness.</p>
+
+    <div class="card">
+      <span class="section-tag">Example</span>
+      <div class="info-card" style="border-left-color:#e8d9c4;">
+        <p style="font-size:0.88rem; line-height:1.75; color:#4a3728;">
+          <em style="color:#5c2318;">Line:</em> "I am willing to feel peace."<br>
+          <em style="color:#9a7d6e;">Response:</em> "But I never have."<br><br>
+          That response is pure gold. It shows you exactly what the subconscious is holding.
+        </p>
+      </div>
+
+      <p class="body" style="margin-top:16px;">Use the lines below, or write in your journal. What matters is the consistency.</p>
+      <div class="today-aff" id="todayBeliefDisplay" style="margin:14px 0 20px;"></div>
+
+      <div class="line-pair">
+        <div class="line-row">
+          <span class="line-label">Line 1</span>
+          <input class="line-input" type="text" placeholder="Write your belief..." id="l1">
+          <input class="line-response" type="text" placeholder="Gut response..." id="r1">
+        </div>
+        <div class="line-row">
+          <span class="line-label">Line 2</span>
+          <input class="line-input" type="text" placeholder="Write your belief..." id="l2">
+          <input class="line-response" type="text" placeholder="Gut response..." id="r2">
+        </div>
+        <div class="line-row">
+          <span class="line-label">Line 3</span>
+          <input class="line-input" type="text" placeholder="Write your belief..." id="l3">
+          <input class="line-response" type="text" placeholder="Gut response..." id="r3">
+        </div>
+        <div class="line-row">
+          <span class="line-label">Line 4</span>
+          <input class="line-input" type="text" placeholder="Write your belief..." id="l4">
+          <input class="line-response" type="text" placeholder="Gut response..." id="r4">
+        </div>
+        <div class="line-row">
+          <span class="line-label">Line 5</span>
+          <input class="line-input" type="text" placeholder="Write your belief..." id="l5">
+          <input class="line-response" type="text" placeholder="Gut response..." id="r5">
+        </div>
+      </div>
+      <p style="font-size:0.84rem; font-style:italic; color:#9a7d6e; margin-top:4px; text-align:center;">Continue the remaining 17 lines in your journal today.</p>
+      <button class="btn" onclick="markDayDone()">Mark Today Complete</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Complete (11 days) -->
+  <div class="step" id="s4">
+    <div class="card" style="text-align:center;">
+      <div class="seal">✦</div>
+      <span class="section-tag">11 Days Complete</span>
+      <p style="font-family:'Playfair Display', serif; font-size:1.25rem; color:#5c2318; line-height:1.55; margin-bottom:14px;">Your subconscious has been listening.<br>Your body has been learning.</p>
+      <p class="body">Notice what has softened. What feels more spacious. What new actions have been appearing naturally. This is the shift — subtle, real, and yours.</p>
+      <div class="info-card" style="text-align:left; margin-top:20px; border-left-color:#e8d9c4;">
+        <p style="font-size:0.9rem; line-height:1.8; color:#4a3728; font-style:italic;">"This is shadow work through the lens of reprogramming. Keep the process sacred."</p>
+      </div>
+      <button class="btn-outline" onclick="resetPractice()" style="display:block; text-align:center;">Begin a New Belief</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+let chosenBelief = '';
+let completedDays = JSON.parse(localStorage.getItem('rewiring_days') || '[]');
+let currentDay = parseInt(localStorage.getItem('rewiring_day') || '1');
+
+function go(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  window.scrollTo(0, 0);
+  if (n === 2) renderTracker();
+  if (n === 3) document.getElementById('todayBeliefDisplay').textContent = chosenBelief || localStorage.getItem('rewiring_belief') || '';
+}
+function restart() { go(0); }
+
+function selectAff(el, text) {
+  document.querySelectorAll('.aff-ex').forEach(e => e.classList.remove('sel'));
+  el.classList.add('sel');
+  chosenBelief = text;
+  document.getElementById('customAff').value = '';
+  updateChooseBtn();
+}
+function typeAff(val) {
+  document.querySelectorAll('.aff-ex').forEach(e => e.classList.remove('sel'));
+  chosenBelief = val;
+  updateChooseBtn();
+}
+function updateChooseBtn() {
+  const btn = document.getElementById('chooseBtn');
+  if (chosenBelief.trim().length > 3) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+  else { btn.style.opacity = '0.5'; btn.style.pointerEvents = 'none'; }
+}
+function confirmBelief() {
+  localStorage.setItem('rewiring_belief', chosenBelief);
+  document.getElementById('beliefDisplay').textContent = chosenBelief;
+  go(2);
+}
+function renderTracker() {
+  const belief = localStorage.getItem('rewiring_belief') || chosenBelief;
+  document.getElementById('beliefDisplay').textContent = belief;
+  const done = JSON.parse(localStorage.getItem('rewiring_days') || '[]');
+  const cd = parseInt(localStorage.getItem('rewiring_day') || '1');
+  const grid = document.getElementById('dayGrid');
+  grid.innerHTML = '';
+  for (let i = 1; i <= 11; i++) {
+    const btn = document.createElement('div');
+    btn.className = 'day-btn';
+    if (done.includes(i)) btn.classList.add('done');
+    if (i === cd && !done.includes(i)) btn.classList.add('today');
+    btn.innerHTML = `<span class="day-n">${done.includes(i) ? '✓' : i}</span><span class="day-label">Day ${i}</span>`;
+    grid.appendChild(btn);
+  }
+  document.getElementById('progressFill').style.width = (done.length / 11 * 100) + '%';
+}
+function markDayDone() {
+  const cd = parseInt(localStorage.getItem('rewiring_day') || '1');
+  const done = JSON.parse(localStorage.getItem('rewiring_days') || '[]');
+  if (!done.includes(cd)) { done.push(cd); localStorage.setItem('rewiring_days', JSON.stringify(done)); }
+  const next = cd + 1;
+  localStorage.setItem('rewiring_day', next);
+  if (done.length >= 11) { go(4); } else { go(2); }
+}
+function resetPractice() {
+  localStorage.removeItem('rewiring_days'); localStorage.removeItem('rewiring_day'); localStorage.removeItem('rewiring_belief');
+  chosenBelief = ''; go(0);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blame Observation Practice | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 580px; width: 100%; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.96rem; line-height: 1.85; color: #6b5144; margin-bottom: 30px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .card.centre { text-align: center; }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    .card-h { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #5c2318; line-height: 1.45; margin-bottom: 12px; }
+    p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+
+    .info-card { background: #f9f3eb; border-radius: 14px; padding: 20px 22px; margin: 16px 0; border-left: 3px solid #c4967a; }
+    .info-text { font-size: 0.94rem; line-height: 1.8; color: #4a3728; }
+
+    /* Breath */
+    .breath-area { display: flex; flex-direction: column; align-items: center; margin: 20px 0; }
+    .b-ring { width: 130px; height: 130px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; transition: transform 4s ease-in-out, background 4s ease-in-out; }
+    .b-ring.expand { transform: scale(1.3); background: #e8d4be; }
+    .b-inner { width: 60px; height: 60px; border-radius: 50%; background: #c4967a; opacity: 0.22; }
+    .b-word { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; margin-top: 18px; min-height: 32px; }
+    .b-guide { font-size: 0.84rem; color: #9a7d6e; font-style: italic; margin-top: 4px; min-height: 20px; }
+    .b-count { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-top: 8px; }
+    .start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 13px 34px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 22px; transition: background 0.2s; }
+    .start-btn:hover { background: #7a2f21; }
+
+    /* 4-2-6 special breath */
+    .phase-ring { width: 130px; height: 130px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; transition: transform 4s ease-in-out, background 4s ease-in-out; }
+    .phase-ring.expand { transform: scale(1.3); background: #e8d4be; }
+    .phase-ring.hold-top { transform: scale(1.3); background: #dcc9b2; animation: holdPulse 1.5s ease-in-out infinite; }
+    @keyframes holdPulse { 0%,100%{opacity:1} 50%{opacity:0.72} }
+
+    /* Questions */
+    .q-item { background: #fdf9f4; border-radius: 12px; padding: 18px 20px; margin: 12px 0; border: 1px solid #ede3d4; }
+    .q-num { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 6px; display: block; }
+    .q-text { font-family: 'Playfair Display', serif; font-size: 1.02rem; color: #5c2318; line-height: 1.55; }
+
+    /* Write */
+    textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 110px; line-height: 1.6; outline: none; transition: border-color 0.2s; margin-top: 10px; }
+    textarea:focus { border-color: #c4967a; }
+
+    /* Mantra */
+    .mantra-box { background: #f2e8d9; border-radius: 14px; padding: 24px 22px; margin: 20px 0; text-align: center; }
+    .mantra-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #5c2318; line-height: 1.7; font-style: italic; }
+
+    /* Meditation steps */
+    .med-step { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f2e8d9; }
+    .med-step:last-child { border-bottom: none; }
+    .med-num { width: 26px; height: 26px; border-radius: 50%; background: #f2e8d9; border: 1.5px solid #c4967a; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 0.8rem; color: #5c2318; }
+    .med-text { font-size: 0.93rem; line-height: 1.75; color: #4a3728; padding-top: 3px; }
+
+    /* Seal */
+    .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Melissa Melrose</div>
+
+  <!-- STEP 0: Intro -->
+  <div class="step on" id="s0">
+    <h1>Blame<br>Observation<br>Practice</h1>
+    <div class="divider"></div>
+    <p class="intro">Blaming is often a protective response — a way to deflect attention from deep discomfort, especially shame. For many, blame is learned early in life and becomes a survival strategy when self-soothing hasn't been developed.</p>
+
+    <div class="card">
+      <span class="section-tag">Foundation of Self</span>
+      <p class="body">Blame may offer short-term relief, but over time it distances us from our truth and disconnects us from our body. This practice creates a simple observation process — to reveal your personal patterns of blame and begin returning to regulation.</p>
+      <div class="info-card" style="border-left-color:#e8d9c4;">
+        <p style="font-size:0.9rem; line-height:1.8; color:#4a3728;">
+          ① Breathe and return to the body<br>
+          ② Ask four questions about your blame pattern<br>
+          ③ Write what wants to be witnessed<br>
+          ④ Anchor with presence breath<br>
+          ⑤ Guided meditation for conscious presence
+        </p>
+      </div>
+      <button class="btn" onclick="go(1)">Begin</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: Breathe + Arrive -->
+  <div class="step" id="s1">
+    <h1>First — Return<br>to Your Body</h1>
+    <div class="divider"></div>
+    <p class="intro">Close your eyes. Place a hand on your heart or belly. Feel what is present before we begin.</p>
+
+    <div class="card centre">
+      <div class="breath-area">
+        <div class="b-ring" id="s1Ring"><div class="b-inner"></div></div>
+        <div class="b-word" id="s1Word">—</div>
+        <div class="b-guide" id="s1Guide">Hand on heart or belly. Press begin.</div>
+        <div class="b-count" id="s1Count"></div>
+        <button class="start-btn" id="s1Btn" onclick="startSighs()">Begin Breaths</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Four Questions -->
+  <div class="step" id="s2">
+    <h1>The Observation<br>Questions</h1>
+    <div class="divider"></div>
+    <p class="intro">When you notice reactivity or blame arising, ask yourself these four questions. Sit with each one. Let the answer come from the body, not just the mind.</p>
+
+    <div class="card">
+      <span class="section-tag">Ask Yourself</span>
+      <div class="q-item">
+        <span class="q-num">Question 1</span>
+        <p class="q-text">What emotion am I really feeling underneath this blame?</p>
+      </div>
+      <div class="q-item">
+        <span class="q-num">Question 2</span>
+        <p class="q-text">Who or what am I trying to protect myself from right now?</p>
+      </div>
+      <div class="q-item">
+        <span class="q-num">Question 3</span>
+        <p class="q-text">Does this blame remind me of something or someone from the past?</p>
+      </div>
+      <div class="q-item">
+        <span class="q-num">Question 4</span>
+        <p class="q-text">Am I trying to discharge pain because I don't yet know how to hold it?</p>
+      </div>
+      <button class="btn" onclick="go(3)">I've reflected — continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Write -->
+  <div class="step" id="s3">
+    <h1>Write It Down</h1>
+    <div class="divider"></div>
+    <p class="intro">Let your insights flow without editing. This is not about getting it right — it's about letting what wants to be witnessed, be seen.</p>
+
+    <div class="card">
+      <span class="section-tag">Step 3 — Your Reflections</span>
+      <p class="body">What came up for you in those four questions? Write freely below.</p>
+      <textarea placeholder="What I'm really feeling is... I'm protecting myself from... This reminds me of... What I notice is..."></textarea>
+      <div class="info-card" style="margin-top:18px; border-left-color:#e8d9c4;">
+        <p style="font-size:0.9rem; line-height:1.75; color:#4a3728; font-style:italic;">When you witness your blame response with awareness, you interrupt the cycle. You bring coherence back between thought and body. This is where true healing begins.</p>
+      </div>
+      <button class="btn" onclick="go(4)">Written — now anchor with breath</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Presence Breath (4-2-6) -->
+  <div class="step" id="s4">
+    <h1>Breath & Body<br>Presence Reset</h1>
+    <div class="divider"></div>
+    <p class="intro">In moments of blame or reactivity, what your nervous system is calling for is presence — a return to the moment, to the breath, and to your body.</p>
+
+    <div class="card centre">
+      <span class="section-tag">4 · 2 · 6 Breath — 3 to 5 Rounds</span>
+      <div class="breath-area">
+        <div class="phase-ring" id="s4Ring"><div class="b-inner"></div></div>
+        <div class="b-word" id="s4Word">—</div>
+        <div class="b-guide" id="s4Guide">Settle in. Then press begin.</div>
+        <div class="b-count" id="s4Count"></div>
+        <button class="start-btn" id="s4Btn" onclick="startPresencBreath()">Begin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5: Mantra -->
+  <div class="step" id="s5">
+    <div class="card centre">
+      <span class="section-tag">Anchor Mantra</span>
+      <div class="mantra-box">
+        <div class="mantra-text">"I am safe to feel.<br>I am safe to see."</div>
+      </div>
+      <p class="body">Say this quietly, three times. Let each repetition land a little deeper. You are not fixing yourself — you are making space for what's true.</p>
+      <p class="body" style="margin-top:4px; font-style:italic; color:#9a7d6e;">This is how you disrupt old patterns — not by force, but by presence.</p>
+      <button class="btn" onclick="go(6)">Continue to Guided Meditation</button>
+      <button class="btn-outline" onclick="go(7)" style="display:block; text-align:center;">Skip — I'm complete</button>
+    </div>
+  </div>
+
+  <!-- STEP 6: Guided Meditation -->
+  <div class="step" id="s6">
+    <h1>Meditation for<br>Presence</h1>
+    <div class="divider"></div>
+    <p class="intro">Use this practice when you find yourself caught in blame, emotional reactivity, or overwhelmed by old patterns. Read it slowly, or record it in your own voice.</p>
+
+    <div class="card">
+      <span class="section-tag">Guided Practice</span>
+      <div class="med-step">
+        <div class="med-num">1</div>
+        <div class="med-text">Sit or lie down comfortably. Gently close your eyes. Place one hand on your belly and the other over your heart.</div>
+      </div>
+      <div class="med-step">
+        <div class="med-num">2</div>
+        <div class="med-text">Breathe in slowly through your nose — feel your belly rise. Hold for a moment at the top. Breathe out gently through your mouth with a sigh — feel your body soften. <em style="color:#5c2318;">Repeat for 3–5 breaths.</em></div>
+      </div>
+      <div class="med-step">
+        <div class="med-num">3</div>
+        <div class="med-text">Now bring your awareness inward. Notice what's present inside you. Let go of the story. Let go of who or what you were blaming. Focus only on the sensation of the emotion. Feel it without judgement. Feel it without needing to fix it. Just be the witness.</div>
+      </div>
+      <div class="med-step">
+        <div class="med-num">4</div>
+        <div class="med-text">Repeat silently: <em style="color:#5c2318;">"I am safe to feel. I am safe to stay."</em></div>
+      </div>
+      <div class="med-step">
+        <div class="med-num">5</div>
+        <div class="med-text">Now bring awareness to the part of you that is observing. Not the emotion. Not the story. But the calm, steady part of you that is simply witnessing. This is your presence. This is your power.</div>
+      </div>
+      <div class="med-step">
+        <div class="med-num">6</div>
+        <div class="med-text">Stay here for a few more breaths. Let whatever is present move through you. When you're ready, gently open your eyes and return to the room. You have just broken the cycle — not through resistance, but through conscious presence.</div>
+      </div>
+      <button class="btn" onclick="go(7)">Complete</button>
+    </div>
+  </div>
+
+  <!-- STEP 7: Complete -->
+  <div class="step" id="s7">
+    <div class="card centre">
+      <div class="seal">✦</div>
+      <span class="section-tag">Practice Complete</span>
+      <p class="card-h">You just broke the cycle.</p>
+      <p class="body" style="margin-top:10px;">Not through force. Not through willpower. Through conscious presence — the most powerful disruption there is.</p>
+      <div class="info-card" style="text-align:left; margin-top:20px; border-left-color:#e8d9c4;">
+        <p style="font-size:0.9rem; line-height:1.8; color:#4a3728;">Every time you choose to observe rather than react, you weaken the old pattern a little more. Return to this practice whenever blame or reactivity arises. Each time is a choice for freedom.</p>
+      </div>
+      <button class="btn-outline" onclick="restart()" style="display:block; text-align:center;">Begin Again</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+function go(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  window.scrollTo(0, 0);
+}
+function restart() { go(0); }
+
+// 3 sighs
+function startSighs() {
+  const ring = document.getElementById('s1Ring');
+  const word = document.getElementById('s1Word');
+  const guide = document.getElementById('s1Guide');
+  const count = document.getElementById('s1Count');
+  document.getElementById('s1Btn').style.display = 'none';
+  let n = 0;
+  function inhale() {
+    ring.classList.add('expand'); word.textContent = 'Inhale'; guide.textContent = 'slowly through your nose...'; count.textContent = '';
+    setTimeout(exhale, 4000);
+  }
+  function exhale() {
+    ring.classList.remove('expand'); word.textContent = 'Sigh'; guide.textContent = 'let it go through your mouth...'; n++;
+    count.textContent = n + ' of 3';
+    if (n < 3) { setTimeout(inhale, 4500); }
+    else { setTimeout(() => { word.textContent = '✦'; guide.textContent = 'You are here.'; count.textContent = ''; setTimeout(() => go(2), 2200); }, 4000); }
+  }
+  inhale();
+}
+
+// 4-2-6 presence breath
+function startPresencBreath() {
+  const ring = document.getElementById('s4Ring');
+  const word = document.getElementById('s4Word');
+  const guide = document.getElementById('s4Guide');
+  const count = document.getElementById('s4Count');
+  document.getElementById('s4Btn').style.display = 'none';
+  let n = 0; const total = 4;
+  function doInhale() {
+    ring.classList.remove('hold-top'); ring.classList.add('expand');
+    word.textContent = 'Inhale'; guide.textContent = 'through your nose — 4 counts...'; count.textContent = n + ' of ' + total;
+    setTimeout(doHold, 4000);
+  }
+  function doHold() {
+    ring.classList.remove('expand'); ring.classList.add('hold-top');
+    word.textContent = 'Hold'; guide.textContent = 'gently — 2 counts...';
+    setTimeout(doExhale, 2000);
+  }
+  function doExhale() {
+    ring.classList.remove('hold-top'); ring.classList.remove('expand');
+    word.textContent = 'Exhale'; guide.textContent = 'with a soft sigh — 6 counts...';
+    n++;
+    setTimeout(() => {
+      if (n < total) { doInhale(); }
+      else { word.textContent = '✦'; guide.textContent = 'In this moment, I choose to stay. I choose presence.'; count.textContent = ''; setTimeout(() => go(5), 3000); }
+    }, 6000);
+  }
+  doInhale();
+}
+</script>
+</body>
+</html>

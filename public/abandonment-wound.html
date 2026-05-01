@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Abandonment Wound | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 600px; width: 100%; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2.1rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.96rem; line-height: 1.85; color: #6b5144; margin-bottom: 30px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .card.centre { text-align: center; }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+
+    /* Opening reveal — poem style */
+    .poem-block { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: #5c2318; line-height: 2; border-left: 3px solid #c4967a; padding: 20px 24px; background: #f9f3eb; border-radius: 0 14px 14px 0; margin: 20px 0; }
+    .poem-line { display: block; margin-bottom: 4px; }
+
+    /* Recognition tags */
+    .rec-grid { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+    .rec-tag { padding: 10px 18px; border: 1.5px solid #e8d9c4; border-radius: 30px; font-size: 0.9rem; color: #4a3728; cursor: pointer; transition: all 0.2s; background: #fdf9f4; line-height: 1.4; }
+    .rec-tag:hover, .rec-tag.sel { background: #f2e8d9; border-color: #c4967a; color: #5c2318; }
+
+    /* Paradox */
+    .paradox-wrap { margin: 20px 0; }
+    .p-old { background: #fdf9f4; border-radius: 12px; padding: 18px 20px; border: 1.5px solid #e8d9c4; margin-bottom: 10px; }
+    .p-new { background: #f2e8d9; border-radius: 12px; padding: 18px 20px; border: 1.5px solid #c4967a; }
+    .p-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #9a7d6e; margin-bottom: 8px; display: block; }
+    .p-text { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #5c2318; line-height: 1.6; }
+    .p-arrow { text-align: center; font-size: 1.4rem; color: #c4967a; margin: 4px 0; }
+
+    /* Not vs Is grid */
+    .split-grid { display: flex; gap: 14px; margin: 20px 0; }
+    .split-col { flex: 1; }
+    .split-h { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #9a7d6e; margin-bottom: 10px; display: block; }
+    .split-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+    .split-dot { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
+    .split-dot.not { background: #f9eded; color: #c47a7a; }
+    .split-dot.is { background: #f2e8d9; color: #5c2318; }
+    .split-text { font-size: 0.88rem; line-height: 1.65; color: #4a3728; }
+
+    /* Healing statements */
+    .heal-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #f2e8d9; }
+    .heal-item:last-child { border-bottom: none; }
+    .heal-dot { width: 28px; height: 28px; border-radius: 50%; background: #f2e8d9; border: 1.5px solid #c4967a; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #5c2318; }
+    .heal-text { font-size: 0.94rem; line-height: 1.75; color: #4a3728; padding-top: 3px; }
+    .heal-text em { color: #5c2318; font-style: italic; }
+
+    /* Breath soothe */
+    .breath-area { display: flex; flex-direction: column; align-items: center; margin: 20px 0; }
+    .b-ring { width: 140px; height: 140px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; transition: transform 5s ease-in-out, background 5s ease-in-out; }
+    .b-ring.expand { transform: scale(1.28); background: #e8d4be; }
+    .b-inner { width: 64px; height: 64px; border-radius: 50%; background: #c4967a; opacity: 0.22; }
+    .b-word { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; margin-top: 20px; min-height: 32px; }
+    .b-guide { font-size: 0.85rem; color: #9a7d6e; font-style: italic; margin-top: 6px; min-height: 20px; }
+    .b-count { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-top: 8px; }
+    .start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 13px 34px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 22px; transition: background 0.2s; }
+    .start-btn:hover { background: #7a2f21; }
+
+    /* Vow */
+    .vow-card { background: #5c2318; border-radius: 18px; padding: 32px 28px; text-align: center; margin: 20px 0; }
+    .vow-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #faf5ee; line-height: 1.85; }
+    .vow-highlight { color: #f2d4bc; font-style: italic; }
+
+    /* Affirmations */
+    .aff-list { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .aff-item { background: #f9f3eb; border-radius: 12px; padding: 16px 20px; border-left: 3px solid #c4967a; font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; font-style: italic; }
+
+    /* Seal */
+    .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Melissa Melrose</div>
+
+  <!-- STEP 0: Intro -->
+  <div class="step on" id="s0">
+    <h1>The Abandonment<br>Wound</h1>
+    <div class="divider"></div>
+    <p class="intro">It is rarely just about being left. It is about what your nervous system learned love meant.</p>
+
+    <div class="card">
+      <div class="poem-block">
+        <span class="poem-line">It is the child within who learned that connection could disappear.</span>
+        <span class="poem-line">That affection could be withdrawn.</span>
+        <span class="poem-line">That love might be inconsistent, conditional, or unsafe.</span>
+        <span class="poem-line">That your needs might make you too much.</span>
+        <span class="poem-line">That closeness can turn to distance without warning.</span>
+      </div>
+      <p class="body" style="margin-top:6px;">So you adapted. You became hyper-aware of people's energy shifts. You over-analysed texts and tone changes. You over-gave and over-functioned. You became who others needed you to be — in order to feel chosen.</p>
+      <button class="btn" onclick="go(1)">I'm ready to look at this</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: Recognition -->
+  <div class="step" id="s1">
+    <h1>Do You Recognise<br>Yourself Here?</h1>
+    <div class="divider"></div>
+    <p class="intro">This is not a diagnosis. It is an invitation to see yourself — with compassion, not judgement. Select what resonates.</p>
+
+    <div class="card">
+      <span class="section-tag">Patterns of the Abandonment Wound</span>
+      <div class="rec-grid">
+        <span class="rec-tag" onclick="toggleTag(this)">I over-analyse texts and tone changes</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I seek reassurance often</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I become who others need me to be</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I over-give and over-function</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I'm hyper-aware of people's energy shifts</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I silence my needs to keep the peace</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I tolerate behaviours that hurt me</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I fear that closeness will turn to distance</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I hold on even when I should let go</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I betray myself to keep connection</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I confuse intensity with love</span>
+        <span class="rec-tag" onclick="toggleTag(this)">I don't trust that I'm enough as I am</span>
+      </div>
+      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; text-align:center; margin-top:10px;">Whatever you selected — it makes sense. It was survival. It was learned.</p>
+      <button class="btn" onclick="go(2)">Continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: The Paradox -->
+  <div class="step" id="s2">
+    <h1>The Paradox<br>at the Centre</h1>
+    <div class="divider"></div>
+    <p class="intro">Here is what most people don't realise — and what changes everything when they do.</p>
+
+    <div class="card">
+      <span class="section-tag">The Deepest Truth</span>
+      <div class="paradox-wrap">
+        <div class="p-old">
+          <span class="p-label">The surface fear</span>
+          <div class="p-text">The abandonment wound fears being left by others.</div>
+        </div>
+        <div class="p-arrow">↓</div>
+        <div class="p-new">
+          <span class="p-label">The deeper pattern</span>
+          <div class="p-text">Its deepest pattern is often <strong>self-abandonment</strong>.</div>
+        </div>
+      </div>
+      <p class="body" style="margin-top:6px;">Because when we fear losing connection, we will often betray ourselves to keep it. We silence our needs. We tolerate what hurts us. We choose others over ourselves — again and again.</p>
+      <p class="body">The person we most need to stop leaving is ourselves.</p>
+      <button class="btn" onclick="go(3)">I see it — continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: What Healing Is NOT -->
+  <div class="step" id="s3">
+    <h1>What Healing<br>Looks Like</h1>
+    <div class="divider"></div>
+    <p class="intro">Healing this wound is not what many people think it is. Let's name what it is — and what it isn't.</p>
+
+    <div class="card">
+      <div class="split-grid">
+        <div class="split-col">
+          <span class="split-h">Healing is NOT</span>
+          <div class="split-item">
+            <div class="split-dot not">✕</div>
+            <div class="split-text">Finding someone who never triggers your fear</div>
+          </div>
+          <div class="split-item">
+            <div class="split-dot not">✕</div>
+            <div class="split-text">Securing perfect, unconditional love</div>
+          </div>
+          <div class="split-item">
+            <div class="split-dot not">✕</div>
+            <div class="split-text">Guaranteeing you will never be left again</div>
+          </div>
+        </div>
+        <div class="split-col">
+          <span class="split-h">Healing IS</span>
+          <div class="split-item">
+            <div class="split-dot is">✦</div>
+            <div class="split-text">Learning to stay with yourself when the fear rises</div>
+          </div>
+          <div class="split-item">
+            <div class="split-dot is">✦</div>
+            <div class="split-text">Soothing your nervous system instead of spiralling</div>
+          </div>
+          <div class="split-item">
+            <div class="split-dot is">✦</div>
+            <div class="split-text">Choosing self-respect over self-betrayal</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn" onclick="go(4)">What does that mean for me?</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: What Healing Means for You -->
+  <div class="step" id="s4">
+    <div class="card">
+      <span class="section-tag">The Healing Path</span>
+      <div class="heal-item">
+        <div class="heal-dot">1</div>
+        <div class="heal-text"><em>Honouring your needs</em> instead of suppressing them — even when it feels safer to stay silent.</div>
+      </div>
+      <div class="heal-item">
+        <div class="heal-dot">2</div>
+        <div class="heal-text"><em>Trusting that being alone does not mean you are unlovable.</em> Your worth is not tied to whether someone stays.</div>
+      </div>
+      <div class="heal-item">
+        <div class="heal-dot">3</div>
+        <div class="heal-text"><em>Knowing that someone leaving is not proof of your worth.</em> It is information about the relationship — not about you.</div>
+      </div>
+      <div class="heal-item">
+        <div class="heal-dot">4</div>
+        <div class="heal-text"><em>Soothing your nervous system</em> in the moment — instead of reaching outward for reassurance.</div>
+      </div>
+      <div class="heal-item">
+        <div class="heal-dot">5</div>
+        <div class="heal-text"><em>Choosing self-respect over self-betrayal</em> — one small act at a time.</div>
+      </div>
+      <button class="btn" onclick="go(5)">Let's soothe the nervous system now</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: Nervous System Soothe Breath -->
+  <div class="step" id="s5">
+    <h1>Soothe Your<br>Nervous System</h1>
+    <div class="divider"></div>
+    <p class="intro">When the fear of abandonment rises, your nervous system needs presence — not proof. This breath practice teaches it that you are safe, right here, right now.</p>
+
+    <div class="card centre">
+      <span class="section-tag">Grounding Breath — 5 Rounds</span>
+      <div class="breath-area">
+        <div class="b-ring" id="bRing"><div class="b-inner"></div></div>
+        <div class="b-word" id="bWord">—</div>
+        <div class="b-guide" id="bGuide">Place one hand on your heart. Press begin.</div>
+        <div class="b-count" id="bCount"></div>
+        <button class="start-btn" id="startBtn" onclick="startBreath()">Begin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6: The Vow -->
+  <div class="step" id="s6">
+    <h1>The Work</h1>
+    <div class="divider"></div>
+    <p class="intro">Read this slowly. Let it land in your body, not just your mind.</p>
+
+    <div class="card">
+      <div class="vow-card">
+        <div class="vow-text">
+          The work is not to stop others leaving you.<br><br>
+          <span class="vow-highlight">The work is to stop leaving yourself.</span>
+        </div>
+      </div>
+      <div class="aff-list">
+        <div class="aff-item">"I stay with myself, even when it is hard."</div>
+        <div class="aff-item">"My needs are valid. My voice matters."</div>
+        <div class="aff-item">"Being alone does not mean I am unlovable."</div>
+        <div class="aff-item">"I choose self-respect. I choose myself."</div>
+        <div class="aff-item">"I am worthy of the love I give to others."</div>
+      </div>
+      <button class="btn" onclick="go(7)">Complete this practice</button>
+    </div>
+  </div>
+
+  <!-- STEP 7: Complete -->
+  <div class="step" id="s7">
+    <div class="card centre">
+      <div class="seal">✦</div>
+      <span class="section-tag">You Stayed With Yourself</span>
+      <p style="font-family:'Playfair Display', serif; font-size:1.2rem; color:#5c2318; line-height:1.65; margin-bottom:16px;">That is the work.<br>And you are doing it.</p>
+      <p class="body">Every time you return to this practice, you are building a new relationship — with yourself. A relationship built on presence, not fear. On respect, not survival.</p>
+      <div class="poem-block" style="margin-top:24px; text-align:left;">
+        <span class="poem-line">You are not too much.</span>
+        <span class="poem-line">You never were.</span>
+        <span class="poem-line">You were just loving people</span>
+        <span class="poem-line">who hadn't yet learned to stay.</span>
+      </div>
+      <button class="btn-outline" onclick="restart()" style="display:block; text-align:center; margin-top:20px;">Begin Again</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+function go(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  window.scrollTo(0, 0);
+}
+function restart() { go(0); }
+function toggleTag(el) { el.classList.toggle('sel'); }
+
+function startBreath() {
+  const ring = document.getElementById('bRing');
+  const word = document.getElementById('bWord');
+  const guide = document.getElementById('bGuide');
+  const count = document.getElementById('bCount');
+  document.getElementById('startBtn').style.display = 'none';
+  let n = 0; const total = 5;
+  const mantras = [
+    'I am here. I am safe.',
+    'I stay with myself.',
+    'I am not alone.',
+    'I am safe right now.',
+    'I choose to stay.'
+  ];
+  function inhale() {
+    ring.classList.add('expand');
+    word.textContent = 'Inhale';
+    guide.textContent = mantras[n % mantras.length];
+    count.textContent = (n + 1) + ' of ' + total;
+    setTimeout(exhale, 5000);
+  }
+  function exhale() {
+    ring.classList.remove('expand');
+    word.textContent = 'Exhale';
+    guide.textContent = 'let the fear move through...';
+    n++;
+    if (n < total) { setTimeout(inhale, 5500); }
+    else {
+      setTimeout(() => {
+        word.textContent = '✦';
+        guide.textContent = 'You stayed with yourself.';
+        count.textContent = '';
+        setTimeout(() => go(6), 2500);
+      }, 5000);
+    }
+  }
+  inhale();
+}
+</script>
+</body>
+</html>

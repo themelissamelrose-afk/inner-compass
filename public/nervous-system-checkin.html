@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nervous System Check-In | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 560px; width: 100%; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.96rem; line-height: 1.85; color: #6b5144; margin-bottom: 30px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .card.centre { text-align: center; }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    .card-h { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #5c2318; line-height: 1.45; margin-bottom: 12px; }
+    p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+
+    /* Breath animation */
+    .breath-area { display: flex; flex-direction: column; align-items: center; padding: 24px 0 10px; }
+    .b-ring { width: 150px; height: 150px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; transition: transform 4s ease-in-out, background 4s ease-in-out; }
+    .b-ring.expand { transform: scale(1.32); background: #e8d4be; }
+    .b-inner { width: 70px; height: 70px; border-radius: 50%; background: #c4967a; opacity: 0.25; }
+    .b-word { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #5c2318; margin-top: 24px; min-height: 34px; }
+    .b-guide { font-size: 0.87rem; color: #9a7d6e; font-style: italic; margin-top: 6px; min-height: 22px; }
+    .b-count { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-top: 10px; }
+    .start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 14px 36px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 28px; transition: background 0.2s; }
+    .start-btn:hover { background: #7a2f21; }
+
+    /* Questions */
+    .q-card { background: #f9f3eb; border-radius: 16px; padding: 28px 24px; margin: 20px 0; border-left: 3px solid #c4967a; }
+    .q-num { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 10px; display: block; }
+    .q-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; line-height: 1.6; }
+    .q-note { font-size: 0.85rem; color: #9a7d6e; font-style: italic; margin-top: 10px; line-height: 1.6; }
+
+    /* Mantra */
+    .mantra-wrap { text-align: center; padding: 16px 0 10px; }
+    .mantra-text { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: #5c2318; line-height: 1.7; font-style: italic; }
+    .mantra-sub { font-size: 0.88rem; color: #9a7d6e; margin-top: 16px; line-height: 1.7; }
+
+    /* Quote */
+    .quote-block { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 18px 22px; border-radius: 0 12px 12px 0; margin: 20px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.97rem; color: #5c2318; line-height: 1.8; }
+
+    /* Seal */
+    .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
+
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Melissa Melrose</div>
+
+  <!-- STEP 0: Intro -->
+  <div class="step on" id="s0">
+    <h1>Nervous System<br>Check-In</h1>
+    <div class="divider"></div>
+    <p class="intro">A micro-practice you can return to any time of day — before a meeting, after a hard conversation, or whenever you feel yourself moving too fast. All you need is this moment.</p>
+
+    <div class="card">
+      <span class="section-tag">How it works</span>
+      <p class="body">Three simple steps. Three deep sighs. A return to yourself.</p>
+      <div class="q-card" style="border-left-color: #e8d9c4; margin: 14px 0 0;">
+        <p style="font-size:0.93rem; line-height:1.8; color:#4a3728;">
+          ① Three breaths — inhale through the nose, sigh out through the mouth<br>
+          ② Three questions — what is your body telling you right now?<br>
+          ③ One mantra — to anchor you into the present moment
+        </p>
+      </div>
+      <button class="btn" onclick="go(1)">Begin</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: 3 Sigh Breaths -->
+  <div class="step" id="s1">
+    <h1>Three Sighs</h1>
+    <div class="divider"></div>
+    <p class="intro">Close your eyes if you can. Let these three breaths be a permission slip to stop — and simply be here.</p>
+
+    <div class="card centre">
+      <div class="breath-area">
+        <div class="b-ring" id="bRing">
+          <div class="b-inner"></div>
+        </div>
+        <div class="b-word" id="bWord">—</div>
+        <div class="b-guide" id="bGuide">Press begin to start</div>
+        <div class="b-count" id="bCount"></div>
+        <button class="start-btn" id="startBtn" onclick="startBreaths()">Begin Breaths</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Body Question 1 -->
+  <div class="step" id="s2">
+    <h1>Listen to<br>Your Body</h1>
+    <div class="divider"></div>
+    <p class="intro">Your body is always communicating. Right now, it has something to tell you. Pause and listen.</p>
+
+    <div class="card">
+      <div class="q-card">
+        <span class="q-num">Question 1 of 3</span>
+        <p class="q-text">How does my body feel right now?</p>
+        <p class="q-note">Notice any sensations — warmth, tension, openness, heaviness, lightness. No judgement. Just observe.</p>
+      </div>
+      <p class="body" style="font-style:italic; color:#9a7d6e; text-align:center; margin-top:6px;">Sit with this question. Breathe. When you're ready...</p>
+      <button class="btn" onclick="go(3)">I've reflected — next question</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Body Question 2 -->
+  <div class="step" id="s3">
+    <div class="card">
+      <div class="q-card">
+        <span class="q-num">Question 2 of 3</span>
+        <p class="q-text">What am I avoiding feeling?</p>
+        <p class="q-note">Sometimes the body holds what the mind is too busy to process. Is there a feeling present that you've been moving past?</p>
+      </div>
+      <p class="body" style="font-style:italic; color:#9a7d6e; text-align:center; margin-top:6px;">Let whatever arises be welcome. Then when you're ready...</p>
+      <button class="btn" onclick="go(4)">Continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Body Question 3 -->
+  <div class="step" id="s4">
+    <div class="card">
+      <div class="q-card">
+        <span class="q-num">Question 3 of 3</span>
+        <p class="q-text">What message is my body trying to communicate to me?</p>
+        <p class="q-note">Let it guide you. Your body knows. Trust what comes — a word, an image, a feeling. It is enough.</p>
+      </div>
+      <p class="body" style="font-style:italic; color:#9a7d6e; text-align:center; margin-top:6px;">If your mind wanders, return to your breath. Let it anchor you into presence.</p>
+      <button class="btn" onclick="go(5)">I'm ready for my mantra</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: Mantra -->
+  <div class="step" id="s5">
+    <div class="card centre">
+      <span class="section-tag">Your Mantra</span>
+      <div class="mantra-wrap">
+        <div class="mantra-text">"I am safe to be<br>present in my body."</div>
+        <div class="mantra-sub">Say this three times — silently or aloud.<br>Let each breath carry the words deeper.</div>
+      </div>
+      <div class="quote-block" style="text-align:left; margin-top:24px;">
+        "In accepting and acknowledging your emotional body, you allow for healing and expansion on all levels."
+        <br><br><span style="font-size:0.82rem; font-style:normal; letter-spacing:1px;">— Tracey Gibson</span>
+      </div>
+      <button class="btn" onclick="go(6)">Complete</button>
+    </div>
+  </div>
+
+  <!-- STEP 6: Complete -->
+  <div class="step" id="s6">
+    <div class="card centre">
+      <div class="seal">✦</div>
+      <span class="section-tag">Check-In Complete</span>
+      <p class="card-h">You are here.<br>That is enough.</p>
+      <p class="body" style="margin-top:8px;">Carry this awareness with you through your day. Your body is your home — and you just came back to it.</p>
+      <div class="q-card" style="text-align:left; margin-top:20px; border-left-color:#e8d9c4;">
+        <p style="font-size:0.88rem; line-height:1.8; color:#6b5144;">
+          <strong style="color:#5c2318;">Return to this practice anytime:</strong><br>
+          Before a hard conversation. After a busy morning.<br>
+          In the bathroom at work. In your car before walking inside.<br>
+          Wherever you are — you can always come home to yourself.
+        </p>
+      </div>
+      <button class="btn-outline" onclick="restart()" style="display:block; text-align:center;">Begin Again</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+function go(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  window.scrollTo(0, 0);
+}
+function restart() { go(0); }
+
+// Breath
+const bRing = document.getElementById('bRing');
+const bWord = document.getElementById('bWord');
+const bGuide = document.getElementById('bGuide');
+const bCount = document.getElementById('bCount');
+const startBtn = document.getElementById('startBtn');
+
+let breathN = 0;
+const total = 3;
+
+function startBreaths() {
+  startBtn.style.display = 'none';
+  breathN = 0;
+  doInhale();
+}
+
+function doInhale() {
+  bRing.classList.add('expand');
+  bWord.textContent = 'Inhale';
+  bGuide.textContent = 'slowly through your nose...';
+  bCount.textContent = '';
+  setTimeout(doExhale, 4000);
+}
+
+function doExhale() {
+  bRing.classList.remove('expand');
+  bWord.textContent = 'Sigh';
+  bGuide.textContent = 'let it all go through your mouth...';
+  breathN++;
+  bCount.textContent = breathN + ' of ' + total;
+  if (breathN < total) {
+    setTimeout(doInhale, 4500);
+  } else {
+    setTimeout(() => {
+      bWord.textContent = '✦';
+      bGuide.textContent = 'Beautiful.';
+      bCount.textContent = 'Three breaths complete';
+      setTimeout(() => go(2), 2500);
+    }, 4000);
+  }
+}
+</script>
+</body>
+</html>

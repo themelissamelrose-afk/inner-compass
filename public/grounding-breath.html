@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grounding Breath | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 580px; width: 100%; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.96rem; line-height: 1.85; color: #6b5144; margin-bottom: 30px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .card.centre { text-align: center; }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    .card-h { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #5c2318; line-height: 1.45; margin-bottom: 12px; }
+    p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+
+    /* Stage card */
+    .stage-card { background: #f9f3eb; border-radius: 16px; padding: 24px 22px; margin: 20px 0; }
+    .stage-num { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; display: block; }
+    .stage-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #5c2318; margin-bottom: 10px; }
+    .stage-body { font-size: 0.94rem; line-height: 1.8; color: #4a3728; }
+
+    /* Vertical energy diagram */
+    .energy-wrap { position: relative; width: 100px; height: 280px; margin: 0 auto 8px; }
+    .crown-orb { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 48px; height: 48px; border-radius: 50%; background: #e8e0f0; border: 2px solid #b8a8c8; display: flex; align-items: center; justify-content: center; transition: all 0.8s ease; }
+    .crown-orb.active { background: #d0c2e8; box-shadow: 0 0 24px rgba(160,130,200,0.5); }
+    .crown-label { position: absolute; top: 54px; left: 50%; transform: translateX(-50%); font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; color: #9a7d6e; white-space: nowrap; }
+    .center-line { position: absolute; left: 50%; top: 48px; bottom: 48px; width: 2px; background: linear-gradient(to bottom, #b8a8c8, #c4967a, #8B6355); transform: translateX(-50%); }
+    .heart-orb { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 52px; height: 52px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; transition: all 0.8s ease; }
+    .heart-orb.active { background: #ecdccc; box-shadow: 0 0 24px rgba(196,150,122,0.5); }
+    .root-orb { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 48px; height: 48px; border-radius: 50%; background: #f0e8dc; border: 2px solid #8B6355; display: flex; align-items: center; justify-content: center; transition: all 0.8s ease; }
+    .root-orb.active { background: #dccfbe; box-shadow: 0 0 24px rgba(139,99,85,0.5); }
+    .root-label { position: absolute; bottom: 54px; left: 50%; transform: translateX(-50%); font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; color: #9a7d6e; white-space: nowrap; }
+    .orb-icon { font-size: 1rem; }
+
+    /* Energy dot moving up or down */
+    .energy-dot { position: absolute; left: 50%; width: 14px; height: 14px; border-radius: 50%; transform: translateX(-50%); opacity: 0; transition: top 3s ease-in-out, opacity 0.4s; }
+    .energy-dot.earth { background: #8B6355; }
+    .energy-dot.soul { background: #b8a8c8; }
+    .energy-dot.visible { opacity: 1; }
+
+    /* Breath ring */
+    .breath-area { display: flex; flex-direction: column; align-items: center; margin: 16px 0; }
+    .b-ring { width: 130px; height: 130px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; transition: transform 4s ease-in-out, background 4s ease-in-out; }
+    .b-ring.expand { transform: scale(1.3); background: #e8d4be; }
+    .b-inner { width: 60px; height: 60px; border-radius: 50%; background: #c4967a; opacity: 0.22; }
+    .b-word { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #5c2318; margin-top: 18px; min-height: 32px; }
+    .b-guide { font-size: 0.85rem; color: #9a7d6e; font-style: italic; margin-top: 5px; min-height: 20px; }
+    .b-count { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-top: 8px; }
+    .start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 13px 34px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 22px; transition: background 0.2s; }
+    .start-btn:hover { background: #7a2f21; }
+
+    /* Visual guide */
+    .vis-card { background: #fdf9f4; border-radius: 14px; padding: 20px; border: 1px solid #ede3d4; margin: 18px 0; }
+    .vis-title { font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 12px; }
+    .vis-text { font-size: 0.93rem; line-height: 1.8; color: #4a3728; font-style: italic; }
+
+    /* Steps list */
+    .steps-list { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+    .s-item { display: flex; gap: 14px; align-items: flex-start; }
+    .s-dot { width: 28px; height: 28px; border-radius: 50%; background: #f2e8d9; border: 1.5px solid #c4967a; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 0.8rem; color: #5c2318; }
+    .s-text { font-size: 0.93rem; line-height: 1.7; color: #4a3728; padding-top: 4px; }
+
+    /* Seal */
+    .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
+
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Melissa Melrose</div>
+
+  <!-- STEP 0: Intro -->
+  <div class="step on" id="s0">
+    <h1>Grounding Breath<br>to Reconnect</h1>
+    <div class="divider"></div>
+    <p class="intro">A full-body practice that anchors you between Heaven and Earth — connecting your Root, your Crown, and your Heart into one coherent field.</p>
+
+    <div class="card">
+      <span class="section-tag">This Practice</span>
+      <p class="body">Stand barefoot on grass if you can, or sit comfortably with your feet flat on the floor. This practice moves through five stages — each one deepening your connection to yourself and the Earth beneath you.</p>
+      <div class="steps-list">
+        <div class="s-item"><div class="s-dot">1</div><div class="s-text">Three grounding sighs — settle into your body</div></div>
+        <div class="s-item"><div class="s-dot">2</div><div class="s-text">Root Chakra — grow your roots into the Earth</div></div>
+        <div class="s-item"><div class="s-dot">3</div><div class="s-text">Earth Energy — breathe up from below × 3</div></div>
+        <div class="s-item"><div class="s-dot">4</div><div class="s-text">Soul Star — breathe down through your crown × 3</div></div>
+        <div class="s-item"><div class="s-dot">5</div><div class="s-text">Heart Space — integrate it all</div></div>
+      </div>
+      <button class="btn" onclick="go(1)">I'm ready — begin</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: 3 Grounding Sighs -->
+  <div class="step" id="s1">
+    <h1>Step 1 — Arrive</h1>
+    <div class="divider"></div>
+    <p class="intro">Feel your feet on the floor. Let your weight drop down. Take three deep sighs to release what you've been carrying.</p>
+
+    <div class="card centre">
+      <div class="breath-area">
+        <div class="b-ring" id="s1Ring">
+          <div class="b-inner"></div>
+        </div>
+        <div class="b-word" id="s1Word">—</div>
+        <div class="b-guide" id="s1Guide">Feel your feet on the ground. Press begin.</div>
+        <div class="b-count" id="s1Count"></div>
+        <button class="start-btn" id="s1Btn" onclick="startSighs()">Begin Sighs</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Root Chakra -->
+  <div class="step" id="s2">
+    <h1>Step 2 — Root</h1>
+    <div class="divider"></div>
+    <p class="intro">Your Root Chakra is your foundation — your connection to safety, stability, and the Earth. Activate it now.</p>
+
+    <div class="card">
+      <div class="vis-card">
+        <div class="vis-title">Visualisation</div>
+        <div class="vis-text">
+          Close your eyes. Feel the base of your spine. From your Root Chakra, visualise roots growing downward — down through your feet, through the floor, deep into the Earth.<br><br>
+          These roots travel all the way to the Earth Star — a glowing orb of golden earth energy beneath you. Feel yourself becoming heavier. Supported. Held.
+        </div>
+      </div>
+      <div class="stage-card">
+        <span class="stage-num">While you visualise</span>
+        <p class="stage-body">Take slow, natural breaths. Let each exhale release you a little deeper into the Earth. Stay with this for as long as feels right.</p>
+      </div>
+      <button class="btn" onclick="go(3)">I feel rooted — continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Earth Energy Up -->
+  <div class="step" id="s3">
+    <h1>Step 3 — Earth Energy</h1>
+    <div class="divider"></div>
+    <p class="intro">Now draw the Earth's energy up through your roots — up through your feet, through your body, and out through the Crown of your head.</p>
+
+    <div class="card centre">
+      <div class="vis-card" style="text-align:left; margin-bottom:20px;">
+        <div class="vis-title">Visualisation</div>
+        <div class="vis-text">With each inhale, feel warm Earth energy rising up through your roots and into your body — up through the belly, the chest, the throat, and flowering out through your Crown.</div>
+      </div>
+      <div class="breath-area">
+        <div class="b-ring" id="s3Ring">
+          <div class="b-inner"></div>
+        </div>
+        <div class="b-word" id="s3Word">—</div>
+        <div class="b-guide" id="s3Guide">Press begin for 3 earth breaths</div>
+        <div class="b-count" id="s3Count"></div>
+        <button class="start-btn" id="s3Btn" onclick="startEarth()">Begin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: Soul Star Down -->
+  <div class="step" id="s4">
+    <h1>Step 4 — Soul Star</h1>
+    <div class="divider"></div>
+    <p class="intro">Now connect to the light above you. Your Soul Star — about six inches above your Crown — holds your highest self, your soul's purpose, your divine connection.</p>
+
+    <div class="card centre">
+      <div class="vis-card" style="text-align:left; margin-bottom:20px;">
+        <div class="vis-title">Visualisation</div>
+        <div class="vis-text">With each inhale, draw luminous light down from your Soul Star — through your Crown, down through the centre of your body, and exhale it deep into the Earth. You are the bridge between Heaven and Earth.</div>
+      </div>
+      <div class="breath-area">
+        <div class="b-ring" id="s4Ring">
+          <div class="b-inner" style="background:#b8a8c8;"></div>
+        </div>
+        <div class="b-word" id="s4Word">—</div>
+        <div class="b-guide" id="s4Guide">Press begin for 3 soul breaths</div>
+        <div class="b-count" id="s4Count"></div>
+        <button class="start-btn" id="s4Btn" onclick="startSoul()">Begin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5: Heart Space -->
+  <div class="step" id="s5">
+    <h1>Step 5 — Heart Space</h1>
+    <div class="divider"></div>
+    <p class="intro">Bring it all home — to the Heart. The meeting point between Earth below and Heaven above. Your true centre.</p>
+
+    <div class="card">
+      <div class="stage-card">
+        <span class="stage-num">Hand Position</span>
+        <p class="stage-body">Place your left hand on your heart. Place your right hand gently on top. Feel the warmth between your palms and your chest.</p>
+      </div>
+      <div class="vis-card">
+        <div class="vis-title">Three Conscious Breaths</div>
+        <div class="vis-text">
+          With each breath, feel the full connection — roots deep in the Earth, light pouring in from above, all of it meeting in the Heart.<br><br>
+          Let your breath integrate the experience. No effort. Just receive.
+        </div>
+      </div>
+      <div class="breath-area">
+        <div class="b-ring" id="s5Ring" style="border-color:#c4967a; background:#f2e8d9;">
+          <div class="b-inner"></div>
+        </div>
+        <div class="b-word" id="s5Word">—</div>
+        <div class="b-guide" id="s5Guide">Hands on heart. Press begin.</div>
+        <div class="b-count" id="s5Count"></div>
+        <button class="start-btn" id="s5Btn" onclick="startHeart()">Begin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6: Complete -->
+  <div class="step" id="s6">
+    <div class="card centre">
+      <div class="seal">✦</div>
+      <span class="section-tag">Grounded. Connected. Present.</span>
+      <p class="card-h" style="margin-bottom:16px;">You are the bridge between<br>Heaven and Earth.</p>
+      <p class="body">Rest in this activated heart space. Let your breath continue to integrate. You may open your eyes slowly, carrying this fullness with you.</p>
+      <div class="stage-card" style="text-align:left; margin-top:22px;">
+        <p style="font-size:0.9rem; line-height:1.8; font-style:italic; color:#5c2318; font-family:'Playfair Display', serif;">
+          "Earth below me. Heaven above me. Heart within me. I am home."
+        </p>
+      </div>
+      <button class="btn-outline" onclick="restart()" style="display:block; text-align:center;">Begin Again</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+function go(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  window.scrollTo(0, 0);
+}
+function restart() { go(0); }
+
+// Generic breath runner
+function runBreaths(ringId, wordId, guideId, countId, btnId, total, inhaleGuide, exhaleGuide, ringColor, onDone) {
+  const ring = document.getElementById(ringId);
+  const word = document.getElementById(wordId);
+  const guide = document.getElementById(guideId);
+  const count = document.getElementById(countId);
+  const btn = document.getElementById(btnId);
+  btn.style.display = 'none';
+  if (ringColor) ring.style.borderColor = ringColor;
+  let n = 0;
+  function inhale() {
+    ring.classList.add('expand');
+    word.textContent = 'Inhale';
+    guide.textContent = inhaleGuide;
+    count.textContent = '';
+    setTimeout(exhale, 4000);
+  }
+  function exhale() {
+    ring.classList.remove('expand');
+    word.textContent = 'Exhale';
+    guide.textContent = exhaleGuide;
+    n++;
+    count.textContent = n + ' of ' + total;
+    if (n < total) {
+      setTimeout(inhale, 4500);
+    } else {
+      setTimeout(() => {
+        word.textContent = '✦';
+        guide.textContent = 'Beautiful.';
+        count.textContent = '';
+        setTimeout(onDone, 2000);
+      }, 4000);
+    }
+  }
+  inhale();
+}
+
+function startSighs() {
+  runBreaths('s1Ring','s1Word','s1Guide','s1Count','s1Btn', 3,
+    'slowly through your nose...', 'sigh it all out...',
+    null, () => go(2));
+}
+function startEarth() {
+  runBreaths('s3Ring','s3Word','s3Guide','s3Count','s3Btn', 3,
+    'draw Earth energy up through your roots...', 'release it through your Crown...',
+    '#8B6355', () => go(4));
+}
+function startSoul() {
+  runBreaths('s4Ring','s4Word','s4Guide','s4Count','s4Btn', 3,
+    'draw Soul light down through your Crown...', 'send it deep into the Earth...',
+    '#b8a8c8', () => go(5));
+}
+function startHeart() {
+  runBreaths('s5Ring','s5Word','s5Guide','s5Count','s5Btn', 3,
+    'feel Earth and Heaven meeting in your Heart...', 'let it integrate...',
+    '#c4967a', () => go(6));
+}
+</script>
+</body>
+</html>

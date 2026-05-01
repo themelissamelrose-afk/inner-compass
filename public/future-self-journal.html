@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future Self Journal | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 580px; width: 100%; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.96rem; line-height: 1.85; color: #6b5144; margin-bottom: 30px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+
+    .info-card { background: #f9f3eb; border-radius: 14px; padding: 20px 22px; margin: 16px 0; border-left: 3px solid #c4967a; }
+
+    /* Date display */
+    .date-display { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #9a7d6e; text-align: center; margin-bottom: 20px; font-style: italic; }
+
+    /* Journal prompts */
+    .prompt-card { background: #fdf9f4; border-radius: 14px; padding: 20px 22px; margin: 14px 0; border: 1px solid #ede3d4; }
+    .prompt-q { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; margin-bottom: 8px; line-height: 1.5; }
+    textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.94rem; color: #4a3728; background: white; resize: vertical; min-height: 70px; line-height: 1.65; outline: none; transition: border-color 0.2s; margin-top: 8px; }
+    textarea:focus { border-color: #c4967a; }
+
+    /* Identity choice */
+    .identity-card { background: #f2e8d9; border-radius: 14px; padding: 22px; margin: 16px 0; }
+    .identity-q { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; margin-bottom: 12px; }
+    input[type="text"] { width: 100%; padding: 12px 14px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Playfair Display', serif; font-size: 0.97rem; color: #4a3728; background: white; outline: none; transition: border-color 0.2s; margin-top: 6px; }
+    input[type="text"]:focus { border-color: #c4967a; }
+
+    /* Progress dots */
+    .dots { display: flex; justify-content: center; gap: 8px; margin: 16px 0 8px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #e8d9c4; transition: background 0.3s; }
+    .dot.active { background: #c4967a; }
+    .dot.done { background: #5c2318; }
+
+    /* Closing affirmation */
+    .closing-block { background: #5c2318; border-radius: 16px; padding: 28px 24px; text-align: center; margin: 20px 0; }
+    .closing-text { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #faf5ee; line-height: 1.85; font-style: italic; }
+
+    /* Streak */
+    .streak-display { background: #f2e8d9; border-radius: 12px; padding: 16px 20px; text-align: center; margin: 16px 0; }
+    .streak-n { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; }
+    .streak-label { font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #9a7d6e; margin-top: 4px; display: block; }
+
+    .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Melissa Melrose</div>
+
+  <!-- STEP 0: Intro -->
+  <div class="step on" id="s0">
+    <h1>Future Self<br>Journaling</h1>
+    <div class="divider"></div>
+    <p class="intro">Create from who you're becoming — not who you've been.</p>
+
+    <div class="card">
+      <span class="section-tag">Why This Works</span>
+      <p class="body">Your subconscious replays old beliefs until they are replaced. Journaling from your future self trains your mind and body to believe in a new version of you — and to act in alignment with that identity.</p>
+      <div class="info-card">
+        <p style="font-size:0.93rem; line-height:1.85; color:#4a3728;">
+          <strong style="color:#5c2318;">The Practice:</strong> Five prompts. Done daily — mornings are best, before distractions kick in. Don't overthink. Let it flow. One line or many — this is about consistency, not perfection.<br><br>
+          <em style="color:#5c2318;">Every time you show up for yourself, you're building trust — and every repetition brings your future self closer to now.</em>
+        </p>
+      </div>
+      <button class="btn" onclick="startJournal()">Open Today's Journal</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: Identity Setup (first time only) or journal directly -->
+  <div class="step" id="s1">
+    <h1>Who Are You<br>Becoming?</h1>
+    <div class="divider"></div>
+    <p class="intro">Choose a pattern, belief, or emotional reaction you're ready to release. Then decide who you're becoming instead.</p>
+
+    <div class="card">
+      <span class="section-tag">Your Identity Shift</span>
+      <div class="identity-card">
+        <div class="identity-q">The pattern I'm releasing:</div>
+        <input type="text" id="patternInput" placeholder="e.g. I'm releasing the need to over-give...">
+      </div>
+      <div class="identity-card" style="margin-top:8px;">
+        <div class="identity-q">The version of me I'm becoming:</div>
+        <input type="text" id="becomingInput" placeholder="e.g. I am becoming someone who receives with ease...">
+      </div>
+      <button class="btn" onclick="saveIdentity()">Set My Intention — Begin</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Today's Journal -->
+  <div class="step" id="s2">
+    <h1>Today's<br>Journal</h1>
+    <div class="divider"></div>
+    <div class="date-display" id="todayDate"></div>
+
+    <div class="card">
+      <span class="section-tag">Your Current Focus</span>
+      <div class="info-card" style="border-left-color:#e8d9c4; margin-bottom:20px;">
+        <p style="font-size:0.88rem; color:#5c2318; font-family:'Playfair Display', serif; font-style:italic;" id="identityReminder"></p>
+      </div>
+
+      <div class="dots" id="dots"></div>
+
+      <div class="prompt-card">
+        <div class="prompt-q" id="promptQ"></div>
+        <textarea id="promptA" placeholder="Let it flow..." rows="3"></textarea>
+      </div>
+
+      <button class="btn" id="nextPromptBtn" onclick="nextPrompt()">Next Prompt</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Complete -->
+  <div class="step" id="s3">
+    <div class="card" style="text-align:center;">
+      <div class="seal">✦</div>
+      <span class="section-tag">Today's Journal Complete</span>
+      <div class="streak-display">
+        <div class="streak-n" id="streakNum">1</div>
+        <span class="streak-label">Day Streak</span>
+      </div>
+      <div class="closing-block">
+        <div class="closing-text">"Every time you show up for yourself, you build trust. Every repetition brings your future self closer to now."</div>
+      </div>
+      <p class="body">Come back tomorrow morning — before the day begins. Your future self is waiting.</p>
+      <button class="btn-outline" onclick="go(0)" style="display:block; text-align:center;">Done for Today</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+const prompts = [
+  { q: 'Today I am practising:', placeholder: 'Something I'm consciously working on...' },
+  { q: 'I am grateful for:', placeholder: 'Even the small things count...' },
+  { q: 'Today I am:', placeholder: 'Who are you being today? Brave, open, grounded...' },
+  { q: 'Change in this area allows me to feel:', placeholder: 'How does your future self feel...' },
+  { q: 'Today I will practise:', placeholder: 'One small act that aligns with who you\'re becoming...' }
+];
+
+let currentPrompt = 0;
+let answers = [];
+
+function go(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  window.scrollTo(0, 0);
+}
+
+function startJournal() {
+  const pattern = localStorage.getItem('fsj_pattern');
+  const becoming = localStorage.getItem('fsj_becoming');
+  if (!pattern || !becoming) { go(1); }
+  else { openTodayJournal(); }
+}
+
+function saveIdentity() {
+  const p = document.getElementById('patternInput').value.trim();
+  const b = document.getElementById('becomingInput').value.trim();
+  if (!p || !b) return;
+  localStorage.setItem('fsj_pattern', p);
+  localStorage.setItem('fsj_becoming', b);
+  openTodayJournal();
+}
+
+function openTodayJournal() {
+  currentPrompt = 0; answers = [];
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-AU', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  const pattern = localStorage.getItem('fsj_pattern') || '';
+  const becoming = localStorage.getItem('fsj_becoming') || '';
+  document.getElementById('identityReminder').textContent = 'Releasing: ' + pattern + ' · Becoming: ' + becoming;
+  renderPrompt();
+  go(2);
+}
+
+function renderPrompt() {
+  const p = prompts[currentPrompt];
+  document.getElementById('promptQ').textContent = p.q;
+  document.getElementById('promptA').placeholder = p.placeholder;
+  document.getElementById('promptA').value = answers[currentPrompt] || '';
+  const dots = document.getElementById('dots');
+  dots.innerHTML = '';
+  prompts.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i < currentPrompt ? ' done' : '') + (i === currentPrompt ? ' active' : '');
+    dots.appendChild(d);
+  });
+  const btn = document.getElementById('nextPromptBtn');
+  btn.textContent = currentPrompt < prompts.length - 1 ? 'Next Prompt' : 'Complete Journal';
+}
+
+function nextPrompt() {
+  answers[currentPrompt] = document.getElementById('promptA').value;
+  if (currentPrompt < prompts.length - 1) {
+    currentPrompt++;
+    renderPrompt();
+    window.scrollTo(0, document.querySelector('.card').offsetTop - 20);
+  } else {
+    const streak = parseInt(localStorage.getItem('fsj_streak') || '0') + 1;
+    localStorage.setItem('fsj_streak', streak);
+    document.getElementById('streakNum').textContent = streak;
+    go(3);
+  }
+}
+</script>
+</body>
+</html>
