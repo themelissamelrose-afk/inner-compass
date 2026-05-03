@@ -25,33 +25,46 @@
     .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
     .btn-outline:hover { background: #c4967a; color: #fff; }
 
-    /* Dialogue card */
     .d-card { background: #f9f3eb; border-radius: 14px; padding: 20px 22px; margin: 16px 0; border-left: 3px solid #c4967a; }
     .d-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; display: block; }
     .d-text { font-size: 0.94rem; line-height: 1.8; color: #4a3728; }
 
-    /* Thought choice */
     .thought-opts { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
     .t-opt { padding: 14px 18px; border: 1.5px solid #e8d9c4; border-radius: 12px; background: #fdf9f4; font-size: 0.93rem; line-height: 1.55; color: #4a3728; cursor: pointer; transition: all 0.2s; }
     .t-opt:hover, .t-opt.sel { border-color: #c4967a; background: #fdf5ec; }
+
+    /* Feeling tags */
+    .feel-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+    .feel-tag { padding: 10px 18px; border: 1.5px solid #e8d9c4; border-radius: 30px; font-size: 0.9rem; color: #4a3728; cursor: pointer; transition: all 0.2s; background: #fdf9f4; }
+    .feel-tag:hover, .feel-tag.sel { background: #f2e8d9; border-color: #c4967a; color: #5c2318; }
 
     /* Trigger grid */
     .trigger-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
     .trig-tag { padding: 8px 16px; border: 1.5px solid #e8d9c4; border-radius: 30px; font-size: 0.88rem; color: #4a3728; cursor: pointer; transition: all 0.2s; background: #fdf9f4; }
     .trig-tag:hover, .trig-tag.sel { background: #f2e8d9; border-color: #c4967a; color: #5c2318; }
 
-    /* Insight textarea */
-    textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 100px; line-height: 1.6; outline: none; transition: border-color 0.2s; margin-top: 12px; }
+    textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 90px; line-height: 1.6; outline: none; transition: border-color 0.2s; margin-top: 12px; }
     textarea:focus { border-color: #c4967a; }
 
-    /* Insight card */
+    /* Breath circle */
+    .breath-ring { width: 120px; height: 120px; border-radius: 50%; border: 2px solid #c4967a; background: #f9f3eb; display: flex; align-items: center; justify-content: center; margin: 24px auto; transition: transform 4s ease-in-out, background 4s ease-in-out; }
+    .breath-ring.expand { transform: scale(1.35); background: #f2e8d9; }
+    .breath-word { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #5c2318; font-style: italic; }
+
+    /* Guiding vs Protecting cards */
+    .gp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+    .gp-card { border-radius: 14px; padding: 22px 18px; border: 1.5px solid #e8d9c4; background: #fdf9f4; cursor: pointer; transition: all 0.2s; text-align: center; }
+    .gp-card:hover, .gp-card.sel { border-color: #c4967a; background: #fdf5ec; }
+    .gp-card.sel { border-color: #5c2318; }
+    .gp-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .gp-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; margin-bottom: 8px; }
+    .gp-desc { font-size: 0.82rem; color: #9a7d6e; line-height: 1.65; }
+
     .insight-card { background: #f2e8d9; border-radius: 14px; padding: 24px 22px; margin: 20px 0; text-align: center; }
-    .insight-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #5c2318; line-height: 1.7; }
+    .insight-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; line-height: 1.7; font-style: italic; }
     .insight-sub { font-size: 0.88rem; color: #9a7d6e; margin-top: 10px; line-height: 1.65; }
 
-    /* Seal */
     .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
-
     .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
   </style>
 </head>
@@ -63,54 +76,131 @@
   <div class="step on" id="s0">
     <h1>Become<br>the Observer</h1>
     <div class="divider"></div>
-    <p class="intro">Most of us have an inner dialogue running constantly — a stream of thoughts that shapes how we feel, how we act, and what we believe about ourselves. This practice helps you become the one who watches — not the one who believes every thought.</p>
+    <p class="intro">Your thoughts are not the truth. They are either guiding you forward or protecting you from a feeling. This practice helps you tell the difference.</p>
 
     <div class="card">
-      <span class="section-tag">The Purpose</span>
-      <p class="body">Begin to observe your thoughts and thought patterns throughout your day. This practice helps you recognise that you are not your thoughts — and opens the door to living more consciously.</p>
+      <span class="section-tag">The Observer's Framework</span>
+      <p class="body">Every time a thought arises, we ask the same four questions. Not to analyse the thought — but to feel beneath it. Because beneath every thought is a feeling that came first.</p>
       <div class="d-card" style="border-left-color:#e8d9c4;">
-        <p style="font-size:0.9rem; line-height:1.8; color:#4a3728;">
-          ① Notice what you say to yourself throughout the day<br>
-          ② Identify when your mind gets busier — and why<br>
-          ③ Return to your body to feel what was there before the thought<br>
-          ④ Ask: <em style="color:#5c2318;">"How do I feel?"</em>
+        <p style="font-size:0.9rem; line-height:1.95; color:#4a3728;">
+          ① What is the thought?<br>
+          ② What does this thought make me feel?<br>
+          ③ Breathe back into the body<br>
+          ④ Is this thought guiding me or protecting me?
         </p>
       </div>
       <button class="btn" onclick="go(1)">Begin</button>
     </div>
   </div>
 
-  <!-- STEP 1: Inner Dialogue -->
+  <!-- STEP 1: Observe the Thought -->
   <div class="step" id="s1">
-    <h1>Your Inner<br>Dialogue</h1>
+    <h1>What Is<br>the Thought?</h1>
     <div class="divider"></div>
-    <p class="intro">Take a moment to honestly notice the voice in your head. Not to judge it — just to see it.</p>
+    <p class="intro">Pause. Notice the voice in your head right now — or one that visits you often. Not to judge it. Just to see it clearly.</p>
 
     <div class="card">
-      <span class="section-tag">Step 1 — Observe Your Self-Talk</span>
-      <p class="body">As you move through your day, are you supportive of yourself — or do you tend to put yourself down? Which of these sounds most familiar?</p>
+      <span class="section-tag">Step 1 — Name the Thought</span>
+      <p class="body">Which of these sounds most like something you say to yourself?</p>
       <div class="thought-opts">
         <div class="t-opt" onclick="pickThought(this)">"I'm not good enough for this."</div>
         <div class="t-opt" onclick="pickThought(this)">"I should have done that better."</div>
-        <div class="t-opt" onclick="pickThought(this)">"I'm proud of how I handled that."</div>
         <div class="t-opt" onclick="pickThought(this)">"Who am I to want more?"</div>
-        <div class="t-opt" onclick="pickThought(this)">"I can do hard things."</div>
         <div class="t-opt" onclick="pickThought(this)">"Why do I always mess up?"</div>
+        <div class="t-opt" onclick="pickThought(this)">"I need to do more before I can rest."</div>
+        <div class="t-opt" onclick="pickThought(this)">"I can't trust people to stay."</div>
       </div>
-      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:8px; text-align:center;">Choose any that feel true. Then continue.</p>
-      <button class="btn" onclick="go(2)">Continue</button>
+      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:8px; text-align:center;">Choose what feels true right now. Then continue.</p>
+      <button class="btn" onclick="go(2)">I see the thought. Continue.</button>
     </div>
   </div>
 
-  <!-- STEP 2: Monkey Mind Triggers -->
+  <!-- STEP 2: What does this thought make you feel? -->
   <div class="step" id="s2">
-    <h1>The Busy Mind</h1>
+    <h1>What Does This<br>Thought Make<br>You Feel?</h1>
     <div class="divider"></div>
-    <p class="intro">Pay attention to when your mind gets busier. What circumstances or triggers send your "monkey mind" into overdrive?</p>
+    <p class="intro">The thought is not the origin. Beneath it is a feeling that was activated first. The thought rose to protect you from it — or to point you toward it.</p>
 
     <div class="card">
-      <span class="section-tag">Step 2 — Identify Your Triggers</span>
-      <p class="body">What sends your mind spiralling? Select everything that resonates.</p>
+      <span class="section-tag">Step 2 — Feel Beneath the Thought</span>
+      <p class="body">When this thought arrives, what stirs inside you? Select everything that is present.</p>
+      <div class="feel-grid">
+        <span class="feel-tag" onclick="toggleTag(this)">Anxious</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Afraid</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Ashamed</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Small</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Unseen</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Sad</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Angry</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Unworthy</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Lonely</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Overwhelmed</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Stuck</span>
+        <span class="feel-tag" onclick="toggleTag(this)">Disconnected</span>
+      </div>
+      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:4px;">You don't need to fix or explain this feeling. Just name it and let it be seen.</p>
+      <button class="btn" onclick="go(3)">I feel what is here. Continue.</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Breathe back into the body -->
+  <div class="step" id="s3">
+    <h1>Breathe Back<br>Into Your Body</h1>
+    <div class="divider"></div>
+    <p class="intro">Before we ask what this thought is doing, we return to the body. Feelings live here — not in the mind. Let the breath bring you home.</p>
+
+    <div class="card" style="text-align:center;">
+      <span class="section-tag">Step 3 — Return to the Body</span>
+      <p class="body" style="text-align:left; margin-bottom:20px;">Place one hand on your chest. Follow the breath down. Let the body soften as you inhale and release as you exhale.</p>
+
+      <div class="breath-ring" id="bRing">
+        <span class="breath-word" id="bWord">Ready</span>
+      </div>
+      <p id="bGuide" style="font-size:0.88rem; color:#9a7d6e; font-style:italic; min-height:22px;"></p>
+      <button class="btn" id="bBtn" onclick="startBreath()" style="margin-top:24px;">Begin Breath</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Guiding or Protecting? -->
+  <div class="step" id="s4">
+    <h1>Guiding or<br>Protecting?</h1>
+    <div class="divider"></div>
+    <p class="intro">Now that you have felt what is underneath the thought, you can ask: what is this thought actually doing?</p>
+
+    <div class="card">
+      <span class="section-tag">Step 4 — The Discernment</span>
+      <p class="body">A thought that is <strong>guiding</strong> you points toward truth, growth, or honest emotion — even when it is uncomfortable. A thought that is <strong>protecting</strong> you keeps you away from a feeling that feels too big to sit with.</p>
+
+      <div class="gp-grid">
+        <div class="gp-card" onclick="pickGP(this)">
+          <div class="gp-icon">🧭</div>
+          <div class="gp-title">Guiding</div>
+          <div class="gp-desc">This thought is honest. It is pointing me toward something real — growth, truth, or a need I have been ignoring.</div>
+        </div>
+        <div class="gp-card" onclick="pickGP(this)">
+          <div class="gp-icon">🛡</div>
+          <div class="gp-title">Protecting</div>
+          <div class="gp-desc">This thought is a shield. It is keeping me away from a feeling that feels unsafe or too overwhelming to touch.</div>
+        </div>
+      </div>
+
+      <div class="d-card" style="border-left-color:#e8d9c4; margin-top:4px;">
+        <p style="font-size:0.88rem; line-height:1.8; color:#4a3728; font-style:italic;">There is no wrong answer. Protecting thoughts are not bad — they were formed to keep you safe. But recognising them is what sets you free.</p>
+      </div>
+
+      <button class="btn" onclick="go(5)">I understand what this thought is doing.</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: When does the mind get loud? -->
+  <div class="step" id="s5">
+    <h1>When Does<br>the Mind<br>Get Loud?</h1>
+    <div class="divider"></div>
+    <p class="intro">Now that you know the feeling beneath the thought, notice what circumstances call that feeling up. These are the moments your protection activates.</p>
+
+    <div class="card">
+      <span class="section-tag">Step 5 — Your Triggers</span>
+      <p class="body">What sends your mind into overdrive? Select everything that feels familiar.</p>
       <div class="trigger-grid">
         <span class="trig-tag" onclick="toggleTag(this)">Conflict with others</span>
         <span class="trig-tag" onclick="toggleTag(this)">Financial stress</span>
@@ -125,57 +215,42 @@
         <span class="trig-tag" onclick="toggleTag(this)">When I feel out of control</span>
         <span class="trig-tag" onclick="toggleTag(this)">Scrolling social media</span>
       </div>
-      <button class="btn" onclick="go(3)">I've identified them</button>
+      <button class="btn" onclick="go(6)">I see the pattern. Continue.</button>
     </div>
   </div>
 
-  <!-- STEP 3: Write it Down -->
-  <div class="step" id="s3">
-    <h1>Bring it Into<br>the Light</h1>
+  <!-- STEP 6: Write it down -->
+  <div class="step" id="s6">
+    <h1>Bring It Into<br>the Light</h1>
     <div class="divider"></div>
-    <p class="intro">Write down your observations. When you name something, it loses power over you. What was unconscious becomes conscious — and that is where freedom begins.</p>
+    <p class="intro">When you name it, it loses power over you. What was unconscious becomes conscious — and that is where freedom begins.</p>
 
     <div class="card">
-      <span class="section-tag">Step 3 — Your Observations</span>
-      <p class="body">What recurring thought patterns have you noticed? Are they positive or negative, destructive or supportive? Write freely — without editing yourself.</p>
-      <textarea placeholder="My inner dialogue tends to... I notice my mind gets busy when... A pattern I'm seeing is..."></textarea>
+      <span class="section-tag">Step 6 — Your Observations</span>
+      <p class="body">Write freely. What did you discover beneath the thought? What is it protecting you from feeling?</p>
+      <textarea placeholder="The thought I noticed was... Beneath it I felt... I think this thought is protecting me from... What I understand now is..."></textarea>
       <div class="d-card" style="margin-top:18px; border-left-color:#e8d9c4;">
-        <p style="font-size:0.9rem; line-height:1.75; color:#4a3728; font-style:italic;">Begin to reveal the inner dialogue that once operated unconsciously. By bringing it into your conscious awareness, you take back your power.</p>
+        <p style="font-size:0.88rem; line-height:1.8; color:#4a3728; font-style:italic;">You are not your thoughts. You are the awareness behind them. This practice, done again and again, is how you come home to yourself.</p>
       </div>
-      <button class="btn" onclick="go(4)">I've written — continue</button>
+      <button class="btn" onclick="go(7)">I've written. Complete the practice.</button>
     </div>
   </div>
 
-  <!-- STEP 4: Return to Body -->
-  <div class="step" id="s4">
-    <h1>Return to<br>Your Body</h1>
-    <div class="divider"></div>
-    <p class="intro">After noting your thoughts, we always come back to the body. Because before your thoughts began, a feeling was activated here.</p>
-
-    <div class="card centre">
-      <span class="section-tag">Step 4 — The Body Check</span>
-      <p class="body" style="text-align:left; margin-bottom:20px;">Our natural protection is to jump into thought — but now that you have observed it, consciously ask yourself:</p>
-
-      <div class="insight-card">
-        <div class="insight-text">"How do I feel?"</div>
-        <div class="insight-sub">Not what you're thinking. Not the story.<br>The feeling. Right now. In your body.</div>
-      </div>
-
-      <p class="body" style="text-align:left; margin-top:4px;">Take a breath. Place one hand on your chest. Notice whatever sensation is present — and simply let it be.</p>
-      <button class="btn" onclick="go(5)">I feel it — complete the practice</button>
-    </div>
-  </div>
-
-  <!-- STEP 5: Complete -->
-  <div class="step" id="s5">
+  <!-- STEP 7: Complete -->
+  <div class="step" id="s7">
     <div class="card centre">
       <div class="seal">✦</div>
       <span class="section-tag">Practice Complete</span>
       <p class="card-h">You are not your thoughts.<br>You are the one who watches.</p>
-      <p class="body" style="margin-top:10px;">Every time you observe a thought rather than becoming it, you create a moment of freedom. That space — between thought and reaction — is where your power lives.</p>
-      <div class="d-card" style="text-align:left; margin-top:20px; border-left-color: #e8d9c4;">
+      <p class="body" style="margin-top:10px;">Every time you go beneath a thought to find the feeling, you choose consciousness over protection. That space — between thought and reaction — is where your power lives.</p>
+      <div class="d-card" style="text-align:left; margin-top:20px; border-left-color:#e8d9c4;">
         <span class="d-label">Carry This With You</span>
-        <p class="d-text">Throughout today, notice your thoughts. Observe them like clouds moving through the sky. Name them: <em style="color:#5c2318;">"There is the not-enough thought. There is the worry thought."</em><br><br>Then ask: <em style="color:#5c2318;">"How do I feel?"</em></p>
+        <p class="d-text">When a thought arrives today, pause and ask yourself the four questions:<br><br>
+        <em style="color:#5c2318;">What is the thought?<br>
+        What does it make me feel?<br>
+        Breathe into the body.<br>
+        Is it guiding me or protecting me?</em>
+        </p>
       </div>
       <button class="btn-outline" onclick="restart()" style="display:block; text-align:center;">Begin Again</button>
     </div>
@@ -192,7 +267,52 @@ function go(n) {
 }
 function restart() { go(0); }
 function toggleTag(el) { el.classList.toggle('sel'); }
-function pickThought(el) { el.classList.toggle('sel'); }
+function pickThought(el) {
+  document.querySelectorAll('.t-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function pickGP(el) {
+  document.querySelectorAll('.gp-card').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+let breathRunning = false;
+function startBreath() {
+  if (breathRunning) return;
+  breathRunning = true;
+  document.getElementById('bBtn').style.display = 'none';
+
+  const ring = document.getElementById('bRing');
+  const word = document.getElementById('bWord');
+  const guide = document.getElementById('bGuide');
+  let round = 0;
+  const total = 3;
+
+  function doRound() {
+    if (round >= total) {
+      word.textContent = 'Settled';
+      guide.textContent = 'You are back in your body.';
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'btn';
+      nextBtn.textContent = 'I am present. Continue.';
+      nextBtn.onclick = () => go(4);
+      nextBtn.style.marginTop = '28px';
+      document.querySelector('#s3 .card').appendChild(nextBtn);
+      return;
+    }
+    round++;
+    guide.textContent = 'Breathe in...';
+    word.textContent = 'Inhale';
+    ring.classList.add('expand');
+    setTimeout(() => {
+      guide.textContent = 'Breathe out...';
+      word.textContent = 'Release';
+      ring.classList.remove('expand');
+      setTimeout(doRound, 4500);
+    }, 4500);
+  }
+  doRound();
+}
 </script>
 </body>
 </html>
