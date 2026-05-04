@@ -254,14 +254,6 @@
       <p>Whatever is in your mind right now is real. It does not need to make sense. You named it. That is the first step.</p>
     </div>
     <div class="card" id="mindReflect" style="margin-bottom:16px;"></div>
-    <div class="audio-player">
-      <audio id="audio-hand-heart"><source src="audio-hand-heart.m4a" type="audio/mp4"></audio>
-      <button class="audio-play-btn" id="btn-hand-heart" onclick="toggleAudio('audio-hand-heart','btn-hand-heart')">▶</button>
-      <div class="audio-label">
-        <strong>Hand on Heart</strong>
-        <span>A guided practice to soften from head to heart</span>
-      </div>
-    </div>
     <div class="guide-nudge">
       <p>Your thinking mind has been doing its job. Now let's breathe you back into your body and see what feeling is living underneath that thought. The feeling is always there — the breath will help you find it.</p>
     </div>
@@ -310,14 +302,6 @@
       <span class="section-tag">Come Into the Body</span>
       <h2>What do you feel<br>in your body right now?</h2>
       <p>Your body arrives before your feelings do. Select anything that is present. You do not need to explain it.</p>
-    </div>
-    <div class="audio-player">
-      <audio id="audio-body-scan"><source src="audio-body-scan.m4a" type="audio/mp4"></audio>
-      <button class="audio-play-btn" id="btn-body-scan" onclick="toggleAudio('audio-body-scan','btn-body-scan')">▶</button>
-      <div class="audio-label">
-        <strong>Body Scan</strong>
-        <span>A guided scan to arrive into your body before you name</span>
-      </div>
     </div>
     <div class="card">
       <span class="journal-label">Notice what is here</span>
@@ -485,14 +469,6 @@
       <div class="reflect-hint">Not what caused it. Not who is to blame. What is this feeling trying to show you about yourself, or what you need?</div>
       <textarea class="reflect-ta" id="deepQ1" placeholder="This feeling might be showing me..."></textarea>
     </div>
-    <div class="audio-player">
-      <audio id="audio-grounding"><source src="audio-grounding.m4a" type="audio/mp4"></audio>
-      <button class="audio-play-btn" id="btn-grounding" onclick="toggleAudio('audio-grounding','btn-grounding')">▶</button>
-      <div class="audio-label">
-        <strong>Grounding Breath</strong>
-        <span>Listen before you go into the memory</span>
-      </div>
-    </div>
     <div class="reflect-card">
       <div class="reflect-q" id="deepQ2Label"></div>
       <div class="reflect-hint" id="deepQ2Hint">Take a breath. You do not need to analyse it — just let the memory arrive.</div>
@@ -512,7 +488,20 @@
 
     <div class="summary-card" id="summary"></div>
 
-    <p style="font-family:'Playfair Display', serif; font-style:italic; font-size:0.96rem; color:#c4967a; margin: 24px 0 32px;">"You cannot heal what you cannot feel."<br><span style="font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; font-style:normal;">Melissa Melrose</span></p>
+    <div style="margin: 32px 0 8px; text-align:center;">
+      <span class="section-tag" style="display:block; margin-bottom:12px;">Close With a Breath</span>
+      <p style="font-size:0.9rem; color:#6b5144; line-height:1.8; margin-bottom:16px;">Before you carry this back into your day — one last breath to settle what you have uncovered and bring you into acceptance of where you are.</p>
+    </div>
+    <div class="audio-player">
+      <audio id="audio-sacred6-close"><source src="audio-sacred6.m4a" type="audio/mp4"></audio>
+      <button class="audio-play-btn" id="btn-sacred6-close" onclick="toggleAudio('audio-sacred6-close','btn-sacred6-close')">▶</button>
+      <div class="audio-label">
+        <strong>Sacred 6 Breath</strong>
+        <span>Close your practice and come home to yourself</span>
+      </div>
+    </div>
+
+    <p style="font-family:'Playfair Display', serif; font-style:italic; font-size:0.96rem; color:#c4967a; margin: 28px 0 32px;">"You cannot heal what you cannot feel."<br><span style="font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; font-style:normal;">Melissa Melrose</span></p>
 
     <button class="btn-outline" onclick="go(0)" style="display:block; text-align:center;">Done for Today</button>
   </div>
