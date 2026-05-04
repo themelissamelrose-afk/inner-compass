@@ -145,6 +145,12 @@
     .s6-ring.expand { transform: scale(1.4); background: #f2e8d9; }
 
     .trig-tag { padding: 8px 16px; border: 1.5px solid #e8d9c4; border-radius: 30px; font-size: 0.88rem; color: #4a3728; cursor: pointer; transition: all 0.2s; background: #fdf9f4; display: inline-block; margin: 4px; }
+
+    /* Audio player */
+    .audio-player { display: flex; align-items: center; gap: 14px; background: #f2e8d9; border-radius: 50px; padding: 11px 20px; margin: 14px 0 6px; }
+    .audio-play-btn { width: 38px; height: 38px; border-radius: 50%; background: #c4967a; border: none; cursor: pointer; color: #fff; font-size: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .audio-play-btn:hover { background: #b07a6a; }
+    .audio-label { font-size: 13px; color: #7a5a4a; font-style: italic; }
     .trig-tag:hover, .trig-tag.sel { background: #f2e8d9; border-color: #c4967a; color: #5c2318; }
     .trigger-wrap { display: flex; flex-wrap: wrap; margin: 14px 0; }
   </style>
@@ -446,9 +452,14 @@
             <div><div class="dis-title">Sacred 6 Breath</div><div class="dis-sub">Inhale 6. Hold 6. Exhale 6. Hold 6.</div></div>
           </div>
           <div class="dis-body" id="dis1-body">
+            <audio id="audio-sacred6" src="/audio-sacred6.m4a" preload="none"></audio>
+            <div class="audio-player">
+              <button class="audio-play-btn" id="audio-sacred6-btn" onclick="toggleAudio('audio-sacred6')">▶</button>
+              <span class="audio-label">Listen to Melissa guide you through Sacred 6</span>
+            </div>
             <div class="s6-ring" id="s6ring"><span class="mini-word" id="s6word">Ready</span></div>
             <p id="s6guide" style="text-align:center; font-size:0.85rem; color:#9a7d6e; font-style:italic; min-height:20px; margin-bottom:12px;"></p>
-            <button class="btn-outline" onclick="startSacred6()" id="s6btn" style="display:block; text-align:center; width:100%;">Begin Sacred 6</button>
+            <button class="btn-outline" onclick="startSacred6()" id="s6btn" style="display:block; text-align:center; width:100%;">Begin Sacred 6 Animation</button>
             <div id="s6done" style="display:none; margin-top:12px;">
               <p style="font-size:0.88rem; line-height:1.8; color:#4a3728; font-style:italic; text-align:center;">Notice the freedom you created. Take a deep breath and feel it.</p>
               <button class="btn" onclick="go('s9')" style="margin-top:16px;">I am complete. Continue.</button>
@@ -462,6 +473,11 @@
             <div><div class="dis-title">Hand on Heart</div><div class="dis-sub">Connect to yourself with warmth.</div></div>
           </div>
           <div class="dis-body" id="dis2-body">
+            <audio id="audio-hand-heart" src="/audio-hand-heart.m4a" preload="none"></audio>
+            <div class="audio-player">
+              <button class="audio-play-btn" id="audio-hand-heart-btn" onclick="toggleAudio('audio-hand-heart')">▶</button>
+              <span class="audio-label">Listen to Melissa guide you through this practice</span>
+            </div>
             <div class="dis-guide">
               <div class="dis-step">Place your right hand on your heart. Feel it beating. This is you — alive, present, here.</div>
               <div class="dis-step">Breathe in slowly, feeling your chest rise beneath your hand.</div>
@@ -479,6 +495,11 @@
             <div><div class="dis-title">Ground Through Your Feet</div><div class="dis-sub">Feel the earth. Feel yourself here.</div></div>
           </div>
           <div class="dis-body" id="dis3-body">
+            <audio id="audio-grounding" src="/audio-grounding.m4a" preload="none"></audio>
+            <div class="audio-player">
+              <button class="audio-play-btn" id="audio-grounding-btn" onclick="toggleAudio('audio-grounding')">▶</button>
+              <span class="audio-label">Listen to Melissa guide you through this practice</span>
+            </div>
             <div class="dis-guide">
               <div class="dis-step">Feel the floor beneath your feet. Press gently down. Notice the ground holding you.</div>
               <div class="dis-step">Take a slow breath in through your nose. Feel your belly rise.</div>
@@ -496,6 +517,11 @@
             <div><div class="dis-title">Body Scan</div><div class="dis-sub">Move slowly from head to feet.</div></div>
           </div>
           <div class="dis-body" id="dis4-body">
+            <audio id="audio-body-scan" src="/audio-body-scan.m4a" preload="none"></audio>
+            <div class="audio-player">
+              <button class="audio-play-btn" id="audio-body-scan-btn" onclick="toggleAudio('audio-body-scan')">▶</button>
+              <span class="audio-label">Listen to Melissa guide you through this practice</span>
+            </div>
             <div class="dis-guide">
               <div class="dis-step">Close your eyes. Take a slow breath. Begin at the top of your head.</div>
               <div class="dis-step">Slowly scan down — face, jaw, neck, shoulders. Notice any tension. Breathe into it. Release.</div>
@@ -736,6 +762,26 @@ function startBreath() {
     }, 4500);
   }
   doRound();
+}
+
+function toggleAudio(id) {
+  const audio = document.getElementById(id);
+  const btn = document.getElementById(id + '-btn');
+  document.querySelectorAll('audio').forEach(a => {
+    if (a !== audio && !a.paused) {
+      a.pause();
+      const b = document.getElementById(a.id + '-btn');
+      if (b) b.textContent = '▶';
+    }
+  });
+  if (audio.paused) {
+    audio.play();
+    btn.textContent = '⏸';
+    audio.onended = () => { btn.textContent = '▶'; };
+  } else {
+    audio.pause();
+    btn.textContent = '▶';
+  }
 }
 
 function closeComplete() {
