@@ -233,8 +233,24 @@
     <div class="guide-nudge">
       <p>You do not need to make it make sense. This is just you getting honest about what is already there before you even try to feel into it.</p>
     </div>
-    <button class="btn" onclick="go(1)">I have named it. Now let me arrive.</button>
-    <button class="btn-soft" onclick="go(1)">Skip — take me to the breath.</button>
+    <button class="btn" onclick="goMindValidation()">I have named it. Continue.</button>
+    <button class="btn-soft" onclick="goMindValidation()">Skip — continue.</button>
+  </div>
+</div>
+
+<!-- STEP Mv: Mind Validation -->
+<div class="step" id="sMv">
+  <div class="step-frame">
+    <div class="step-head">
+      <span class="section-tag">You Named It</span>
+      <h2>That took<br>honesty.</h2>
+      <p>Whatever is in your mind right now is real. It does not need to make sense. You named it. That is the first step.</p>
+    </div>
+    <div class="card" id="mindReflect" style="margin-bottom:16px;"></div>
+    <div class="guide-nudge">
+      <p>Your thinking mind has been doing its job. Now let's breathe you back into your body and see what feeling is living underneath that thought. The feeling is always there — the breath will help you find it.</p>
+    </div>
+    <button class="btn" onclick="go(1)">Yes. Let me breathe back into the body.</button>
   </div>
 </div>
 
@@ -242,9 +258,9 @@
 <div class="step" id="s1">
   <div class="step-frame">
     <div class="step-head">
-      <span class="section-tag">Arrive First</span>
-      <h2>Come back<br>to your body</h2>
-      <p>Before we check in, we arrive. Three simple breaths to bring you home.</p>
+      <span class="section-tag">From Head to Body</span>
+      <h2>Let's breathe you<br>back into your body</h2>
+      <p>You have named what is in your mind. Now we breathe. Not to fix anything — to drop you back into your body so the feeling underneath the thought can come through.</p>
     </div>
     <div style="text-align:center; padding: 10px 0 32px;">
       <div class="arrival-ring" id="aRing">
@@ -253,9 +269,10 @@
       <p class="arrival-guide" id="aGuide"></p>
       <p class="arrival-count" id="aCount"></p>
       <div class="grounding-text" id="groundingText">
+        Drop your shoulders.<br>
         Feel your feet on the ground.<br>
-        Let your hands rest beside you.<br><br>
-        <em style="color:#c4967a;">You are here. You are present.</em>
+        Place one hand on your chest.<br><br>
+        <em style="color:#c4967a;">You are out of your head. You are in your body. What is here?</em>
       </div>
       <button class="btn" id="aBtn" onclick="startArrivalBreath()" style="max-width:320px; margin:28px auto 0; display:block;">Begin</button>
     </div>
@@ -418,31 +435,7 @@
     </div>
     <div class="card" style="display:flex; flex-direction:column; gap:12px;">
       <button class="btn" onclick="completeCheckin(false)">I have named what is here. Complete my check-in.</button>
-      <button class="btn-soft" onclick="go('s4b')">I want to go a little deeper.</button>
-    </div>
-  </div>
-</div>
-
-<!-- STEP 4b: Regulation Breath -->
-<div class="step" id="s4b">
-  <div class="step-frame">
-    <div class="step-head">
-      <span class="section-tag">Regulate First</span>
-      <h2>Before we go deeper,<br>let us breathe.</h2>
-      <p>Three breaths to bring your nervous system into a state where it can actually feel and process what is here. You cannot think your way in. You breathe your way in.</p>
-    </div>
-    <div style="text-align:center; padding: 10px 0 32px;">
-      <div class="arrival-ring" id="deepRing">
-        <span class="arrival-word" id="deepWord">Ready</span>
-      </div>
-      <p class="arrival-guide" id="deepGuide"></p>
-      <p class="arrival-count" id="deepCount"></p>
-      <div class="grounding-text" id="deepGrounding">
-        Place one hand on your heart.<br>
-        Notice the warmth beneath your palm.<br><br>
-        <em style="color:#c4967a;">You are here. You are safe. You can feel this.</em>
-      </div>
-      <button class="btn" id="deepBtn" onclick="startDeepBreath()" style="max-width:320px; margin:28px auto 0; display:block;">Begin</button>
+      <button class="btn-soft" onclick="goDeeper()">I want to go a little deeper.</button>
     </div>
   </div>
 </div>
@@ -452,18 +445,18 @@
   <div class="step-frame">
     <div class="step-head">
       <span class="section-tag">Going Deeper</span>
-      <h2>What is this feeling<br>really about?</h2>
-      <p>Take your time with these. There are no right answers. Just honesty.</p>
+      <h2>Let's stay<br>with this.</h2>
+      <p>Take your time. There are no right answers. Just honesty with yourself.</p>
     </div>
     <div class="reflect-card">
       <div class="reflect-q">What might this feeling be pointing you toward?</div>
-      <div class="reflect-hint">Not what caused it. Not who is to blame. What is this feeling trying to show you about yourself or what you need?</div>
+      <div class="reflect-hint">Not what caused it. Not who is to blame. What is this feeling trying to show you about yourself, or what you need?</div>
       <textarea class="reflect-ta" id="deepQ1" placeholder="This feeling might be showing me..."></textarea>
     </div>
     <div class="reflect-card">
-      <div class="reflect-q">What does this part of you need to hear right now?</div>
-      <div class="reflect-hint">If you could speak to the part of you that is feeling this — with total compassion — what would you say?</div>
-      <textarea class="reflect-ta" id="deepQ2" placeholder="What I need to hear is..."></textarea>
+      <div class="reflect-q" id="deepQ2Label"></div>
+      <div class="reflect-hint" id="deepQ2Hint">Take a breath. You do not need to analyse it — just let the memory arrive.</div>
+      <textarea class="reflect-ta" id="deepQ2" placeholder="A time I remember feeling this was..."></textarea>
     </div>
     <button class="btn" onclick="completeCheckin(true)" style="margin-top:8px;">I have gone deeper. Complete my check-in.</button>
   </div>
@@ -633,41 +626,34 @@ function startArrivalBreath() {
   doRound();
 }
 
-function startDeepBreath() {
-  document.getElementById('deepBtn').style.display = 'none';
-  const ring = document.getElementById('deepRing');
-  const word = document.getElementById('deepWord');
-  const guide = document.getElementById('deepGuide');
-  const count = document.getElementById('deepCount');
-  let round = 0;
-  const total = 3;
-  function doRound() {
-    if (round >= total) {
-      word.textContent = '';
-      guide.textContent = '';
-      count.textContent = '';
-      document.getElementById('deepGrounding').style.display = 'block';
-      const btn = document.createElement('button');
-      btn.className = 'btn';
-      btn.textContent = 'I am ready. Let\'s go deeper.';
-      btn.style.cssText = 'max-width:320px; margin:28px auto 0; display:block;';
-      btn.onclick = () => go('s4d');
-      document.getElementById('deepBtn').parentNode.appendChild(btn);
-      return;
-    }
-    round++;
-    count.textContent = 'Breath ' + round + ' of ' + total;
-    guide.textContent = 'In through your nose...';
-    word.textContent = 'Inhale';
-    ring.classList.add('expand');
-    setTimeout(() => {
-      guide.textContent = 'Out through your mouth...';
-      word.textContent = 'Release';
-      ring.classList.remove('expand');
-      setTimeout(doRound, 5000);
-    }, 4000);
+function goMindValidation() {
+  const entry = document.getElementById('mindEntry').value.trim();
+  const card = document.getElementById('mindReflect');
+  if (entry) {
+    card.innerHTML = '<span class="sum-label">What your mind is holding</span><p style="font-family:\'Playfair Display\', serif; font-style:italic; font-size:1rem; color:#5c2318; line-height:1.9; margin-top:10px;">&ldquo;' + entry + '&rdquo;</p>';
+  } else {
+    card.innerHTML = '<p style="font-size:0.95rem; line-height:1.85; color:#6b5144; font-style:italic;">Your mind may not have had words yet. That is okay. Let\'s breathe and see what comes through the body instead.</p>';
   }
-  doRound();
+  go('sMv');
+}
+
+function goDeeper() {
+  const mindText = document.getElementById('mindEntry').value.trim();
+  const feelings = Object.keys(selectedWords);
+  let q2Label = '';
+  if (mindText && feelings.length) {
+    const shortMind = mindText.length > 70 ? mindText.slice(0, 70).trim() + '...' : mindText;
+    const feelList = feelings.slice(0, 3).join(', ');
+    q2Label = 'You were thinking about “' + shortMind + '” — and underneath that, you felt ' + feelList + '. Where have you felt this before?';
+  } else if (feelings.length) {
+    const feelList = feelings.slice(0, 3).join(', ');
+    q2Label = 'You are feeling ' + feelList + '. Where have you felt this before?';
+  } else {
+    q2Label = 'Where have you felt this before?';
+  }
+  document.getElementById('deepQ2Label').textContent = q2Label;
+  document.getElementById('deepQ2Hint').textContent = 'Take a breath. Let a moment in time come into your awareness from the past — a time you felt this same feeling in your body. You do not need to analyse it. Just let the memory arrive.';
+  go('s4d');
 }
 
 function openQuad(qid) {
