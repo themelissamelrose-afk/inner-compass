@@ -456,14 +456,14 @@
       <p>Take your time. There are no right answers. Just honesty with yourself.</p>
     </div>
     <div class="reflect-card">
-      <div class="reflect-q">What might this feeling be pointing you toward?</div>
-      <div class="reflect-hint">Not what caused it. Not who is to blame. What is this feeling trying to show you about yourself, or what you need?</div>
-      <textarea class="reflect-ta" id="deepQ1" placeholder="This feeling might be showing me..."></textarea>
+      <div class="reflect-q" id="deepQ1Label"></div>
+      <div class="reflect-hint" id="deepQ1Hint">Take a breath. You do not need to analyse it — just let the memory arrive.</div>
+      <textarea class="reflect-ta" id="deepQ1" placeholder="A time I remember feeling this was..."></textarea>
     </div>
     <div class="reflect-card">
-      <div class="reflect-q" id="deepQ2Label"></div>
-      <div class="reflect-hint" id="deepQ2Hint">Take a breath. You do not need to analyse it — just let the memory arrive.</div>
-      <textarea class="reflect-ta" id="deepQ2" placeholder="A time I remember feeling this was..."></textarea>
+      <div class="reflect-q">How could you move from reaction to response right now?</div>
+      <div class="reflect-hint">What do you need — to find acceptance and understanding of where you are, to show up for what you actually need, and to make a new choice that supports you to respond differently in this present moment?</div>
+      <textarea class="reflect-ta" id="deepQ2" placeholder="To respond differently, I need..."></textarea>
     </div>
     <button class="btn" onclick="completeCheckin(true)" style="margin-top:8px;">I have gone deeper. Complete my check-in.</button>
   </div>
@@ -671,8 +671,8 @@ function goDeeper() {
   } else {
     q2Label = 'Where have you felt this before?';
   }
-  document.getElementById('deepQ2Label').textContent = q2Label;
-  document.getElementById('deepQ2Hint').textContent = 'Take a breath. Let a moment in time come into your awareness from the past — a time you felt this same feeling in your body. You do not need to analyse it. Just let the memory arrive.';
+  document.getElementById('deepQ1Label').textContent = q2Label;
+  document.getElementById('deepQ1Hint').textContent = 'Take a breath. Let a moment in time come into your awareness from the past — a time you felt this same feeling in your body. You do not need to analyse it. Just let the memory arrive.';
   go('s4d');
 }
 
