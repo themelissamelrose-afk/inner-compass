@@ -532,6 +532,14 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+app.get('/daily-checkin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'daily-checkin.html'));
+});
+
+app.get('/become-observer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'become-observer.html'));
+});
+
 app.get('*', (req, res) => {
   res.redirect('/');
 });
