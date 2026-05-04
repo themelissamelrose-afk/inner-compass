@@ -177,6 +177,13 @@
 
     .footer { font-family: 'Playfair Display', serif; font-size: 0.8rem; color: #c4967a; text-align: center; padding: 24px; opacity: 0.6; }
 
+    .audio-player { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: #f9f3eb; border-radius: 14px; margin: 16px 0; border: 1px solid #e8d9c4; }
+    .audio-play-btn { width: 44px; height: 44px; border-radius: 50%; background: #5c2318; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; color: #fff; font-size: 1rem; }
+    .audio-play-btn:hover { background: #7a2f21; }
+    .audio-label { flex: 1; font-size: 0.88rem; color: #5c2318; line-height: 1.5; }
+    .audio-label strong { font-family: 'Playfair Display', serif; font-size: 0.95rem; display: block; margin-bottom: 2px; }
+    .audio-label span { font-size: 0.8rem; color: #9a7d6e; }
+
     @media (max-width: 480px) {
       .quad-grid { gap: 8px; }
       .quad-tile { padding: 16px 12px; }
@@ -247,6 +254,14 @@
       <p>Whatever is in your mind right now is real. It does not need to make sense. You named it. That is the first step.</p>
     </div>
     <div class="card" id="mindReflect" style="margin-bottom:16px;"></div>
+    <div class="audio-player">
+      <audio id="audio-hand-heart"><source src="audio-hand-heart.m4a" type="audio/mp4"></audio>
+      <button class="audio-play-btn" id="btn-hand-heart" onclick="toggleAudio('audio-hand-heart','btn-hand-heart')">▶</button>
+      <div class="audio-label">
+        <strong>Hand on Heart</strong>
+        <span>A guided practice to soften from head to heart</span>
+      </div>
+    </div>
     <div class="guide-nudge">
       <p>Your thinking mind has been doing its job. Now let's breathe you back into your body and see what feeling is living underneath that thought. The feeling is always there — the breath will help you find it.</p>
     </div>
@@ -274,7 +289,16 @@
         Place one hand on your chest.<br><br>
         <em style="color:#c4967a;">You are out of your head. You are in your body. What is here?</em>
       </div>
-      <button class="btn" id="aBtn" onclick="startArrivalBreath()" style="max-width:320px; margin:28px auto 0; display:block;">Begin</button>
+      <div class="audio-player" style="max-width:380px; margin:0 auto 16px;">
+        <audio id="audio-sacred6"><source src="audio-sacred6.m4a" type="audio/mp4"></audio>
+        <button class="audio-play-btn" id="btn-sacred6" onclick="toggleAudio('audio-sacred6','btn-sacred6')">▶</button>
+        <div class="audio-label">
+          <strong>Sacred 6 Breath</strong>
+          <span>Follow the guided breath with me</span>
+        </div>
+      </div>
+      <p style="font-size:0.82rem; color:#9a7d6e; font-style:italic; margin-bottom:16px;">Or use the visual guide below</p>
+      <button class="btn" id="aBtn" onclick="startArrivalBreath()" style="max-width:320px; margin:0 auto; display:block;">Begin visual breath</button>
     </div>
   </div>
 </div>
@@ -286,6 +310,14 @@
       <span class="section-tag">Come Into the Body</span>
       <h2>What do you feel<br>in your body right now?</h2>
       <p>Your body arrives before your feelings do. Select anything that is present. You do not need to explain it.</p>
+    </div>
+    <div class="audio-player">
+      <audio id="audio-body-scan"><source src="audio-body-scan.m4a" type="audio/mp4"></audio>
+      <button class="audio-play-btn" id="btn-body-scan" onclick="toggleAudio('audio-body-scan','btn-body-scan')">▶</button>
+      <div class="audio-label">
+        <strong>Body Scan</strong>
+        <span>A guided scan to arrive into your body before you name</span>
+      </div>
     </div>
     <div class="card">
       <span class="journal-label">Notice what is here</span>
@@ -452,6 +484,14 @@
       <div class="reflect-q">What might this feeling be pointing you toward?</div>
       <div class="reflect-hint">Not what caused it. Not who is to blame. What is this feeling trying to show you about yourself, or what you need?</div>
       <textarea class="reflect-ta" id="deepQ1" placeholder="This feeling might be showing me..."></textarea>
+    </div>
+    <div class="audio-player">
+      <audio id="audio-grounding"><source src="audio-grounding.m4a" type="audio/mp4"></audio>
+      <button class="audio-play-btn" id="btn-grounding" onclick="toggleAudio('audio-grounding','btn-grounding')">▶</button>
+      <div class="audio-label">
+        <strong>Grounding Breath</strong>
+        <span>Listen before you go into the memory</span>
+      </div>
     </div>
     <div class="reflect-card">
       <div class="reflect-q" id="deepQ2Label"></div>
@@ -860,6 +900,29 @@ function openWeeklyReview() {
   document.getElementById('cheerText').textContent = cheerMessages[topQuad];
 
   go('sw1');
+}
+
+function toggleAudio(audioId, btnId) {
+  const audios = document.querySelectorAll('audio');
+  const audio = document.getElementById(audioId);
+  const btn = document.getElementById(btnId);
+  audios.forEach(a => {
+    if (a.id !== audioId && !a.paused) {
+      a.pause();
+      a.currentTime = 0;
+      const b = document.getElementById('btn-' + a.id.replace('audio-', ''));
+      if (b) b.textContent = '▶';
+    }
+  });
+  if (audio.paused) {
+    audio.play();
+    btn.textContent = '◼';
+  } else {
+    audio.pause();
+    audio.currentTime = 0;
+    btn.textContent = '▶';
+  }
+  audio.onended = () => { btn.textContent = '▶'; };
 }
 
 // Init
