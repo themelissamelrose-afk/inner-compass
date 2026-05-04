@@ -197,8 +197,44 @@
     <span class="section-tag">Daily Practice</span>
     <h1>My Daily<br>Feels Check-In</h1>
     <p>A moment to pause before the world rushes in. Not to fix anything. Not to perform. Just to notice, with honesty and without judgement, what is actually here.</p>
-    <button class="btn" onclick="go(1)">Begin Check-In</button>
+    <button class="btn" onclick="go('sM')">Begin Check-In</button>
     <button class="btn-week" id="weekBtn" style="display:none;" onclick="openWeeklyReview()">Your Week in Review</button>
+  </div>
+</div>
+
+<!-- STEP M: Mind — What's Going On Up There -->
+<div class="step" id="sM">
+  <div class="step-frame">
+    <div class="step-head">
+      <span class="section-tag">Start In the Head</span>
+      <h2>What is going on<br>in your mind right now?</h2>
+      <p>Before anything else, just notice what is already there. No filter. No editing. What is your mind carrying as you arrive here?</p>
+    </div>
+    <div class="card">
+      <span class="journal-label">What is your mind saying?</span>
+      <textarea id="mindEntry" placeholder="Whatever is up there right now — worries, plans, loops, fragments. Just let it out here." style="min-height:120px;"></textarea>
+    </div>
+    <div class="card" style="margin-top:0;">
+      <div class="ctx-grid">
+        <div class="ctx-row">
+          <label>What are you doing?</label>
+          <input type="text" id="ctx-doing" placeholder="Starting the day, working, resting, after a conversation...">
+        </div>
+        <div class="ctx-row">
+          <label>Who are you with?</label>
+          <input type="text" id="ctx-with" placeholder="Alone, with family, at work, scrolling my phone...">
+        </div>
+        <div class="ctx-row">
+          <label>Where are you?</label>
+          <input type="text" id="ctx-where" placeholder="Home, in the car, outside, in bed...">
+        </div>
+      </div>
+    </div>
+    <div class="guide-nudge">
+      <p>You do not need to make it make sense. This is just you getting honest about what is already there before you even try to feel into it.</p>
+    </div>
+    <button class="btn" onclick="go(1)">I have named it. Now let me arrive.</button>
+    <button class="btn-soft" onclick="go(1)">Skip — take me to the breath.</button>
   </div>
 </div>
 
@@ -223,6 +259,43 @@
       </div>
       <button class="btn" id="aBtn" onclick="startArrivalBreath()" style="max-width:320px; margin:28px auto 0; display:block;">Begin</button>
     </div>
+  </div>
+</div>
+
+<!-- STEP B: Body Sensations -->
+<div class="step" id="sB">
+  <div class="step-frame">
+    <div class="step-head">
+      <span class="section-tag">Come Into the Body</span>
+      <h2>What do you feel<br>in your body right now?</h2>
+      <p>Your body arrives before your feelings do. Select anything that is present. You do not need to explain it.</p>
+    </div>
+    <div class="card">
+      <span class="journal-label">Notice what is here</span>
+      <div class="sens-grid">
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Tight chest</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Shallow breath</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Heavy limbs</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Tension in shoulders</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Sinking feeling</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Knot in stomach</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Heart racing</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Light and open</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Warm in chest</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Calm belly</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Energised body</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Tension in jaw</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Numb or flat</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Tingling</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Restless</span>
+        <span class="sens-tag" onclick="this.classList.toggle('sel')">Grounded and still</span>
+      </div>
+    </div>
+    <div class="guide-nudge">
+      <p>Your body knows. You do not need to make it mean anything yet. Just notice what is present.</p>
+    </div>
+    <button class="btn" onclick="go(2)">I have noticed. Now let me name the feeling.</button>
+    <button class="btn-soft" onclick="go(2)">Skip — take me to the feelings.</button>
   </div>
 </div>
 
@@ -345,60 +418,8 @@
     </div>
     <div class="card" style="display:flex; flex-direction:column; gap:12px;">
       <button class="btn" onclick="completeCheckin(false)">I have named what is here. Complete my check-in.</button>
-      <button class="btn-soft" onclick="go(4)">I want to go a little deeper.</button>
+      <button class="btn-soft" onclick="go('s4b')">I want to go a little deeper.</button>
     </div>
-  </div>
-</div>
-
-<!-- STEP 4: Body + Context (Deeper Path) -->
-<div class="step" id="s4">
-  <div class="step-frame">
-    <div class="step-head">
-      <span class="section-tag">Come Into the Body</span>
-      <h2>Where do you<br>feel this right now?</h2>
-      <p>Your body is always speaking. This is a moment to listen. Select anything that is present — without trying to fix or explain it.</p>
-    </div>
-
-    <div class="card">
-      <span class="journal-label">What does your body feel right now?</span>
-      <div class="sens-grid">
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Tight chest</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Shallow breath</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Heavy limbs</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Tension in shoulders</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Sinking feeling</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Knot in stomach</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Heart racing</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Light and open</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Warm in chest</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Calm belly</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Energised body</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Tension in jaw</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Numb or flat</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Tingling</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Restless</span>
-        <span class="sens-tag" onclick="this.classList.toggle('sel')">Grounded and still</span>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top:0;">
-      <div class="ctx-grid">
-        <div class="ctx-row">
-          <label>What are you doing?</label>
-          <input type="text" id="ctx-doing" placeholder="Starting the day, working, resting, after a conversation...">
-        </div>
-        <div class="ctx-row">
-          <label>Who are you with?</label>
-          <input type="text" id="ctx-with" placeholder="Alone, with family, at work, scrolling my phone...">
-        </div>
-        <div class="ctx-row">
-          <label>Where are you?</label>
-          <input type="text" id="ctx-where" placeholder="Home, in the car, outside, in bed...">
-        </div>
-      </div>
-    </div>
-
-    <button class="btn" onclick="go('s4b')">I have noticed. Continue.</button>
   </div>
 </div>
 
@@ -568,7 +589,8 @@ let breathDone = false;
 
 function go(n) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
-  const el = document.getElementById('s' + n);
+  const id = typeof n === 'number' ? 's' + n : n;
+  const el = document.getElementById(id);
   if (el) { el.classList.add('on'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 }
 
@@ -590,9 +612,9 @@ function startArrivalBreath() {
       document.getElementById('groundingText').style.display = 'block';
       const btn = document.createElement('button');
       btn.className = 'btn';
-      btn.textContent = 'I am present. Let\'s check in.';
+      btn.textContent = 'I am in my body. What does it feel like?';
       btn.style.cssText = 'max-width:320px; margin:28px auto 0; display:block;';
-      btn.onclick = () => go(2);
+      btn.onclick = () => go('sB');
       document.getElementById('aBtn').parentNode.appendChild(btn);
       return;
     }
@@ -745,6 +767,7 @@ function goToRecap() {
 
 function completeCheckin(deep) {
   const words = Object.keys(selectedWords);
+  const mindEntry = document.getElementById('mindEntry').value.trim();
   const doing = document.getElementById('ctx-doing').value.trim();
   const withWho = document.getElementById('ctx-with').value.trim();
   const where = document.getElementById('ctx-where').value.trim();
@@ -770,10 +793,13 @@ function completeCheckin(deep) {
     : shallowClose[domQ];
 
   let html = '';
+  if (mindEntry) {
+    html += '<span class="sum-label">On my mind</span><div class="sum-body" style="font-style:italic; color:#6b5144;">' + mindEntry + '</div>';
+  }
   if (words.length) {
-    html += '<span class="sum-label">Feeling</span><div class="sum-chips">';
+    html += '<div style="margin-top:18px;"><span class="sum-label">Feeling</span><div class="sum-chips">';
     words.forEach(w => { html += '<span class="f-chip ' + selectedWords[w] + '">' + w + '</span>'; });
-    html += '</div>';
+    html += '</div></div>';
   }
   if (journal) {
     html += '<div style="margin-top:18px;"><span class="sum-label">What is underneath</span><div class="sum-body" style="font-style:italic; color:#6b5144;">' + journal + '</div></div>';
