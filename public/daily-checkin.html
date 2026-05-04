@@ -288,13 +288,33 @@
   </div>
 </div>
 
-<!-- STEP 3: Recap + Journal -->
+<!-- STEP 2v: Feeling Validation -->
+<div class="step" id="s2v">
+  <div class="step-frame">
+    <div class="step-head">
+      <span class="section-tag">You Are Seen</span>
+      <h2 id="valH"></h2>
+    </div>
+    <div class="card">
+      <span class="feeling-label">Right now, you are feeling</span>
+      <div class="feeling-chips" id="valChips" style="justify-content:center; margin-bottom:20px;"></div>
+      <p id="valBody" style="font-size:0.96rem; line-height:1.85; color:#6b5144; margin-bottom:16px;"></p>
+      <div class="guide-nudge" style="margin-bottom:0;">
+        <p id="valNudge" style="font-style:italic;"></p>
+      </div>
+    </div>
+    <button class="btn" onclick="go(3)" style="margin-top:16px;">I feel seen. Continue.</button>
+    <button class="btn-soft" onclick="go(3)">Continue</button>
+  </div>
+</div>
+
+<!-- STEP 3: Underneath the Feeling -->
 <div class="step" id="s3">
   <div class="step-frame">
     <div class="step-head">
-      <span class="section-tag">Step 2 of 3</span>
-      <h2>What you are<br>carrying right now</h2>
-      <p>You don't have to understand it fully. Seeing it is enough.</p>
+      <span class="section-tag">Go A Little Deeper</span>
+      <h2>What is underneath<br>this feeling?</h2>
+      <p>Not to fix it. Just to see it. Sometimes a feeling is about what is on the surface. Sometimes it is pointing to something older. What wants to be said?</p>
     </div>
 
     <div class="feeling-display">
@@ -303,47 +323,44 @@
     </div>
 
     <div class="card">
-      <span class="journal-label">If anything wants to be said, let it out</span>
-      <textarea id="journalEntry" placeholder="Write freely... or leave this blank if nothing wants to come. Some days there are no words. That is okay."></textarea>
+      <span class="journal-label">Let it come out here</span>
+      <textarea id="journalEntry" placeholder="Write freely. Or leave it blank if nothing wants to come. Some days there are no words. That is okay too."></textarea>
     </div>
 
     <div class="guide-nudge">
-      <p>You don't need to make sense of this. Writing is just a way of letting the body speak. Even one word is enough.</p>
+      <p>You do not need to make sense of this. Writing is just a way of letting the body speak. Even one word is enough.</p>
     </div>
 
-    <button class="btn" onclick="go(4)">Continue</button>
+    <button class="btn" onclick="go('s3v')">Continue</button>
   </div>
 </div>
 
-<!-- STEP 4: Context + Sensations -->
+<!-- STEP 3v: Choice — Complete or Go Deeper -->
+<div class="step" id="s3v">
+  <div class="step-frame">
+    <div class="step-head">
+      <span class="section-tag">Your Choice</span>
+      <h2>How deep do you<br>want to go today?</h2>
+      <p>You can complete your check-in now and carry what you have noticed with you. Or you can stay a little longer and go underneath it.</p>
+    </div>
+    <div class="card" style="display:flex; flex-direction:column; gap:12px;">
+      <button class="btn" onclick="completeCheckin(false)">I have named what is here. Complete my check-in.</button>
+      <button class="btn-soft" onclick="go(4)">I want to go a little deeper.</button>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4: Body + Context (Deeper Path) -->
 <div class="step" id="s4">
   <div class="step-frame">
     <div class="step-head">
-      <span class="section-tag">Step 3 of 3</span>
-      <h2>Where are you<br>right now?</h2>
-      <p>Context helps you understand your patterns over time. When certain feelings arrive and what they are connected to.</p>
+      <span class="section-tag">Come Into the Body</span>
+      <h2>Where do you<br>feel this right now?</h2>
+      <p>Your body is always speaking. This is a moment to listen. Select anything that is present — without trying to fix or explain it.</p>
     </div>
 
     <div class="card">
-      <div class="ctx-grid">
-        <div class="ctx-row">
-          <label>What are you doing?</label>
-          <input type="text" id="ctx-doing" placeholder="Starting the day, working, resting, after a conversation...">
-        </div>
-        <div class="ctx-row">
-          <label>Who are you with?</label>
-          <input type="text" id="ctx-with" placeholder="Alone, with family, at work, scrolling my phone...">
-        </div>
-        <div class="ctx-row">
-          <label>Where are you?</label>
-          <input type="text" id="ctx-where" placeholder="Home, in the car, outside, in bed...">
-        </div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top:0;">
       <span class="journal-label">What does your body feel right now?</span>
-      <p style="font-size:0.88rem; color:#9a7d6e; margin-bottom:14px; line-height:1.7;">Select anything present. Your body is always speaking. This is a way of listening.</p>
       <div class="sens-grid">
         <span class="sens-tag" onclick="this.classList.toggle('sel')">Tight chest</span>
         <span class="sens-tag" onclick="this.classList.toggle('sel')">Shallow breath</span>
@@ -364,7 +381,70 @@
       </div>
     </div>
 
-    <button class="btn" onclick="completeCheckin()">Complete Check-In</button>
+    <div class="card" style="margin-top:0;">
+      <div class="ctx-grid">
+        <div class="ctx-row">
+          <label>What are you doing?</label>
+          <input type="text" id="ctx-doing" placeholder="Starting the day, working, resting, after a conversation...">
+        </div>
+        <div class="ctx-row">
+          <label>Who are you with?</label>
+          <input type="text" id="ctx-with" placeholder="Alone, with family, at work, scrolling my phone...">
+        </div>
+        <div class="ctx-row">
+          <label>Where are you?</label>
+          <input type="text" id="ctx-where" placeholder="Home, in the car, outside, in bed...">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" onclick="go('s4b')">I have noticed. Continue.</button>
+  </div>
+</div>
+
+<!-- STEP 4b: Regulation Breath -->
+<div class="step" id="s4b">
+  <div class="step-frame">
+    <div class="step-head">
+      <span class="section-tag">Regulate First</span>
+      <h2>Before we go deeper,<br>let us breathe.</h2>
+      <p>Three breaths to bring your nervous system into a state where it can actually feel and process what is here. You cannot think your way in. You breathe your way in.</p>
+    </div>
+    <div style="text-align:center; padding: 10px 0 32px;">
+      <div class="arrival-ring" id="deepRing">
+        <span class="arrival-word" id="deepWord">Ready</span>
+      </div>
+      <p class="arrival-guide" id="deepGuide"></p>
+      <p class="arrival-count" id="deepCount"></p>
+      <div class="grounding-text" id="deepGrounding">
+        Place one hand on your heart.<br>
+        Notice the warmth beneath your palm.<br><br>
+        <em style="color:#c4967a;">You are here. You are safe. You can feel this.</em>
+      </div>
+      <button class="btn" id="deepBtn" onclick="startDeepBreath()" style="max-width:320px; margin:28px auto 0; display:block;">Begin</button>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4d: Deeper Questions -->
+<div class="step" id="s4d">
+  <div class="step-frame">
+    <div class="step-head">
+      <span class="section-tag">Going Deeper</span>
+      <h2>What is this feeling<br>really about?</h2>
+      <p>Take your time with these. There are no right answers. Just honesty.</p>
+    </div>
+    <div class="reflect-card">
+      <div class="reflect-q">What might this feeling be pointing you toward?</div>
+      <div class="reflect-hint">Not what caused it. Not who is to blame. What is this feeling trying to show you about yourself or what you need?</div>
+      <textarea class="reflect-ta" id="deepQ1" placeholder="This feeling might be showing me..."></textarea>
+    </div>
+    <div class="reflect-card">
+      <div class="reflect-q">What does this part of you need to hear right now?</div>
+      <div class="reflect-hint">If you could speak to the part of you that is feeling this — with total compassion — what would you say?</div>
+      <textarea class="reflect-ta" id="deepQ2" placeholder="What I need to hear is..."></textarea>
+    </div>
+    <button class="btn" onclick="completeCheckin(true)" style="margin-top:8px;">I have gone deeper. Complete my check-in.</button>
   </div>
 </div>
 
@@ -374,7 +454,7 @@
     <div class="seal">✦</div>
     <div class="divider-line"></div>
     <p class="complete-h">You showed up<br>for yourself today.</p>
-    <p class="complete-p">Noticing is not fixing. But it is always the beginning of something. Every time you check in, you are building a relationship with yourself. And that changes everything.</p>
+    <p class="complete-p" id="closeMsg"></p>
 
     <div class="summary-card" id="summary"></div>
 
@@ -531,6 +611,43 @@ function startArrivalBreath() {
   doRound();
 }
 
+function startDeepBreath() {
+  document.getElementById('deepBtn').style.display = 'none';
+  const ring = document.getElementById('deepRing');
+  const word = document.getElementById('deepWord');
+  const guide = document.getElementById('deepGuide');
+  const count = document.getElementById('deepCount');
+  let round = 0;
+  const total = 3;
+  function doRound() {
+    if (round >= total) {
+      word.textContent = '';
+      guide.textContent = '';
+      count.textContent = '';
+      document.getElementById('deepGrounding').style.display = 'block';
+      const btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.textContent = 'I am ready. Let\'s go deeper.';
+      btn.style.cssText = 'max-width:320px; margin:28px auto 0; display:block;';
+      btn.onclick = () => go('s4d');
+      document.getElementById('deepBtn').parentNode.appendChild(btn);
+      return;
+    }
+    round++;
+    count.textContent = 'Breath ' + round + ' of ' + total;
+    guide.textContent = 'In through your nose...';
+    word.textContent = 'Inhale';
+    ring.classList.add('expand');
+    setTimeout(() => {
+      guide.textContent = 'Out through your mouth...';
+      word.textContent = 'Release';
+      ring.classList.remove('expand');
+      setTimeout(doRound, 5000);
+    }, 4000);
+  }
+  doRound();
+}
+
 function openQuad(qid) {
   if (activeQuad && activeQuad !== qid) {
     document.getElementById('panel-' + activeQuad).classList.remove('show');
@@ -566,39 +683,100 @@ function buildWords(qid) {
   });
 }
 
-function goToRecap() {
-  const chips = document.getElementById('selectedChips');
-  chips.innerHTML = '';
-  const words = Object.keys(selectedWords);
-  if (words.length === 0) {
-    chips.innerHTML = '<span class="no-feeling">No words yet. And that is okay too.</span>';
-  } else {
-    words.forEach(w => {
-      const chip = document.createElement('span');
-      chip.className = 'f-chip ' + selectedWords[w];
-      chip.textContent = w;
-      chips.appendChild(chip);
-    });
-  }
-  go(3);
+function getDomQuad() {
+  const qc = {};
+  Object.values(selectedWords).forEach(q => { qc[q] = (qc[q]||0) + 1; });
+  return Object.keys(qc).sort((a,b) => qc[b]-qc[a])[0] || 'green';
 }
 
-function completeCheckin() {
+const valMessages = {
+  red: {
+    h: 'You are carrying something<br>real right now.',
+    body: 'There is activation in your body. Heat, urgency, that restless feeling that something needs to move. This is your nervous system doing exactly what it was built to do. You do not need to calm it down or push through.',
+    nudge: 'You named it. That is the most important first step. Naming a feeling is not weakness. It is self-awareness, and self-awareness is where everything begins to shift.'
+  },
+  blue: {
+    h: 'It is okay<br>to be here.',
+    body: 'Heavy, quiet, pulled inward. That particular kind of low that makes everything feel harder and further away. You came here anyway. Even from this place, you showed up.',
+    nudge: 'You do not have to feel better right now. Being honest about where you actually are, not where you think you should be, is the whole practice.'
+  },
+  yellow: {
+    h: 'There is energy<br>alive in you today.',
+    body: 'Something is open and moving. You are in a higher state right now, energised, inspired, or simply ready. That is worth noticing and receiving, not rushing past.',
+    nudge: 'When you feel this alive, it is worth asking what created it. This is your natural state returning. Let yourself feel it fully.'
+  },
+  green: {
+    h: 'You are settled today.<br>That matters.',
+    body: 'Calm, safe, at peace. This is what nervous system regulation actually feels like from the inside. Not dramatic. Just quiet, steady, and here.',
+    nudge: 'This is the foundation you have been building, check-in by check-in. Notice it. Stay with it for a moment. Let yourself receive it.'
+  }
+};
+
+const deepCloseMessages = {
+  red: 'You sat with activation and you did not run. You named it, you felt underneath it, and you stayed present. That is the most powerful thing a person can do when their nervous system wants to fight or flee.',
+  blue: 'You came here even from the low place. That takes more courage than showing up when everything feels good. You did not pretend. You did not push it away. You stayed with it. That is the work.',
+  yellow: 'You let yourself feel your own aliveness today. You let the good land. That is not always easy for people who are more used to managing what is hard. Today you received yourself.',
+  green: 'You let yourself rest in the peace. You did not rush past it or question whether you deserved it. You stayed. That is everything.'
+};
+
+function goToRecap() {
+  const words = Object.keys(selectedWords);
+  ['selectedChips','valChips'].forEach(id => {
+    const el = document.getElementById(id);
+    el.innerHTML = '';
+    if (words.length === 0) {
+      el.innerHTML = '<span class="no-feeling">No words named today.</span>';
+    } else {
+      words.forEach(w => {
+        const chip = document.createElement('span');
+        chip.className = 'f-chip ' + selectedWords[w];
+        chip.textContent = w;
+        el.appendChild(chip);
+      });
+    }
+  });
+  const domQ = getDomQuad();
+  const msg = valMessages[domQ];
+  document.getElementById('valH').innerHTML = msg.h;
+  document.getElementById('valBody').textContent = msg.body;
+  document.getElementById('valNudge').textContent = msg.nudge;
+  go('s2v');
+}
+
+function completeCheckin(deep) {
   const words = Object.keys(selectedWords);
   const doing = document.getElementById('ctx-doing').value.trim();
   const withWho = document.getElementById('ctx-with').value.trim();
   const where = document.getElementById('ctx-where').value.trim();
   const journal = document.getElementById('journalEntry').value.trim();
 
-  // Save to localStorage
   saveCheckin(words, doing, withWho, where, journal);
 
-  // Build summary display
+  const domQ = getDomQuad();
+
+  const shallowClose = {
+    red: 'You named what is activated in you today. That alone took honesty. You do not have to fix it. You just named it. Carry that awareness with you.',
+    blue: 'You came here even from the heavy place. You named what is true. Some days that is the whole practice. You showed up and that is enough.',
+    yellow: 'You let yourself arrive in your own aliveness. You felt it and you named it. That is how the good things become real. Carry this with you.',
+    green: 'You named your peace today. You did not rush past it. Noticing the calm is how you build more of it. Carry this settledness into your day.'
+  };
+
+  document.querySelector('#s5 .complete-h').innerHTML = deep
+    ? 'You went all the way<br>in today.'
+    : 'You showed up<br>for yourself today.';
+
+  document.getElementById('closeMsg').textContent = deep
+    ? deepCloseMessages[domQ]
+    : shallowClose[domQ];
+
   let html = '';
   if (words.length) {
     html += '<span class="sum-label">Feeling</span><div class="sum-chips">';
     words.forEach(w => { html += '<span class="f-chip ' + selectedWords[w] + '">' + w + '</span>'; });
     html += '</div>';
+  }
+  if (journal) {
+    html += '<div style="margin-top:18px;"><span class="sum-label">What is underneath</span><div class="sum-body" style="font-style:italic; color:#6b5144;">' + journal + '</div></div>';
   }
   if (doing || withWho || where) {
     html += '<div style="margin-top:18px;">';
