@@ -78,7 +78,7 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       overflow: hidden;
     }
 
@@ -86,9 +86,8 @@
       position: absolute;
       inset: 0;
       background-image: url('/melissa-hero.jpg');
-      background-size: 160% auto;
-      background-position: 80% 35%;
-      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 72% 30%;
     }
 
     .hero-bg::after {
@@ -96,19 +95,20 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        to bottom,
-        rgba(40,18,10,0.38) 0%,
-        rgba(40,18,10,0.55) 60%,
-        rgba(40,18,10,0.72) 100%
+        to right,
+        rgba(30,12,6,0.82) 0%,
+        rgba(30,12,6,0.55) 45%,
+        rgba(30,12,6,0.10) 70%,
+        rgba(30,12,6,0.0) 100%
       );
     }
 
     .hero-inner {
       position: relative;
       z-index: 2;
-      text-align: center;
-      padding: 120px 24px 80px;
-      max-width: 720px;
+      text-align: left;
+      padding: 120px 48px 80px 72px;
+      max-width: 620px;
     }
 
     .hero-eyebrow {
