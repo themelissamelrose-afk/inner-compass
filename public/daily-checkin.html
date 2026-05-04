@@ -7,73 +7,51 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; padding: 0 0 64px; }
 
-    body {
-      background: #faf5ee;
-      font-family: 'Lato', sans-serif;
-      color: #4a3728;
-      min-height: 100vh;
-      padding: 0 0 64px;
-    }
-
-    /* Step fade */
     .step { display: none; animation: fadeUp 0.5s ease both; }
     .step.on { display: block; }
     @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 
-    /* Header bar (on intro only) */
-    .top-bar {
-      padding: 28px 28px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .top-bar { padding: 28px 28px 0; display: flex; align-items: center; justify-content: space-between; }
     .brand { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; }
     .date-pill { font-size: 11px; color: #9a7d6e; font-style: italic; }
 
-    /* Hero intro */
-    .hero-intro {
-      text-align: center;
-      padding: 60px 28px 36px;
-      max-width: 480px;
-      margin: 0 auto;
-    }
+    .hero-intro { text-align: center; padding: 60px 28px 36px; max-width: 480px; margin: 0 auto; }
     .section-tag { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 18px; }
     .hero-intro h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 2.8rem); color: #5c2318; line-height: 1.25; margin-bottom: 20px; }
     .hero-intro p { font-size: 1rem; line-height: 1.9; color: #6b5144; margin-bottom: 32px; }
 
-    /* Breathing orb on intro */
     .orb { width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, #f2e8d9 30%, #faf5ee 100%); border: 1.5px solid #c4967a; margin: 0 auto 36px; animation: breatheOrb 5s ease-in-out infinite; }
-    @keyframes breatheOrb { 0%,100%{transform:scale(1); box-shadow:0 0 18px rgba(196,150,122,0.2)} 50%{transform:scale(1.12); box-shadow:0 0 38px rgba(196,150,122,0.45)} }
+    @keyframes breatheOrb { 0%,100%{transform:scale(1);box-shadow:0 0 18px rgba(196,150,122,0.2)} 50%{transform:scale(1.12);box-shadow:0 0 38px rgba(196,150,122,0.45)} }
 
-    /* Primary button */
     .btn { display: block; width: 100%; padding: 18px; background: #5c2318; color: #fff; border: none; border-radius: 50px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; transition: background 0.2s, transform 0.1s; letter-spacing: 0.02em; }
     .btn:hover { background: #7a2f21; transform: translateY(-1px); }
     .btn-soft { display: block; width: 100%; padding: 14px; background: transparent; border: 1.5px solid #e8d9c4; color: #9a7d6e; border-radius: 50px; font-family: 'Lato', sans-serif; font-size: 0.9rem; cursor: pointer; margin-top: 10px; transition: all 0.2s; }
     .btn-soft:hover { border-color: #c4967a; color: #5c2318; }
     .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 14px 32px; border-radius: 50px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; }
     .btn-outline:hover { background: #c4967a; color: #fff; }
+    .btn-week { display: block; width: 100%; padding: 16px; background: #f2e8d9; color: #5c2318; border: 1.5px solid #c4967a; border-radius: 50px; font-family: 'Playfair Display', serif; font-size: 0.98rem; cursor: pointer; transition: all 0.2s; margin-top: 12px; }
+    .btn-week:hover { background: #e8d9c4; }
 
-    /* Step frame */
     .step-frame { max-width: 560px; margin: 0 auto; padding: 0 24px; }
     .step-head { text-align: center; padding: 52px 0 28px; }
     .step-head h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.2rem); color: #5c2318; line-height: 1.3; margin-bottom: 12px; }
     .step-head p { font-size: 0.96rem; line-height: 1.85; color: #6b5144; max-width: 420px; margin: 0 auto; }
 
-    /* Card */
     .card { background: #fff; border-radius: 24px; padding: 32px 28px; box-shadow: 0 4px 32px rgba(92,35,24,0.07); margin-bottom: 16px; }
+
+    /* Arrival breath */
+    .arrival-ring { width: 130px; height: 130px; border-radius: 50%; border: 2px solid #c4967a; background: radial-gradient(circle, #f9f3eb, #faf5ee); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; transition: transform 4s ease-in-out, background 4s ease-in-out; }
+    .arrival-ring.expand { transform: scale(1.28); background: radial-gradient(circle, #f2e8d9, #faf5ee); }
+    .arrival-word { font-family: 'Playfair Display', serif; font-size: 0.92rem; color: #5c2318; font-style: italic; }
+    .arrival-guide { font-size: 0.88rem; color: #9a7d6e; font-style: italic; min-height: 22px; margin-bottom: 6px; }
+    .arrival-count { font-size: 0.76rem; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; min-height: 18px; }
+    .grounding-text { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #5c2318; line-height: 1.9; display: none; margin: 8px 0 4px; }
 
     /* Quadrant grid */
     .quad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 16px; }
-    .quad-tile {
-      border-radius: 18px;
-      padding: 22px 18px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.22s;
-      position: relative;
-      overflow: hidden;
-    }
+    .quad-tile { border-radius: 18px; padding: 22px 18px; cursor: pointer; border: 2px solid transparent; transition: all 0.22s; position: relative; overflow: hidden; }
     .quad-tile::before { content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.3s; border-radius:16px; }
     .quad-tile.red { background: #fdf0ef; border-color: #e8b8b4; }
     .quad-tile.red::before { background: radial-gradient(circle at 80% 20%, rgba(196,69,58,0.08), transparent); }
@@ -91,7 +69,6 @@
     .quad-tile.green::before { background: radial-gradient(circle at 80% 20%, rgba(90,154,111,0.1), transparent); }
     .quad-tile.green.open { border-color: #5a9a6f; }
     .quad-tile.green.open::before { opacity:1; }
-
     .q-emoji { font-size: 1.5rem; margin-bottom: 8px; display: block; }
     .q-label { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px; display: block; font-weight: 700; }
     .q-title { font-family: 'Playfair Display', serif; font-size: 0.92rem; line-height: 1.4; }
@@ -105,7 +82,6 @@
     .quad-tile.green .q-label, .quad-tile.green .q-title { color: #3d7a52; }
     .quad-tile.green .q-hint { color: #3d7a52; }
 
-    /* Word panel */
     .word-panel { border-radius: 18px; padding: 22px 20px; margin-top: 6px; display: none; }
     .word-panel.red { background: #fdf0ef; }
     .word-panel.blue { background: #eef2f8; }
@@ -126,19 +102,15 @@
     .green .w-pill { background: #fff; border-color: #a8cdb4; color: #3d7a52; }
     .green .w-pill:hover { border-color: #5a9a6f; transform: scale(1.03); }
     .green .w-pill.sel { background: #5a9a6f; color: #fff; border-color: #5a9a6f; }
-
-    /* Definition card */
     .def-card { border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.75); min-height: 58px; transition: all 0.2s; }
     .def-word { font-family: 'Playfair Display', serif; font-size: 0.98rem; color: #5c2318; margin-bottom: 3px; }
     .def-body { font-size: 0.86rem; line-height: 1.65; color: #4a3728; font-style: italic; }
     .def-placeholder { font-size: 0.8rem; font-style: italic; opacity: 0.65; }
 
-    /* Gentle guide nudge */
     .guide-nudge { background: #f9f3eb; border-radius: 14px; padding: 18px 20px; margin: 16px 0; border-left: 3px solid #e8d9c4; }
     .guide-nudge p { font-size: 0.88rem; line-height: 1.75; color: #6b5144; font-style: italic; }
     .guide-nudge strong { color: #5c2318; font-style: normal; }
 
-    /* Feeling recap display */
     .feeling-display { background: linear-gradient(135deg, #f9f3eb 0%, #f2e8d9 100%); border-radius: 18px; padding: 28px 24px; margin: 16px 0; text-align: center; }
     .feeling-label { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
     .feeling-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 4px; }
@@ -149,18 +121,15 @@
     .f-chip.green { background: #edf6f0; color: #3d7a52; border: 1px solid #a8cdb4; }
     .no-feeling { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #9a7d6e; }
 
-    /* Journal */
     .journal-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin: 20px 0 10px; }
     textarea { width: 100%; padding: 16px; border: 1.5px solid #e8d9c4; border-radius: 14px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 100px; line-height: 1.7; outline: none; transition: border-color 0.2s; }
     textarea:focus { border-color: #c4967a; }
 
-    /* Context */
     .ctx-grid { display: flex; flex-direction: column; gap: 16px; margin: 16px 0; }
     .ctx-row label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 8px; }
     .ctx-row input { width: 100%; padding: 14px 18px; border: 1.5px solid #e8d9c4; border-radius: 14px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; outline: none; transition: border-color 0.2s; }
     .ctx-row input:focus { border-color: #c4967a; }
 
-    /* Sensations */
     .sens-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 24px; }
     .sens-tag { padding: 9px 16px; border: 1.5px solid #e8d9c4; border-radius: 30px; font-size: 0.86rem; color: #6b5144; cursor: pointer; transition: all 0.2s; background: #fdf9f4; }
     .sens-tag:hover, .sens-tag.sel { background: #f2e8d9; border-color: #c4967a; color: #5c2318; }
@@ -174,17 +143,37 @@
     .sum-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 6px; }
     .sum-body { font-size: 0.9rem; color: #4a3728; line-height: 1.75; }
     .sum-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
-
-    /* Arrival breath */
-    .arrival-ring { width: 130px; height: 130px; border-radius: 50%; border: 2px solid #c4967a; background: radial-gradient(circle, #f9f3eb, #faf5ee); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; transition: transform 4s ease-in-out, background 4s ease-in-out; }
-    .arrival-ring.expand { transform: scale(1.28); background: radial-gradient(circle, #f2e8d9, #faf5ee); }
-    .arrival-word { font-family: 'Playfair Display', serif; font-size: 0.92rem; color: #5c2318; font-style: italic; }
-    .arrival-guide { font-size: 0.88rem; color: #9a7d6e; font-style: italic; min-height: 22px; margin-bottom: 6px; }
-    .arrival-count { font-size: 0.76rem; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; min-height: 18px; }
-    .grounding-text { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #5c2318; line-height: 1.9; display: none; margin: 8px 0 4px; }
-
-    /* Divider line */
     .divider-line { width: 40px; height: 1.5px; background: #c4967a; margin: 0 auto 24px; opacity: 0.5; }
+
+    /* Weekly reflection */
+    .week-journey { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+    .day-card { border-radius: 16px; padding: 18px 20px; display: flex; align-items: flex-start; gap: 16px; }
+    .day-card.red { background: #fdf0ef; border-left: 4px solid #c4453a; }
+    .day-card.blue { background: #eef2f8; border-left: 4px solid #4a6fa5; }
+    .day-card.yellow { background: #fef9ec; border-left: 4px solid #c4984a; }
+    .day-card.green { background: #edf6f0; border-left: 4px solid #5a9a6f; }
+    .day-card.empty { background: #f5f0eb; border-left: 4px solid #e8d9c4; }
+    .day-dot { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+    .day-dot.red { background: #c4453a; }
+    .day-dot.blue { background: #4a6fa5; }
+    .day-dot.yellow { background: #c4984a; }
+    .day-dot.green { background: #5a9a6f; }
+    .day-dot.empty { background: #c4967a; }
+    .day-info { flex: 1; }
+    .day-name { font-family: 'Playfair Display', serif; font-size: 0.88rem; color: #5c2318; margin-bottom: 5px; }
+    .day-words { display: flex; flex-wrap: wrap; gap: 5px; }
+    .day-word { font-size: 0.78rem; color: #6b5144; font-style: italic; }
+    .day-word:not(:last-child)::after { content: ','; }
+    .day-empty-note { font-size: 0.82rem; color: #9a7d6e; font-style: italic; }
+
+    .reflect-card { background: #f9f3eb; border-radius: 18px; padding: 24px 22px; margin: 14px 0; }
+    .reflect-q { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; line-height: 1.55; margin-bottom: 10px; }
+    .reflect-hint { font-size: 0.82rem; color: #9a7d6e; font-style: italic; line-height: 1.65; margin-bottom: 12px; }
+    .reflect-ta { min-height: 80px; background: white; }
+
+    .cheer-card { background: #5c2318; border-radius: 20px; padding: 32px 28px; text-align: center; margin: 20px 0; }
+    .cheer-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #faf5ee; line-height: 1.85; font-style: italic; }
+    .cheer-name { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-top: 20px; }
 
     .footer { font-family: 'Playfair Display', serif; font-size: 0.8rem; color: #c4967a; text-align: center; padding: 24px; opacity: 0.6; }
 
@@ -209,6 +198,7 @@
     <h1>My Daily<br>Feels Check-In</h1>
     <p>A moment to pause before the world rushes in. Not to fix anything. Not to perform. Just to notice, with honesty and without judgement, what is actually here.</p>
     <button class="btn" onclick="go(1)">Begin Check-In</button>
+    <button class="btn-week" id="weekBtn" style="display:none;" onclick="openWeeklyReview()">Your Week in Review</button>
   </div>
 </div>
 
@@ -220,20 +210,17 @@
       <h2>Come back<br>to your body</h2>
       <p>Before we check in, we arrive. Three simple breaths to bring you home.</p>
     </div>
-
     <div style="text-align:center; padding: 10px 0 32px;">
       <div class="arrival-ring" id="aRing">
         <span class="arrival-word" id="aWord">Ready</span>
       </div>
       <p class="arrival-guide" id="aGuide"></p>
       <p class="arrival-count" id="aCount"></p>
-
       <div class="grounding-text" id="groundingText">
         Feel your feet on the ground.<br>
         Let your hands rest beside you.<br><br>
         <em style="color:#c4967a;">You are here. You are present.</em>
       </div>
-
       <button class="btn" id="aBtn" onclick="startArrivalBreath()" style="max-width:320px; margin:28px auto 0; display:block;">Begin</button>
     </div>
   </div>
@@ -393,7 +380,81 @@
 
     <p style="font-family:'Playfair Display', serif; font-style:italic; font-size:0.96rem; color:#c4967a; margin: 24px 0 32px;">"You cannot heal what you cannot feel."<br><span style="font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; font-style:normal;">Melissa Melrose</span></p>
 
-    <button class="btn-outline" onclick="go(0)">Check In Again Tomorrow</button>
+    <button class="btn-outline" onclick="go(0)" style="display:block; text-align:center;">Done for Today</button>
+  </div>
+</div>
+
+<!-- WEEKLY REVIEW: Journey -->
+<div class="step" id="sw1">
+  <div class="step-frame">
+    <div class="step-head">
+      <span class="section-tag">Your Week in Review</span>
+      <h2>How you navigated<br>this week</h2>
+      <p>Look at what you moved through. Every day you checked in, you were choosing to know yourself. That is the work.</p>
+    </div>
+    <div class="week-journey" id="weekJourney"></div>
+    <div style="background:#f9f3eb; border-radius:14px; padding:20px 22px; margin:20px 0; border-left:3px solid #e8d9c4;">
+      <p style="font-size:0.9rem; line-height:1.85; color:#4a3728; font-style:italic;" id="weekSummaryText"></p>
+    </div>
+    <button class="btn" onclick="go('sw2')">Reflect on the Week</button>
+  </div>
+</div>
+
+<!-- WEEKLY REVIEW: Reflection -->
+<div class="step" id="sw2">
+  <div class="step-frame">
+    <div class="step-head">
+      <span class="section-tag">Weekly Reflection</span>
+      <h2>Becoming your<br>own witness</h2>
+      <p>We don't recognise what we've navigated until we stop to look. Take your time with these.</p>
+    </div>
+
+    <div class="reflect-card">
+      <div class="reflect-q">What did you navigate this week that you haven't yet stopped to acknowledge?</div>
+      <div class="reflect-hint">It doesn't have to be big. Finishing something. Accepting something. Staying present through a hard moment. Name it here.</div>
+      <textarea class="reflect-ta" placeholder="This week I navigated..."></textarea>
+    </div>
+
+    <div class="reflect-card">
+      <div class="reflect-q">Which feeling came up most for you? What might it be pointing you toward?</div>
+      <div class="reflect-hint">Feelings are not problems to solve. They are information. What might this one be asking of you?</div>
+      <textarea class="reflect-ta" placeholder="The feeling I kept coming back to was..."></textarea>
+    </div>
+
+    <div class="reflect-card">
+      <div class="reflect-q">Where did you show up for yourself this week, even when it felt hard?</div>
+      <div class="reflect-hint">Showing up can look like rest. Like saying no. Like feeling something instead of running from it. Where did you do that?</div>
+      <textarea class="reflect-ta" placeholder="I showed up for myself when..."></textarea>
+    </div>
+
+    <div class="reflect-card">
+      <div class="reflect-q">Where are you being called to go a little deeper within yourself in the week ahead?</div>
+      <div class="reflect-hint">Not as a criticism. As an invitation. Where does something in you want more attention, more honesty, more care?</div>
+      <textarea class="reflect-ta" placeholder="I want to go deeper with..."></textarea>
+    </div>
+
+    <button class="btn" onclick="go('sw3')" style="margin-top:8px;">I have reflected. Continue.</button>
+  </div>
+</div>
+
+<!-- WEEKLY REVIEW: Cheerleader Close -->
+<div class="step" id="sw3">
+  <div class="complete-wrap">
+    <div class="seal">✦</div>
+    <div class="divider-line"></div>
+    <p class="complete-h">Look at what<br>you did this week.</p>
+    <p class="complete-p">You checked in. You named what was there. You sat with feelings that many people spend their whole lives running from. That is courage. That is the foundation being built.</p>
+
+    <div class="cheer-card" id="cheerCard">
+      <p class="cheer-text" id="cheerText"></p>
+      <span class="cheer-name">Melissa Melrose</span>
+    </div>
+
+    <p style="font-size:0.96rem; line-height:1.85; color:#6b5144; margin: 20px 0 8px;">Every week you come back to yourself, you are proving that you can be trusted. That you will not abandon yourself. That is the deepest work there is.</p>
+
+    <p style="font-family:'Playfair Display', serif; font-style:italic; font-size:0.96rem; color:#c4967a; margin: 20px 0 32px;">Come back tomorrow. Keep building.</p>
+
+    <button class="btn-outline" onclick="go(0)" style="display:block; text-align:center;">Back to Check-In</button>
   </div>
 </div>
 
@@ -401,7 +462,7 @@
 
 <script>
 const defs = {
-  'enraged':'An intense, burning anger that feels hard to contain','terrified':'Overwhelming fear consuming your whole body','livid':'Furious beyond the point of control','irate':'Deep anger about something that feels unjust','furious':'Hot, strong anger that wants to move or react','jealous':'Fearing that something you value could be taken or replaced','envious':'Longing for what someone else has','contempt':'A strong sense of disrespect toward something or someone','troubled':'Carrying a heaviness or worry you cannot shake','repulsed':'A strong feeling of disgust or rejection','scared':'Feeling unsafe or threatened','frightened':'Suddenly alarmed or startled by something','panicked':'An urgent, overwhelming sense that something is very wrong','overwhelmed':'Too much coming in at once — your system is full','anxious':'Restless unease about what might happen','angry':'A strong reaction to something that feels wrong or unfair','frustrated':'Blocked from what you need or want, and it is building','shocked':'Something unexpected has disrupted your sense of reality','stressed':'Feeling stretched beyond your capacity','apprehensive':'Uneasy about something coming, even if you cannot name it','jittery':'Nervous energy running through your body','embarrassed':'Self-conscious about how you appear to others','nervous':'Anticipating something with unease','annoyed':'Mildly irritated by something or someone','irritated':'Your patience is wearing thin','fomo':'Fear of missing out on what others are experiencing','concerned':'Genuinely worried about something or someone','peeved':'Quietly bothered by something','uneasy':'Something feels off, even if you cannot explain why','confused':'Feeling unable to make sense of something','restless':'Unable to settle — your energy needs somewhere to go','pressured':'Feeling pushed to perform, decide, or deliver','hyper':'Wound up and unable to slow down','challenged':'Feeling tested or pushed to your edge','worried':'Your mind is running ahead, anticipating what could go wrong','disgusted':'A deep aversion to something that feels wrong or harmful','trapped':'Feeling like there is no way out of a situation','insecure':'Doubting your own worth or place','humiliated':'Your dignity has been hurt in front of others','ashamed':'A belief that something about you is fundamentally wrong','lost':'Without direction or a sense of where you belong','pessimistic':'Believing things are unlikely to improve','vulnerable':'Open and exposed, without your usual protection','disconnected':'Feeling separate from yourself, others, or life','guilty':'Believing you have done something wrong or caused harm','numb':'Feeling very little — emotions feel out of reach','depressed':'A heavy, persistent low that colours everything','hopeless':'Unable to see a path forward from here','miserable':'Deeply unhappy and worn down','despair':'The feeling that nothing will ever change or improve','glum':'Quietly down, without a strong reason why','alienated':'Feeling like you do not belong anywhere','excluded':'Left out of something that mattered to you','disheartened':'Your spirit has dropped after something disappointing','disappointed':'Reality fell short of what you hoped for','forlorn':'Lonely and sad, with a sense of abandonment','spent':'Completely depleted — nothing left in the tank','down':'Low in mood, without much energy or motivation','meh':'Flat and indifferent — nothing feels meaningful right now','sad':'Grief or heaviness about something lost or missing','discouraged':'Your motivation has been knocked back','lonely':'Longing for connection that is not there','burned out':'Exhausted from giving too much for too long','nostalgic':'A bittersweet longing for something from the past','exhausted':'Deeply tired, beyond just physical tiredness','bored':'Understimulated and searching for meaning or interest','tired':'Your energy is low and rest is needed','fatigued':'A persistent tiredness that does not lift easily','disengaged':'Going through the motions without really being present','apathetic':'Unable to find care or motivation for much at all','helpless':'Feeling like nothing you do will make a difference','surprised':'Something unexpected has arrived in a good way','excited':'Anticipating something with joy and energy','energised':'Switched on, alive, and ready to move','cheerful':'Light and bright without needing a reason','pleasant':'A gentle positive feeling about how things are','pleased':'Satisfied with how something has turned out','awe':'Deeply moved by something larger than yourself','determined':'Committed to something with a strong inner resolve','eager':'Keen and ready to step forward','curious':'Drawn toward understanding or exploring something','focused':'Your attention is clear and directed','playful':'Light, fun, and not taking life too seriously','delighted':'A warm, happy surprise','alive':'Fully present and engaged with life','exhilarated':'A rushing, electric joy','successful':'Feeling that your effort has paid off','enthusiastic':'Genuinely excited and energised about something','upbeat':'Optimistic and light in your energy','thrilled':'Intensely pleased and excited','amazed':'Astonished by something wonderful','happy':'A warm, wholehearted sense of wellbeing','confident':'Trusting in yourself and your ability','wishful':'Hopeful and longing for something good','joyful':'A radiant, full-bodied happiness','blessed':'Genuinely grateful and fortunate','aligned':'Your actions and your truth feel like they match','inspired':'Moved to create, act, or grow','productive':'In flow, getting things done with ease','motivated':'Energised and pulled toward a goal','engaged':'Fully present and interested in what is happening','hopeful':'Believing that things can and will get better','accomplished':'Proud of what you have done or completed','optimistic':'Expecting good things ahead','proud':'Feeling good about who you are or what you have done','empowered':'Capable, resourced, and ready','ecstatic':'Overflowing with happiness and elation','calm':'Quiet and steady on the inside','good':'A simple, solid sense that things are okay','relaxed':'Your body and mind have softened and let go','sympathetic':'Feeling with someone else in their experience','mellow':'Easy, unhurried, and at peace','carefree':'Light and free from worry','tranquil':'Deep, still peace','peaceful':'A quiet harmony within and around you','comfortable':'At ease with where you are and who you are with','chill':'Relaxed and unbothered','thoughtful':'Reflective and gently present','at ease':'No tension — body and mind are open','understood':'Someone has truly seen and heard you','regulated':'Your nervous system is settled and balanced','compassionate':'Tender care for yourself or others','appreciated':'Feeling that your presence or effort matters','balanced':'Nothing is pulling too hard in any direction','thankful':'Genuinely grateful for something or someone','safe':'Feeling protected and held','content':'Quietly satisfied with exactly where you are','peace':'A soft, settled feeling inside','included':'Feeling like you belong and are welcomed','supported':'Knowing others are there if you need them','respected':'Feeling that your worth is acknowledged','fulfilled':'Your life feels meaningful and purposeful','loved':'Deeply cherished and cared for','valued':'Knowing that who you are matters','accepted':'Welcomed exactly as you are, without needing to change','secure':'Grounded and safe in yourself and your world','satisfied':'What you needed has been met','blissful':'Profound happiness and peace combined','connected':'Feeling close to yourself, others, or something bigger','grateful':'Your heart is full with appreciation','moved':'Deeply touched by something meaningful','serene':'A deep, unshakeable stillness'
+  'enraged':'An intense, burning anger that feels hard to contain.','terrified':'Overwhelming fear consuming your whole body.','livid':'Furious beyond the point of control.','irate':'Deep anger about something that feels unjust.','furious':'Hot, strong anger that wants to move or react.','jealous':'Fearing that something you value could be taken or replaced.','envious':'Longing for what someone else has.','contempt':'A strong sense of disrespect toward something or someone.','troubled':'Carrying a heaviness or worry you cannot shake.','repulsed':'A strong feeling of disgust or rejection.','scared':'Feeling unsafe or threatened.','frightened':'Suddenly alarmed or startled by something.','panicked':'An urgent, overwhelming sense that something is very wrong.','overwhelmed':'Too much coming in at once. Your system is full.','anxious':'Restless unease about what might happen.','angry':'A strong reaction to something that feels wrong or unfair.','frustrated':'Blocked from what you need or want, and it is building.','shocked':'Something unexpected has disrupted your sense of reality.','stressed':'Feeling stretched beyond your capacity.','apprehensive':'Uneasy about something coming, even if you cannot name it.','jittery':'Nervous energy running through your body.','embarrassed':'Self-conscious about how you appear to others.','nervous':'Anticipating something with unease.','annoyed':'Mildly irritated by something or someone.','irritated':'Your patience is wearing thin.','fomo':'Fear of missing out on what others are experiencing.','concerned':'Genuinely worried about something or someone.','peeved':'Quietly bothered by something.','uneasy':'Something feels off, even if you cannot explain why.','confused':'Feeling unable to make sense of something.','restless':'Unable to settle. Your energy needs somewhere to go.','pressured':'Feeling pushed to perform, decide, or deliver.','hyper':'Wound up and unable to slow down.','challenged':'Feeling tested or pushed to your edge.','worried':'Your mind is running ahead, anticipating what could go wrong.','disgusted':'A deep aversion to something that feels wrong or harmful.','trapped':'Feeling like there is no way out of a situation.','insecure':'Doubting your own worth or place.','humiliated':'Your dignity has been hurt in front of others.','ashamed':'A belief that something about you is fundamentally wrong.','lost':'Without direction or a sense of where you belong.','pessimistic':'Believing things are unlikely to improve.','vulnerable':'Open and exposed, without your usual protection.','disconnected':'Feeling separate from yourself, others, or life.','guilty':'Believing you have done something wrong or caused harm.','numb':'Feeling very little. Emotions feel out of reach.','depressed':'A heavy, persistent low that colours everything.','hopeless':'Unable to see a path forward from here.','miserable':'Deeply unhappy and worn down.','despair':'The feeling that nothing will ever change or improve.','glum':'Quietly down, without a strong reason why.','alienated':'Feeling like you do not belong anywhere.','excluded':'Left out of something that mattered to you.','disheartened':'Your spirit has dropped after something disappointing.','disappointed':'Reality fell short of what you hoped for.','forlorn':'Lonely and sad, with a sense of abandonment.','spent':'Completely depleted. Nothing left in the tank.','down':'Low in mood, without much energy or motivation.','meh':'Flat and indifferent. Nothing feels meaningful right now.','sad':'Grief or heaviness about something lost or missing.','discouraged':'Your motivation has been knocked back.','lonely':'Longing for connection that is not there.','burned out':'Exhausted from giving too much for too long.','nostalgic':'A bittersweet longing for something from the past.','exhausted':'Deeply tired, beyond just physical tiredness.','bored':'Understimulated and searching for meaning or interest.','tired':'Your energy is low and rest is needed.','fatigued':'A persistent tiredness that does not lift easily.','disengaged':'Going through the motions without really being present.','apathetic':'Unable to find care or motivation for much at all.','helpless':'Feeling like nothing you do will make a difference.','surprised':'Something unexpected has arrived in a good way.','excited':'Anticipating something with joy and energy.','energised':'Switched on, alive, and ready to move.','cheerful':'Light and bright without needing a reason.','pleasant':'A gentle positive feeling about how things are.','pleased':'Satisfied with how something has turned out.','awe':'Deeply moved by something larger than yourself.','determined':'Committed to something with a strong inner resolve.','eager':'Keen and ready to step forward.','curious':'Drawn toward understanding or exploring something.','focused':'Your attention is clear and directed.','playful':'Light, fun, and not taking life too seriously.','delighted':'A warm, happy surprise.','alive':'Fully present and engaged with life.','exhilarated':'A rushing, electric joy.','successful':'Feeling that your effort has paid off.','enthusiastic':'Genuinely excited and energised about something.','upbeat':'Optimistic and light in your energy.','thrilled':'Intensely pleased and excited.','amazed':'Astonished by something wonderful.','happy':'A warm, wholehearted sense of wellbeing.','confident':'Trusting in yourself and your ability.','wishful':'Hopeful and longing for something good.','joyful':'A radiant, full-bodied happiness.','blessed':'Genuinely grateful and fortunate.','aligned':'Your actions and your truth feel like they match.','inspired':'Moved to create, act, or grow.','productive':'In flow, getting things done with ease.','motivated':'Energised and pulled toward a goal.','engaged':'Fully present and interested in what is happening.','hopeful':'Believing that things can and will get better.','accomplished':'Proud of what you have done or completed.','optimistic':'Expecting good things ahead.','proud':'Feeling good about who you are or what you have done.','empowered':'Capable, resourced, and ready.','ecstatic':'Overflowing with happiness and elation.','calm':'Quiet and steady on the inside.','good':'A simple, solid sense that things are okay.','relaxed':'Your body and mind have softened and let go.','sympathetic':'Feeling with someone else in their experience.','mellow':'Easy, unhurried, and at peace.','carefree':'Light and free from worry.','tranquil':'Deep, still peace.','peaceful':'A quiet harmony within and around you.','comfortable':'At ease with where you are and who you are with.','chill':'Relaxed and unbothered.','thoughtful':'Reflective and gently present.','at ease':'No tension. Body and mind are open.','understood':'Someone has truly seen and heard you.','regulated':'Your nervous system is settled and balanced.','compassionate':'Tender care for yourself or others.','appreciated':'Feeling that your presence or effort matters.','balanced':'Nothing is pulling too hard in any direction.','thankful':'Genuinely grateful for something or someone.','safe':'Feeling protected and held.','content':'Quietly satisfied with exactly where you are.','peace':'A soft, settled feeling inside.','included':'Feeling like you belong and are welcomed.','supported':'Knowing others are there if you need them.','respected':'Feeling that your worth is acknowledged.','fulfilled':'Your life feels meaningful and purposeful.','loved':'Deeply cherished and cared for.','valued':'Knowing that who you are matters.','accepted':'Welcomed exactly as you are, without needing to change.','secure':'Grounded and safe in yourself and your world.','satisfied':'What you needed has been met.','blissful':'Profound happiness and peace combined.','connected':'Feeling close to yourself, others, or something bigger.','grateful':'Your heart is full with appreciation.','moved':'Deeply touched by something meaningful.','serene':'A deep, unshakeable stillness.'
 };
 
 const quads = {
@@ -411,9 +472,25 @@ const quads = {
   green:['calm','good','relaxed','sympathetic','mellow','carefree','tranquil','peaceful','comfortable','chill','thoughtful','at ease','understood','regulated','compassionate','appreciated','balanced','thankful','safe','content','peace','included','supported','respected','fulfilled','loved','valued','accepted','secure','satisfied','blissful','connected','grateful','moved','serene']
 };
 
+const quadColors = { red:'#c4453a', blue:'#4a6fa5', yellow:'#c4984a', green:'#5a9a6f' };
+const quadLabels = { red:'High Reactive', blue:'Low Reactive', yellow:'High Aligned', green:'Low Aligned' };
+
+const cheerMessages = {
+  red: 'You moved through some big energy this week. Activation is not a failure — it is information. You felt it, you named it, you kept coming back. That is the kind of courage that quietly builds the life you are reaching for.',
+  blue: 'This was a heavy week, and you sat with it anyway. You did not run. You did not pretend. You checked in even when everything in you wanted to hide. That kind of honesty with yourself is where the deepest healing begins.',
+  yellow: 'This week you were alive in it. Full of energy, open to what was coming. You kept showing up with enthusiasm and faith. That frequency is contagious — and it starts with choosing it, again and again, the way you did this week.',
+  green: 'You were settled this week. At peace with yourself. That is not something that happens by accident — it is built, check-in by check-in, breath by breath. Your foundation is strong. Keep coming back to it.'
+};
+
 let selectedWords = {};
 let activeQuad = null;
 let breathDone = false;
+
+function go(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+  const el = document.getElementById('s' + n);
+  if (el) { el.classList.add('on'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+}
 
 function startArrivalBreath() {
   if (breathDone) return;
@@ -424,7 +501,6 @@ function startArrivalBreath() {
   const count = document.getElementById('aCount');
   let round = 0;
   const total = 3;
-
   function doRound() {
     if (round >= total) {
       breathDone = true;
@@ -453,13 +529,6 @@ function startArrivalBreath() {
     }, 4000);
   }
   doRound();
-}
-
-function go(n) {
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
-  const el = document.getElementById('s' + n);
-  el.classList.add('on');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function openQuad(qid) {
@@ -502,7 +571,7 @@ function goToRecap() {
   chips.innerHTML = '';
   const words = Object.keys(selectedWords);
   if (words.length === 0) {
-    chips.innerHTML = '<span class="no-feeling">No words yet — and that is okay too.</span>';
+    chips.innerHTML = '<span class="no-feeling">No words yet. And that is okay too.</span>';
   } else {
     words.forEach(w => {
       const chip = document.createElement('span');
@@ -519,9 +588,13 @@ function completeCheckin() {
   const doing = document.getElementById('ctx-doing').value.trim();
   const withWho = document.getElementById('ctx-with').value.trim();
   const where = document.getElementById('ctx-where').value.trim();
+  const journal = document.getElementById('journalEntry').value.trim();
 
+  // Save to localStorage
+  saveCheckin(words, doing, withWho, where, journal);
+
+  // Build summary display
   let html = '';
-
   if (words.length) {
     html += '<span class="sum-label">Feeling</span><div class="sum-chips">';
     words.forEach(w => { html += '<span class="f-chip ' + selectedWords[w] + '">' + w + '</span>'; });
@@ -535,12 +608,74 @@ function completeCheckin() {
     html += '</div>';
   }
   if (!html) html = '<div class="sum-body" style="font-style:italic; color:#9a7d6e; text-align:center;">You showed up. That is always enough.</div>';
-
   document.getElementById('summary').innerHTML = html;
   go(5);
 }
 
+// ── localStorage ──
+function saveCheckin(words, doing, withWho, where, journal) {
+  const key = 'ic_checkins';
+  const all = JSON.parse(localStorage.getItem(key) || '[]');
+  const today = new Date();
+  const dateStr = today.toISOString().split('T')[0];
+  const dayLabel = today.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'short' });
+
+  // Dominant quad
+  const quadCounts = {};
+  words.forEach(w => { const q = selectedWords[w]; if (q) quadCounts[q] = (quadCounts[q]||0) + 1; });
+  const domQuad = Object.keys(quadCounts).sort((a,b) => quadCounts[b]-quadCounts[a])[0] || 'green';
+
+  // Remove existing entry for today if any
+  const filtered = all.filter(e => e.date !== dateStr);
+  filtered.push({ date: dateStr, dayLabel, feelings: words.map(w => ({ word: w, quad: selectedWords[w] })), domQuad, journal, doing, withWho, where });
+  localStorage.setItem(key, JSON.stringify(filtered));
+
+  // Show week button if 5+ check-ins
+  if (filtered.length >= 5) document.getElementById('weekBtn').style.display = 'block';
+}
+
+function openWeeklyReview() {
+  const all = JSON.parse(localStorage.getItem('ic_checkins') || '[]');
+  const recent = all.slice(-7);
+
+  // Build journey display
+  const journeyEl = document.getElementById('weekJourney');
+  journeyEl.innerHTML = '';
+  recent.forEach(entry => {
+    const q = entry.domQuad || 'green';
+    const card = document.createElement('div');
+    card.className = 'day-card ' + q;
+    const initials = entry.dayLabel.split(' ')[0].slice(0,3).toUpperCase();
+    const wordList = entry.feelings.slice(0,4).map(f => '<span class="day-word">' + f.word + '</span>').join('');
+    card.innerHTML = '<div class="day-dot ' + q + '">' + initials + '</div><div class="day-info"><div class="day-name">' + entry.dayLabel + '</div><div class="day-words">' + (wordList || '<span class="day-empty-note">No words named</span>') + '</div></div>';
+    journeyEl.appendChild(card);
+  });
+
+  // Week summary text
+  const allQuads = recent.flatMap(e => e.feelings.map(f => f.quad)).filter(Boolean);
+  const qCount = {};
+  allQuads.forEach(q => qCount[q] = (qCount[q]||0) + 1);
+  const topQuad = Object.keys(qCount).sort((a,b) => qCount[b]-qCount[a])[0] || 'green';
+  const totalWords = allQuads.length;
+
+  const summaryPhrases = {
+    red: 'This week held a lot of activation. There was heat and movement in your emotional world, and you kept showing up to witness it.',
+    blue: 'This week carried some weight. You sat in the heavier spaces, and you did not look away. That takes more courage than most people know.',
+    yellow: 'This was an alive week for you. Your energy was moving, open, and forward-facing. There was momentum here worth recognising.',
+    green: 'This week you were settled. Your nervous system found peace more often than not. That is your foundation doing its work.'
+  };
+  document.getElementById('weekSummaryText').textContent = summaryPhrases[topQuad] + ' You named ' + totalWords + ' feelings across ' + recent.length + ' check-ins this week. That is ' + totalWords + ' moments of self-awareness.';
+
+  // Set cheerleader message
+  document.getElementById('cheerText').textContent = cheerMessages[topQuad];
+
+  go('sw1');
+}
+
+// Init
 document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long' });
+const existingCheckins = JSON.parse(localStorage.getItem('ic_checkins') || '[]');
+if (existingCheckins.length >= 5) document.getElementById('weekBtn').style.display = 'block';
 </script>
 </body>
 </html>
