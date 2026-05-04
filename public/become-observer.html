@@ -22,6 +22,8 @@
     p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
     .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
     .btn:hover { background: #7a2f21; }
+    .btn-soft { display: block; width: 100%; padding: 13px; background: transparent; border: 1.5px solid #e8d9c4; color: #9a7d6e; border-radius: 12px; font-family: 'Lato', sans-serif; font-size: 0.9rem; cursor: pointer; margin-top: 10px; transition: all 0.2s; }
+    .btn-soft:hover { border-color: #c4967a; color: #5c2318; }
     .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
     .btn-outline:hover { background: #c4967a; color: #fff; }
 
@@ -29,29 +31,66 @@
     .d-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; display: block; }
     .d-text { font-size: 0.94rem; line-height: 1.8; color: #4a3728; }
 
+    /* Thought input */
     .thought-opts { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
     .t-opt { padding: 14px 18px; border: 1.5px solid #e8d9c4; border-radius: 12px; background: #fdf9f4; font-size: 0.93rem; line-height: 1.55; color: #4a3728; cursor: pointer; transition: all 0.2s; }
     .t-opt:hover, .t-opt.sel { border-color: #c4967a; background: #fdf5ec; }
-
-    /* Feeling tags */
-    .feel-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
-    .feel-tag { padding: 10px 18px; border: 1.5px solid #e8d9c4; border-radius: 30px; font-size: 0.9rem; color: #4a3728; cursor: pointer; transition: all 0.2s; background: #fdf9f4; }
-    .feel-tag:hover, .feel-tag.sel { background: #f2e8d9; border-color: #c4967a; color: #5c2318; }
-
-    /* Trigger grid */
-    .trigger-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
-    .trig-tag { padding: 8px 16px; border: 1.5px solid #e8d9c4; border-radius: 30px; font-size: 0.88rem; color: #4a3728; cursor: pointer; transition: all 0.2s; background: #fdf9f4; }
-    .trig-tag:hover, .trig-tag.sel { background: #f2e8d9; border-color: #c4967a; color: #5c2318; }
-
-    textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 90px; line-height: 1.6; outline: none; transition: border-color 0.2s; margin-top: 12px; }
+    textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 80px; line-height: 1.6; outline: none; transition: border-color 0.2s; margin-top: 8px; }
     textarea:focus { border-color: #c4967a; }
+    .or-divider { text-align: center; font-size: 0.8rem; color: #c4967a; letter-spacing: 2px; text-transform: uppercase; margin: 14px 0; }
+
+    /* Quadrant feeling system */
+    .quad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+    .quad-tile { border-radius: 14px; padding: 16px 14px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+    .quad-tile.red { background: #fdf0ef; border-color: #e0a09b; }
+    .quad-tile.red.open { border-color: #c4453a; }
+    .quad-tile.blue { background: #eef2f8; border-color: #b0c0d8; }
+    .quad-tile.blue.open { border-color: #4a6fa5; }
+    .quad-tile.yellow { background: #fef9ec; border-color: #e8d49a; }
+    .quad-tile.yellow.open { border-color: #c4984a; }
+    .quad-tile.green { background: #edf6f0; border-color: #a8cdb4; }
+    .quad-tile.green.open { border-color: #5a9a6f; }
+    .q-label { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px; display: block; }
+    .q-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; line-height: 1.3; }
+    .quad-tile.red .q-label, .quad-tile.red .q-title { color: #c4453a; }
+    .quad-tile.blue .q-label, .quad-tile.blue .q-title { color: #3a5a8a; }
+    .quad-tile.yellow .q-label, .quad-tile.yellow .q-title { color: #a07820; }
+    .quad-tile.green .q-label, .quad-tile.green .q-title { color: #3d7a52; }
+
+    .word-panel { border-radius: 14px; padding: 18px; margin-top: 4px; display: none; }
+    .word-panel.red { background: #fdf0ef; }
+    .word-panel.blue { background: #eef2f8; }
+    .word-panel.yellow { background: #fef9ec; }
+    .word-panel.green { background: #edf6f0; }
+    .word-panel.show { display: block; }
+    .word-cloud { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
+    .w-pill { padding: 7px 14px; border-radius: 30px; font-size: 0.82rem; cursor: pointer; border: 1.5px solid transparent; transition: all 0.18s; }
+    .red .w-pill { background: #fff; border-color: #e8b8b4; color: #8b3730; }
+    .red .w-pill:hover { border-color: #c4453a; }
+    .red .w-pill.sel { background: #c4453a; color: #fff; border-color: #c4453a; }
+    .blue .w-pill { background: #fff; border-color: #b0c0d8; color: #3a5a8a; }
+    .blue .w-pill:hover { border-color: #4a6fa5; }
+    .blue .w-pill.sel { background: #4a6fa5; color: #fff; border-color: #4a6fa5; }
+    .yellow .w-pill { background: #fff; border-color: #e8d49a; color: #a07820; }
+    .yellow .w-pill:hover { border-color: #c4984a; }
+    .yellow .w-pill.sel { background: #c4984a; color: #fff; border-color: #c4984a; }
+    .green .w-pill { background: #fff; border-color: #a8cdb4; color: #3d7a52; }
+    .green .w-pill:hover { border-color: #5a9a6f; }
+    .green .w-pill.sel { background: #5a9a6f; color: #fff; border-color: #5a9a6f; }
+    .def-strip { min-height: 44px; border-radius: 10px; padding: 10px 14px; background: rgba(255,255,255,0.7); font-size: 0.85rem; line-height: 1.6; color: #4a3728; font-style: italic; }
+    .def-word { font-family: 'Playfair Display', serif; font-style: normal; font-size: 0.9rem; color: #5c2318; margin-bottom: 2px; }
+
+    /* Curiosity nudge */
+    .nudge-card { background: #f9f3eb; border-radius: 14px; padding: 18px 20px; margin: 16px 0; border-left: 3px solid #e8d9c4; }
+    .nudge-q { font-family: 'Playfair Display', serif; font-size: 0.98rem; color: #5c2318; line-height: 1.55; margin-bottom: 6px; }
+    .nudge-hint { font-size: 0.82rem; color: #9a7d6e; line-height: 1.65; font-style: italic; }
 
     /* Breath circle */
     .breath-ring { width: 120px; height: 120px; border-radius: 50%; border: 2px solid #c4967a; background: #f9f3eb; display: flex; align-items: center; justify-content: center; margin: 24px auto; transition: transform 4s ease-in-out, background 4s ease-in-out; }
     .breath-ring.expand { transform: scale(1.35); background: #f2e8d9; }
     .breath-word { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #5c2318; font-style: italic; }
 
-    /* Guiding vs Protecting cards */
+    /* Guiding vs Protecting */
     .gp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
     .gp-card { border-radius: 14px; padding: 22px 18px; border: 1.5px solid #e8d9c4; background: #fdf9f4; cursor: pointer; transition: all 0.2s; text-align: center; }
     .gp-card:hover, .gp-card.sel { border-color: #c4967a; background: #fdf5ec; }
@@ -60,9 +99,10 @@
     .gp-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; margin-bottom: 8px; }
     .gp-desc { font-size: 0.82rem; color: #9a7d6e; line-height: 1.65; }
 
-    .insight-card { background: #f2e8d9; border-radius: 14px; padding: 24px 22px; margin: 20px 0; text-align: center; }
-    .insight-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; line-height: 1.7; font-style: italic; }
-    .insight-sub { font-size: 0.88rem; color: #9a7d6e; margin-top: 10px; line-height: 1.65; }
+    /* Trigger grid */
+    .trigger-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+    .trig-tag { padding: 8px 16px; border: 1.5px solid #e8d9c4; border-radius: 30px; font-size: 0.88rem; color: #4a3728; cursor: pointer; transition: all 0.2s; background: #fdf9f4; }
+    .trig-tag:hover, .trig-tag.sel { background: #f2e8d9; border-color: #c4967a; color: #5c2318; }
 
     .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
     .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
@@ -97,11 +137,15 @@
   <div class="step" id="s1">
     <h1>What Is<br>the Thought?</h1>
     <div class="divider"></div>
-    <p class="intro">Pause. Notice the voice in your head right now — or one that visits you often. Not to judge it. Just to see it clearly.</p>
+    <p class="intro">Pause. What is the voice in your head saying right now — or a thought that keeps returning? Write it in your own words, or choose one that feels close.</p>
 
     <div class="card">
       <span class="section-tag">Step 1 — Name the Thought</span>
-      <p class="body">Which of these sounds most like something you say to yourself?</p>
+      <p class="body">Write the thought as it actually sounds in your head.</p>
+      <textarea id="ownThought" placeholder="In my head I keep hearing... I notice I am thinking..."></textarea>
+
+      <div class="or-divider">or if you are unsure, choose one</div>
+
       <div class="thought-opts">
         <div class="t-opt" onclick="pickThought(this)">"I'm not good enough for this."</div>
         <div class="t-opt" onclick="pickThought(this)">"I should have done that better."</div>
@@ -110,7 +154,12 @@
         <div class="t-opt" onclick="pickThought(this)">"I need to do more before I can rest."</div>
         <div class="t-opt" onclick="pickThought(this)">"I can't trust people to stay."</div>
       </div>
-      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:8px; text-align:center;">Choose what feels true right now. Then continue.</p>
+
+      <div class="nudge-card">
+        <div class="nudge-q">Not sure what the thought is yet?</div>
+        <div class="nudge-hint">That is okay. Try this: notice where in your body you feel tension right now. What does that place in your body want to say? Let that be the thought.</div>
+      </div>
+
       <button class="btn" onclick="go(2)">I see the thought. Continue.</button>
     </div>
   </div>
@@ -119,27 +168,55 @@
   <div class="step" id="s2">
     <h1>What Does This<br>Thought Make<br>You Feel?</h1>
     <div class="divider"></div>
-    <p class="intro">The thought is not the origin. Beneath it is a feeling that was activated first. The thought rose to protect you from it — or to point you toward it.</p>
+    <p class="intro">The thought is not the origin. Beneath it is a feeling that was activated first. Choose the zone that feels closest — then explore the words inside it.</p>
 
     <div class="card">
       <span class="section-tag">Step 2 — Feel Beneath the Thought</span>
-      <p class="body">When this thought arrives, what stirs inside you? Select everything that is present.</p>
-      <div class="feel-grid">
-        <span class="feel-tag" onclick="toggleTag(this)">Anxious</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Afraid</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Ashamed</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Small</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Unseen</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Sad</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Angry</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Unworthy</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Lonely</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Overwhelmed</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Stuck</span>
-        <span class="feel-tag" onclick="toggleTag(this)">Disconnected</span>
+      <p class="body">When this thought arrives, where does your energy go? Select a zone, then click any word to see its meaning.</p>
+
+      <div class="quad-grid">
+        <div class="quad-tile red" onclick="openQuad('red')">
+          <span class="q-label">High Reactive</span>
+          <div class="q-title">Stirred up. On edge.</div>
+        </div>
+        <div class="quad-tile yellow" onclick="openQuad('yellow')">
+          <span class="q-label">High Aligned</span>
+          <div class="q-title">Energised. Open.</div>
+        </div>
+        <div class="quad-tile blue" onclick="openQuad('blue')">
+          <span class="q-label">Low Reactive</span>
+          <div class="q-title">Heavy. Pulled inward.</div>
+        </div>
+        <div class="quad-tile green" onclick="openQuad('green')">
+          <span class="q-label">Low Aligned</span>
+          <div class="q-title">Settled. At peace.</div>
+        </div>
       </div>
-      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:4px;">You don't need to fix or explain this feeling. Just name it and let it be seen.</p>
+
+      <div class="word-panel red" id="panel-red">
+        <div class="word-cloud" id="words-red"></div>
+        <div class="def-strip" id="def-red"><span style="color:#c4453a; font-size:0.8rem;">Click any word to see what it means</span></div>
+      </div>
+      <div class="word-panel blue" id="panel-blue">
+        <div class="word-cloud" id="words-blue"></div>
+        <div class="def-strip" id="def-blue"><span style="color:#4a6fa5; font-size:0.8rem;">Click any word to see what it means</span></div>
+      </div>
+      <div class="word-panel yellow" id="panel-yellow">
+        <div class="word-cloud" id="words-yellow"></div>
+        <div class="def-strip" id="def-yellow"><span style="color:#c4984a; font-size:0.8rem;">Click any word to see what it means</span></div>
+      </div>
+      <div class="word-panel green" id="panel-green">
+        <div class="word-cloud" id="words-green"></div>
+        <div class="def-strip" id="def-green"><span style="color:#5a9a6f; font-size:0.8rem;">Click any word to see what it means</span></div>
+      </div>
+
+      <div class="nudge-card" style="margin-top:16px;">
+        <div class="nudge-q">Struggling to name the feeling?</div>
+        <div class="nudge-hint">Try asking your body instead of your mind. Where do you notice something? Chest, stomach, throat? What would that sensation be called if it were an emotion? Get curious — there is no wrong answer.</div>
+      </div>
+
       <button class="btn" onclick="go(3)">I feel what is here. Continue.</button>
+      <p style="font-size:0.82rem; font-style:italic; color:#9a7d6e; text-align:center; margin-top:12px;">You don't need to name it perfectly. Just notice.</p>
     </div>
   </div>
 
@@ -147,7 +224,7 @@
   <div class="step" id="s3">
     <h1>Breathe Back<br>Into Your Body</h1>
     <div class="divider"></div>
-    <p class="intro">Before we ask what this thought is doing, we return to the body. Feelings live here — not in the mind. Let the breath bring you home.</p>
+    <p class="intro">Before we ask what this thought is doing, we return to the body. Feelings live here. Let the breath bring you home.</p>
 
     <div class="card" style="text-align:center;">
       <span class="section-tag">Step 3 — Return to the Body</span>
@@ -184,8 +261,13 @@
         </div>
       </div>
 
+      <div class="nudge-card">
+        <div class="nudge-q">Not sure which one?</div>
+        <div class="nudge-hint">Ask yourself: if I removed this thought, what feeling would be right underneath it? If that feeling feels threatening — this thought is likely protecting. If the feeling feels like relief or truth — it is guiding.</div>
+      </div>
+
       <div class="d-card" style="border-left-color:#e8d9c4; margin-top:4px;">
-        <p style="font-size:0.88rem; line-height:1.8; color:#4a3728; font-style:italic;">There is no wrong answer. Protecting thoughts are not bad — they were formed to keep you safe. But recognising them is what sets you free.</p>
+        <p style="font-size:0.88rem; line-height:1.8; color:#4a3728; font-style:italic;">There is no wrong answer. Protecting thoughts were formed to keep you safe. Recognising them is what sets you free.</p>
       </div>
 
       <button class="btn" onclick="go(5)">I understand what this thought is doing.</button>
@@ -260,6 +342,19 @@
 </div>
 
 <script>
+const defs = {
+  'enraged':'An intense, burning anger that feels hard to contain','terrified':'Overwhelming fear consuming your whole body','livid':'Furious beyond the point of control','irate':'Deep anger about something that feels unjust','furious':'Hot, strong anger that wants to move or react','jealous':'Fearing that something you value could be taken or replaced','envious':'Longing for what someone else has','contempt':'A strong sense of disrespect toward something or someone','troubled':'Carrying a heaviness or worry you cannot shake','repulsed':'A strong feeling of disgust or rejection','scared':'Feeling unsafe or threatened','frightened':'Suddenly alarmed or startled by something','panicked':'An urgent, overwhelming sense that something is very wrong','overwhelmed':'Too much coming in at once — your system is full','anxious':'Restless unease about what might happen','angry':'A strong reaction to something that feels wrong or unfair','frustrated':'Blocked from what you need or want, and it is building','shocked':'Something unexpected has disrupted your sense of reality','stressed':'Feeling stretched beyond your capacity','apprehensive':'Uneasy about something coming, even if you cannot name it','jittery':'Nervous energy running through your body','embarrassed':'Self-conscious about how you appear to others','nervous':'Anticipating something with unease','annoyed':'Mildly irritated by something or someone','irritated':'Your patience is wearing thin','fomo':'Fear of missing out on what others are experiencing','concerned':'Genuinely worried about something or someone','peeved':'Quietly bothered by something','uneasy':'Something feels off, even if you cannot explain why','confused':'Feeling unable to make sense of something','restless':'Unable to settle — your energy needs somewhere to go','pressured':'Feeling pushed to perform, decide, or deliver','hyper':'Wound up and unable to slow down','challenged':'Feeling tested or pushed to your edge','worried':'Your mind is running ahead, anticipating what could go wrong','disgusted':'A deep aversion to something that feels wrong or harmful','trapped':'Feeling like there is no way out of a situation','insecure':'Doubting your own worth or place','humiliated':'Your dignity has been hurt in front of others','ashamed':'A belief that something about you is fundamentally wrong','lost':'Without direction or a sense of where you belong','pessimistic':'Believing things are unlikely to improve','vulnerable':'Open and exposed, without your usual protection','disconnected':'Feeling separate from yourself, others, or life','guilty':'Believing you have done something wrong or caused harm','numb':'Feeling very little — emotions feel out of reach','depressed':'A heavy, persistent low that colours everything','hopeless':'Unable to see a path forward from here','miserable':'Deeply unhappy and worn down','despair':'The feeling that nothing will ever change or improve','glum':'Quietly down, without a strong reason why','alienated':'Feeling like you do not belong anywhere','excluded':'Left out of something that mattered to you','disheartened':'Your spirit has dropped after something disappointing','disappointed':'Reality fell short of what you hoped for','forlorn':'Lonely and sad, with a sense of abandonment','spent':'Completely depleted — nothing left in the tank','down':'Low in mood, without much energy or motivation','meh':'Flat and indifferent — nothing feels meaningful right now','sad':'Grief or heaviness about something lost or missing','discouraged':'Your motivation has been knocked back','lonely':'Longing for connection that is not there','burned out':'Exhausted from giving too much for too long','nostalgic':'A bittersweet longing for something from the past','exhausted':'Deeply tired, beyond just physical tiredness','bored':'Understimulated and searching for meaning or interest','tired':'Your energy is low and rest is needed','fatigued':'A persistent tiredness that does not lift easily','disengaged':'Going through the motions without really being present','apathetic':'Unable to find care or motivation for much at all','helpless':'Feeling like nothing you do will make a difference','surprised':'Something unexpected has arrived in a good way','excited':'Anticipating something with joy and energy','energised':'Switched on, alive, and ready to move','cheerful':'Light and bright without needing a reason','pleasant':'A gentle positive feeling about how things are','pleased':'Satisfied with how something has turned out','awe':'Deeply moved by something larger than yourself','determined':'Committed to something with a strong inner resolve','eager':'Keen and ready to step forward','curious':'Drawn toward understanding or exploring something','focused':'Your attention is clear and directed','playful':'Light, fun, and not taking life too seriously','delighted':'A warm, happy surprise','alive':'Fully present and engaged with life','exhilarated':'A rushing, electric joy','successful':'Feeling that your effort has paid off','enthusiastic':'Genuinely excited and energised about something','upbeat':'Optimistic and light in your energy','thrilled':'Intensely pleased and excited','amazed':'Astonished by something wonderful','happy':'A warm, wholehearted sense of wellbeing','confident':'Trusting in yourself and your ability','wishful':'Hopeful and longing for something good','joyful':'A radiant, full-bodied happiness','blessed':'Genuinely grateful and fortunate','aligned':'Your actions and your truth feel like they match','inspired':'Moved to create, act, or grow','productive':'In flow, getting things done with ease','motivated':'Energised and pulled toward a goal','engaged':'Fully present and interested in what is happening','hopeful':'Believing that things can and will get better','accomplished':'Proud of what you have done or completed','optimistic':'Expecting good things ahead','proud':'Feeling good about who you are or what you have done','empowered':'Capable, resourced, and ready','ecstatic':'Overflowing with happiness and elation','calm':'Quiet and steady on the inside','good':'A simple, solid sense that things are okay','relaxed':'Your body and mind have softened and let go','sympathetic':'Feeling with someone else in their experience','mellow':'Easy, unhurried, and at peace','carefree':'Light and free from worry','tranquil':'Deep, still peace','peaceful':'A quiet harmony within and around you','comfortable':'At ease with where you are and who you are with','chill':'Relaxed and unbothered','thoughtful':'Reflective and gently present','at ease':'No tension — body and mind are open','understood':'Someone has truly seen and heard you','regulated':'Your nervous system is settled and balanced','compassionate':'Tender care for yourself or others','appreciated':'Feeling that your presence or effort matters','balanced':'Nothing is pulling too hard in any direction','thankful':'Genuinely grateful for something or someone','safe':'Feeling protected and held','content':'Quietly satisfied with exactly where you are','peace':'A soft, settled feeling inside','included':'Feeling like you belong and are welcomed','supported':'Knowing others are there if you need them','respected':'Feeling that your worth is acknowledged','fulfilled':'Your life feels meaningful and purposeful','loved':'Deeply cherished and cared for','valued':'Knowing that who you are matters','accepted':'Welcomed exactly as you are, without needing to change','secure':'Grounded and safe in yourself and your world','satisfied':'What you needed has been met','blissful':'Profound happiness and peace combined','connected':'Feeling close to yourself, others, or something bigger','grateful':'Your heart is full with appreciation','moved':'Deeply touched by something meaningful','serene':'A deep, unshakeable stillness'
+};
+
+const quads = {
+  red:['enraged','terrified','livid','irate','furious','jealous','envious','contempt','troubled','worried','repulsed','scared','frightened','panicked','overwhelmed','anxious','angry','frustrated','shocked','stressed','apprehensive','jittery','embarrassed','nervous','annoyed','irritated','FOMO','concerned','peeved','uneasy','confused','restless','pressured','hyper','challenged'],
+  blue:['disgusted','trapped','insecure','humiliated','ashamed','lost','pessimistic','vulnerable','disconnected','guilty','numb','depressed','hopeless','miserable','despair','glum','alienated','excluded','disheartened','disappointed','forlorn','spent','down','meh','sad','discouraged','lonely','burned out','nostalgic','exhausted','bored','tired','fatigued','disengaged','apathetic','helpless'],
+  yellow:['surprised','excited','energised','cheerful','pleasant','pleased','awe','determined','eager','curious','focused','playful','delighted','alive','exhilarated','successful','enthusiastic','upbeat','thrilled','amazed','happy','confident','wishful','joyful','blessed','aligned','inspired','productive','motivated','engaged','hopeful','accomplished','optimistic','proud','empowered','ecstatic'],
+  green:['calm','good','relaxed','sympathetic','mellow','carefree','tranquil','peaceful','comfortable','chill','thoughtful','at ease','understood','regulated','compassionate','appreciated','balanced','thankful','safe','content','peace','included','supported','respected','fulfilled','loved','valued','accepted','secure','satisfied','blissful','connected','grateful','moved','serene']
+};
+
+let activeQuad = null;
+
 function go(n) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
   document.getElementById('s' + n).classList.add('on');
@@ -276,18 +371,48 @@ function pickGP(el) {
   el.classList.add('sel');
 }
 
+function openQuad(qid) {
+  if (activeQuad && activeQuad !== qid) {
+    document.getElementById('panel-' + activeQuad).classList.remove('show');
+    document.querySelector('.quad-tile.' + activeQuad).classList.remove('open');
+  }
+  activeQuad = qid;
+  document.querySelector('.quad-tile.' + qid).classList.toggle('open');
+  const panel = document.getElementById('panel-' + qid);
+  panel.classList.toggle('show');
+  if (panel.classList.contains('show') && !panel.dataset.built) {
+    buildWords(qid);
+    panel.dataset.built = '1';
+  }
+}
+
+function buildWords(qid) {
+  const cloud = document.getElementById('words-' + qid);
+  quads[qid].forEach(w => {
+    const pill = document.createElement('span');
+    pill.className = 'w-pill';
+    pill.textContent = w;
+    pill.onclick = () => {
+      pill.classList.toggle('sel');
+      const key = w.toLowerCase();
+      const def = defs[key] || defs[w] || '';
+      const strip = document.getElementById('def-' + qid);
+      if (def) strip.innerHTML = '<div class="def-word">' + w + '</div>' + def;
+    };
+    cloud.appendChild(pill);
+  });
+}
+
 let breathRunning = false;
 function startBreath() {
   if (breathRunning) return;
   breathRunning = true;
   document.getElementById('bBtn').style.display = 'none';
-
   const ring = document.getElementById('bRing');
   const word = document.getElementById('bWord');
   const guide = document.getElementById('bGuide');
   let round = 0;
   const total = 3;
-
   function doRound() {
     if (round >= total) {
       word.textContent = 'Settled';
