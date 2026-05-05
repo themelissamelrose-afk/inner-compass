@@ -16,7 +16,6 @@
     .step { display: none; }
     .step.on { display: block; }
     .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
-    .card.centre { text-align: center; max-width: 580px; }
     .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
     .card-h { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #5c2318; line-height: 1.45; margin-bottom: 12px; }
     p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
@@ -38,35 +37,35 @@
     textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.92rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 100px; line-height: 1.6; outline: none; transition: border-color 0.2s; margin-top: 14px; }
     textarea:focus { border-color: #c4967a; }
 
+    /* Body area list in scan step */
+    .scan-areas { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+    .scan-area-row { display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; border-radius: 10px; background: #fdf9f4; border: 1px solid #ede3d4; cursor: pointer; transition: background 0.2s; }
+    .scan-area-row:hover { background: #f2e8d9; }
+    .scan-area-name { font-family: 'Playfair Display', serif; font-size: 0.92rem; color: #5c2318; font-weight: 600; min-width: 100px; flex-shrink: 0; padding-top: 1px; }
+    .scan-area-hint { font-size: 0.84rem; color: #9a7d6e; line-height: 1.55; }
+
     /* Body map layout */
     .map-layout { display: flex; gap: 36px; align-items: flex-start; flex-wrap: wrap; }
-    .map-left { flex: 0 0 240px; }
+    .map-left { flex: 0 0 200px; }
     .map-right { flex: 1; min-width: 260px; }
     svg.body-svg { width: 100%; cursor: default; }
-    .region { cursor: pointer; transition: opacity 0.2s; }
-    .region:hover { opacity: 0.75; }
-    .region.active ellipse, .region.active rect, .region.active path, .region.active circle { fill: #c4967a !important; }
-    .info-card { background: #fff; border-radius: 18px; padding: 28px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); min-height: 280px; }
-    .info-default { text-align: center; color: #c4967a; padding: 40px 0; }
+    .region { cursor: pointer; }
+    .region:hover { fill: rgba(196,150,122,0.25) !important; }
+    .region.active { fill: rgba(196,150,122,0.45) !important; stroke: #c4967a !important; stroke-width: 1.5 !important; }
+    .info-card { background: #fff; border-radius: 18px; padding: 28px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); min-height: 260px; }
+    .info-default { text-align: center; padding: 40px 0; }
     .info-default p { font-family: 'Playfair Display', serif; font-size: 1rem; color: #9a7d6e; margin-top: 12px; }
     .info-body { display: none; }
-    .region-name { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; display: block; }
-    .info-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; margin-bottom: 10px; line-height: 1.4; }
-    .info-emotion { font-size: 0.9rem; line-height: 1.75; color: #6b5144; margin-bottom: 18px; }
-    .info-prompt { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.98rem; color: #5c2318; line-height: 1.65; background: #f9f3eb; border-left: 3px solid #c4967a; padding: 12px 16px; border-radius: 0 10px 10px 0; margin-bottom: 16px; }
-    .breath-note { background: #f2e8d9; border-radius: 10px; padding: 12px 16px; font-size: 0.86rem; color: #6b5144; line-height: 1.65; }
+    .region-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; display: block; }
+    .info-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; margin-bottom: 10px; line-height: 1.4; }
+    .info-emotion { font-size: 0.88rem; line-height: 1.8; color: #6b5144; margin-bottom: 16px; }
+    .info-prompt { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: #5c2318; line-height: 1.65; background: #f9f3eb; border-left: 3px solid #c4967a; padding: 12px 16px; border-radius: 0 10px 10px 0; margin-bottom: 14px; }
+    .breath-note { background: #f2e8d9; border-radius: 10px; padding: 12px 16px; font-size: 0.85rem; color: #6b5144; line-height: 1.65; }
     .breath-note strong { color: #5c2318; }
-
-    /* Scan reference toggle */
-    .scan-ref { margin-bottom: 28px; }
-    .scan-ref-toggle { background: none; border: 1.5px solid #e8d9c4; border-radius: 30px; padding: 8px 20px; font-size: 0.85rem; color: #9a7d6e; cursor: pointer; font-family: 'Lato', sans-serif; transition: all 0.2s; }
-    .scan-ref-toggle:hover { border-color: #c4967a; color: #5c2318; }
-    .scan-ref-body { display: none; background: #fdf9f4; border-radius: 14px; padding: 18px 20px; margin-top: 12px; border: 1px solid #ede3d4; font-size: 0.87rem; line-height: 2; color: #6b5144; font-style: italic; }
-    .scan-ref-body.open { display: block; }
 
     @media (max-width: 600px) {
       .map-left { flex: 0 0 100%; }
-      .map-left svg { max-width: 220px; display: block; margin: 0 auto; }
+      .map-left svg { max-width: 200px; display: block; margin: 0 auto; }
     }
   </style>
 </head>
@@ -85,7 +84,7 @@
         <br><br><span style="font-size:0.82rem; font-style:normal; letter-spacing:1px;">— Tracey Gibson</span>
       </div>
       <p class="body">We begin with a body scan to arrive fully into your physical body. Then we explore what each area of tension, heaviness, or sensation may be holding — and what it is trying to communicate.</p>
-      <button class="btn" onclick="go(1)">Begin Practice</button>
+      <button class="btn" onclick="go('s1')">Begin Practice</button>
     </div>
   </div>
 
@@ -93,8 +92,8 @@
   <div class="step" id="s1">
     <h1>Body Scan</h1>
     <div class="divider"></div>
-    <p class="intro">Find somewhere comfortable. You can close your eyes, or soften your gaze. Let this recording guide you home.</p>
-    <div class="card" style="max-width:580px;">
+    <p class="intro">Find somewhere comfortable. Close your eyes or soften your gaze. Let this recording guide you home. As you scan, notice which areas call your attention.</p>
+    <div class="card" style="max-width:640px;">
       <span class="section-tag">Guided Practice with Melissa</span>
       <div style="display:flex; align-items:center; gap:14px; margin-bottom:24px;">
         <audio id="audio-body-scan"><source src="audio-body-scan.m4a" type="audio/mp4"></audio>
@@ -104,19 +103,26 @@
           <div style="font-size:0.83rem; color:#9a7d6e;">Listen with Melissa</div>
         </div>
       </div>
-      <div style="background:#fdf9f4; border-radius:14px; padding:20px 22px; border:1px solid #ede3d4;">
-        <p style="font-size:0.88rem; line-height:2.1; color:#6b5144; font-style:italic;">
-          Close your eyes. Take a slow breath. We are going to move through the body together.<br><br>
-          Begin at the top of your head. Notice anything there. Breathe into it.<br><br>
-          Move to your face. Your jaw. Let it soften. Your neck and shoulders. Breathe into any tension. And release.<br><br>
-          Down to your chest. Your heart. Your belly. Notice what is here. Breathe in. And let it go.<br><br>
-          Your arms. Your hands. Notice. Breathe. Release.<br><br>
-          Your hips. Your legs. Your knees. Calves. All the way down to your feet.<br><br>
-          Take one full breath from the crown of your head all the way to the soles of your feet.<br><br>
-          And open your eyes. Welcome back.
-        </p>
+
+      <p style="font-size:0.85rem; color:#9a7d6e; font-style:italic; margin-bottom:14px;">As you listen, notice which areas draw your attention. Each one is a messenger. Here is what they may be holding:</p>
+
+      <div class="scan-areas">
+        <div class="scan-area-row"><span class="scan-area-name">Head</span><span class="scan-area-hint">Overwhelm, loss of control, carrying too many decisions</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Ears</span><span class="scan-area-hint">Not listening to your own guidance, holding anger, frustration or resentment</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Throat</span><span class="scan-area-hint">Suppressed truth, fear of speaking up, words left unspoken</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Shoulders</span><span class="scan-area-hint">Carrying responsibility for others, holding the world up</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Arms</span><span class="scan-area-hint">Feeling stuck, powerless, or inflexible. Fear of change, internal resistance</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Hands and Fingers</span><span class="scan-area-hint">Your ability to give and receive. Fear of the future, holding on too tightly</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Heart and Chest</span><span class="scan-area-hint">Grief, heartbreak, longing, unexpressed emotion</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Solar Plexus</span><span class="scan-area-hint">Anxiety, giving your power away, not trusting yourself</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Back</span><span class="scan-area-hint">Feeling unsupported, overwhelmed, suppressed emotions from the past</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Hips and Lower Back</span><span class="scan-area-hint">Stored resentment, fatigue, anger, saying yes when you mean no</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Knees</span><span class="scan-area-hint">Control, judgment, inflexibility, unresolved situations or family patterns</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Legs</span><span class="scan-area-hint">Carrying a heavy load from the past, feeling overwhelmed by life's demands</span></div>
+        <div class="scan-area-row"><span class="scan-area-name">Feet</span><span class="scan-area-hint">Moving in the wrong direction, ignoring intuition, feeling lost or ungrounded</span></div>
       </div>
-      <button class="btn" onclick="go('s-map')" style="margin-top:28px;">I am back. Continue →</button>
+
+      <button class="btn" onclick="go('s-map')" style="margin-top:28px;">I am back. Continue to body map →</button>
     </div>
   </div>
 
@@ -124,35 +130,64 @@
   <div class="step" id="s-map">
     <h1>Where did you<br>feel it?</h1>
     <div class="divider"></div>
-    <p class="intro">Tap the part of the body where you noticed something during the scan. Discover what it may be holding — and the question to take deeper.</p>
-
-    <div class="scan-ref">
-      <button class="scan-ref-toggle" onclick="toggleScanRef(this)">Show body scan for reference</button>
-      <div class="scan-ref-body" id="scanRefBody">
-        Head. Face. Jaw. Neck and shoulders. Chest. Heart. Belly. Arms. Hands. Hips. Legs. Knees. Calves. Feet.
-      </div>
-    </div>
+    <p class="intro">Tap the part of the body where you noticed something. Discover what it may be holding and the question to take deeper.</p>
 
     <div class="map-layout">
       <div class="map-left">
-        <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; text-align:center; margin-bottom:14px;">Tap where you feel it</p>
+        <p style="font-size:0.82rem; font-style:italic; color:#9a7d6e; text-align:center; margin-bottom:10px;">Tap where you feel it</p>
         <svg class="body-svg" viewBox="0 0 200 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background body shapes -->
+          <ellipse cx="67" cy="44" rx="7" ry="10" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.2"/>
+          <ellipse cx="133" cy="44" rx="7" ry="10" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.2"/>
           <ellipse cx="100" cy="48" rx="34" ry="38" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
           <rect x="88" y="82" width="24" height="20" rx="6" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
           <path d="M62 98 Q60 160 62 220 L138 220 Q140 160 138 98 Q118 88 100 88 Q82 88 62 98Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
           <ellipse cx="100" cy="230" rx="44" ry="20" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
-          <path d="M66 245 Q58 310 60 380 L78 380 Q80 310 80 245Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
-          <path d="M122 245 Q124 310 122 380 L140 380 Q142 310 134 245Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
+          <path d="M66 245 Q58 310 60 375 L78 375 Q80 310 80 245Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
+          <path d="M122 245 Q124 310 122 375 L140 375 Q142 310 134 245Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
           <path d="M64 100 Q44 140 42 200 L54 202 Q58 144 74 104Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
           <path d="M136 100 Q156 140 158 200 L146 202 Q142 144 126 104Z" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.5"/>
-          <!-- Clickable regions -->
-          <ellipse class="region" cx="100" cy="48" rx="34" ry="38" fill="transparent" onclick="showInfo('head')" id="r-head"/>
-          <ellipse class="region" cx="100" cy="92" rx="18" ry="14" fill="transparent" onclick="showInfo('throat')" id="r-throat"/>
-          <rect class="region" x="52" y="96" width="26" height="22" rx="6" fill="transparent" onclick="showInfo('shoulders')" id="r-shoulders-l"/>
-          <rect class="region" x="122" y="96" width="26" height="22" rx="6" fill="transparent" onclick="showInfo('shoulders')" id="r-shoulders-r"/>
-          <ellipse class="region" cx="100" cy="135" rx="26" ry="22" fill="transparent" onclick="showInfo('heart')" id="r-heart"/>
-          <ellipse class="region" cx="100" cy="175" rx="24" ry="18" fill="transparent" onclick="showInfo('solar')" id="r-solar"/>
-          <ellipse class="region" cx="100" cy="222" rx="40" ry="18" fill="transparent" onclick="showInfo('hips')" id="r-hips"/>
+          <!-- Hands -->
+          <ellipse cx="47" cy="210" rx="10" ry="13" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.2"/>
+          <ellipse cx="153" cy="210" rx="10" ry="13" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.2"/>
+          <!-- Feet -->
+          <ellipse cx="68" cy="386" rx="16" ry="8" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.2"/>
+          <ellipse cx="132" cy="386" rx="16" ry="8" fill="#f2e8d9" stroke="#ddd0bc" stroke-width="1.2"/>
+
+          <!-- Clickable regions (transparent overlays) -->
+          <!-- Ears -->
+          <ellipse class="region" fill="transparent" cx="67" cy="44" rx="11" ry="14" onclick="showInfo('ears')" id="r-ears-l"/>
+          <ellipse class="region" fill="transparent" cx="133" cy="44" rx="11" ry="14" onclick="showInfo('ears')" id="r-ears-r"/>
+          <!-- Head -->
+          <ellipse class="region" fill="transparent" cx="100" cy="48" rx="34" ry="38" onclick="showInfo('head')" id="r-head"/>
+          <!-- Throat -->
+          <ellipse class="region" fill="transparent" cx="100" cy="92" rx="18" ry="14" onclick="showInfo('throat')" id="r-throat"/>
+          <!-- Shoulders -->
+          <rect class="region" fill="transparent" x="50" y="94" width="28" height="26" rx="6" onclick="showInfo('shoulders')" id="r-shoulders-l"/>
+          <rect class="region" fill="transparent" x="122" y="94" width="28" height="26" rx="6" onclick="showInfo('shoulders')" id="r-shoulders-r"/>
+          <!-- Arms -->
+          <path class="region" fill="transparent" d="M64 100 Q44 140 42 200 L54 202 Q58 144 74 104Z" onclick="showInfo('arms')" id="r-arms-l"/>
+          <path class="region" fill="transparent" d="M136 100 Q156 140 158 200 L146 202 Q142 144 126 104Z" onclick="showInfo('arms')" id="r-arms-r"/>
+          <!-- Hands and Fingers -->
+          <ellipse class="region" fill="transparent" cx="47" cy="210" rx="13" ry="16" onclick="showInfo('hands')" id="r-hands-l"/>
+          <ellipse class="region" fill="transparent" cx="153" cy="210" rx="13" ry="16" onclick="showInfo('hands')" id="r-hands-r"/>
+          <!-- Heart -->
+          <ellipse class="region" fill="transparent" cx="100" cy="132" rx="26" ry="22" onclick="showInfo('heart')" id="r-heart"/>
+          <!-- Solar Plexus -->
+          <ellipse class="region" fill="transparent" cx="100" cy="172" rx="24" ry="18" onclick="showInfo('solar')" id="r-solar"/>
+          <!-- Back (spine strip on lower torso) -->
+          <rect class="region" fill="transparent" x="86" y="195" width="28" height="28" rx="6" onclick="showInfo('back')" id="r-back"/>
+          <!-- Hips -->
+          <ellipse class="region" fill="transparent" cx="100" cy="228" rx="44" ry="20" onclick="showInfo('hips')" id="r-hips"/>
+          <!-- Knees -->
+          <ellipse class="region" fill="transparent" cx="70" cy="318" rx="13" ry="15" onclick="showInfo('knees')" id="r-knees-l"/>
+          <ellipse class="region" fill="transparent" cx="131" cy="318" rx="13" ry="15" onclick="showInfo('knees')" id="r-knees-r"/>
+          <!-- Legs -->
+          <path class="region" fill="transparent" d="M66 245 Q58 310 60 375 L78 375 Q80 310 80 245Z" onclick="showInfo('legs')" id="r-legs-l"/>
+          <path class="region" fill="transparent" d="M122 245 Q124 310 122 375 L140 375 Q142 310 134 245Z" onclick="showInfo('legs')" id="r-legs-r"/>
+          <!-- Feet -->
+          <ellipse class="region" fill="transparent" cx="68" cy="386" rx="20" ry="11" onclick="showInfo('feet')" id="r-feet-l"/>
+          <ellipse class="region" fill="transparent" cx="132" cy="386" rx="20" ry="11" onclick="showInfo('feet')" id="r-feet-r"/>
         </svg>
       </div>
 
@@ -163,13 +198,13 @@
             <p>Tap any part of the body to begin</p>
           </div>
           <div class="info-body" id="infoBody">
-            <span class="region-name" id="iRegion"></span>
+            <span class="region-label" id="iRegion"></span>
             <div class="info-title" id="iTitle"></div>
             <div class="info-emotion" id="iEmotion"></div>
             <div class="info-prompt" id="iPrompt"></div>
-            <div style="font-size:0.85rem; color:#9a7d6e; margin-bottom:6px;">Write whatever comes...</div>
+            <div style="font-size:0.84rem; color:#9a7d6e; margin-bottom:6px;">Write whatever comes...</div>
             <textarea id="iJournal" placeholder="Let your body speak through your words..."></textarea>
-            <div class="breath-note" style="margin-top:16px;"><strong>Grounding breath:</strong> Place your hand here. Breathe in slowly through your nose. Let the exhale be twice as long. You do not need to fix anything. Just listen.</div>
+            <div class="breath-note" style="margin-top:14px;"><strong>Grounding breath:</strong> Place your hand here. Breathe in slowly through your nose. Let the exhale be twice as long. You do not need to fix anything. Just listen.</div>
           </div>
         </div>
       </div>
@@ -182,12 +217,12 @@
 
   <!-- STEP: Q1 -->
   <div class="step" id="s-q1">
-    <div class="card centre" style="max-width:580px;">
+    <div class="card" style="max-width:580px; text-align:center;">
       <span class="section-tag">Body Question 1 of 3</span>
       <div class="q-big">How does my body<br>feel right now?</div>
       <div class="q-divider"></div>
       <div class="q-sub">Notice any sensations. Warmth, tension, openness, contraction. Let each feeling guide you to deeper insight.</div>
-      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:16px;">If your mind wanders, return to your breath. Let it anchor you into presence.</p>
+      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:16px; text-align:center;">If your mind wanders, return to your breath. Let it anchor you into presence.</p>
       <textarea placeholder="My body feels..."></textarea>
       <button class="btn" onclick="go('s-q2')">Continue →</button>
     </div>
@@ -195,12 +230,12 @@
 
   <!-- STEP: Q2 -->
   <div class="step" id="s-q2">
-    <div class="card centre" style="max-width:580px;">
+    <div class="card" style="max-width:580px; text-align:center;">
       <span class="section-tag">Body Question 2 of 3</span>
       <div class="q-big">What am I avoiding<br>feeling?</div>
       <div class="q-divider"></div>
       <div class="q-sub">Your mind's job is to protect you. But the body holds what the mind moves past. Is there something present that you have been bypassing?</div>
-      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:16px;">You do not need to solve it. Simply be willing to see it.</p>
+      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:16px; text-align:center;">You do not need to solve it. Simply be willing to see it.</p>
       <textarea placeholder="What I have been avoiding..."></textarea>
       <button class="btn" onclick="go('s-q3')">Continue →</button>
     </div>
@@ -208,12 +243,12 @@
 
   <!-- STEP: Q3 -->
   <div class="step" id="s-q3">
-    <div class="card centre" style="max-width:580px;">
+    <div class="card" style="max-width:580px; text-align:center;">
       <span class="section-tag">Body Question 3 of 3</span>
       <div class="q-big">What message is my body<br>trying to communicate<br>to me?</div>
       <div class="q-divider"></div>
       <div class="q-sub">Trust what arises — a word, an image, a colour, a feeling. Your body knows. Before your thoughts began, a feeling was activated here. Let yourself receive it.</div>
-      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:16px;">Consciously ask: <em style="color:#5c2318;">"How do I feel?"</em></p>
+      <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:16px; text-align:center;">Consciously ask: <em style="color:#5c2318;">"How do I feel?"</em></p>
       <textarea placeholder="My body is telling me..."></textarea>
       <button class="btn" onclick="go('s-close')">I am ready to close →</button>
     </div>
@@ -221,7 +256,7 @@
 
   <!-- STEP: Close -->
   <div class="step" id="s-close">
-    <div class="card centre" style="max-width:580px;">
+    <div class="card" style="max-width:580px; text-align:center;">
       <div class="seal">✦</div>
       <span class="section-tag">Practice Complete</span>
       <p class="card-h">You are not your thoughts.<br>You are the awareness behind them.</p>
@@ -230,7 +265,7 @@
         <span class="obs-num">Remember</span>
         <p class="obs-text">Before your thoughts began, a feeling was activated in your body. Our natural protection is to jump into thought — but now you have observed it. You asked: <em style="color:#5c2318; font-style:italic;">"How do I feel?"</em><br><br>That simple act is how you return home.</p>
       </div>
-      <button class="btn-outline" onclick="go(0)" style="display:block; text-align:center;">Begin Again</button>
+      <button class="btn-outline" onclick="go('s0')" style="display:block; text-align:center;">Begin Again</button>
     </div>
   </div>
 
@@ -245,10 +280,16 @@
       emotion: 'When your mind is carrying more than it can hold — too many decisions, too many responsibilities, too much noise — it often shows up as pressure, tension, or pain in the head. This is your body asking you to put something down.',
       prompt: '"What am I trying to control right now that is not mine to control?"'
     },
+    ears: {
+      region: 'Ears',
+      title: 'Not listening to your own guidance',
+      emotion: 'The ears reflect what we are willing to hear — including our own inner voice. Blocking here can signal not wanting to hear the truth, holding onto anger, frustration, blame, guilt, or resentment. Mishearing or misunderstanding others. A refusal to change your mind or a limiting perspective.',
+      prompt: '"What truth am I refusing to hear — from others, or from within myself?"'
+    },
     throat: {
       region: 'Throat',
       title: 'Suppressed truth and unspoken words',
-      emotion: 'The throat holds the things we have not said — the truth we swallowed, the boundaries we didn\'t voice, the feelings we spoke around instead of through. Tightness here often means something in you needs to be expressed.',
+      emotion: 'The throat holds the things we have not said — the truth we swallowed, the boundaries we did not voice, the feelings we spoke around instead of through. Tightness here often means something in you needs to be expressed.',
       prompt: '"What am I afraid to say out loud — and who am I afraid to say it to?"'
     },
     shoulders: {
@@ -256,6 +297,18 @@
       title: 'The weight of responsibility',
       emotion: 'Shoulders carry what we feel responsible for — often the wellbeing of others. When we hold ourselves as the ones who must hold everyone else together, the body shoulders that load literally. Notice how much you are carrying that is not yours.',
       prompt: '"What am I carrying for others that they are capable of carrying themselves?"'
+    },
+    arms: {
+      region: 'Arms',
+      title: 'Feeling stuck, powerless and inflexible',
+      emotion: 'The arms reflect your ability to embrace life and express yourself. Difficulty here can signal feeling stuck, powerless, or inflexible — experiencing fear of change, trying to do too much or too little. Holding back. Experiencing struggle and resistance. Missing out on wonderful new opportunities because of internal limitations and conflicts.',
+      prompt: '"Where am I holding back from expressing what I truly feel or need?"'
+    },
+    hands: {
+      region: 'Hands and Fingers',
+      title: 'Your ability to give and receive',
+      emotion: 'The hands and fingers reflect how you handle life — your ability to touch, hold, let go, give, and receive. The fingers connect to the five energy centres in the body. If you keep saying "I cannot handle this," your hands become stiff and clenched. Fear of the future creates hands that grasp and hold on too tightly. The helping hands pattern wants to care for everyone else while neglecting the self.',
+      prompt: '"What am I holding on to that I know it is time to release?"'
     },
     heart: {
       region: 'Heart and Chest',
@@ -266,20 +319,43 @@
     solar: {
       region: 'Solar Plexus and Stomach',
       title: 'Anxiety and personal power',
-      emotion: 'The solar plexus is your power centre — your sense of self, your will, your confidence. Anxiety often lives here as a fluttering, tightness or nausea. It is asking: where am I giving my power away? Where am I not trusting myself?',
+      emotion: 'The solar plexus is your power centre — your sense of self, your will, your confidence. Anxiety often lives here as a fluttering, tightness, or nausea. It is asking: where am I giving my power away? Where am I not trusting myself?',
       prompt: '"Where in my life am I dimming myself to keep others comfortable?"'
+    },
+    back: {
+      region: 'Back',
+      title: 'Feeling unsupported and overwhelmed',
+      emotion: 'The back reflects how supported you feel by life. Tension here often signals feeling overwhelmed and under too much pressure — carrying suppressed and unresolved emotions from the past that have not yet been given space to breathe.',
+      prompt: '"What am I carrying from the past that I have not yet allowed myself to release?"'
     },
     hips: {
       region: 'Hips and Lower Back',
       title: 'Stored resentment, fatigue and anger',
       emotion: 'The hips and lower back store what we have not allowed ourselves to feel — particularly anger, resentment, and deep exhaustion. These are not negative emotions. They are signals. Anger often means a boundary has been crossed. Fatigue often means you have been giving from empty for too long.',
       prompt: '"Where have I been betraying myself by saying yes when I meant no?"'
+    },
+    knees: {
+      region: 'Knees',
+      title: 'Control, judgment and inflexibility',
+      emotion: 'The knees hold control, blame, judgment, anger, resentment, and frustration. Inflexibility here often signals difficulty dealing with a person, issue, or situation from the past. Confusion. Frozen desires. Unfulfilled desires. Unresolved family issues that have not yet been brought into the light.',
+      prompt: '"Where am I being rigid or holding onto judgment — of myself or someone else?"'
+    },
+    legs: {
+      region: 'Legs',
+      title: 'Carrying a heavy load from the past',
+      emotion: 'The legs carry you forward — and they also carry what you have not yet put down. Tension or heaviness here can signal feeling overwhelmed by pressure, strain, and demands on your life. Being frightened by the obstacles you perceive to be in your way. A heavy load of unresolved issues from the past that is weighing you down.',
+      prompt: '"What unresolved weight am I still carrying that is stopping me from moving forward freely?"'
+    },
+    feet: {
+      region: 'Feet',
+      title: 'Feeling lost, ungrounded, or confused',
+      emotion: 'The feet represent your direction and your connection to the ground beneath you. Tension here can signal moving in the wrong direction, ignoring your intuition, feeling confused, lost, ungrounded, or out of touch with reality. Feeling stuck or obligated. Missing the big picture. Indecisive. Getting cold feet about a situation.',
+      prompt: '"Where in my life am I moving in a direction that does not feel true for me?"'
     }
   };
 
-  function go(n) {
+  function go(id) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
-    const id = typeof n === 'number' ? 's' + n : n;
     const el = document.getElementById(id);
     if (el) { el.classList.add('on'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   }
@@ -296,12 +372,6 @@
     document.getElementById('iEmotion').textContent = d.emotion;
     document.getElementById('iPrompt').textContent = d.prompt;
     document.getElementById('iJournal').value = '';
-  }
-
-  function toggleScanRef(btn) {
-    const body = document.getElementById('scanRefBody');
-    body.classList.toggle('open');
-    btn.textContent = body.classList.contains('open') ? 'Hide scan reference' : 'Show body scan for reference';
   }
 
   function toggleAudio(audioId, btnId) {
