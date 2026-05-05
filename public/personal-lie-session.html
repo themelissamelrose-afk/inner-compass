@@ -142,6 +142,9 @@
         <button class="start-btn" id="b1" onclick="openBreath()">Begin visual breath</button>
         <div class="music-row"><button class="music-btn" id="mb1" onclick="toggleMusic('mb1')">♪ Frequency tone</button></div>
       </div>
+      <div style="text-align:center; margin-top:24px;">
+        <button class="btn" onclick="stopMusic();go(2)">I am ready. Continue →</button>
+      </div>
     </div>
   </div>
 
@@ -362,6 +365,8 @@
 
   function openBreath() {
     document.getElementById('b1').style.display = 'none';
+    const contBtn = document.querySelector('#s2 .btn');
+    if (contBtn) contBtn.style.display = 'none';
     runPresenceBreath('r1','w1','g1','c1', 0, 3, ()=>{
       document.getElementById('w1').textContent = 'Present.';
       document.getElementById('g1').textContent = '';
