@@ -219,9 +219,11 @@
       <span class="section-tag">You Are Seen</span>
       <div class="card-h">What you just did took real courage.</div>
       <p class="body">Most people spend their entire lives avoiding exactly this. The pattern that quietly organises everything. The belief that shapes every relationship, every choice, every way of protecting yourself. You did not look away.</p>
-      <p class="body">What came through your answers is not a failure. It is not proof that something is wrong with you. It is a map. And you have just seen it clearly, perhaps for the first time.</p>
-      <div class="quote-block">The lie was formed to keep you safe when safety was not available. It was never the truth. It was survival.</div>
-      <p class="body">Now, from a place of compassionate witnessing — not judgement, not shame — you are ready to name it. When you name the lie, you take back your power over it.</p>
+      <div id="repeatDisplay" style="display:none;">
+        <p class="body" style="margin-bottom:8px;">You recognised this repeating feeling or phrase across your answers:</p>
+        <div class="quote-block" id="repeatEcho" style="margin-top:0;"></div>
+        <p class="body">This is the trail your Personal Lie leaves behind. The feeling or belief that keeps appearing is pointing directly to the core of it.</p>
+      </div>
       <div class="info-box"><p><strong>Look beneath the mask.</strong> <em>"I am powerless"</em> hides behind control. <em>"I am unlovable"</em> hides behind over-giving. What is the core belief underneath the way you have been living?</p></div>
       <div class="q-note" style="margin-top:16px;">In your own exact wording, state your Personal Lie.</div>
       <input type="text" id="lieInput" placeholder="I am...  /  I am not...  /  I can't...  /  I don't deserve...">
@@ -481,6 +483,15 @@
   }
 
   function goNameTheLie() {
+    const theme = document.getElementById('repeatingTheme').value.trim();
+    const display = document.getElementById('repeatDisplay');
+    const echo = document.getElementById('repeatEcho');
+    if (theme) {
+      echo.textContent = theme;
+      display.style.display = 'block';
+    } else {
+      display.style.display = 'none';
+    }
     document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
     document.getElementById('s8').classList.add('on');
     window.scrollTo({top:0,behavior:'smooth'});
