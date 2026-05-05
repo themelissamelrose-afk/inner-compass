@@ -216,12 +216,14 @@
   <!-- S8: Name the Lie -->
   <div class="step" id="s8">
     <div class="card">
-      <span class="section-tag">Revealing the Lie</span>
-      <div class="card-h">The thread is clear now.</div>
-      <p class="body">The Personal Lie distils into one core phrase. The belief that hides beneath every answer, every pattern, every overcompensation.</p>
-      <p class="body">It may be: <em>"I am not enough." "I am unlovable." "I am too much." "I don't deserve." "I am broken." "I am alone."</em></p>
-      <div class="info-box"><p><strong>Look beneath the mask.</strong> <em>"I am powerless"</em> hides behind control. <em>"I am unlovable"</em> hides behind over-giving. What is the lie underneath the way you have been living?</p></div>
-      <div class="q-note" style="margin-top:12px;">In your own exact wording, what is your Personal Lie?</div>
+      <span class="section-tag">You Are Seen</span>
+      <div class="card-h">What you just did took real courage.</div>
+      <p class="body">Most people spend their entire lives avoiding exactly this. The pattern that quietly organises everything. The belief that shapes every relationship, every choice, every way of protecting yourself. You did not look away.</p>
+      <p class="body">What came through your answers is not a failure. It is not proof that something is wrong with you. It is a map. And you have just seen it clearly, perhaps for the first time.</p>
+      <div class="quote-block">The lie was formed to keep you safe when safety was not available. It was never the truth. It was survival.</div>
+      <p class="body">Now, from a place of compassionate witnessing — not judgement, not shame — you are ready to name it. When you name the lie, you take back your power over it.</p>
+      <div class="info-box"><p><strong>Look beneath the mask.</strong> <em>"I am powerless"</em> hides behind control. <em>"I am unlovable"</em> hides behind over-giving. What is the core belief underneath the way you have been living?</p></div>
+      <div class="q-note" style="margin-top:16px;">In your own exact wording, state your Personal Lie.</div>
       <input type="text" id="lieInput" placeholder="I am...  /  I am not...  /  I can't...  /  I don't deserve...">
       <button class="btn" onclick="revealClearing()">This is my lie →</button>
     </div>
@@ -282,7 +284,7 @@
         <div class="b-count" id="c2"></div>
         <div class="b-aff" id="a2"></div>
         <button class="start-btn" id="b2" onclick="closingBreath()">Begin visual Sacred 6</button>
-        <div class="music-row"><button class="music-btn" id="mb2" onclick="toggleMusic('mb2')">♪ Frequency tone</button></div>
+        <div class="music-row"><button class="music-btn" id="mb2" onclick="toggleClosingMusic('mb2')">♪ Music</button></div>
       </div>
     </div>
   </div>
@@ -528,6 +530,58 @@
 
       osc.connect(masterGain);
       osc.start();
+    } catch(e){}
+  }
+
+  let closingMusicActive = false;
+
+  function toggleClosingMusic(btnId) {
+    const b = document.getElementById(btnId);
+    if (closingMusicActive) {
+      stopMusic();
+      closingMusicActive = false;
+      b.textContent = '♪ Music';
+      b.classList.remove('on');
+    } else {
+      startClosingMusic();
+      closingMusicActive = true;
+      b.textContent = '♫ Music on';
+      b.classList.add('on');
+    }
+  }
+
+  function startClosingMusic() {
+    try {
+      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime+5);
+      masterGain.connect(audioCtx.destination);
+      const freqs = [
+        { f:264,  v:0.50 },
+        { f:528,  v:0.60 },
+        { f:660,  v:0.25 },
+        { f:792,  v:0.20 },
+        { f:1056, v:0.12 }
+      ];
+      freqs.forEach(({f, v}, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const lfo = audioCtx.createOscillator();
+        const lfoGain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = f;
+        gain.gain.value = v * 0.14;
+        lfo.type = 'sine';
+        lfo.frequency.value = 0.08 + i * 0.02;
+        lfoGain.gain.value = f * 0.003;
+        lfo.connect(lfoGain);
+        lfoGain.connect(osc.frequency);
+        lfo.start();
+        osc.connect(gain);
+        gain.connect(masterGain);
+        osc.start();
+      });
     } catch(e){}
   }
 
