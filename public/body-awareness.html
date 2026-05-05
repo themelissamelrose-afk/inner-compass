@@ -92,10 +92,10 @@
   <div class="step" id="s1">
     <h1>Body Scan</h1>
     <div class="divider"></div>
-    <p class="intro">Find somewhere comfortable. Close your eyes or soften your gaze. Let this recording guide you home. As you scan, notice which areas call your attention.</p>
-    <div class="card" style="max-width:640px;">
+    <p class="intro">Find somewhere comfortable. Close your eyes or soften your gaze. Let this recording guide you home.</p>
+    <div class="card" style="max-width:580px;">
       <span class="section-tag">Guided Practice with Melissa</span>
-      <div style="display:flex; align-items:center; gap:14px; margin-bottom:24px;">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
         <audio id="audio-body-scan"><source src="audio-body-scan.m4a" type="audio/mp4"></audio>
         <button class="audio-play-btn" id="btn-body-scan" onclick="toggleAudio('audio-body-scan','btn-body-scan')">▶</button>
         <div>
@@ -103,26 +103,22 @@
           <div style="font-size:0.83rem; color:#9a7d6e;">Listen with Melissa</div>
         </div>
       </div>
-
-      <p style="font-size:0.85rem; color:#9a7d6e; font-style:italic; margin-bottom:14px;">As you listen, notice which areas draw your attention. Each one is a messenger. Here is what they may be holding:</p>
-
-      <div class="scan-areas">
-        <div class="scan-area-row"><span class="scan-area-name">Head</span><span class="scan-area-hint">Overwhelm, loss of control, carrying too many decisions</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Ears</span><span class="scan-area-hint">Not listening to your own guidance, holding anger, frustration or resentment</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Throat</span><span class="scan-area-hint">Suppressed truth, fear of speaking up, words left unspoken</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Shoulders</span><span class="scan-area-hint">Carrying responsibility for others, holding the world up</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Arms</span><span class="scan-area-hint">Feeling stuck, powerless, or inflexible. Fear of change, internal resistance</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Hands and Fingers</span><span class="scan-area-hint">Your ability to give and receive. Fear of the future, holding on too tightly</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Heart and Chest</span><span class="scan-area-hint">Grief, heartbreak, longing, unexpressed emotion</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Solar Plexus</span><span class="scan-area-hint">Anxiety, giving your power away, not trusting yourself</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Back</span><span class="scan-area-hint">Feeling unsupported, overwhelmed, suppressed emotions from the past</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Hips and Lower Back</span><span class="scan-area-hint">Stored resentment, fatigue, anger, saying yes when you mean no</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Knees</span><span class="scan-area-hint">Control, judgment, inflexibility, unresolved situations or family patterns</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Legs</span><span class="scan-area-hint">Carrying a heavy load from the past, feeling overwhelmed by life's demands</span></div>
-        <div class="scan-area-row"><span class="scan-area-name">Feet</span><span class="scan-area-hint">Moving in the wrong direction, ignoring intuition, feeling lost or ungrounded</span></div>
+      <div style="background:#fdf9f4; border-radius:14px; padding:18px 20px; border:1px solid #ede3d4; margin-bottom:20px;">
+        <p style="font-size:0.88rem; line-height:2.1; color:#6b5144; font-style:italic;">
+          Close your eyes. Take a slow breath. We are going to move through the body together.<br><br>
+          Begin at the top of your head. Notice anything there. Breathe into it.<br><br>
+          Move to your face. Your jaw. Let it soften. Your neck and shoulders. Breathe into any tension. And release.<br><br>
+          Down to your chest. Your heart. Your belly. Notice what is here. Breathe in. And let it go.<br><br>
+          Your arms. Your hands. Notice. Breathe. Release.<br><br>
+          Your hips. Your legs. Your knees. Calves. All the way down to your feet.<br><br>
+          Take one full breath from the crown of your head all the way to the soles of your feet.<br><br>
+          And open your eyes. Welcome back.
+        </p>
       </div>
-
-      <button class="btn" onclick="go('s-map')" style="margin-top:28px;">I am back. Continue to body map →</button>
+      <div style="text-align:center;">
+        <button class="music-btn" id="mb-scan" onclick="toggleScanMusic()" style="background:none; border:1.5px solid #e8d9c4; border-radius:30px; padding:9px 22px; font-size:0.88rem; color:#9a7d6e; cursor:pointer; font-family:'Lato',sans-serif; transition:all 0.2s;">♪ Gentle music</button>
+      </div>
+      <button class="btn" onclick="go('s-map')" style="margin-top:24px;">I am back. Continue →</button>
     </div>
   </div>
 
@@ -202,7 +198,13 @@
             <div class="info-title" id="iTitle"></div>
             <div class="info-emotion" id="iEmotion"></div>
             <div class="info-prompt" id="iPrompt"></div>
-            <div style="font-size:0.84rem; color:#9a7d6e; margin-bottom:6px;">Write whatever comes...</div>
+            <div style="background:#f9f3eb; border-radius:12px; padding:16px 18px; margin-bottom:14px;">
+              <p style="font-family:'Playfair Display',serif; font-size:0.95rem; color:#5c2318; line-height:1.7; margin-bottom:10px;">Close your eyes. Place your hand here. Take one slow breath into this space.</p>
+              <p style="font-size:0.87rem; color:#6b5144; line-height:1.7; margin-bottom:12px;">What colour, shape, or symbol do you notice here? Let an image come — do not search for it. Simply receive what arrives.</p>
+              <div style="font-size:0.83rem; color:#9a7d6e; margin-bottom:6px;">Describe what you see or sense...</div>
+              <textarea id="iColour" placeholder="A colour... a shape... a symbol... a feeling... whatever comes..." style="min-height:80px;"></textarea>
+            </div>
+            <div style="font-size:0.83rem; color:#9a7d6e; margin-bottom:6px;">Anything else your body wants to say...</div>
             <textarea id="iJournal" placeholder="Let your body speak through your words..."></textarea>
             <div class="breath-note" style="margin-top:14px;"><strong>Grounding breath:</strong> Place your hand here. Breathe in slowly through your nose. Let the exhale be twice as long. You do not need to fix anything. Just listen.</div>
           </div>
@@ -211,7 +213,7 @@
     </div>
 
     <div style="max-width:580px; margin-top:36px;">
-      <button class="btn" onclick="go('s-q1')">I am ready to go deeper →</button>
+      <button class="btn" onclick="goDeeper()">I am ready to go deeper →</button>
     </div>
   </div>
 
@@ -221,6 +223,11 @@
       <span class="section-tag">Body Question 1 of 3</span>
       <div class="q-big">How does my body<br>feel right now?</div>
       <div class="q-divider"></div>
+      <div id="q1Notice" style="display:none; text-align:left; margin-bottom:18px;">
+        <p style="font-size:0.82rem; letter-spacing:1px; text-transform:uppercase; color:#c4967a; margin-bottom:8px;">What you noticed</p>
+        <div style="background:#f9f3eb; border-left:3px solid #c4967a; padding:14px 18px; border-radius:0 12px 12px 0; font-family:'Playfair Display',serif; font-style:italic; font-size:0.97rem; color:#5c2318; line-height:1.7;" id="q1NoticeText"></div>
+        <p style="font-size:0.87rem; color:#6b5144; margin-top:10px; line-height:1.7; text-align:left;">Let that be your starting point. Stay with this feeling in your body and go a little deeper.</p>
+      </div>
       <div class="q-sub">Notice any sensations. Warmth, tension, openness, contraction. Let each feeling guide you to deeper insight.</div>
       <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:16px; text-align:center;">If your mind wanders, return to your breath. Let it anchor you into presence.</p>
       <textarea placeholder="My body feels..."></textarea>
@@ -358,6 +365,99 @@
     document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
     const el = document.getElementById(id);
     if (el) { el.classList.add('on'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  }
+
+  function goDeeper() {
+    const noticed = (document.getElementById('iColour').value || '').trim();
+    const noticeBox = document.getElementById('q1Notice');
+    const noticeText = document.getElementById('q1NoticeText');
+    if (noticed) {
+      noticeText.textContent = noticed;
+      noticeBox.style.display = 'block';
+    } else {
+      noticeBox.style.display = 'none';
+    }
+    go('s-q1');
+  }
+
+  let scanAudioCtx = null;
+  let scanMusicOn = false;
+  let scanArpeggioTimer = null;
+
+  function toggleScanMusic() {
+    const btn = document.getElementById('mb-scan');
+    if (scanMusicOn) {
+      if (scanAudioCtx) { scanAudioCtx.close(); scanAudioCtx = null; }
+      if (scanArpeggioTimer) { clearTimeout(scanArpeggioTimer); scanArpeggioTimer = null; }
+      scanMusicOn = false;
+      btn.textContent = '♪ Gentle music';
+      btn.style.color = '#9a7d6e';
+      btn.style.borderColor = '#e8d9c4';
+    } else {
+      startScanMusic();
+      scanMusicOn = true;
+      btn.textContent = '♫ Music on';
+      btn.style.color = '#5c2318';
+      btn.style.borderColor = '#c4967a';
+    }
+  }
+
+  function startScanMusic() {
+    scanAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = scanAudioCtx;
+    const master = ctx.createGain();
+    master.gain.value = 0.18;
+    master.connect(ctx.destination);
+    const delay = ctx.createDelay(2.0);
+    delay.delayTime.value = 1.6;
+    const fb = ctx.createGain();
+    fb.gain.value = 0.38;
+    delay.connect(fb);
+    fb.connect(delay);
+    const wet = ctx.createGain();
+    wet.gain.value = 0.3;
+    delay.connect(wet);
+    wet.connect(master);
+    const dry = ctx.createGain();
+    dry.gain.value = 0.7;
+    dry.connect(master);
+    [108, 162, 216].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      const lfo = ctx.createOscillator();
+      const lfoGain = ctx.createGain();
+      lfo.frequency.value = 0.04 + i * 0.015;
+      lfoGain.gain.value = 1.5;
+      lfo.connect(lfoGain);
+      lfoGain.connect(g.gain);
+      g.gain.value = 0.06;
+      osc.connect(g);
+      g.connect(dry);
+      g.connect(delay);
+      lfo.start();
+      osc.start();
+    });
+    const notes = [108, 144, 162, 192, 216, 288, 324, 432];
+    function playNote() {
+      if (!scanAudioCtx || scanAudioCtx !== ctx) return;
+      const freq = notes[Math.floor(Math.random() * notes.length)];
+      const osc = ctx.createOscillator();
+      const env = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      env.gain.setValueAtTime(0, ctx.currentTime);
+      env.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.8);
+      env.gain.linearRampToValueAtTime(0, ctx.currentTime + 6);
+      osc.connect(env);
+      env.connect(dry);
+      env.connect(delay);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 7);
+      scanArpeggioTimer = setTimeout(playNote, 3000 + Math.random() * 4000);
+    }
+    playNote();
   }
 
   function showInfo(key) {
