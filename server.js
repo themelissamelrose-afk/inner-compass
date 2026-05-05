@@ -540,6 +540,74 @@ app.get('/become-observer', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'become-observer.html'));
 });
 
+app.get('/personal-lie', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'personal-lie-session.html'));
+});
+
+app.get('/week2-personal-lie', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'week2-personal-lie.html'));
+});
+
+app.get('/body-awareness', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'body-awareness.html'));
+});
+
+app.get('/week3-body', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'week3-body-map.html'));
+});
+
+app.get('/nervous-system', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'nervous-system-checkin.html'));
+});
+
+app.get('/shame-work', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'shame-work.html'));
+});
+
+app.get('/future-self', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'future-self-journal.html'));
+});
+
+app.get('/rewiring', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'rewiring-22x11.html'));
+});
+
+app.get('/gratitude', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'gratitude-activation.html'));
+});
+
+app.get('/pattern-identifier', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pattern-identifier.html'));
+});
+
+app.get('/blame-observation', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'blame-observation.html'));
+});
+
+app.get('/survival-patterns', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'survival-patterns-guide.html'));
+});
+
+app.get('/abandonment-wound', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'abandonment-wound.html'));
+});
+
+app.get('/centred-breath', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'centred-breath.html'));
+});
+
+app.get('/grounding-breath', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'grounding-breath.html'));
+});
+
+app.get('/receiving-breath', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'receiving-breath.html'));
+});
+
+app.get('/return-to-presence', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'return-to-presence.html'));
+});
+
 app.get('*', (req, res) => {
   res.redirect('/');
 });
