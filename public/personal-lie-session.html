@@ -80,6 +80,23 @@
     .truth-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 12px; }
     .truth-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #5c2318; line-height: 1.7; }
     .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 40px; opacity: 0.65; }
+
+    /* Audio player */
+    .audio-player { display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: #f9f3eb; border-radius: 14px; margin: 18px 0; border: 1px solid #e8d9c4; }
+    .audio-play-btn { width: 42px; height: 42px; border-radius: 50%; background: #5c2318; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; font-size: 1rem; transition: background 0.2s; }
+    .audio-play-btn:hover { background: #7a2f21; }
+    .audio-label { flex: 1; }
+    .audio-label strong { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: #5c2318; display: block; margin-bottom: 2px; }
+    .audio-label span { font-size: 0.8rem; color: #9a7d6e; }
+
+    /* Review step */
+    .review-item { background: #fdf9f4; border-radius: 14px; padding: 20px 22px; margin-bottom: 14px; border: 1px solid #ede3d4; }
+    .review-q-num { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; }
+    .review-answer { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; line-height: 1.75; font-style: italic; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #ede3d4; }
+    .review-feel-label { font-size: 0.82rem; color: #9a7d6e; margin-bottom: 4px; }
+    .review-feel-ta { min-height: 70px; margin-top: 6px !important; }
+    .repeat-box { background: #f2e8d9; border-radius: 14px; padding: 22px 24px; margin: 20px 0; }
+    .repeat-box .q-note { margin-bottom: 8px; }
   </style>
 </head>
 <body>
@@ -103,19 +120,27 @@
     </div>
   </div>
 
-  <!-- S2: Opening Sacred 6 -->
+  <!-- S2: Opening Presence Breath -->
   <div class="step" id="s2">
     <div class="card breath-center">
       <span class="section-tag">Opening</span>
-      <h2>Settle in with the Sacred 6</h2>
-      <p class="sub">Before we begin the inquiry, let the breath bring you fully into your body. Six connected circular breaths — inhale straight into exhale, no pause. Through your mouth. Let your body soften.</p>
+      <h2>Arrive into Presence</h2>
+      <p class="sub">Before we begin, a moment to fully arrive. Your breath is the bridge from your thinking mind into your body. Close your eyes, soften your jaw, and follow the breath.</p>
+      <div class="audio-player" style="text-align:left; max-width:360px; margin:0 auto 20px;">
+        <audio id="audio-presence"><source src="audio-grounding.m4a" type="audio/mp4"></audio>
+        <button class="audio-play-btn" id="btn-presence" onclick="toggleAudio('audio-presence','btn-presence')">▶</button>
+        <div class="audio-label">
+          <strong>Guided Presence Breath</strong>
+          <span>Listen with Melissa</span>
+        </div>
+      </div>
       <div class="b-circle-wrap">
         <div class="b-ring" id="r1"><div class="b-inner"></div></div>
         <div class="b-word" id="w1">Press begin</div>
         <div class="b-guide" id="g1"></div>
         <div class="b-count" id="c1"></div>
-        <button class="start-btn" id="b1" onclick="openBreath()">Begin Sacred 6</button>
-        <div class="music-row"><button class="music-btn" id="mb1" onclick="toggleMusic('mb1')">♪ Add music</button></div>
+        <button class="start-btn" id="b1" onclick="openBreath()">Begin visual breath</button>
+        <div class="music-row"><button class="music-btn" id="mb1" onclick="toggleMusic('mb1')">♪ Frequency tone</button></div>
       </div>
     </div>
   </div>
@@ -167,9 +192,24 @@
     <div class="card">
       <span class="q-num">Question 5 of 5</span>
       <div class="q-text">What is the worst thought you have about yourself?</div>
-      <div class="q-note">Go deeper than question 1. The worst thought — the one you have never said out loud. This is a safe container.</div>
+      <div class="q-note">Go deeper than question 1. The worst thought. The one you have never said out loud. This is a safe container.</div>
       <textarea id="q5" placeholder="The worst thing I believe about myself is... The thought I never say aloud is..."></textarea>
-      <button class="btn" onclick="nextQ(7)">Continue →</button>
+      <button class="btn" onclick="goToReview()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S-Review: Read Back Answers -->
+  <div class="step" id="s-review">
+    <div class="card">
+      <span class="section-tag">Read Your Answers</span>
+      <div class="card-h">Look at what came through you.</div>
+      <p class="body">Read each answer slowly. Notice any words or phrases that appear more than once. Your Personal Lie often reveals itself through repetition.</p>
+      <div id="reviewAnswers"></div>
+      <div class="repeat-box">
+        <div class="q-note">Can you see any words or phrases that repeat across your answers? These repetitions are the trail your Personal Lie leaves behind.</div>
+        <textarea id="repeatingTheme" placeholder="The word or feeling that keeps appearing is... The theme running through all of this is..." style="min-height:90px;"></textarea>
+      </div>
+      <button class="btn" onclick="goNameTheLie()">I can see the pattern. Name my lie.</button>
     </div>
   </div>
 
@@ -177,11 +217,11 @@
   <div class="step" id="s8">
     <div class="card">
       <span class="section-tag">Revealing the Lie</span>
-      <div class="card-h">Read back your five answers slowly.</div>
-      <p class="body">Look at what you wrote. Notice the thread that runs through all five. The Personal Lie often distils into one core phrase — the belief that hides beneath every answer.</p>
+      <div class="card-h">The thread is clear now.</div>
+      <p class="body">The Personal Lie distils into one core phrase. The belief that hides beneath every answer, every pattern, every overcompensation.</p>
       <p class="body">It may be: <em>"I am not enough." "I am unlovable." "I am too much." "I don't deserve." "I am broken." "I am alone."</em></p>
-      <div class="info-box"><p><strong>Clients often show their overcompensation first</strong> — the mask worn to avoid the pain of the lie. <em>"I am powerless"</em> hides behind control. <em>"I am unlovable"</em> hides behind over-giving. Look beneath the mask.</p></div>
-      <div class="q-note" style="margin-top:12px;">In your own exact wording — what is your Personal Lie?</div>
+      <div class="info-box"><p><strong>Look beneath the mask.</strong> <em>"I am powerless"</em> hides behind control. <em>"I am unlovable"</em> hides behind over-giving. What is the lie underneath the way you have been living?</p></div>
+      <div class="q-note" style="margin-top:12px;">In your own exact wording, what is your Personal Lie?</div>
       <input type="text" id="lieInput" placeholder="I am...  /  I am not...  /  I can't...  /  I don't deserve...">
       <button class="btn" onclick="revealClearing()">This is my lie →</button>
     </div>
@@ -224,17 +264,25 @@
   <!-- S10: Closing Sacred 6 with Affirmation -->
   <div class="step" id="s10">
     <div class="card breath-center">
-      <span class="section-tag">Breathwork & Integration</span>
+      <span class="section-tag">Breathwork and Integration</span>
       <h2>Carry the truth into your body</h2>
-      <p class="sub">The rewritten affirmation is now paired with the breath, allowing your nervous system to encode a new possibility. Six connected breaths. Begin through the nose to regulate safety.</p>
+      <p class="sub">Your affirmation is now paired with the breath, allowing your nervous system to encode a new possibility. Six connected breaths. Let the truth land.</p>
+      <div class="audio-player" style="text-align:left; max-width:360px; margin:0 auto 20px;">
+        <audio id="audio-sacred6"><source src="audio-sacred6.m4a" type="audio/mp4"></audio>
+        <button class="audio-play-btn" id="btn-sacred6" onclick="toggleAudio('audio-sacred6','btn-sacred6')">▶</button>
+        <div class="audio-label">
+          <strong>Sacred 6 Breath</strong>
+          <span>Listen with Melissa</span>
+        </div>
+      </div>
       <div class="b-circle-wrap">
         <div class="b-ring" id="r2"><div class="b-inner"></div></div>
         <div class="b-word" id="w2">Press begin</div>
         <div class="b-guide" id="g2"></div>
         <div class="b-count" id="c2"></div>
         <div class="b-aff" id="a2"></div>
-        <button class="start-btn" id="b2" onclick="closingBreath()">Begin Sacred 6</button>
-        <div class="music-row"><button class="music-btn" id="mb2" onclick="toggleMusic('mb2')">♪ Add music</button></div>
+        <button class="start-btn" id="b2" onclick="closingBreath()">Begin visual Sacred 6</button>
+        <div class="music-row"><button class="music-btn" id="mb2" onclick="toggleMusic('mb2')">♪ Frequency tone</button></div>
       </div>
     </div>
   </div>
@@ -361,11 +409,57 @@
     next();
   }
 
-  // ── Ambient Music ────────────────────────────────────────
+  // ── Audio recordings ─────────────────────────────────────
+  function toggleAudio(audioId, btnId) {
+    document.querySelectorAll('audio').forEach(a => {
+      if (a.id !== audioId && !a.paused) { a.pause(); a.currentTime = 0; }
+    });
+    const audio = document.getElementById(audioId);
+    const btn = document.getElementById(btnId);
+    if (audio.paused) { audio.play(); btn.textContent = '◼'; }
+    else { audio.pause(); audio.currentTime = 0; btn.textContent = '▶'; }
+    audio.onended = () => { btn.textContent = '▶'; };
+  }
+
+  // ── Review step ───────────────────────────────────────────
+  function goToReview() {
+    const ta = document.querySelector('#s7 textarea');
+    if (ta && !ta.value.trim()) { alert('Take your time — write whatever comes.'); return; }
+    const qs = [
+      { num: 'Question 1', id: 'q1' },
+      { num: 'Question 2', id: 'q2' },
+      { num: 'Question 3', id: 'q3' },
+      { num: 'Question 4', id: 'q4' },
+      { num: 'Question 5', id: 'q5' }
+    ];
+    const container = document.getElementById('reviewAnswers');
+    container.innerHTML = '';
+    qs.forEach(item => {
+      const answer = document.getElementById(item.id).value.trim() || '(nothing written)';
+      const div = document.createElement('div');
+      div.className = 'review-item';
+      div.innerHTML = '<div class="review-q-num">' + item.num + '</div>' +
+        '<div class="review-answer">' + answer + '</div>' +
+        '<div class="review-feel-label">What does this answer make me feel?</div>' +
+        '<textarea class="review-feel-ta" id="feel-' + item.id + '" placeholder="This makes me feel..."></textarea>';
+      container.appendChild(div);
+    });
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+    document.getElementById('s-review').classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function goNameTheLie() {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+    document.getElementById('s8').classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  // ── Ambient Music — single 528hz frequency tone ──────────
   let audioCtx = null, masterGain = null, musicActive = false;
 
   function toggleMusic(btnId) {
-    ['mb1','mb2'].forEach(id=>{ const b=document.getElementById(id); if(b){ b.textContent=musicActive?'♪ Add music':'♫ Music on'; b.classList.toggle('on',!musicActive); }});
+    ['mb1','mb2'].forEach(id=>{ const b=document.getElementById(id); if(b){ b.textContent=musicActive?'♪ Frequency tone':'♫ Tone on'; b.classList.toggle('on',!musicActive); }});
     musicActive ? stopMusic() : startMusic();
     musicActive = !musicActive;
   }
@@ -375,17 +469,13 @@
       audioCtx = new (window.AudioContext||window.webkitAudioContext)();
       masterGain = audioCtx.createGain();
       masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
-      masterGain.gain.linearRampToValueAtTime(0.14, audioCtx.currentTime+4);
+      masterGain.gain.linearRampToValueAtTime(0.09, audioCtx.currentTime+4);
       masterGain.connect(audioCtx.destination);
-      [110,220,330,440,550].forEach((freq,i)=>{
-        const osc=audioCtx.createOscillator(), g=audioCtx.createGain();
-        osc.type='sine'; osc.frequency.value=freq;
-        g.gain.value=[0.5,0.28,0.14,0.07,0.04][i];
-        const lfo=audioCtx.createOscillator(), lg=audioCtx.createGain();
-        lfo.type='sine'; lfo.frequency.value=0.06+i*0.02; lg.gain.value=freq*0.004;
-        lfo.connect(lg); lg.connect(osc.frequency); lfo.start();
-        osc.connect(g); g.connect(masterGain); osc.start();
-      });
+      const osc = audioCtx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = 528;
+      osc.connect(masterGain);
+      osc.start();
     } catch(e){}
   }
 
@@ -393,7 +483,7 @@
     if (masterGain && audioCtx) {
       masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime+2);
       setTimeout(()=>{ try{audioCtx.close();}catch(e){} audioCtx=null; masterGain=null; musicActive=false;
-        document.querySelectorAll('.music-btn').forEach(b=>{b.textContent='♪ Add music';b.classList.remove('on');});
+        document.querySelectorAll('.music-btn').forEach(b=>{b.textContent='♪ Frequency tone';b.classList.remove('on');});
       }, 2200);
     }
   }
