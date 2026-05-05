@@ -497,110 +497,93 @@
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  // ── Ambient Music — single 528hz frequency tone ──────────
-  let audioCtx = null, masterGain = null, musicActive = false;
+  // ── Ambient Music ─────────────────────────────────────────
+  let audioCtx = null, masterGain = null, musicActive = false, arpeggioTimer = null;
 
   function toggleMusic(btnId) {
-    ['mb1','mb2'].forEach(id=>{ const b=document.getElementById(id); if(b){ b.textContent=musicActive?'♪ Frequency tone':'♫ Tone on'; b.classList.toggle('on',!musicActive); }});
-    musicActive ? stopMusic() : startMusic();
-    musicActive = !musicActive;
-  }
-
-  function startMusic() {
-    try {
-      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-      masterGain = audioCtx.createGain();
-      masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
-      masterGain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime+5);
-      masterGain.connect(audioCtx.destination);
-
-      // 528hz base tone (transformation frequency)
-      const osc = audioCtx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.value = 528;
-
-      // Gentle LFO — makes it breathe like a singing bowl
-      const lfo = audioCtx.createOscillator();
-      const lfoGain = audioCtx.createGain();
-      lfo.type = 'sine';
-      lfo.frequency.value = 0.12;
-      lfoGain.gain.value = 1.8;
-      lfo.connect(lfoGain);
-      lfoGain.connect(osc.frequency);
-      lfo.start();
-
-      // Soft overtone at perfect fifth for warmth
-      const osc2 = audioCtx.createOscillator();
-      const g2 = audioCtx.createGain();
-      osc2.type = 'sine';
-      osc2.frequency.value = 528 * 1.5;
-      g2.gain.value = 0.25;
-      osc2.connect(g2);
-      g2.connect(masterGain);
-      osc2.start();
-
-      osc.connect(masterGain);
-      osc.start();
-    } catch(e){}
-  }
-
-  let closingMusicActive = false;
-
-  function toggleClosingMusic(btnId) {
-    const b = document.getElementById(btnId);
-    if (closingMusicActive) {
-      stopMusic();
-      closingMusicActive = false;
-      b.textContent = '♪ Music';
-      b.classList.remove('on');
-    } else {
-      startClosingMusic();
-      closingMusicActive = true;
-      b.textContent = '♫ Music on';
-      b.classList.add('on');
+    const active = musicActive;
+    stopMusic();
+    if (!active) {
+      startAmbientMusic();
+      musicActive = true;
+      const b = document.getElementById(btnId);
+      if (b) { b.textContent = '♫ Music on'; b.classList.add('on'); }
     }
   }
 
-  function startClosingMusic() {
+  function toggleClosingMusic(btnId) { toggleMusic(btnId); }
+
+  function startAmbientMusic() {
     try {
       audioCtx = new (window.AudioContext||window.webkitAudioContext)();
       masterGain = audioCtx.createGain();
       masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
-      masterGain.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime+5);
+      masterGain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 4);
       masterGain.connect(audioCtx.destination);
-      const freqs = [
-        { f:264,  v:0.50 },
-        { f:528,  v:0.60 },
-        { f:660,  v:0.25 },
-        { f:792,  v:0.20 },
-        { f:1056, v:0.12 }
-      ];
-      freqs.forEach(({f, v}, i) => {
+
+      // Delay network for depth and space
+      const delay = audioCtx.createDelay(4.0);
+      const fb = audioCtx.createGain();
+      const wet = audioCtx.createGain();
+      delay.delayTime.value = 1.4;
+      fb.gain.value = 0.42;
+      wet.gain.value = 0.38;
+      delay.connect(fb); fb.connect(delay);
+      delay.connect(wet); wet.connect(masterGain);
+
+      // A minor pentatonic at 432hz tuning
+      const scale = [108, 162, 216, 270, 324, 432, 540, 648];
+
+      // Sustained pad — low tones breathe underneath
+      [108, 162, 216].forEach((f, i) => {
         const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
+        const g = audioCtx.createGain();
         const lfo = audioCtx.createOscillator();
-        const lfoGain = audioCtx.createGain();
+        const lg = audioCtx.createGain();
         osc.type = 'sine';
         osc.frequency.value = f;
-        gain.gain.value = v * 0.14;
-        lfo.type = 'sine';
-        lfo.frequency.value = 0.08 + i * 0.02;
-        lfoGain.gain.value = f * 0.003;
-        lfo.connect(lfoGain);
-        lfoGain.connect(osc.frequency);
-        lfo.start();
-        osc.connect(gain);
-        gain.connect(masterGain);
-        osc.start();
+        g.gain.setValueAtTime(0, audioCtx.currentTime);
+        g.gain.linearRampToValueAtTime(0.055, audioCtx.currentTime + 4 + i * 2);
+        lfo.type = 'sine'; lfo.frequency.value = 0.05 + i * 0.02;
+        lg.gain.value = f * 0.004;
+        lfo.connect(lg); lg.connect(osc.frequency); lfo.start();
+        osc.connect(g); g.connect(masterGain); g.connect(delay); osc.start();
       });
+
+      // Arpeggio — single notes with envelope, washed in delay
+      let idx = 0;
+      function playNote() {
+        if (!audioCtx) return;
+        const f = scale[idx % scale.length];
+        idx = (idx + 1) % scale.length;
+        const osc = audioCtx.createOscillator();
+        const env = audioCtx.createGain();
+        const now = audioCtx.currentTime;
+        osc.type = 'sine';
+        osc.frequency.value = f;
+        env.gain.setValueAtTime(0, now);
+        env.gain.linearRampToValueAtTime(0.12, now + 0.6);
+        env.gain.linearRampToValueAtTime(0.07, now + 1.8);
+        env.gain.exponentialRampToValueAtTime(0.001, now + 5.0);
+        osc.connect(env); env.connect(masterGain); env.connect(delay);
+        osc.start(now); osc.stop(now + 5.5);
+        const next = 2800 + Math.random() * 3200;
+        arpeggioTimer = setTimeout(playNote, next);
+      }
+      arpeggioTimer = setTimeout(playNote, 800);
+      arpeggioTimer = setTimeout(playNote, 2400);
+
     } catch(e){}
   }
 
   function stopMusic() {
+    if (arpeggioTimer) { clearTimeout(arpeggioTimer); arpeggioTimer = null; }
     if (masterGain && audioCtx) {
-      masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime+2);
-      setTimeout(()=>{ try{audioCtx.close();}catch(e){} audioCtx=null; masterGain=null; musicActive=false;
-        document.querySelectorAll('.music-btn').forEach(b=>{b.textContent='♪ Frequency tone';b.classList.remove('on');});
+      masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 2);
+      setTimeout(() => {
+        try { audioCtx.close(); } catch(e) {}
+        audioCtx = null; masterGain = null; musicActive = false;
+        document.querySelectorAll('.music-btn').forEach(b => { b.textContent = '♪ Music'; b.classList.remove('on'); });
       }, 2200);
     }
   }
