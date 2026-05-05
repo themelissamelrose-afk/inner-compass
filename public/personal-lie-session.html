@@ -350,15 +350,44 @@
 
   function syncAff() { affirmation = document.getElementById('aff1').value.trim(); }
 
+  const presencePhases = [
+    { label:'Breathe in',  guide:'Through your nose, into your belly...', cls:'expand',   dur:4000 },
+    { label:'Hold',        guide:'Receive. Be still.',                     cls:'hold-top', dur:4000 },
+    { label:'Let go',      guide:'Slowly through your mouth...',           cls:'',         dur:8000 }
+  ];
+
   function openBreath() {
     document.getElementById('b1').style.display = 'none';
-    s6Run('r1','w1','g1','c1',null,null,0,6,()=>{
-      document.getElementById('w1').textContent = 'Beautiful.';
+    runPresenceBreath('r1','w1','g1','c1', 0, 3, ()=>{
+      document.getElementById('w1').textContent = 'Present.';
       document.getElementById('g1').textContent = '';
       document.getElementById('c1').textContent = '';
       stopMusic();
       setTimeout(()=>go(2), 2200);
     });
+  }
+
+  function runPresenceBreath(rId, wId, gId, cId, round, total, onDone) {
+    if (round >= total) { onDone(); return; }
+    const ring = document.getElementById(rId);
+    const word = document.getElementById(wId);
+    const guide = gId ? document.getElementById(gId) : null;
+    let pi = 0;
+    function next() {
+      if (pi >= presencePhases.length) { runPresenceBreath(rId,wId,gId,cId,round+1,total,onDone); return; }
+      const ph = presencePhases[pi];
+      ring.classList.remove('expand','hold-top','hold-bot');
+      if (ph.cls) ring.classList.add(ph.cls);
+      word.textContent = ph.label;
+      if (guide) guide.textContent = ph.guide;
+      let s = ph.dur/1000;
+      const el = document.getElementById(cId);
+      el.textContent = s;
+      const t = setInterval(()=>{ s--; el.textContent = s>0?s:''; if(s<=0) clearInterval(t); }, 1000);
+      pi++;
+      setTimeout(next, ph.dur);
+    }
+    next();
   }
 
   function closingBreath() {
@@ -469,11 +498,34 @@
       audioCtx = new (window.AudioContext||window.webkitAudioContext)();
       masterGain = audioCtx.createGain();
       masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
-      masterGain.gain.linearRampToValueAtTime(0.09, audioCtx.currentTime+4);
+      masterGain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime+5);
       masterGain.connect(audioCtx.destination);
+
+      // 528hz base tone (transformation frequency)
       const osc = audioCtx.createOscillator();
       osc.type = 'sine';
       osc.frequency.value = 528;
+
+      // Gentle LFO — makes it breathe like a singing bowl
+      const lfo = audioCtx.createOscillator();
+      const lfoGain = audioCtx.createGain();
+      lfo.type = 'sine';
+      lfo.frequency.value = 0.12;
+      lfoGain.gain.value = 1.8;
+      lfo.connect(lfoGain);
+      lfoGain.connect(osc.frequency);
+      lfo.start();
+
+      // Soft overtone at perfect fifth for warmth
+      const osc2 = audioCtx.createOscillator();
+      const g2 = audioCtx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.value = 528 * 1.5;
+      g2.gain.value = 0.25;
+      osc2.connect(g2);
+      g2.connect(masterGain);
+      osc2.start();
+
       osc.connect(masterGain);
       osc.start();
     } catch(e){}
