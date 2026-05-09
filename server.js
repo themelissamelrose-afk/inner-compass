@@ -608,6 +608,10 @@ app.get('/return-to-presence', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'return-to-presence.html'));
 });
 
+app.get('/inner-teen', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'inner-teen.html'));
+});
+
 app.get('*', (req, res) => {
   res.redirect('/');
 });

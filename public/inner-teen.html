@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meet Your Inner Teen | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; padding: 48px 20px; }
+    .container { max-width: 620px; margin: 0 auto; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.96rem; line-height: 1.85; color: #6b5144; margin-bottom: 30px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); margin-bottom: 16px; }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    .q-text { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; line-height: 1.65; margin-bottom: 10px; }
+    .q-note { font-size: 0.88rem; color: #9a7d6e; font-style: italic; line-height: 1.7; margin-bottom: 16px; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn-outline { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; display: inline-block; margin-top: 14px; }
+    .btn-outline:hover { background: #c4967a; color: #fff; }
+    .quote-block { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 16px 20px; border-radius: 0 12px 12px 0; margin: 18px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #5c2318; line-height: 1.8; }
+    textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.92rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 110px; line-height: 1.6; outline: none; transition: border-color 0.2s; margin-top: 10px; }
+    textarea:focus { border-color: #c4967a; }
+    .audio-play-btn { width: 48px; height: 48px; border-radius: 50%; background: #5c2318; color: #fff; border: none; font-size: 1.1rem; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .audio-play-btn:hover { background: #7a2f21; }
+    .info-box { background: #fdf9f4; border-radius: 14px; padding: 18px 20px; border: 1px solid #ede3d4; margin-bottom: 20px; font-size: 0.92rem; line-height: 1.8; color: #6b5144; }
+    .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
+
+    /* Values table */
+    .values-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .values-table th { background: #f2e8d9; color: #5c2318; font-family: 'Playfair Display', serif; font-size: 0.85rem; padding: 10px 12px; text-align: left; border-bottom: 2px solid #ddd0bc; }
+    .values-table td { padding: 8px 10px; border-bottom: 1px solid #ede3d4; font-size: 0.88rem; vertical-align: middle; }
+    .values-table td:first-child { color: #4a3728; line-height: 1.5; }
+    .values-table input[type="number"] { width: 56px; padding: 6px 8px; border: 1.5px solid #e8d9c4; border-radius: 8px; font-size: 0.88rem; color: #5c2318; background: #fdf9f4; text-align: center; outline: none; }
+    .values-table input[type="number"]:focus { border-color: #c4967a; }
+    .values-table tr:hover td { background: #fdf9f4; }
+
+    /* Breath animation */
+    .b-circle-wrap { text-align: center; padding: 20px 0; }
+    .b-ring { width: 110px; height: 110px; border-radius: 50%; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; transition: transform 4s ease-in-out; }
+    .b-inner { width: 70px; height: 70px; border-radius: 50%; background: #f2e8d9; }
+    .b-ring.expand { transform: scale(1.3); }
+    .b-word { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; margin-bottom: 4px; }
+    .b-guide { font-size: 0.85rem; color: #9a7d6e; font-style: italic; min-height: 20px; }
+    .start-btn { margin-top: 14px; background: none; border: 1.5px solid #c4967a; color: #5c2318; padding: 9px 24px; border-radius: 30px; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.88rem; transition: all 0.2s; }
+    .start-btn:hover { background: #c4967a; color: #fff; }
+    .music-btn { margin-top: 10px; background: none; border: 1.5px solid #e8d9c4; border-radius: 30px; padding: 7px 20px; font-size: 0.85rem; color: #9a7d6e; cursor: pointer; font-family: 'Lato', sans-serif; transition: all 0.2s; display: inline-block; }
+    .music-btn:hover { border-color: #c4967a; color: #5c2318; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Reclaim You</div>
+
+  <!-- S0: Welcome -->
+  <div class="step on" id="s0">
+    <h1>Meet Your<br>Inner Teen</h1>
+    <div class="divider"></div>
+    <p class="intro">They have been protecting you for a long time. Today we begin to see them — not to fix them, but to finally understand them.</p>
+    <div class="card">
+      <div class="quote-block">"Your inner teen is not a separate entity. They are you — just as all the parts of you that you show when you wear different masks are also you. It is easier to separate them to name the wounded parts so they can be healed."</div>
+      <p style="font-size:0.93rem; line-height:1.85; color:#4a3728; margin-top:4px;">This journey moves from your head to your heart. We begin with understanding, then breath, then connection. Take your time. There is no rush here.</p>
+      <button class="btn" onclick="go('s1')">I am ready to begin →</button>
+    </div>
+  </div>
+
+  <!-- S1: What age comes to you -->
+  <div class="step" id="s1">
+    <h1>Cast Your<br>Mind Back</h1>
+    <div class="divider"></div>
+    <p class="intro">Get comfortable. Take a slow breath. Let a moment in time come to you without forcing it.</p>
+    <div class="card">
+      <span class="section-tag">Head — Remembering</span>
+      <div class="q-text">What age in your teen years comes to you first?</div>
+      <div class="q-note">Do not choose. Let it arrive. The age that comes first is usually the one that most needs your attention.</div>
+      <textarea id="q-age" placeholder="I keep coming back to when I was... / The first age that arrives is..."></textarea>
+      <button class="btn" onclick="nextQ('s2')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S2: Outside and Inside -->
+  <div class="step" id="s2">
+    <div class="card">
+      <span class="section-tag">Head — Two Perspectives</span>
+      <div class="q-text">What was going on outside of you at that time?</div>
+      <div class="q-note">School. Home. Friendships. Family. What was happening in the world around her?</div>
+      <textarea id="q-outside" placeholder="At home there was... / At school I was... / The people around me were..."></textarea>
+    </div>
+    <div class="card">
+      <div class="q-text">What was going on inside of you?</div>
+      <div class="q-note">What did they feel? What did they need? What were they telling themselves about who they were and what they deserved?</div>
+      <textarea id="q-inside" placeholder="Inside I felt... / What I needed most was... / I believed about myself that..."></textarea>
+      <button class="btn" onclick="nextQ('s3')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S3: The Masks -->
+  <div class="step" id="s3">
+    <div class="card">
+      <span class="section-tag">Head — The Masks</span>
+      <div class="q-text">What masks did they wear to fit in?</div>
+      <div class="q-note">Your inner teen shapeshifted to adapt — to get love, to avoid rejection, to survive. They became who they needed to be in different rooms. What were those versions of them?</div>
+      <div class="info-box">
+        Think about: at school, at home, with friends, with family. Where did they show up differently? Where did they shrink? Where did they perform? Where did they become someone else entirely?
+      </div>
+      <textarea id="q-masks" placeholder="With friends I became... / At home I hid... / The version of me that felt most fake was... / The part of me I never showed anyone was..."></textarea>
+      <button class="btn" onclick="nextQ('s4')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S4: What she didn't receive -->
+  <div class="step" id="s4">
+    <div class="card">
+      <span class="section-tag">Head — What They Needed</span>
+      <div class="q-text">What did they most long for that they did not receive?</div>
+      <div class="q-note">Not what they said they wanted. What they really needed underneath it all. The thing they would never have admitted out loud.</div>
+      <textarea id="q-longing" placeholder="More than anything they needed... / What they never got to say was... / The thing they were really asking for was..."></textarea>
+    </div>
+    <div class="card">
+      <div class="q-text">When they failed or got it wrong, what did they tell themselves?</div>
+      <div class="q-note">Notice the voice. This is the inner critic they built to protect themselves — high standards so they could not be caught out. But when they fell short, how did they speak to themselves?</div>
+      <textarea id="q-critic" placeholder="When I got it wrong I would tell myself... / The harshest thing I said to myself was... / The standard I held myself to was..."></textarea>
+      <button class="btn" onclick="nextQ('s5')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S5: Values Ranking -->
+  <div class="step" id="s5">
+    <div class="card">
+      <span class="section-tag">Head — Reevaluate Your Values</span>
+      <div class="q-text">How have your values shifted?</div>
+      <div class="q-note">Rate each value from 1 to 10. First as your inner teen — how important was it then? Then as your responsible adult self — how important is it now? Notice the gap. That is where they are still in the driver's seat.</div>
+      <table class="values-table">
+        <thead>
+          <tr>
+            <th>Value</th>
+            <th>Inner Teen</th>
+            <th>Adult Now</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Fitting in with the group</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Being liked by others</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Being a leader</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Being happy</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Being independent</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Helping others</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Being there for family</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Being proud of achievements</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Developing inner peace</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Being healthy and fit</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Having lots of money</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Leaving a legacy</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Wanting to change the world</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Traveling the world</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+          <tr><td>Always learning something new</td><td><input type="number" min="1" max="10"></td><td><input type="number" min="1" max="10"></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:16px;">
+        <div class="q-note">Looking at the gaps — where are the biggest differences? Where is your inner teen still ranking higher than your adult self?</div>
+        <textarea id="q-values" placeholder="What I notice in the gaps is... / The values my teen still drives in me are... / What surprised me was..."></textarea>
+      </div>
+      <button class="btn" onclick="nextQ('s6')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S6: Breath — arrive into the heart -->
+  <div class="step" id="s6">
+    <h1>Arrive into<br>Your Heart</h1>
+    <div class="divider"></div>
+    <p class="intro">You have done the remembering. Now we move from your head into your body, and from your body into your heart. This is where we meet her.</p>
+    <div class="card" style="text-align:center;">
+      <span class="section-tag">Breath — Arriving</span>
+      <p style="font-size:0.93rem; line-height:1.8; color:#4a3728; margin-bottom:20px;">Place one hand on your heart. Close your eyes. Let this breath carry you from your thinking mind into the space where they live.</p>
+      <div style="display:flex; align-items:center; gap:14px; justify-content:center; margin-bottom:20px;">
+        <audio id="audio-grounding"><source src="audio-grounding.m4a" type="audio/mp4"></audio>
+        <button class="audio-play-btn" id="btn-grounding" onclick="toggleAudio('audio-grounding','btn-grounding')">▶</button>
+        <div style="text-align:left;">
+          <div style="font-weight:700; font-size:0.92rem; color:#5c2318;">Grounding Breath</div>
+          <div style="font-size:0.82rem; color:#9a7d6e;">Listen with Melissa</div>
+        </div>
+      </div>
+      <div class="b-circle-wrap">
+        <div class="b-ring" id="br1"><div class="b-inner"></div></div>
+        <div class="b-word" id="bw1">Press begin</div>
+        <div class="b-guide" id="bg1"></div>
+        <button class="start-btn" id="bb1" onclick="runArrivalBreath()">Begin visual breath</button>
+        <div><button class="music-btn" id="mb-arrive" onclick="toggleArriveMusic()">♪ Gentle music</button></div>
+      </div>
+      <button class="btn" onclick="nextQ('s7')" style="margin-top:8px;">I am ready. Continue →</button>
+    </div>
+  </div>
+
+  <!-- S7: Heart dialogue -->
+  <div class="step" id="s7">
+    <h1>Heart to Heart</h1>
+    <div class="divider"></div>
+    <p class="intro">You are the adult. They are the teen. You are meeting them in their moment — not to fix, not to change. To see them. To hear them. To let them know you understand.</p>
+    <div class="card">
+      <span class="section-tag">Heart — The Dialogue</span>
+      <div class="q-text">In your mind's eye, create a space where they feel safe. Let them arrive. When you sense their presence, open the conversation.</div>
+      <div class="q-note">Let them speak first. Do not jump in. Do not try to fix what they share. Simply listen. When they are finished — ask them: "How can I be there for you?"</div>
+      <div class="quote-block">"Stay in your adult self as you meet them. You are not going back into that teen. You are meeting them as the person who now understands what they were carrying."</div>
+      <textarea id="q-dialogue" placeholder="What they shared with me... / What I heard underneath their words... / How they need me to show up for her..."></textarea>
+      <button class="btn" onclick="nextQ('s8')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S8: What you see now -->
+  <div class="step" id="s8">
+    <div class="card">
+      <span class="section-tag">Heart — Compassion</span>
+      <div class="q-text">Seeing them now — as the adult who knows what they did not know then — how do you feel about them?</div>
+      <div class="q-note">They did the best they could with what they had. They were not wrong for protecting you. They were trying to keep you safe in the only ways they knew how.</div>
+      <textarea id="q-compassion" placeholder="Looking at them now I feel... / What I understand that I did not before is... / I want to tell them..."></textarea>
+    </div>
+    <div class="card">
+      <div class="q-text">What do they most need to hear from you today?</div>
+      <div class="q-note">Write it to them. Use their age. Speak directly. This is the letter they have been waiting for.</div>
+      <textarea id="q-letter" style="min-height:140px;" placeholder="Dear [her age]-year-old me... / I want you to know... / I am sorry that... / I see now that... / I promise you..."></textarea>
+      <button class="btn" onclick="nextQ('s9')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- S9: Small promise -->
+  <div class="step" id="s9">
+    <div class="card">
+      <span class="section-tag">Heart — Your Promise to Her</span>
+      <div class="q-text">What is one small thing you can do today to show them you mean it?</div>
+      <div class="q-note">Not a big gesture. Something so small it feels almost too easy. That is exactly right. We build trust one small promise at a time.</div>
+      <div class="info-box">
+        Ask yourself: "What can I give myself right now?" Then ask your inner teen — there is always one aspect of them that knows the answer.
+      </div>
+      <textarea id="q-promise" placeholder="Today I will... / The small thing I can give them is... / My promise to them is..."></textarea>
+      <button class="btn" onclick="nextQ('s-close')">Complete →</button>
+    </div>
+  </div>
+
+  <!-- Close -->
+  <div class="step" id="s-close">
+    <div class="card" style="text-align:center;">
+      <div class="seal">✦</div>
+      <span class="section-tag">Practice Complete</span>
+      <p style="font-family:'Playfair Display',serif; font-size:1.15rem; color:#5c2318; line-height:1.7; margin-bottom:12px;">You showed up for them today.</p>
+      <p style="font-size:0.93rem; line-height:1.85; color:#4a3728; margin-bottom:22px;">That is the beginning of trust. Come back to her. Keep showing up. Over time the separation between you dissolves — and you become whole.</p>
+      <div style="background:#fdf9f4; border-radius:14px; padding:20px 22px; border:1px solid #ede3d4; text-align:left; margin-bottom:20px;">
+        <p style="font-size:0.88rem; color:#6b5144; line-height:1.85; font-style:italic;">Place both hands on your heart. Take one slow breath. Breathe them in. Let them know you will be back. They are no longer alone.</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px; justify-content:center; margin-bottom:20px;">
+        <audio id="audio-close"><source src="audio-hand-heart.m4a" type="audio/mp4"></audio>
+        <button class="audio-play-btn" id="btn-close" onclick="toggleAudio('audio-close','btn-close')">▶</button>
+        <div style="text-align:left;">
+          <div style="font-weight:700; font-size:0.92rem; color:#5c2318;">Hand on Heart</div>
+          <div style="font-size:0.82rem; color:#9a7d6e;">A gentle closing with Melissa</div>
+        </div>
+      </div>
+      <button class="btn-outline" onclick="go('s0')" style="display:block; text-align:center;">Begin Again</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Reclaim You · Melissa Melrose</div>
+</div>
+
+<script>
+  function go(id) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+    const el = document.getElementById(id);
+    if (el) { el.classList.add('on'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  }
+
+  function nextQ(id) { go(id); }
+
+  function toggleAudio(audioId, btnId) {
+    const audio = document.getElementById(audioId);
+    const btn = document.getElementById(btnId);
+    if (audio.paused) { audio.play(); btn.textContent = '⏸'; }
+    else { audio.pause(); btn.textContent = '▶'; }
+    audio.onended = () => { btn.textContent = '▶'; };
+  }
+
+  const breathPhases = [
+    { label: 'Breathe in', guide: 'Slowly through your nose...', expand: true, dur: 4000 },
+    { label: 'Hold', guide: 'Receive. Be still.', expand: true, dur: 3000 },
+    { label: 'Let go', guide: 'Slowly through your mouth...', expand: false, dur: 7000 }
+  ];
+
+  function runArrivalBreath() {
+    document.getElementById('bb1').style.display = 'none';
+    runBreath('br1', 'bw1', 'bg1', 0, 4, () => {
+      document.getElementById('bw1').textContent = 'Present.';
+      document.getElementById('bg1').textContent = '';
+      stopArriveMusic();
+    });
+  }
+
+  function runBreath(rId, wId, gId, round, total, onDone) {
+    if (round >= total) { onDone(); return; }
+    let pi = 0;
+    function nextPhase() {
+      if (pi >= breathPhases.length) { runBreath(rId, wId, gId, round + 1, total, onDone); return; }
+      const ph = breathPhases[pi];
+      document.getElementById(wId).textContent = ph.label;
+      document.getElementById(gId).textContent = ph.guide;
+      const ring = document.getElementById(rId);
+      if (ph.expand) ring.classList.add('expand');
+      else ring.classList.remove('expand');
+      pi++;
+      setTimeout(nextPhase, ph.dur);
+    }
+    nextPhase();
+  }
+
+  let arriveAudioCtx = null, arriveArpTimer = null, arriveMusicOn = false;
+
+  function toggleArriveMusic() {
+    const btn = document.getElementById('mb-arrive');
+    if (arriveMusicOn) {
+      if (arriveAudioCtx) { arriveAudioCtx.close(); arriveAudioCtx = null; }
+      if (arriveArpTimer) { clearTimeout(arriveArpTimer); arriveArpTimer = null; }
+      arriveMusicOn = false;
+      btn.textContent = '♪ Gentle music';
+      btn.style.color = '#9a7d6e'; btn.style.borderColor = '#e8d9c4';
+    } else {
+      startArriveMusic();
+      arriveMusicOn = true;
+      btn.textContent = '♫ Music on';
+      btn.style.color = '#5c2318'; btn.style.borderColor = '#c4967a';
+    }
+  }
+
+  function stopArriveMusic() {
+    if (arriveAudioCtx) { arriveAudioCtx.close(); arriveAudioCtx = null; }
+    if (arriveArpTimer) { clearTimeout(arriveArpTimer); arriveArpTimer = null; }
+    arriveMusicOn = false;
+    const btn = document.getElementById('mb-arrive');
+    if (btn) { btn.textContent = '♪ Gentle music'; btn.style.color = '#9a7d6e'; btn.style.borderColor = '#e8d9c4'; }
+  }
+
+  function startArriveMusic() {
+    arriveAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = arriveAudioCtx;
+    const master = ctx.createGain(); master.gain.value = 0.18; master.connect(ctx.destination);
+    const delay = ctx.createDelay(2.0); delay.delayTime.value = 1.6;
+    const fb = ctx.createGain(); fb.gain.value = 0.38; delay.connect(fb); fb.connect(delay);
+    const wet = ctx.createGain(); wet.gain.value = 0.3; delay.connect(wet); wet.connect(master);
+    const dry = ctx.createGain(); dry.gain.value = 0.7; dry.connect(master);
+    [108, 162, 216].forEach((freq, i) => {
+      const osc = ctx.createOscillator(); const g = ctx.createGain();
+      osc.type = 'sine'; osc.frequency.value = freq;
+      const lfo = ctx.createOscillator(); const lfoG = ctx.createGain();
+      lfo.frequency.value = 0.04 + i * 0.015; lfoG.gain.value = 1.5;
+      lfo.connect(lfoG); lfoG.connect(g.gain); g.gain.value = 0.06;
+      osc.connect(g); g.connect(dry); g.connect(delay);
+      lfo.start(); osc.start();
+    });
+    const notes = [108, 144, 162, 192, 216, 288, 324];
+    function playNote() {
+      if (!arriveAudioCtx || arriveAudioCtx !== ctx) return;
+      const freq = notes[Math.floor(Math.random() * notes.length)];
+      const osc = ctx.createOscillator(); const env = ctx.createGain();
+      osc.type = 'sine'; osc.frequency.value = freq;
+      env.gain.setValueAtTime(0, ctx.currentTime);
+      env.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.8);
+      env.gain.linearRampToValueAtTime(0, ctx.currentTime + 6);
+      osc.connect(env); env.connect(dry); env.connect(delay);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 7);
+      arriveArpTimer = setTimeout(playNote, 3000 + Math.random() * 4000);
+    }
+    playNote();
+  }
+</script>
+</body>
+</html>
