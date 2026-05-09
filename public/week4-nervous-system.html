@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 4 — Reset Your Nervous System | Foundations of Self</title>
+  <title>Week 4 — Your Nervous System | Foundations of Self</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
-    .container { max-width: 580px; width: 100%; }
+    .container { max-width: 600px; width: 100%; }
     .week-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
     h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
     .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
@@ -16,53 +16,111 @@
     .step { display: none; }
     .step.on { display: block; }
     .card { background: #fff; border-radius: 18px; padding: 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
-
-    /* Check-in */
-    .checkin-q { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; margin-bottom: 24px; line-height: 1.5; }
-    .scale { display: flex; flex-direction: column; gap: 0; }
-    .scale-row { display: flex; align-items: stretch; }
-    .scale-btn { flex: 1; padding: 12px 6px; background: #fdf9f4; border: 1px solid #e8d9c4; cursor: pointer; font-size: 0.9rem; color: #4a3728; transition: all 0.15s; text-align: center; border-radius: 0; }
-    .scale-row:first-child .scale-btn:first-child { border-radius: 10px 0 0 0; }
-    .scale-row:first-child .scale-btn:last-child { border-radius: 0 10px 0 0; }
-    .scale-row:last-child .scale-btn:first-child { border-radius: 0 0 0 10px; }
-    .scale-row:last-child .scale-btn:last-child { border-radius: 0 0 10px 0; }
-    .scale-btn:hover { background: #fdf5ec; border-color: #c4967a; z-index: 1; }
-    .scale-btn.sel { background: #c4967a; color: #fff; border-color: #c4967a; z-index: 2; }
-    .scale-labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.8rem; color: #9a7d6e; padding: 0 2px; }
+    .tag { display: inline-block; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 10px; }
+    .step-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #5c2318; margin-bottom: 12px; line-height: 1.4; }
+    .step-sub { font-size: 0.93rem; color: #6b5144; line-height: 1.75; margin-bottom: 20px; }
+    .body-text { font-size: 0.93rem; line-height: 1.8; color: #4a3728; }
+    .body-text + .body-text { margin-top: 14px; }
+    .callout { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 16px 20px; border-radius: 0 10px 10px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.97rem; color: #5c2318; line-height: 1.7; margin: 20px 0; }
     .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
     .btn:hover { background: #7a2f21; }
     .btn:disabled { background: #d4c4ba; cursor: not-allowed; }
 
-    /* Mirror work */
-    .mirror-intro { text-align: center; margin-bottom: 24px; }
-    .mirror-intro h2 { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: #5c2318; margin-bottom: 10px; }
-    .mirror-intro p { font-size: 0.95rem; color: #6b5144; line-height: 1.75; }
-    .mirror-steps { display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
-    .mstep { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: #fdf9f4; border-radius: 12px; border: 1px solid #ede3d4; }
-    .mnum { width: 28px; height: 28px; border-radius: 50%; background: #f2e8d9; color: #5c2318; font-family: 'Playfair Display', serif; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .mtext { font-size: 0.94rem; line-height: 1.65; color: #4a3728; }
+    /* Scale */
+    .checkin-q { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; margin-bottom: 24px; line-height: 1.5; }
+    .scale { display: flex; flex-direction: column; }
+    .scale-row { display: flex; }
+    .scale-btn { flex: 1; padding: 12px 4px; background: #fdf9f4; border: 1px solid #e8d9c4; cursor: pointer; font-size: 0.9rem; color: #4a3728; transition: all 0.15s; text-align: center; border-radius: 0; }
+    .scale-row:first-child .scale-btn:first-child { border-radius: 10px 0 0 0; }
+    .scale-row:first-child .scale-btn:last-child { border-radius: 0 10px 0 0; }
+    .scale-row:last-child .scale-btn:first-child { border-radius: 0 0 0 10px; }
+    .scale-row:last-child .scale-btn:last-child { border-radius: 0 0 10px 0; }
+    .scale-btn:hover { background: #fdf5ec; border-color: #c4967a; }
+    .scale-btn.sel { background: #c4967a; color: #fff; border-color: #c4967a; }
+    .scale-labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.8rem; color: #9a7d6e; }
 
-    /* Breath animation */
-    .breath-wrap { text-align: center; padding: 8px 0; }
-    .breath-wrap h2 { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: #5c2318; margin-bottom: 10px; }
-    .breath-wrap .sub { font-size: 0.9rem; color: #9a7d6e; margin-bottom: 32px; line-height: 1.6; }
-    .circle-area { display: flex; flex-direction: column; align-items: center; margin: 24px 0; }
-    .outer-ring { width: 180px; height: 180px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; transition: transform 2s ease-in-out, background 2s ease; }
+    /* Discovery questions */
+    .disc-q { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #5c2318; margin-bottom: 16px; line-height: 1.55; }
+    .disc-q .qnum { font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 6px; }
+    .disc-options { display: flex; flex-direction: column; gap: 8px; }
+    .disc-opt { padding: 13px 16px; border: 1.5px solid #e8d9c4; border-radius: 11px; background: #fdf9f4; font-size: 0.91rem; color: #4a3728; cursor: pointer; transition: all 0.18s; text-align: left; line-height: 1.55; }
+    .disc-opt:hover { border-color: #c4967a; background: #fdf5ec; }
+    .disc-opt.sel { background: #5c2318; color: #fff; border-color: #5c2318; }
+    .disc-progress { display: flex; gap: 6px; margin-bottom: 24px; }
+    .disc-dot { width: 8px; height: 8px; border-radius: 50%; background: #e8d9c4; transition: background 0.3s; }
+    .disc-dot.done { background: #c4967a; }
+    .disc-dot.active { background: #5c2318; }
+    .disc-reveal { padding: 20px; background: #f9f3eb; border-radius: 14px; border: 1px solid #e8d9c4; margin-top: 4px; }
+    .disc-reveal h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #5c2318; margin-bottom: 10px; }
+    .disc-reveal p { font-size: 0.92rem; line-height: 1.75; color: #4a3728; }
+
+    /* Expandable */
+    .exp-cards { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+    .exp-card { border: 1.5px solid #e8d9c4; border-radius: 14px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; background: #fff; }
+    .exp-card:hover { border-color: #c4967a; }
+    .exp-card.open { border-color: #c4967a; }
+    .exp-header { display: flex; align-items: center; justify-content: space-between; padding: 15px 18px; }
+    .exp-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; }
+    .exp-hint { font-size: 0.78rem; color: #9a7d6e; font-style: italic; margin-left: 8px; }
+    .exp-icon { font-size: 1.1rem; color: #c4967a; transition: transform 0.25s; flex-shrink: 0; }
+    .exp-card.open .exp-icon { transform: rotate(45deg); }
+    .exp-body { display: none; padding: 0 18px 16px; font-size: 0.91rem; line-height: 1.75; color: #4a3728; }
+    .exp-card.open .exp-body { display: block; }
+    .exp-sub { margin-top: 10px; padding: 10px 14px; background: #fdf9f4; border-radius: 8px; font-size: 0.88rem; color: #6b5144; line-height: 1.65; }
+    .exp-sub strong { color: #5c2318; font-size: 0.76rem; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+    /* Multi-select */
+    .multi-prompt { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #5c2318; margin-bottom: 16px; line-height: 1.5; }
+    .multi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .multi-btn { padding: 14px 10px; border: 1.5px solid #e8d9c4; border-radius: 12px; background: #fdf9f4; font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #4a3728; cursor: pointer; transition: all 0.2s; text-align: center; line-height: 1.4; }
+    .multi-btn:hover { border-color: #c4967a; background: #fdf5ec; }
+    .multi-btn.sel { background: #5c2318; color: #fff; border-color: #5c2318; }
+    .multi-response { display: none; padding: 16px 18px; background: #f9f3eb; border-radius: 12px; border: 1px solid #e8d9c4; font-size: 0.92rem; line-height: 1.78; color: #4a3728; margin-bottom: 8px; }
+    .multi-response.show { display: block; }
+    .multi-response strong { font-family: 'Playfair Display', serif; font-size: 0.93rem; color: #5c2318; display: block; margin-bottom: 6px; }
+
+    /* Textarea */
+    textarea { width: 100%; border: 1.5px solid #e8d9c4; border-radius: 12px; padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 0.93rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 100px; line-height: 1.65; margin-top: 8px; transition: border-color 0.2s; }
+    textarea:focus { outline: none; border-color: #c4967a; background: #fff; }
+    .q-label { font-size: 0.9rem; color: #6b5144; line-height: 1.65; margin-top: 20px; margin-bottom: 4px; }
+    .q-label em { color: #5c2318; font-style: italic; font-family: 'Playfair Display', serif; }
+
+    /* Numbered steps */
+    .num-steps { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+    .num-step { display: flex; gap: 14px; align-items: flex-start; padding: 15px; background: #fdf9f4; border-radius: 12px; border: 1px solid #ede3d4; }
+    .num-circle { width: 30px; height: 30px; border-radius: 50%; background: #f2e8d9; color: #5c2318; font-family: 'Playfair Display', serif; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .num-text { font-size: 0.91rem; line-height: 1.72; color: #4a3728; }
+    .num-text strong { color: #5c2318; display: block; margin-bottom: 2px; }
+
+    /* Showing up bullets */
+    .show-up-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+    .show-up-item { display: flex; gap: 12px; align-items: flex-start; font-size: 0.92rem; line-height: 1.7; color: #4a3728; }
+    .show-up-item span:first-child { color: #c4967a; font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+
+    /* Breath */
+    .breath-wrap { text-align: center; }
+    .circle-area { display: flex; flex-direction: column; align-items: center; margin: 20px 0; }
+    .outer-ring { width: 150px; height: 150px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; transition: transform 2s ease-in-out, background 2s ease; }
     .outer-ring.expand { transform: scale(1.3); background: #e8d4be; }
     .outer-ring.hold { transform: scale(1.3); background: #dcc9b2; }
-    .inner-dot { width: 90px; height: 90px; border-radius: 50%; background: #c4967a; opacity: 0.3; }
-    .b-word { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #5c2318; margin-top: 28px; min-height: 40px; }
-    .b-count { font-size: 2rem; color: #c4967a; font-family: 'Playfair Display', serif; margin-top: 6px; min-height: 44px; }
-    .b-aff { font-style: italic; color: #9a7d6e; font-size: 0.92rem; margin-top: 10px; min-height: 24px; transition: opacity 0.5s; }
-    .b-rounds { font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; color: #c4967a; margin-top: 16px; }
-    .start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 14px 36px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .inner-dot { width: 75px; height: 75px; border-radius: 50%; background: #c4967a; opacity: 0.3; }
+    .b-word { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: #5c2318; margin-top: 22px; min-height: 34px; }
+    .b-count { font-size: 1.8rem; color: #c4967a; font-family: 'Playfair Display', serif; margin-top: 4px; min-height: 38px; }
+    .b-rounds { font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; color: #c4967a; margin-top: 10px; }
+    .start-btn { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 13px 34px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 18px; transition: background 0.2s; }
     .start-btn:hover { background: #7a2f21; }
 
-    /* After check-in */
-    .after-card { text-align: center; }
-    .after-card h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #5c2318; margin-bottom: 14px; line-height: 1.4; }
-    .after-card p { font-size: 0.95rem; line-height: 1.8; color: #4a3728; margin-bottom: 16px; }
-    .callout { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 16px 20px; border-radius: 0 10px 10px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: #5c2318; line-height: 1.7; margin: 20px 0; text-align: left; }
+    /* Daily practice box */
+    .practice-box { border: 1.5px solid #e8d9c4; border-radius: 14px; padding: 20px; background: #fdf9f4; margin-top: 20px; }
+    .practice-box h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; margin-bottom: 10px; }
+    .practice-box p { font-size: 0.9rem; line-height: 1.75; color: #4a3728; }
+    .practice-box .mantra { font-family: 'Playfair Display', serif; font-style: italic; color: #5c2318; font-size: 0.97rem; text-align: center; margin: 14px 0; }
+
+    /* Mirror close */
+    .mirror-steps { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+    .mstep { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: #fdf9f4; border-radius: 12px; border: 1px solid #ede3d4; }
+    .mnum { width: 26px; height: 26px; border-radius: 50%; background: #f2e8d9; color: #5c2318; font-family: 'Playfair Display', serif; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .mtext { font-size: 0.91rem; line-height: 1.65; color: #4a3728; }
     .restart { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; margin-top: 8px; }
     .restart:hover { background: #c4967a; color: #fff; }
     .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
@@ -71,76 +129,319 @@
 <body>
 <div class="container">
   <div class="week-label">Week 4 · Foundations of Self</div>
-  <h1>Reset Your<br>Nervous System</h1>
+  <h1>Your Nervous<br>System</h1>
   <div class="divider"></div>
-  <p class="intro">This week is about coming back to your body — not forcing calm, but creating safety. We begin with mirror work, then move into a breath practice that anchors your nervous system.</p>
+  <p class="intro">This week we go deeper — understanding what your nervous system is actually doing, the patterns it has learned, and how to come back to yourself when it takes over.</p>
 
-  <!-- Step 1: Check in -->
+  <!-- s1: Check-in -->
   <div class="step on" id="s1">
     <div class="card">
       <div class="checkin-q">Before we begin — where is your nervous system right now?</div>
       <div class="scale">
         <div class="scale-row">
-          <button class="scale-btn" onclick="pickScale(this,1)">1</button>
-          <button class="scale-btn" onclick="pickScale(this,2)">2</button>
-          <button class="scale-btn" onclick="pickScale(this,3)">3</button>
-          <button class="scale-btn" onclick="pickScale(this,4)">4</button>
-          <button class="scale-btn" onclick="pickScale(this,5)">5</button>
+          <button class="scale-btn" onclick="pickScale(this)">1</button>
+          <button class="scale-btn" onclick="pickScale(this)">2</button>
+          <button class="scale-btn" onclick="pickScale(this)">3</button>
+          <button class="scale-btn" onclick="pickScale(this)">4</button>
+          <button class="scale-btn" onclick="pickScale(this)">5</button>
         </div>
         <div class="scale-row">
-          <button class="scale-btn" onclick="pickScale(this,6)">6</button>
-          <button class="scale-btn" onclick="pickScale(this,7)">7</button>
-          <button class="scale-btn" onclick="pickScale(this,8)">8</button>
-          <button class="scale-btn" onclick="pickScale(this,9)">9</button>
-          <button class="scale-btn" onclick="pickScale(this,10)">10</button>
+          <button class="scale-btn" onclick="pickScale(this)">6</button>
+          <button class="scale-btn" onclick="pickScale(this)">7</button>
+          <button class="scale-btn" onclick="pickScale(this)">8</button>
+          <button class="scale-btn" onclick="pickScale(this)">9</button>
+          <button class="scale-btn" onclick="pickScale(this)">10</button>
         </div>
       </div>
       <div class="scale-labels"><span>Completely frazzled</span><span>Peaceful and present</span></div>
-      <button class="btn" id="s1btn" onclick="goS2()" disabled>Continue →</button>
+      <button class="btn" id="s1btn" onclick="go('s2')" disabled>Continue →</button>
     </div>
   </div>
 
-  <!-- Step 2: Mirror work -->
+  <!-- s2: The Observer -->
   <div class="step" id="s2">
     <div class="card">
-      <div class="mirror-intro">
-        <h2>The Mirror Work Practice</h2>
-        <p>Find a mirror — even a phone camera will do. Look into your own eyes. This is where the nervous system reset begins.</p>
-      </div>
-      <div class="mirror-steps">
-        <div class="mstep"><div class="mnum">1</div><div class="mtext">Stand or sit where you can see your face clearly. Soften your jaw, your shoulders, your eyes.</div></div>
-        <div class="mstep"><div class="mnum">2</div><div class="mtext">Look into your own eyes. Not at your appearance — into your eyes. Stay there.</div></div>
-        <div class="mstep"><div class="mnum">3</div><div class="mtext">Say out loud or silently: <em>"I see you. I am here. I am not going anywhere."</em></div></div>
-        <div class="mstep"><div class="mnum">4</div><div class="mtext">Notice what arises — discomfort, emotion, resistance. Let it be here. You do not have to fix it.</div></div>
-        <div class="mstep"><div class="mnum">5</div><div class="mtext">End with: <em>"I love you. I am safe. I am enough."</em></div></div>
-      </div>
-      <button class="btn" onclick="goS3()">I am ready for the breath →</button>
+      <div class="tag">The Observer</div>
+      <div class="step-title">You have been building something powerful.</div>
+      <p class="body-text">Through this work — uncovering your Personal Lie, exploring your inner child — you have been learning to step back and watch your mind rather than be ruled by it. That observer within you is the beginning of real change.</p>
+      <p class="body-text">As you open to new ways of seeing yourself, your mind pushes back. It likes certainty. It clings to what feels familiar — even when those patterns no longer serve you. Even when they are the very things keeping you small.</p>
+      <div class="callout">"What limits us is not logical — but our mind is. Now you can see the duality."</div>
+      <p class="body-text">When you can step back, breathe and observe — recognising the why, how and when of your reactions — you can deactivate your defensive patterns and open yourself to feeling. And in feeling, you can be healed and released.</p>
+      <button class="btn" onclick="go('sdiscover')">Let's explore how your nervous system shows up →</button>
     </div>
   </div>
 
-  <!-- Step 3: Breath -->
+  <!-- sdiscover: Discovery questions -->
+  <div class="step" id="sdiscover">
+    <div class="card">
+      <div class="tag">Your Nervous System</div>
+      <div class="step-title">Let's discover how you respond.</div>
+      <p class="step-sub">Most people have never been taught what their nervous system actually does. Answer honestly — there are no wrong answers. You are not being judged, you are being seen.</p>
+      <div class="disc-progress">
+        <div class="disc-dot active" id="dp0"></div>
+        <div class="disc-dot" id="dp1"></div>
+        <div class="disc-dot" id="dp2"></div>
+      </div>
+      <div id="disc-container"></div>
+    </div>
+  </div>
+
+  <!-- sreveal: Reveal their pattern -->
+  <div class="step" id="sreveal">
+    <div class="card">
+      <div class="tag">What We Found</div>
+      <div class="step-title" id="reveal-title"></div>
+      <div class="disc-reveal" id="reveal-body"></div>
+      <p class="body-text" style="margin-top:16px;">This is not a label. It is a starting point. Let's understand where this came from — and what it means for your body, your relationships, and your life.</p>
+      <button class="btn" onclick="go('s3')">Show me what's happening in my body →</button>
+    </div>
+  </div>
+
+  <!-- s3: Physical response -->
   <div class="step" id="s3">
+    <div class="card">
+      <div class="tag">The Body's Response</div>
+      <div class="step-title">Your body was built to survive.</div>
+      <p class="body-text">Fight, flight, freeze and fawn are not flaws. They are ancient, intelligent survival responses — built into your nervous system long before conscious thought existed.</p>
+      <p class="body-text">When your brain perceives danger, your body reacts automatically. Hormones flood in. Your heart rate rises. Your muscles tense. You are ready to act. Our ancestors needed this for real, physical threats. You still carry the same wiring — but today the "danger" is more likely an argument, a fear of rejection, or a painful memory.</p>
+      <div class="callout">"Your brain does not always distinguish between a real threat and an emotional one. It responds the same way — because to your nervous system, the feeling is real."</div>
+      <p class="body-text">Over time, these reactions become conditioned. The body associates certain situations, people or feelings with danger — and responds before you even have time to think. This is not weakness. This is a nervous system doing exactly what it was designed to do.</p>
+      <p class="body-text" style="margin-top:14px;">Understanding this is not about excusing your reactions. It is about bringing them into the light — so you can begin to choose differently.</p>
+      <button class="btn" onclick="go('s4')">Explore the five responses →</button>
+    </div>
+  </div>
+
+  <!-- s4: Five responses -->
+  <div class="step" id="s4">
+    <div class="card">
+      <div class="tag">Recognising Your Reactions</div>
+      <div class="step-title">Five ways your nervous system protects you.</div>
+      <p class="step-sub">These are instinctual responses — not flaws. Each one was developed to keep you safe. Tap each to explore.</p>
+      <div class="exp-cards">
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-header"><span class="exp-name">Fight <span class="exp-hint">control · anger · defend</span></span><span class="exp-icon">+</span></div>
+          <div class="exp-body">
+            You push back. Anger rises fast. You need to be right, to defend, to control. You may feel the urge to dominate, argue or judge as a way to feel powerful or avoid vulnerability.
+            <div class="exp-sub"><strong>What it hides</strong>Underneath every fight response is fear or unworthiness — something that felt unsafe, unseen, or unheard. You learned to push back before you could be pushed down.</div>
+          </div>
+        </div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-header"><span class="exp-name">Flight <span class="exp-hint">avoid · busy · anxious</span></span><span class="exp-icon">+</span></div>
+          <div class="exp-body">
+            Constant busyness, overworking, overthinking, perfectionism. You keep moving so you do not have to feel what is underneath. Your nervous system is stuck trying to outrun perceived danger or discomfort.
+            <div class="exp-sub"><strong>What it hides</strong>The busyness is protection. You learned that movement was safety — but the distance also keeps you from the connection and rest you truly need.</div>
+          </div>
+        </div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-header"><span class="exp-name">Freeze <span class="exp-hint">numb · stuck · shut down</span></span><span class="exp-icon">+</span></div>
+          <div class="exp-body">
+            You go still. Procrastination, numbness, dissociation, withdrawal. Freeze is often the body's last resort to overwhelm — like hitting pause when too much is happening.
+            <div class="exp-sub"><strong>What it hides</strong>Freeze is not laziness. It is your nervous system hitting its limit. The path back is not force — it is tiny, gentle steps toward safety.</div>
+          </div>
+        </div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-header"><span class="exp-name">Fawn <span class="exp-hint">please · appease · disappear</span></span><span class="exp-icon">+</span></div>
+          <div class="exp-body">
+            You say yes when you mean no. You shape yourself around others' needs to stay safe and stay loved. Driven by a deep fear of rejection or abandonment.
+            <div class="exp-sub"><strong>What it hides</strong>Fawning can result in loss of self — feeling invisible, or not knowing what you want outside of what others need from you. Your needs matter too.</div>
+          </div>
+        </div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-header"><span class="exp-name">Flop <span class="exp-hint">collapse · surrender · give up</span></span><span class="exp-icon">+</span></div>
+          <div class="exp-body">
+            Complete surrender — a shutdown of body and energy. You might feel lifeless, utterly exhausted, or like giving up entirely. Flop happens when the system has been overwhelmed for too long.
+            <div class="exp-sub"><strong>What it hides</strong>This is the deepest layer of protection — arising from deep hopelessness or when no other response feels safe. Only gentleness reaches here.</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn" onclick="go('s5')">Which do I most recognise? →</button>
+    </div>
+  </div>
+
+  <!-- s5: Pattern multi-select -->
+  <div class="step" id="s5">
+    <div class="card">
+      <div class="tag">Self Awareness</div>
+      <div class="multi-prompt">Which responses do you recognise most in yourself? Choose all that feel true.</div>
+      <div class="multi-grid">
+        <button class="multi-btn" onclick="toggleMulti(this,'fight')">Fight<br><span style="font-family:Lato;font-size:0.78rem;font-weight:300;opacity:0.8;">Anger · Control</span></button>
+        <button class="multi-btn" onclick="toggleMulti(this,'flight')">Flight<br><span style="font-family:Lato;font-size:0.78rem;font-weight:300;opacity:0.8;">Avoid · Busy</span></button>
+        <button class="multi-btn" onclick="toggleMulti(this,'freeze')">Freeze<br><span style="font-family:Lato;font-size:0.78rem;font-weight:300;opacity:0.8;">Numb · Stuck</span></button>
+        <button class="multi-btn" onclick="toggleMulti(this,'fawn')">Fawn<br><span style="font-family:Lato;font-size:0.78rem;font-weight:300;opacity:0.8;">Please · Appease</span></button>
+        <button class="multi-btn" onclick="toggleMulti(this,'flop')" style="grid-column:span 2;">Flop<br><span style="font-family:Lato;font-size:0.78rem;font-weight:300;opacity:0.8;">Collapse · Surrender</span></button>
+      </div>
+      <div class="multi-response" id="mr-fight"><strong>You fight because something matters deeply to you.</strong>The anger is not the problem — it is the signal. Underneath is something that felt unsafe, unseen, or unheard. You learned to push back before you could be pushed down. That was wisdom once. Now you get to choose something different.</div>
+      <div class="multi-response" id="mr-flight"><strong>You move because stillness feels dangerous.</strong>The busyness, the overthinking, the constant motion — all of it keeps you from what needs to be felt. You do not have to stop everything. Just slow down long enough to notice what is underneath the movement.</div>
+      <div class="multi-response" id="mr-freeze"><strong>You go still because your system became overwhelmed.</strong>Freeze is not laziness. It is your nervous system hitting its limit and shutting down to protect you. The path back is not force — it is tiny, gentle steps. One small moment of safety at a time.</div>
+      <div class="multi-response" id="mr-fawn"><strong>You give yourself away to feel safe in connection.</strong>Fawning looks like kindness but it costs you yourself. You learned that love had to be earned through pleasing. You are allowed to take up space. Your needs are allowed to exist.</div>
+      <div class="multi-response" id="mr-flop"><strong>You have been carrying more than anyone should carry alone.</strong>When nothing else feels safe, the body collapses. This is not weakness — this is a system held at its edges for too long. Gentleness and rest. That is the way back.</div>
+      <button class="btn" onclick="go('s6')">Now let's look at relationships →</button>
+    </div>
+  </div>
+
+  <!-- s6: Attachment styles -->
+  <div class="step" id="s6">
+    <div class="card">
+      <div class="tag">Attachment in Relationships</div>
+      <div class="step-title">How your earliest relationships shaped you.</div>
+      <p class="step-sub">Your nervous system is shaped not only by stress and trauma, but by how emotionally safe you felt in your earliest relationships — especially with caregivers. These experiences formed your attachment style: a relational blueprint for how you connect with others today. Tap each to explore.</p>
+      <div class="exp-cards">
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-header"><span class="exp-name">Secure Attachment</span><span class="exp-icon">+</span></div>
+          <div class="exp-body">
+            Formed when caregivers were emotionally available and consistent. You likely feel comfortable with intimacy, have healthy boundaries, trust others, and can regulate your emotions relatively well.
+            <div class="exp-sub"><strong>In your relationships now</strong>You feel safe being close and safe being alone. Conflict does not feel catastrophic. You can ask for what you need and receive care without it feeling overwhelming.</div>
+          </div>
+        </div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-header"><span class="exp-name">Avoidant Attachment</span><span class="exp-icon">+</span></div>
+          <div class="exp-body">
+            Formed when caregivers were distant, disinterested, or emotionally unavailable. You may feel uncomfortable with closeness, rely heavily on yourself, struggle to express emotions, and push others away.
+            <div class="exp-sub"><strong>In your relationships now</strong>Intimacy can feel suffocating. You value independence intensely — because connection once felt unsafe. The push-pull of wanting closeness while also fearing it lives here.</div>
+          </div>
+        </div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-header"><span class="exp-name">Anxious Attachment</span><span class="exp-icon">+</span></div>
+          <div class="exp-body">
+            Formed when caregiving was inconsistent — sometimes nurturing, sometimes rejecting. A strong fear of abandonment, craving reassurance, becoming clingy or codependent, worrying you are "too much."
+            <div class="exp-sub"><strong>In your relationships now</strong>You reach hard for connection and panic when it feels uncertain. You might over-give, over-explain, or work hard to keep people close — because losing them once felt catastrophic.</div>
+          </div>
+        </div>
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-header"><span class="exp-name">Disorganized Attachment</span><span class="exp-icon">+</span></div>
+          <div class="exp-body">
+            Formed when caregivers were both a source of fear and comfort — often due to trauma, abuse or neglect. Torn between craving closeness and fearing it, switching unpredictably between avoidant and anxious patterns.
+            <div class="exp-sub"><strong>In your relationships now</strong>You want love deeply and also fear it deeply. Connection can feel chaotic or confusing. This is not your fault — it is the nervous system's response to love that also hurt.</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:16px;">"Attachment styles are not personality flaws — they are learned safety patterns. And just like nervous system responses, they can be rewired with awareness and breath."</div>
+      <button class="btn" onclick="go('s7')">Reflect on what you noticed →</button>
+    </div>
+  </div>
+
+  <!-- s7: Attachment reflection -->
+  <div class="step" id="s7">
+    <div class="card">
+      <div class="tag">Reflection</div>
+      <div class="step-title">Your relational blueprint.</div>
+      <p class="body-text">Take a moment with these questions. There is no right answer — only what is true for you right now.</p>
+      <p class="q-label"><em>Which attachment style feels most familiar to you?</em></p>
+      <textarea id="att1" placeholder="Write what came up for you..."></textarea>
+      <p class="q-label"><em>How do you see it show up in your relationships, communication, or your ability to receive love?</em></p>
+      <textarea id="att2" placeholder="Notice without judgement. This is just awareness..."></textarea>
+      <button class="btn" onclick="go('s8')">Now — what do I do with this? →</button>
+    </div>
+  </div>
+
+  <!-- s8: Questions to Reveal and Heal -->
+  <div class="step" id="s8">
+    <div class="card">
+      <div class="tag">Questions to Reveal and Heal</div>
+      <div class="step-title">A process to navigate your reactions.</div>
+      <p class="body-text">First — understand this: no one is responsible for your emotional reactions except you. That sounds confronting. But it is also the most freeing thing you will ever hear.</p>
+      <div class="callout">"My reaction is my work. Their reaction is theirs."</div>
+      <p class="body-text">Instead of going into blame or shame when you react, use these three steps to create space to respond:</p>
+      <div class="num-steps">
+        <div class="num-step">
+          <div class="num-circle">1</div>
+          <div class="num-text"><strong>Breathe</strong>This reconnects you to your body and the present moment. It signals safety to your nervous system. Inhale through the nose for 4 · Hold for 2 · Exhale for 8.</div>
+        </div>
+        <div class="num-step">
+          <div class="num-circle">2</div>
+          <div class="num-text"><strong>Identify the emotion</strong>Say: <em>"I feel..."</em> Breathe with the feeling. Allow it to move through your body. Observe it — without trying to fix it or push it away.</div>
+        </div>
+        <div class="num-step">
+          <div class="num-circle">3</div>
+          <div class="num-text"><strong>Validate your reaction</strong>Not because you are right — but because acceptance softens the reactive state into awareness. Blame and shame keep you spinning. Validation allows you to go deeper.</div>
+        </div>
+      </div>
+      <p class="body-text" style="margin-top:4px;">When you learn to calm and accept your reaction, you can return to your body — and connect with what you truly feel underneath it.</p>
+      <button class="btn" onclick="go('s9')">Take me deeper into the feeling →</button>
+    </div>
+  </div>
+
+  <!-- s9: The deepening -->
+  <div class="step" id="s9">
+    <div class="card">
+      <div class="tag">The Deepening</div>
+      <div class="step-title">Going below the reaction to the feeling.</div>
+      <p class="body-text">Our reactions are always connected to deeper wounds. Bring a recent reaction to mind. Use these questions to move below the surface. Take your time.</p>
+      <p class="q-label"><em>What is the reactive emotion you are experiencing?</em><br><span style="font-size:0.82rem;color:#9a7d6e;">Anger, fear, disgust, annoyance, blame, guilt...</span></p>
+      <textarea id="dq1" placeholder="I feel..."></textarea>
+      <p class="q-label"><em>What is the feeling underneath that reaction?</em><br><span style="font-size:0.82rem;color:#9a7d6e;">Sadness, grief, rejection, betrayal, abandonment, hurt...</span></p>
+      <textarea id="dq2" placeholder="Underneath, I feel..."></textarea>
+      <p class="q-label"><em>When have you felt this before?</em><br><span style="font-size:0.82rem;color:#9a7d6e;">Let whatever comes up arise — a memory, an age, a person, a moment.</span></p>
+      <textarea id="dq3" placeholder="The first time I remember feeling this..."></textarea>
+      <div class="callout" style="margin-top:20px;">"As we feel safe to bring these moments into our current awareness, we can start the deeper healing."</div>
+      <button class="btn" onclick="go('sshow')">Continue →</button>
+    </div>
+  </div>
+
+  <!-- sshow: Showing Up for Yourself -->
+  <div class="step" id="sshow">
+    <div class="card">
+      <div class="tag">Showing Up for Yourself</div>
+      <div class="step-title">To run again — or to show up.</div>
+      <p class="body-text">Running out on ourselves only leads to distrust in ourselves. It gives us the opening to betray ourselves, to blame ourselves — which triggers your Personal Lie and the mind chatter of untruths that send you into a spiral of shame.</p>
+      <p class="body-text" style="margin-top:14px;">Not showing up for yourself can manifest in many ways:</p>
+      <div class="show-up-list">
+        <div class="show-up-item"><span>·</span><span>Quitting before you gave yourself a real chance to start</span></div>
+        <div class="show-up-item"><span>·</span><span>Procrastination — avoiding action out of fear of failure</span></div>
+        <div class="show-up-item"><span>·</span><span>Waiting for the perfect moment, to feel a certain way, to have all your ducks in a row — an illusion that sets you up to fail</span></div>
+        <div class="show-up-item"><span>·</span><span>Analysis paralysis. Remember: do not believe all your thoughts</span></div>
+      </div>
+      <div class="callout">Showing up for yourself is not about forcing yourself to do something. It is about honouring yourself and checking in on whether it truly serves you.</div>
+      <p class="body-text">Showing up is not a destination. It is a continual choice to choose yourself.</p>
+      <p class="body-text" style="margin-top:14px;">It is not about showing up only when life is smooth — it is about showing up especially when it is hard. About forgiving yourself, as many times as you need.</p>
+      <p class="body-text" style="margin-top:14px;">Most importantly — the confidence that you can trust yourself to be there when you need yourself most. Because through showing up, you discover who you truly are.</p>
+      <p class="body-text" style="margin-top:14px; font-family:'Playfair Display',serif; font-style:italic; color:#5c2318;">No one will ever meet your needs as well as you. And no one can ever love you the way you need to be loved — until you do it for you.</p>
+      <button class="btn" onclick="go('s10')">Let's breathe it through →</button>
+    </div>
+  </div>
+
+  <!-- s10: Anchoring breath -->
+  <div class="step" id="s10">
     <div class="card breath-wrap">
-      <h2>The Anchoring Breath</h2>
-      <p class="sub">4 counts in · 2 hold · 8 counts out<br>This breath signals safety to your nervous system.</p>
+      <div class="tag">Coming Back</div>
+      <div class="step-title" style="margin-bottom:8px;">The Anchoring Breath</div>
+      <p style="font-size:0.9rem;color:#9a7d6e;margin-bottom:24px;line-height:1.6;">4 in · 2 hold · 8 out<br>Signal safety to your nervous system. Five rounds.</p>
       <div class="circle-area">
         <div class="outer-ring" id="oring"><div class="inner-dot"></div></div>
         <div class="b-word" id="bword">Ready</div>
         <div class="b-count" id="bcount"></div>
-        <div class="b-aff" id="baff"></div>
         <div class="b-rounds" id="brounds"></div>
         <button class="start-btn" id="startbtn" onclick="startBreath()">Begin</button>
       </div>
     </div>
   </div>
 
-  <!-- Step 4: After -->
-  <div class="step" id="s4">
-    <div class="card after-card">
-      <h2>Notice what has shifted.</h2>
-      <p>Your nervous system is not a machine to fix. It is a living, breathing part of you that responds to safety. Every time you do this practice, you are sending it one message: <em>you are safe now.</em></p>
-      <div class="callout">"I am safe to receive. I am safe to expand."<br><br>Return to this breath anytime you feel yourself spinning. It is always here.</div>
-      <button class="restart" onclick="location.reload()">Begin again</button>
+  <!-- s11: Mirror + daily practice + close -->
+  <div class="step" id="s11">
+    <div class="card">
+      <div class="tag" style="display:block;text-align:center;margin-bottom:16px;">Returning</div>
+      <div class="step-title" style="text-align:center;margin-bottom:14px;">Notice what has shifted.</div>
+      <p class="body-text" style="text-align:center;margin-bottom:20px;">You have done something profound today. You named what has lived unnamed. You breathed through what has felt unbreathable. Every time you return to yourself, you build a new foundation.</p>
+
+      <p class="body-text" style="margin-bottom:8px;">End today's practice with mirror work.</p>
+      <div class="mirror-steps">
+        <div class="mstep"><div class="mnum">1</div><div class="mtext">Look into your own eyes — not at how you look, but into your eyes. Stay there.</div></div>
+        <div class="mstep"><div class="mnum">2</div><div class="mtext">Say aloud or silently: <em>"I see you. I am here. I am not going anywhere."</em></div></div>
+        <div class="mstep"><div class="mnum">3</div><div class="mtext">Notice what arises — emotion, discomfort, resistance. Let it be here. You do not have to fix it.</div></div>
+        <div class="mstep"><div class="mnum">4</div><div class="mtext">End with: <em>"I am safe. I am enough. I am coming home to myself."</em></div></div>
+      </div>
+
+      <div class="practice-box">
+        <h4>Your Daily Nervous System Check-In</h4>
+        <p>Use this as a simple hourly practice to come back to your body. Set a breath reminder in your phone.</p>
+        <p class="mantra">"I am safe to be present in my body."</p>
+        <p>Close your eyes. Inhale slowly through the nose. Exhale with a sigh. Three times. Then sit for a few more breaths and observe how you feel. This small moment of conscious breathing interrupts unconscious survival patterns and builds trust in your body.</p>
+      </div>
+
+      <div class="callout" style="margin-top:20px;">"Showing up is not a destination. It is a continual choice to choose yourself."</div>
+      <div style="text-align:center;margin-top:24px;">
+        <button class="restart" onclick="location.reload()">Begin again</button>
+      </div>
     </div>
   </div>
 
@@ -148,35 +449,144 @@
 </div>
 
 <script>
-  let scaleVal = 0;
-  function pickScale(el, val) {
-    document.querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('sel'));
+  // Scale
+  function pickScale(el) {
+    document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('sel'));
     el.classList.add('sel');
-    scaleVal = val;
     document.getElementById('s1btn').disabled = false;
   }
 
-  function goS2() {
-    show('s2');
-  }
-  function goS3() { show('s3'); }
-
-  function show(id) {
-    document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+  // Navigation
+  function go(id) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
     document.getElementById(id).classList.add('on');
-    window.scrollTo({top:0,behavior:'smooth'});
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Breath: 4 in, 2 hold, 8 out — 5 rounds
-  let breathActive = false;
-  const affirmations = [
-    'I am safe to receive.',
-    'I am safe to expand.',
-    'I am safe to receive.',
-    'I am safe to expand.',
-    'I am home in my body.'
+  // Expandable cards
+  function toggleExp(card) { card.classList.toggle('open'); }
+
+  // Multi-select
+  const selectedMulti = new Set();
+  function toggleMulti(btn, key) {
+    btn.classList.toggle('sel');
+    selectedMulti.has(key) ? selectedMulti.delete(key) : selectedMulti.add(key);
+    ['fight','flight','freeze','fawn','flop'].forEach(k => {
+      document.getElementById('mr-' + k).classList.toggle('show', selectedMulti.has(k));
+    });
+  }
+
+  // Discovery questions
+  const discQuestions = [
+    {
+      q: "Something unexpected happens and your plans fall apart. In that moment, what do you notice first?",
+      opts: [
+        { label: "A surge of irritation — I need to fix it or take control of something", key: 'fight' },
+        { label: "An urge to move, get busy, or distract myself with something else", key: 'flight' },
+        { label: "I go blank or heavy — I feel stuck and can't think clearly", key: 'freeze' },
+        { label: "I immediately think about how everyone else is affected", key: 'fawn' },
+        { label: "I feel completely depleted — the weight of it is just too much", key: 'flop' }
+      ]
+    },
+    {
+      q: "Someone close to you says something that hurts. Your instinct is to...",
+      opts: [
+        { label: "Defend myself, push back, or need them to understand I was right", key: 'fight' },
+        { label: "Pull away, go quiet, or find something to keep me occupied", key: 'flight' },
+        { label: "Go silent — feel paralysed and unable to find words", key: 'freeze' },
+        { label: "Say sorry, try to fix it, or make sure they're not upset with me", key: 'fawn' },
+        { label: "Feel exhausted — like I have no capacity left to deal with it", key: 'flop' }
+      ]
+    },
+    {
+      q: "When life feels really overwhelming, you tend to...",
+      opts: [
+        { label: "Get snappy, impatient, or control whatever I can", key: 'fight' },
+        { label: "Pile on more tasks, go into overdrive, or avoid sitting with it", key: 'flight' },
+        { label: "Procrastinate, dissociate, or feel completely frozen in place", key: 'freeze' },
+        { label: "Say yes to everything and disappear into caring for others", key: 'fawn' },
+        { label: "Collapse, withdraw completely, or feel like there's nothing left", key: 'flop' }
+      ]
+    }
   ];
 
+  const discScores = { fight: 0, flight: 0, freeze: 0, fawn: 0, flop: 0 };
+  let discIdx = 0;
+
+  const revealContent = {
+    fight: {
+      title: "Your nervous system tends toward Fight.",
+      body: "You push back when life feels unsafe. Anger rises fast, and control becomes your anchor. This is not aggression — it is protection. Underneath the fight is something that felt deeply unseen or threatened. You learned to push before you could be pushed down."
+    },
+    flight: {
+      title: "Your nervous system tends toward Flight.",
+      body: "When life feels unsafe, you move. Busyness, overthinking, keeping yourself occupied — these are your nervous system's way of outrunning what feels threatening. It works, for a while. But the feeling is always waiting for stillness."
+    },
+    freeze: {
+      title: "Your nervous system tends toward Freeze.",
+      body: "When overwhelmed, you go still. Not because you are lazy — but because your nervous system hit its limit and shut down to protect you. The procrastination, the numbness, the paralysis — these are all forms of your body saying: this is too much."
+    },
+    fawn: {
+      title: "Your nervous system tends toward Fawn.",
+      body: "You move toward others when you feel unsafe — appeasing, pleasing, making sure everyone is okay. You learned early that your safety depended on keeping others comfortable. It kept you loved. But it cost you yourself."
+    },
+    flop: {
+      title: "Your nervous system tends toward Flop.",
+      body: "When everything becomes too much, you surrender completely. The exhaustion is real. The collapse is real. This is your nervous system's deepest layer of protection — arising when no other response feels possible. You have been carrying more than you should carry alone."
+    },
+    mixed: {
+      title: "Your nervous system moves between responses.",
+      body: "You do not have one fixed pattern — you shift between responses depending on the situation, the relationship, or how depleted you already feel. This is very common. It means your nervous system is highly adaptive — and understanding each response will help you notice which one is active at any given moment."
+    }
+  };
+
+  function renderDiscQuestion() {
+    if (discIdx >= discQuestions.length) {
+      showReveal();
+      return;
+    }
+    for (let i = 0; i < 3; i++) {
+      const dot = document.getElementById('dp' + i);
+      dot.classList.remove('active', 'done');
+      if (i < discIdx) dot.classList.add('done');
+      else if (i === discIdx) dot.classList.add('active');
+    }
+    const q = discQuestions[discIdx];
+    const container = document.getElementById('disc-container');
+    container.innerHTML = `
+      <div class="disc-q">
+        <span class="qnum">Question ${discIdx + 1} of 3</span>
+        ${q.q}
+      </div>
+      <div class="disc-options">
+        ${q.opts.map((o, i) => `<button class="disc-opt" onclick="pickDisc(this,'${o.key}')">${o.label}</button>`).join('')}
+      </div>`;
+  }
+
+  function pickDisc(btn, key) {
+    document.querySelectorAll('.disc-opt').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    discScores[key]++;
+    setTimeout(() => {
+      discIdx++;
+      renderDiscQuestion();
+    }, 400);
+  }
+
+  function showReveal() {
+    const maxScore = Math.max(...Object.values(discScores));
+    const topKeys = Object.keys(discScores).filter(k => discScores[k] === maxScore);
+    const key = topKeys.length > 1 ? 'mixed' : topKeys[0];
+    const content = revealContent[key];
+    document.getElementById('reveal-title').textContent = content.title;
+    document.getElementById('reveal-body').innerHTML = `<p>${content.body}</p>`;
+    go('sreveal');
+  }
+
+  renderDiscQuestion();
+
+  // Breath
+  let breathActive = false;
   function startBreath() {
     if (breathActive) return;
     breathActive = true;
@@ -188,39 +598,30 @@
     if (r >= 5) {
       document.getElementById('bword').textContent = 'Complete';
       document.getElementById('bcount').textContent = '';
-      document.getElementById('baff').textContent = 'Stay here for a moment. Feel the stillness.';
       document.getElementById('brounds').textContent = '';
-      document.getElementById('oring').classList.remove('expand','hold');
-      setTimeout(()=>show('s4'), 3500);
+      document.getElementById('oring').classList.remove('expand', 'hold');
+      setTimeout(() => go('s11'), 3000);
       return;
     }
     const ring = document.getElementById('oring');
     const word = document.getElementById('bword');
     const cnt = document.getElementById('bcount');
-    const aff = document.getElementById('baff');
-    const rnds = document.getElementById('brounds');
-    rnds.textContent = 'Round ' + (r+1) + ' of 5';
-    aff.textContent = affirmations[r];
+    document.getElementById('brounds').textContent = 'Round ' + (r + 1) + ' of 5';
 
-    // Inhale: 4 counts
-    word.textContent = 'Inhale'; ring.classList.add('expand'); ring.classList.remove('hold');
-    let i = 4;
-    cnt.textContent = i;
-    const inInt = setInterval(()=>{ i--; cnt.textContent = i>0?i:''; if(i<=0) clearInterval(inInt); }, 1000);
+    word.textContent = 'Breathe in';
+    ring.classList.add('expand'); ring.classList.remove('hold');
+    let i = 4; cnt.textContent = i;
+    const inInt = setInterval(() => { i--; cnt.textContent = i > 0 ? i : ''; if (i <= 0) clearInterval(inInt); }, 1000);
 
-    setTimeout(()=>{
-      // Hold: 2 counts
+    setTimeout(() => {
       word.textContent = 'Hold'; ring.classList.add('hold');
       let h = 2; cnt.textContent = h;
-      const hInt = setInterval(()=>{ h--; cnt.textContent = h>0?h:''; if(h<=0) clearInterval(hInt); }, 1000);
-
-      setTimeout(()=>{
-        // Exhale: 8 counts
-        word.textContent = 'Exhale'; ring.classList.remove('expand','hold');
+      const hInt = setInterval(() => { h--; cnt.textContent = h > 0 ? h : ''; if (h <= 0) clearInterval(hInt); }, 1000);
+      setTimeout(() => {
+        word.textContent = 'Breathe out'; ring.classList.remove('expand', 'hold');
         let e = 8; cnt.textContent = e;
-        const eInt = setInterval(()=>{ e--; cnt.textContent = e>0?e:''; if(e<=0) clearInterval(eInt); }, 1000);
-
-        setTimeout(()=>{ runRound(r+1); }, 8200);
+        const eInt = setInterval(() => { e--; cnt.textContent = e > 0 ? e : ''; if (e <= 0) clearInterval(eInt); }, 1000);
+        setTimeout(() => runRound(r + 1), 8200);
       }, 2200);
     }, 4200);
   }

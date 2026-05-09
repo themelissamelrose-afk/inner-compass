@@ -612,6 +612,10 @@ app.get('/inner-teen', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'inner-teen.html'));
 });
 
+app.get('/week4-nervous-system', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'week4-nervous-system.html'));
+});
+
 app.get('*', (req, res) => {
   res.redirect('/');
 });
