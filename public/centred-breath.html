@@ -180,7 +180,17 @@
     document.getElementById('startChoice').style.display = 'block';
   }
 
-  // Centred Breath: inhale belly→heart (6s), exhale heart→belly (6s)
+  const inhaleGuides = [
+    'Let your belly soften and expand...',
+    'Feel it rise through your chest...',
+    'All the way into your heart...'
+  ];
+  const exhaleGuides = [
+    'Let it fall from your heart...',
+    'Soften back into your belly...',
+    'Release. You are safe.'
+  ];
+
   function startBreath() {
     document.getElementById('startBtn').style.display = 'none';
     runRound(0);
@@ -188,7 +198,6 @@
 
   function runRound(r) {
     if (r >= totalRounds) {
-      // Done
       document.getElementById('bWord').textContent = 'Beautiful.';
       document.getElementById('bGuide').textContent = 'You are here.';
       document.getElementById('bCount').textContent = '';
@@ -203,25 +212,25 @@
     currentRound = r;
     document.getElementById('bProgress').textContent = 'Breath ' + (r+1) + ' of ' + totalRounds;
 
-    // ── Inhale: belly → heart (6 counts)
-    document.getElementById('bWord').textContent = 'Inhale';
-    document.getElementById('bGuide').textContent = 'Belly to heart — feel the energy rise';
+    // Inhale: belly to heart
+    document.getElementById('bWord').textContent = 'Breathe in';
+    document.getElementById('bGuide').textContent = inhaleGuides[0];
     document.getElementById('cBelly').classList.add('glow');
     document.getElementById('cHeart').classList.remove('glow');
     document.getElementById('bDot').classList.remove('to-heart','to-belly');
-    // small delay then animate dot upward
     setTimeout(()=>document.getElementById('bDot').classList.add('to-heart'), 50);
-    countdown(6, ()=>{
-      // heart glows as breath arrives
+    breatheMusic('inhale', 6);
+    countdown(6, inhaleGuides, ()=>{
       document.getElementById('cHeart').classList.add('glow');
       document.getElementById('cBelly').classList.remove('glow');
 
-      // ── Exhale: heart → belly (6 counts)
-      document.getElementById('bWord').textContent = 'Exhale';
-      document.getElementById('bGuide').textContent = 'Heart to belly — let the energy soften back';
+      // Exhale: heart to belly
+      document.getElementById('bWord').textContent = 'Breathe out';
+      document.getElementById('bGuide').textContent = exhaleGuides[0];
       document.getElementById('bDot').classList.remove('to-heart');
       setTimeout(()=>document.getElementById('bDot').classList.add('to-belly'), 50);
-      countdown(6, ()=>{
+      breatheMusic('exhale', 6);
+      countdown(6, exhaleGuides, ()=>{
         document.getElementById('cBelly').classList.add('glow');
         document.getElementById('cHeart').classList.remove('glow');
         runRound(r + 1);
@@ -229,18 +238,22 @@
     });
   }
 
-  function countdown(secs, cb) {
+  function countdown(secs, guides, cb) {
     let s = secs;
     document.getElementById('bCount').textContent = s;
     const t = setInterval(()=>{
       s--;
       document.getElementById('bCount').textContent = s > 0 ? s : '';
+      // Update guide text at thirds of the breath
+      if (s === 4) document.getElementById('bGuide').textContent = guides[1];
+      if (s === 2) document.getElementById('bGuide').textContent = guides[2];
       if (s <= 0) { clearInterval(t); cb(); }
     }, 1000);
   }
 
-  // ── Ambient Music ─────────────────────────────────────
-  let audioCtx = null, masterGain = null, musicOn = false;
+  // ── Music that breathes ───────────────────────────────
+  let audioCtx = null, masterGain = null, dryGain = null, musicOn = false;
+  let noteTimer = null, padOscs = [];
 
   function toggleMusic() {
     const btn = document.getElementById('musicBtn');
@@ -256,27 +269,85 @@
   function startMusic() {
     try {
       audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+
       masterGain = audioCtx.createGain();
       masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
-      masterGain.gain.linearRampToValueAtTime(0.13, audioCtx.currentTime+4);
+      masterGain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 3);
       masterGain.connect(audioCtx.destination);
-      // Warm heart-centred drone (F natural, heart chakra)
-      [174, 348, 528, 696].forEach((freq, i) => {
-        const osc=audioCtx.createOscillator(), g=audioCtx.createGain();
-        osc.type='sine'; osc.frequency.value=freq;
-        g.gain.value=[0.45,0.25,0.18,0.08][i];
-        const lfo=audioCtx.createOscillator(), lg=audioCtx.createGain();
-        lfo.type='sine'; lfo.frequency.value=0.05+i*0.02; lg.gain.value=freq*0.003;
-        lfo.connect(lg); lg.connect(osc.frequency); lfo.start();
-        osc.connect(g); g.connect(masterGain); osc.start();
+
+      // Soft reverb space
+      const delay = audioCtx.createDelay(2.5);
+      delay.delayTime.value = 1.2;
+      const fb = audioCtx.createGain(); fb.gain.value = 0.35;
+      delay.connect(fb); fb.connect(delay);
+      const wet = audioCtx.createGain(); wet.gain.value = 0.4;
+      const dry = audioCtx.createGain(); dry.gain.value = 0.6;
+      dryGain = dry;
+      delay.connect(wet); wet.connect(masterGain); dry.connect(masterGain);
+
+      // Warm breathing pad — triangle waves for softness
+      // Heart-centred tuning: 528hz (love/heart), harmonics
+      const padFreqs = [132, 198, 264, 396, 528];
+      padFreqs.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        osc.type = i < 2 ? 'sine' : 'triangle';
+        osc.frequency.value = freq;
+        g.gain.value = [0.28, 0.18, 0.12, 0.08, 0.05][i];
+        // Gentle natural tremolo on each partial
+        const lfo = audioCtx.createOscillator();
+        const lg = audioCtx.createGain();
+        lfo.frequency.value = 0.06 + i * 0.018;
+        lg.gain.value = freq * 0.002;
+        lfo.connect(lg); lg.connect(osc.frequency);
+        osc.connect(g); g.connect(dry); g.connect(delay);
+        lfo.start(); osc.start();
+        padOscs.push(osc);
       });
-    } catch(e){}
+
+      // Melodic notes — pentatonic in C: C D E G A
+      scheduleNote(dry, delay);
+    } catch(e) {}
+  }
+
+  const melodyNotes = [264, 297, 330, 396, 440, 528, 594, 660];
+
+  function scheduleNote(dry, delay) {
+    if (!audioCtx) return;
+    const ctx = audioCtx;
+    const freq = melodyNotes[Math.floor(Math.random() * melodyNotes.length)];
+    const osc = ctx.createOscillator();
+    const env = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    env.gain.setValueAtTime(0, ctx.currentTime);
+    env.gain.linearRampToValueAtTime(0.09, ctx.currentTime + 1.2);
+    env.gain.linearRampToValueAtTime(0, ctx.currentTime + 7);
+    osc.connect(env);
+    env.connect(dry);
+    env.connect(delay);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 8);
+    noteTimer = setTimeout(() => scheduleNote(dry, delay), 3500 + Math.random() * 5000);
+  }
+
+  function breatheMusic(phase, durationSecs) {
+    if (!audioCtx || !masterGain) return;
+    const now = audioCtx.currentTime;
+    masterGain.gain.cancelScheduledValues(now);
+    masterGain.gain.setValueAtTime(masterGain.gain.value, now);
+    if (phase === 'inhale') {
+      masterGain.gain.linearRampToValueAtTime(0.22, now + durationSecs * 0.75);
+    } else {
+      masterGain.gain.linearRampToValueAtTime(0.08, now + durationSecs);
+    }
   }
 
   function stopMusic() {
+    if (noteTimer) { clearTimeout(noteTimer); noteTimer = null; }
     if (masterGain && audioCtx) {
-      masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime+2);
-      setTimeout(()=>{ try{audioCtx.close();}catch(e){} audioCtx=null; masterGain=null; musicOn=false;
+      masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 2);
+      setTimeout(()=>{ try{audioCtx.close();}catch(e){} audioCtx=null; masterGain=null; dryGain=null; padOscs=[]; musicOn=false;
         const b=document.getElementById('musicBtn'); if(b){b.textContent='♪ Add music';b.classList.remove('on');}
       }, 2200);
     }
