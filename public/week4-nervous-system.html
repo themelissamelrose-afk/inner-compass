@@ -39,7 +39,7 @@
     .scale-btn.sel { background: #c4967a; color: #fff; border-color: #c4967a; }
     .scale-labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.8rem; color: #9a7d6e; }
 
-    /* Discovery questions */
+    /* Discovery */
     .disc-q { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #5c2318; margin-bottom: 16px; line-height: 1.55; }
     .disc-q .qnum { font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 6px; }
     .disc-options { display: flex; flex-direction: column; gap: 8px; }
@@ -51,7 +51,6 @@
     .disc-dot.done { background: #c4967a; }
     .disc-dot.active { background: #5c2318; }
     .disc-reveal { padding: 20px; background: #f9f3eb; border-radius: 14px; border: 1px solid #e8d9c4; margin-top: 4px; }
-    .disc-reveal h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #5c2318; margin-bottom: 10px; }
     .disc-reveal p { font-size: 0.92rem; line-height: 1.75; color: #4a3728; }
 
     /* Expandable */
@@ -92,14 +91,17 @@
     .num-text { font-size: 0.91rem; line-height: 1.72; color: #4a3728; }
     .num-text strong { color: #5c2318; display: block; margin-bottom: 2px; }
 
-    /* Showing up bullets */
+    /* Show up bullets */
     .show-up-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
     .show-up-item { display: flex; gap: 12px; align-items: flex-start; font-size: 0.92rem; line-height: 1.7; color: #4a3728; }
     .show-up-item span:first-child { color: #c4967a; font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
 
     /* Breath */
     .breath-wrap { text-align: center; }
-    .circle-area { display: flex; flex-direction: column; align-items: center; margin: 20px 0; }
+    .music-toggle { background: transparent; border: 1.5px solid #e8d9c4; color: #9a7d6e; font-size: 0.85rem; padding: 8px 18px; border-radius: 20px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; margin-bottom: 20px; }
+    .music-toggle:hover { border-color: #c4967a; color: #5c2318; }
+    .music-toggle.on { border-color: #c4967a; color: #5c2318; background: #f9f3eb; }
+    .circle-area { display: flex; flex-direction: column; align-items: center; margin: 16px 0; }
     .outer-ring { width: 150px; height: 150px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; transition: transform 2s ease-in-out, background 2s ease; }
     .outer-ring.expand { transform: scale(1.3); background: #e8d4be; }
     .outer-ring.hold { transform: scale(1.3); background: #dcc9b2; }
@@ -116,6 +118,16 @@
     .practice-box p { font-size: 0.9rem; line-height: 1.75; color: #4a3728; }
     .practice-box .mantra { font-family: 'Playfair Display', serif; font-style: italic; color: #5c2318; font-size: 0.97rem; text-align: center; margin: 14px 0; }
 
+    /* Guided audio option */
+    .guided-option { border: 1.5px solid #e8d9c4; border-radius: 14px; padding: 22px; background: #fff; margin-top: 20px; text-align: center; }
+    .guided-option h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; margin-bottom: 8px; }
+    .guided-option p { font-size: 0.88rem; line-height: 1.7; color: #6b5144; margin-bottom: 16px; }
+    .audio-play-btn { background: #c4967a; color: #fff; border: none; border-radius: 30px; padding: 12px 28px; font-family: 'Playfair Display', serif; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
+    .audio-play-btn:hover { background: #a07560; }
+    .audio-player { margin-top: 14px; display: none; }
+    .audio-player audio { width: 100%; border-radius: 8px; }
+    .audio-player.show { display: block; }
+
     /* Mirror close */
     .mirror-steps { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
     .mstep { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: #fdf9f4; border-radius: 12px; border: 1px solid #ede3d4; }
@@ -131,12 +143,12 @@
   <div class="week-label">Week 4 · Foundations of Self</div>
   <h1>Your Nervous<br>System</h1>
   <div class="divider"></div>
-  <p class="intro">This week we go deeper — understanding what your nervous system is actually doing, the patterns it has learned, and how to come back to yourself when it takes over.</p>
+  <p class="intro">This week we go deeper, understanding what your nervous system is actually doing, the patterns it has learned, and how to come back to yourself when it takes over.</p>
 
   <!-- s1: Check-in -->
   <div class="step on" id="s1">
     <div class="card">
-      <div class="checkin-q">Before we begin — where is your nervous system right now?</div>
+      <div class="checkin-q">Before we begin, where is your nervous system right now?</div>
       <div class="scale">
         <div class="scale-row">
           <button class="scale-btn" onclick="pickScale(this)">1</button>
@@ -163,10 +175,10 @@
     <div class="card">
       <div class="tag">The Observer</div>
       <div class="step-title">You have been building something powerful.</div>
-      <p class="body-text">Through this work — uncovering your Personal Lie, exploring your inner child — you have been learning to step back and watch your mind rather than be ruled by it. That observer within you is the beginning of real change.</p>
-      <p class="body-text">As you open to new ways of seeing yourself, your mind pushes back. It likes certainty. It clings to what feels familiar — even when those patterns no longer serve you. Even when they are the very things keeping you small.</p>
-      <div class="callout">"What limits us is not logical — but our mind is. Now you can see the duality."</div>
-      <p class="body-text">When you can step back, breathe and observe — recognising the why, how and when of your reactions — you can deactivate your defensive patterns and open yourself to feeling. And in feeling, you can be healed and released.</p>
+      <p class="body-text">Through this work, uncovering your Personal Lie and reconnecting to your body, you have been learning to step back and watch your mind rather than be ruled by it. That observer within you is the beginning of real change.</p>
+      <p class="body-text">As you open to new ways of seeing yourself, your mind pushes back. It likes certainty. It clings to what feels familiar, even when those patterns no longer serve you, even when they are the very things keeping you small.</p>
+      <div class="callout">"What limits us is not logical. But our mind is. Now you can see the duality."</div>
+      <p class="body-text">When you can step back, breathe and observe, recognising the why, how and when of your reactions, you can deactivate your defensive patterns and open yourself to feeling. And in feeling, you can be healed and released.</p>
       <button class="btn" onclick="go('sdiscover')">Let's explore how your nervous system shows up →</button>
     </div>
   </div>
@@ -176,7 +188,7 @@
     <div class="card">
       <div class="tag">Your Nervous System</div>
       <div class="step-title">Let's discover how you respond.</div>
-      <p class="step-sub">Most people have never been taught what their nervous system actually does. Answer honestly — there are no wrong answers. You are not being judged, you are being seen.</p>
+      <p class="step-sub">Most people have never been taught what their nervous system actually does. Answer honestly. There are no wrong answers. You are not being judged, you are being seen.</p>
       <div class="disc-progress">
         <div class="disc-dot active" id="dp0"></div>
         <div class="disc-dot" id="dp1"></div>
@@ -186,14 +198,14 @@
     </div>
   </div>
 
-  <!-- sreveal: Reveal their pattern -->
+  <!-- sreveal: Pattern reveal -->
   <div class="step" id="sreveal">
     <div class="card">
       <div class="tag">What We Found</div>
       <div class="step-title" id="reveal-title"></div>
       <div class="disc-reveal" id="reveal-body"></div>
-      <p class="body-text" style="margin-top:16px;">This is not a label. It is a starting point. Let's understand where this came from — and what it means for your body, your relationships, and your life.</p>
-      <button class="btn" onclick="go('s3')">Show me what's happening in my body →</button>
+      <p class="body-text" style="margin-top:16px;">This is not a label. It is a starting point. Let us understand where this came from and what it means for your body, your relationships, and your life.</p>
+      <button class="btn" onclick="go('s3')">Show me what is happening in my body →</button>
     </div>
   </div>
 
@@ -202,11 +214,11 @@
     <div class="card">
       <div class="tag">The Body's Response</div>
       <div class="step-title">Your body was built to survive.</div>
-      <p class="body-text">Fight, flight, freeze and fawn are not flaws. They are ancient, intelligent survival responses — built into your nervous system long before conscious thought existed.</p>
-      <p class="body-text">When your brain perceives danger, your body reacts automatically. Hormones flood in. Your heart rate rises. Your muscles tense. You are ready to act. Our ancestors needed this for real, physical threats. You still carry the same wiring — but today the "danger" is more likely an argument, a fear of rejection, or a painful memory.</p>
-      <div class="callout">"Your brain does not always distinguish between a real threat and an emotional one. It responds the same way — because to your nervous system, the feeling is real."</div>
-      <p class="body-text">Over time, these reactions become conditioned. The body associates certain situations, people or feelings with danger — and responds before you even have time to think. This is not weakness. This is a nervous system doing exactly what it was designed to do.</p>
-      <p class="body-text" style="margin-top:14px;">Understanding this is not about excusing your reactions. It is about bringing them into the light — so you can begin to choose differently.</p>
+      <p class="body-text">Fight, flight, freeze and fawn are not flaws. They are ancient, intelligent survival responses built into your nervous system long before conscious thought existed.</p>
+      <p class="body-text">When your brain perceives danger, your body reacts automatically. Hormones flood in. Your heart rate rises. Your muscles tense. You are ready to act. Our ancestors needed this for real, physical threats. You still carry the same wiring. But today the perceived danger is more likely an argument, a fear of rejection, or a painful memory.</p>
+      <div class="callout">"Your brain does not always distinguish between a real threat and an emotional one. It responds the same way, because to your nervous system, the feeling is real."</div>
+      <p class="body-text">Over time, these reactions become conditioned. The body associates certain situations, people or feelings with danger and responds before you even have time to think. This is not weakness. This is a nervous system doing exactly what it was designed to do.</p>
+      <p class="body-text" style="margin-top:14px;">Understanding this is not about excusing your reactions. It is about bringing them into the light so you can begin to choose differently.</p>
       <button class="btn" onclick="go('s4')">Explore the five responses →</button>
     </div>
   </div>
@@ -216,41 +228,41 @@
     <div class="card">
       <div class="tag">Recognising Your Reactions</div>
       <div class="step-title">Five ways your nervous system protects you.</div>
-      <p class="step-sub">These are instinctual responses — not flaws. Each one was developed to keep you safe. Tap each to explore.</p>
+      <p class="step-sub">These are instinctual responses, not flaws. Each one was developed to keep you safe. Tap each to explore.</p>
       <div class="exp-cards">
         <div class="exp-card" onclick="toggleExp(this)">
           <div class="exp-header"><span class="exp-name">Fight <span class="exp-hint">control · anger · defend</span></span><span class="exp-icon">+</span></div>
           <div class="exp-body">
             You push back. Anger rises fast. You need to be right, to defend, to control. You may feel the urge to dominate, argue or judge as a way to feel powerful or avoid vulnerability.
-            <div class="exp-sub"><strong>What it hides</strong>Underneath every fight response is fear or unworthiness — something that felt unsafe, unseen, or unheard. You learned to push back before you could be pushed down.</div>
+            <div class="exp-sub"><strong>What it hides</strong>Underneath every fight response is fear or unworthiness, something that felt unsafe, unseen, or unheard. You learned to push back before you could be pushed down.</div>
           </div>
         </div>
         <div class="exp-card" onclick="toggleExp(this)">
           <div class="exp-header"><span class="exp-name">Flight <span class="exp-hint">avoid · busy · anxious</span></span><span class="exp-icon">+</span></div>
           <div class="exp-body">
             Constant busyness, overworking, overthinking, perfectionism. You keep moving so you do not have to feel what is underneath. Your nervous system is stuck trying to outrun perceived danger or discomfort.
-            <div class="exp-sub"><strong>What it hides</strong>The busyness is protection. You learned that movement was safety — but the distance also keeps you from the connection and rest you truly need.</div>
+            <div class="exp-sub"><strong>What it hides</strong>The busyness is protection. You learned that movement was safety, but the distance also keeps you from the connection and rest you truly need.</div>
           </div>
         </div>
         <div class="exp-card" onclick="toggleExp(this)">
           <div class="exp-header"><span class="exp-name">Freeze <span class="exp-hint">numb · stuck · shut down</span></span><span class="exp-icon">+</span></div>
           <div class="exp-body">
-            You go still. Procrastination, numbness, dissociation, withdrawal. Freeze is often the body's last resort to overwhelm — like hitting pause when too much is happening.
-            <div class="exp-sub"><strong>What it hides</strong>Freeze is not laziness. It is your nervous system hitting its limit. The path back is not force — it is tiny, gentle steps toward safety.</div>
+            You go still. Procrastination, numbness, dissociation, withdrawal. Freeze is often the body's last resort to overwhelm, like hitting pause when too much is happening at once.
+            <div class="exp-sub"><strong>What it hides</strong>Freeze is not laziness. It is your nervous system hitting its limit. The path back is not force. It is tiny, gentle steps toward safety.</div>
           </div>
         </div>
         <div class="exp-card" onclick="toggleExp(this)">
           <div class="exp-header"><span class="exp-name">Fawn <span class="exp-hint">please · appease · disappear</span></span><span class="exp-icon">+</span></div>
           <div class="exp-body">
             You say yes when you mean no. You shape yourself around others' needs to stay safe and stay loved. Driven by a deep fear of rejection or abandonment.
-            <div class="exp-sub"><strong>What it hides</strong>Fawning can result in loss of self — feeling invisible, or not knowing what you want outside of what others need from you. Your needs matter too.</div>
+            <div class="exp-sub"><strong>What it hides</strong>Fawning can result in loss of self, feeling invisible, or not knowing what you want outside of what others need from you. Your needs matter too.</div>
           </div>
         </div>
         <div class="exp-card" onclick="toggleExp(this)">
           <div class="exp-header"><span class="exp-name">Flop <span class="exp-hint">collapse · surrender · give up</span></span><span class="exp-icon">+</span></div>
           <div class="exp-body">
-            Complete surrender — a shutdown of body and energy. You might feel lifeless, utterly exhausted, or like giving up entirely. Flop happens when the system has been overwhelmed for too long.
-            <div class="exp-sub"><strong>What it hides</strong>This is the deepest layer of protection — arising from deep hopelessness or when no other response feels safe. Only gentleness reaches here.</div>
+            Complete surrender, a shutdown of body and energy. You might feel lifeless, utterly exhausted, or like giving up entirely. Flop happens when the system has been overwhelmed for too long.
+            <div class="exp-sub"><strong>What it hides</strong>This is the deepest layer of protection, arising from deep hopelessness or when no other response feels safe. Only gentleness reaches here.</div>
           </div>
         </div>
       </div>
@@ -270,11 +282,11 @@
         <button class="multi-btn" onclick="toggleMulti(this,'fawn')">Fawn<br><span style="font-family:Lato;font-size:0.78rem;font-weight:300;opacity:0.8;">Please · Appease</span></button>
         <button class="multi-btn" onclick="toggleMulti(this,'flop')" style="grid-column:span 2;">Flop<br><span style="font-family:Lato;font-size:0.78rem;font-weight:300;opacity:0.8;">Collapse · Surrender</span></button>
       </div>
-      <div class="multi-response" id="mr-fight"><strong>You fight because something matters deeply to you.</strong>The anger is not the problem — it is the signal. Underneath is something that felt unsafe, unseen, or unheard. You learned to push back before you could be pushed down. That was wisdom once. Now you get to choose something different.</div>
-      <div class="multi-response" id="mr-flight"><strong>You move because stillness feels dangerous.</strong>The busyness, the overthinking, the constant motion — all of it keeps you from what needs to be felt. You do not have to stop everything. Just slow down long enough to notice what is underneath the movement.</div>
-      <div class="multi-response" id="mr-freeze"><strong>You go still because your system became overwhelmed.</strong>Freeze is not laziness. It is your nervous system hitting its limit and shutting down to protect you. The path back is not force — it is tiny, gentle steps. One small moment of safety at a time.</div>
+      <div class="multi-response" id="mr-fight"><strong>You fight because something matters deeply to you.</strong>The anger is not the problem. It is the signal. Underneath is something that felt unsafe, unseen, or unheard. You learned to push back before you could be pushed down. That was wisdom once. Now you get to choose something different.</div>
+      <div class="multi-response" id="mr-flight"><strong>You move because stillness feels dangerous.</strong>The busyness, the overthinking, the constant motion. All of it keeps you from what needs to be felt. You do not have to stop everything. Just slow down long enough to notice what is underneath the movement.</div>
+      <div class="multi-response" id="mr-freeze"><strong>You go still because your system became overwhelmed.</strong>Freeze is not laziness. It is your nervous system hitting its limit and shutting down to protect you. The path back is not force. It is tiny, gentle steps. One small moment of safety at a time.</div>
       <div class="multi-response" id="mr-fawn"><strong>You give yourself away to feel safe in connection.</strong>Fawning looks like kindness but it costs you yourself. You learned that love had to be earned through pleasing. You are allowed to take up space. Your needs are allowed to exist.</div>
-      <div class="multi-response" id="mr-flop"><strong>You have been carrying more than anyone should carry alone.</strong>When nothing else feels safe, the body collapses. This is not weakness — this is a system held at its edges for too long. Gentleness and rest. That is the way back.</div>
+      <div class="multi-response" id="mr-flop"><strong>You have been carrying more than anyone should carry alone.</strong>When nothing else feels safe, the body collapses. This is not weakness. This is a system held at its edges for too long. Gentleness and rest. That is the way back.</div>
       <button class="btn" onclick="go('s6')">Now let's look at relationships →</button>
     </div>
   </div>
@@ -284,7 +296,7 @@
     <div class="card">
       <div class="tag">Attachment in Relationships</div>
       <div class="step-title">How your earliest relationships shaped you.</div>
-      <p class="step-sub">Your nervous system is shaped not only by stress and trauma, but by how emotionally safe you felt in your earliest relationships — especially with caregivers. These experiences formed your attachment style: a relational blueprint for how you connect with others today. Tap each to explore.</p>
+      <p class="step-sub">Your nervous system is shaped not only by stress and trauma, but by how emotionally safe you felt in your earliest relationships, especially with caregivers. These experiences formed your attachment style: a relational blueprint for how you connect with others today. Tap each to explore.</p>
       <div class="exp-cards">
         <div class="exp-card" onclick="toggleExp(this)">
           <div class="exp-header"><span class="exp-name">Secure Attachment</span><span class="exp-icon">+</span></div>
@@ -297,25 +309,25 @@
           <div class="exp-header"><span class="exp-name">Avoidant Attachment</span><span class="exp-icon">+</span></div>
           <div class="exp-body">
             Formed when caregivers were distant, disinterested, or emotionally unavailable. You may feel uncomfortable with closeness, rely heavily on yourself, struggle to express emotions, and push others away.
-            <div class="exp-sub"><strong>In your relationships now</strong>Intimacy can feel suffocating. You value independence intensely — because connection once felt unsafe. The push-pull of wanting closeness while also fearing it lives here.</div>
+            <div class="exp-sub"><strong>In your relationships now</strong>Intimacy can feel suffocating. You value independence intensely, because connection once felt unsafe. The longing for closeness and the fear of it often live side by side.</div>
           </div>
         </div>
         <div class="exp-card" onclick="toggleExp(this)">
           <div class="exp-header"><span class="exp-name">Anxious Attachment</span><span class="exp-icon">+</span></div>
           <div class="exp-body">
-            Formed when caregiving was inconsistent — sometimes nurturing, sometimes rejecting. A strong fear of abandonment, craving reassurance, becoming clingy or codependent, worrying you are "too much."
-            <div class="exp-sub"><strong>In your relationships now</strong>You reach hard for connection and panic when it feels uncertain. You might over-give, over-explain, or work hard to keep people close — because losing them once felt catastrophic.</div>
+            Formed when caregiving was inconsistent, sometimes nurturing, sometimes rejecting. A strong fear of abandonment, craving reassurance, becoming clingy or codependent, worrying you are "too much."
+            <div class="exp-sub"><strong>In your relationships now</strong>You reach hard for connection and panic when it feels uncertain. You might over-give or over-explain, because losing someone once felt truly catastrophic.</div>
           </div>
         </div>
         <div class="exp-card" onclick="toggleExp(this)">
           <div class="exp-header"><span class="exp-name">Disorganized Attachment</span><span class="exp-icon">+</span></div>
           <div class="exp-body">
-            Formed when caregivers were both a source of fear and comfort — often due to trauma, abuse or neglect. Torn between craving closeness and fearing it, switching unpredictably between avoidant and anxious patterns.
-            <div class="exp-sub"><strong>In your relationships now</strong>You want love deeply and also fear it deeply. Connection can feel chaotic or confusing. This is not your fault — it is the nervous system's response to love that also hurt.</div>
+            Formed when caregivers were both a source of fear and comfort, often due to trauma, abuse or neglect. Torn between craving closeness and fearing it, switching unpredictably between avoidant and anxious patterns.
+            <div class="exp-sub"><strong>In your relationships now</strong>You want love deeply and also fear it deeply. Connection can feel chaotic or confusing. This is not your fault. It is the nervous system's response to love that also hurt.</div>
           </div>
         </div>
       </div>
-      <div class="callout" style="margin-top:16px;">"Attachment styles are not personality flaws — they are learned safety patterns. And just like nervous system responses, they can be rewired with awareness and breath."</div>
+      <div class="callout" style="margin-top:16px;">"Attachment styles are not personality flaws. They are learned safety patterns. And just like nervous system responses, they can be rewired with awareness and breath."</div>
       <button class="btn" onclick="go('s7')">Reflect on what you noticed →</button>
     </div>
   </div>
@@ -325,12 +337,12 @@
     <div class="card">
       <div class="tag">Reflection</div>
       <div class="step-title">Your relational blueprint.</div>
-      <p class="body-text">Take a moment with these questions. There is no right answer — only what is true for you right now.</p>
+      <p class="body-text">Take a moment with these questions. There is no right answer, only what is true for you right now.</p>
       <p class="q-label"><em>Which attachment style feels most familiar to you?</em></p>
       <textarea id="att1" placeholder="Write what came up for you..."></textarea>
       <p class="q-label"><em>How do you see it show up in your relationships, communication, or your ability to receive love?</em></p>
       <textarea id="att2" placeholder="Notice without judgement. This is just awareness..."></textarea>
-      <button class="btn" onclick="go('s8')">Now — what do I do with this? →</button>
+      <button class="btn" onclick="go('s8')">Now, what do I do with this? →</button>
     </div>
   </div>
 
@@ -339,7 +351,7 @@
     <div class="card">
       <div class="tag">Questions to Reveal and Heal</div>
       <div class="step-title">A process to navigate your reactions.</div>
-      <p class="body-text">First — understand this: no one is responsible for your emotional reactions except you. That sounds confronting. But it is also the most freeing thing you will ever hear.</p>
+      <p class="body-text">First, understand this: no one is responsible for your emotional reactions except you. That sounds confronting. But it is also the most freeing thing you will ever hear.</p>
       <div class="callout">"My reaction is my work. Their reaction is theirs."</div>
       <p class="body-text">Instead of going into blame or shame when you react, use these three steps to create space to respond:</p>
       <div class="num-steps">
@@ -349,14 +361,14 @@
         </div>
         <div class="num-step">
           <div class="num-circle">2</div>
-          <div class="num-text"><strong>Identify the emotion</strong>Say: <em>"I feel..."</em> Breathe with the feeling. Allow it to move through your body. Observe it — without trying to fix it or push it away.</div>
+          <div class="num-text"><strong>Identify the emotion</strong>Say: <em>"I feel..."</em> Breathe with the feeling. Allow it to move through your body. Observe it, without trying to fix it or push it away.</div>
         </div>
         <div class="num-step">
           <div class="num-circle">3</div>
-          <div class="num-text"><strong>Validate your reaction</strong>Not because you are right — but because acceptance softens the reactive state into awareness. Blame and shame keep you spinning. Validation allows you to go deeper.</div>
+          <div class="num-text"><strong>Validate your reaction</strong>Not because you are right, but because acceptance softens the reactive state into awareness. Blame and shame keep you spinning. Validation allows you to go deeper.</div>
         </div>
       </div>
-      <p class="body-text" style="margin-top:4px;">When you learn to calm and accept your reaction, you can return to your body — and connect with what you truly feel underneath it.</p>
+      <p class="body-text" style="margin-top:4px;">When you learn to calm and accept your reaction, you can return to your body and connect with what you truly feel underneath it.</p>
       <button class="btn" onclick="go('s9')">Take me deeper into the feeling →</button>
     </div>
   </div>
@@ -371,7 +383,7 @@
       <textarea id="dq1" placeholder="I feel..."></textarea>
       <p class="q-label"><em>What is the feeling underneath that reaction?</em><br><span style="font-size:0.82rem;color:#9a7d6e;">Sadness, grief, rejection, betrayal, abandonment, hurt...</span></p>
       <textarea id="dq2" placeholder="Underneath, I feel..."></textarea>
-      <p class="q-label"><em>When have you felt this before?</em><br><span style="font-size:0.82rem;color:#9a7d6e;">Let whatever comes up arise — a memory, an age, a person, a moment.</span></p>
+      <p class="q-label"><em>When have you felt this before?</em><br><span style="font-size:0.82rem;color:#9a7d6e;">Let whatever comes up arise: a memory, an age, a person, a moment.</span></p>
       <textarea id="dq3" placeholder="The first time I remember feeling this..."></textarea>
       <div class="callout" style="margin-top:20px;">"As we feel safe to bring these moments into our current awareness, we can start the deeper healing."</div>
       <button class="btn" onclick="go('sshow')">Continue →</button>
@@ -382,30 +394,31 @@
   <div class="step" id="sshow">
     <div class="card">
       <div class="tag">Showing Up for Yourself</div>
-      <div class="step-title">To run again — or to show up.</div>
-      <p class="body-text">Running out on ourselves only leads to distrust in ourselves. It gives us the opening to betray ourselves, to blame ourselves — which triggers your Personal Lie and the mind chatter of untruths that send you into a spiral of shame.</p>
+      <div class="step-title">To run, or to show up.</div>
+      <p class="body-text">Running out on ourselves only leads to distrust in ourselves. It gives us the opening to betray ourselves, to blame ourselves, which triggers your Personal Lie and the mind chatter of untruths that send you into a spiral of shame.</p>
       <p class="body-text" style="margin-top:14px;">Not showing up for yourself can manifest in many ways:</p>
       <div class="show-up-list">
         <div class="show-up-item"><span>·</span><span>Quitting before you gave yourself a real chance to start</span></div>
-        <div class="show-up-item"><span>·</span><span>Procrastination — avoiding action out of fear of failure</span></div>
-        <div class="show-up-item"><span>·</span><span>Waiting for the perfect moment, to feel a certain way, to have all your ducks in a row — an illusion that sets you up to fail</span></div>
+        <div class="show-up-item"><span>·</span><span>Procrastination, avoiding action out of fear of failure</span></div>
+        <div class="show-up-item"><span>·</span><span>Waiting for the perfect moment or to feel a certain way. An illusion that sets you up to fail</span></div>
         <div class="show-up-item"><span>·</span><span>Analysis paralysis. Remember: do not believe all your thoughts</span></div>
       </div>
       <div class="callout">Showing up for yourself is not about forcing yourself to do something. It is about honouring yourself and checking in on whether it truly serves you.</div>
       <p class="body-text">Showing up is not a destination. It is a continual choice to choose yourself.</p>
-      <p class="body-text" style="margin-top:14px;">It is not about showing up only when life is smooth — it is about showing up especially when it is hard. About forgiving yourself, as many times as you need.</p>
-      <p class="body-text" style="margin-top:14px;">Most importantly — the confidence that you can trust yourself to be there when you need yourself most. Because through showing up, you discover who you truly are.</p>
-      <p class="body-text" style="margin-top:14px; font-family:'Playfair Display',serif; font-style:italic; color:#5c2318;">No one will ever meet your needs as well as you. And no one can ever love you the way you need to be loved — until you do it for you.</p>
+      <p class="body-text" style="margin-top:14px;">It is not about showing up only when life is smooth. It is about showing up especially when it is hard. About forgiving yourself, as many times as you need.</p>
+      <p class="body-text" style="margin-top:14px;">Most importantly, the confidence that you can trust yourself to be there when you need yourself most. Because through showing up, you discover who you truly are.</p>
+      <p class="body-text" style="margin-top:14px; font-family:'Playfair Display',serif; font-style:italic; color:#5c2318;">No one will ever meet your needs as well as you. And no one can ever love you the way you need to be loved until you do it for you.</p>
       <button class="btn" onclick="go('s10')">Let's breathe it through →</button>
     </div>
   </div>
 
-  <!-- s10: Anchoring breath -->
+  <!-- s10: Anchoring breath with music -->
   <div class="step" id="s10">
     <div class="card breath-wrap">
       <div class="tag">Coming Back</div>
       <div class="step-title" style="margin-bottom:8px;">The Anchoring Breath</div>
-      <p style="font-size:0.9rem;color:#9a7d6e;margin-bottom:24px;line-height:1.6;">4 in · 2 hold · 8 out<br>Signal safety to your nervous system. Five rounds.</p>
+      <p style="font-size:0.9rem;color:#9a7d6e;margin-bottom:20px;line-height:1.6;">4 in · 2 hold · 8 out<br>Signal safety to your nervous system. Five rounds.</p>
+      <button class="music-toggle" id="musicBtn" onclick="toggleMusic()">♪ Add music</button>
       <div class="circle-area">
         <div class="outer-ring" id="oring"><div class="inner-dot"></div></div>
         <div class="b-word" id="bword">Ready</div>
@@ -416,7 +429,7 @@
     </div>
   </div>
 
-  <!-- s11: Mirror + daily practice + close -->
+  <!-- s11: Mirror + guided audio + close -->
   <div class="step" id="s11">
     <div class="card">
       <div class="tag" style="display:block;text-align:center;margin-bottom:16px;">Returning</div>
@@ -425,10 +438,19 @@
 
       <p class="body-text" style="margin-bottom:8px;">End today's practice with mirror work.</p>
       <div class="mirror-steps">
-        <div class="mstep"><div class="mnum">1</div><div class="mtext">Look into your own eyes — not at how you look, but into your eyes. Stay there.</div></div>
+        <div class="mstep"><div class="mnum">1</div><div class="mtext">Look into your own eyes, not at how you look, but into your eyes. Stay there.</div></div>
         <div class="mstep"><div class="mnum">2</div><div class="mtext">Say aloud or silently: <em>"I see you. I am here. I am not going anywhere."</em></div></div>
-        <div class="mstep"><div class="mnum">3</div><div class="mtext">Notice what arises — emotion, discomfort, resistance. Let it be here. You do not have to fix it.</div></div>
+        <div class="mstep"><div class="mnum">3</div><div class="mtext">Notice what arises, emotion, discomfort, resistance. Let it be here. You do not have to fix it.</div></div>
         <div class="mstep"><div class="mnum">4</div><div class="mtext">End with: <em>"I am safe. I am enough. I am coming home to myself."</em></div></div>
+      </div>
+
+      <div class="guided-option">
+        <h4>Finish with a guided breath</h4>
+        <p>Close with Melissa's voice. The Sacred Six Breath brings you gently back into your body and your heart.</p>
+        <button class="audio-play-btn" onclick="showAudio()">Play the Sacred Six Breath</button>
+        <div class="audio-player" id="audioPlayer">
+          <audio controls src="/audio-sacred6.m4a">Your browser does not support audio.</audio>
+        </div>
       </div>
 
       <div class="practice-box">
@@ -449,24 +471,20 @@
 </div>
 
 <script>
-  // Scale
   function pickScale(el) {
     document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('sel'));
     el.classList.add('sel');
     document.getElementById('s1btn').disabled = false;
   }
 
-  // Navigation
   function go(id) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
     document.getElementById(id).classList.add('on');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Expandable cards
   function toggleExp(card) { card.classList.toggle('open'); }
 
-  // Multi-select
   const selectedMulti = new Set();
   function toggleMulti(btn, key) {
     btn.classList.toggle('sel');
@@ -476,16 +494,21 @@
     });
   }
 
+  function showAudio() {
+    document.getElementById('audioPlayer').classList.add('show');
+    document.querySelector('.audio-play-btn').style.display = 'none';
+  }
+
   // Discovery questions
   const discQuestions = [
     {
       q: "Something unexpected happens and your plans fall apart. In that moment, what do you notice first?",
       opts: [
-        { label: "A surge of irritation — I need to fix it or take control of something", key: 'fight' },
+        { label: "A surge of irritation. I need to fix it or take control of something", key: 'fight' },
         { label: "An urge to move, get busy, or distract myself with something else", key: 'flight' },
-        { label: "I go blank or heavy — I feel stuck and can't think clearly", key: 'freeze' },
+        { label: "I go blank or heavy. I feel stuck and cannot think clearly", key: 'freeze' },
         { label: "I immediately think about how everyone else is affected", key: 'fawn' },
-        { label: "I feel completely depleted — the weight of it is just too much", key: 'flop' }
+        { label: "I feel completely depleted. The weight of it is just too much", key: 'flop' }
       ]
     },
     {
@@ -493,9 +516,9 @@
       opts: [
         { label: "Defend myself, push back, or need them to understand I was right", key: 'fight' },
         { label: "Pull away, go quiet, or find something to keep me occupied", key: 'flight' },
-        { label: "Go silent — feel paralysed and unable to find words", key: 'freeze' },
-        { label: "Say sorry, try to fix it, or make sure they're not upset with me", key: 'fawn' },
-        { label: "Feel exhausted — like I have no capacity left to deal with it", key: 'flop' }
+        { label: "Go silent, feel paralysed and unable to find words", key: 'freeze' },
+        { label: "Say sorry, try to fix it, or make sure they are not upset with me", key: 'fawn' },
+        { label: "Feel exhausted, like I have no capacity left to deal with it", key: 'flop' }
       ]
     },
     {
@@ -505,7 +528,7 @@
         { label: "Pile on more tasks, go into overdrive, or avoid sitting with it", key: 'flight' },
         { label: "Procrastinate, dissociate, or feel completely frozen in place", key: 'freeze' },
         { label: "Say yes to everything and disappear into caring for others", key: 'fawn' },
-        { label: "Collapse, withdraw completely, or feel like there's nothing left", key: 'flop' }
+        { label: "Collapse, withdraw completely, or feel like there is nothing left", key: 'flop' }
       ]
     }
   ];
@@ -516,35 +539,32 @@
   const revealContent = {
     fight: {
       title: "Your nervous system tends toward Fight.",
-      body: "You push back when life feels unsafe. Anger rises fast, and control becomes your anchor. This is not aggression — it is protection. Underneath the fight is something that felt deeply unseen or threatened. You learned to push before you could be pushed down."
+      body: "You push back when life feels unsafe. Anger rises fast, and control becomes your anchor. This is not aggression. It is protection. Underneath the fight is something that felt deeply unseen or threatened. You learned to push before you could be pushed down."
     },
     flight: {
       title: "Your nervous system tends toward Flight.",
-      body: "When life feels unsafe, you move. Busyness, overthinking, keeping yourself occupied — these are your nervous system's way of outrunning what feels threatening. It works, for a while. But the feeling is always waiting for stillness."
+      body: "When life feels unsafe, you move. Busyness, overthinking, keeping yourself occupied. These are your nervous system's way of outrunning what feels threatening. It works, for a while. But the feeling is always waiting for stillness."
     },
     freeze: {
       title: "Your nervous system tends toward Freeze.",
-      body: "When overwhelmed, you go still. Not because you are lazy — but because your nervous system hit its limit and shut down to protect you. The procrastination, the numbness, the paralysis — these are all forms of your body saying: this is too much."
+      body: "When overwhelmed, you go still. Not because you are lazy, but because your nervous system hit its limit and shut down to protect you. The procrastination, the numbness, the paralysis. These are all forms of your body saying: this is too much."
     },
     fawn: {
       title: "Your nervous system tends toward Fawn.",
-      body: "You move toward others when you feel unsafe — appeasing, pleasing, making sure everyone is okay. You learned early that your safety depended on keeping others comfortable. It kept you loved. But it cost you yourself."
+      body: "You move toward others when you feel unsafe, appeasing, pleasing, making sure everyone is okay. You learned early that your safety depended on keeping others comfortable. It kept you loved. But it cost you yourself."
     },
     flop: {
       title: "Your nervous system tends toward Flop.",
-      body: "When everything becomes too much, you surrender completely. The exhaustion is real. The collapse is real. This is your nervous system's deepest layer of protection — arising when no other response feels possible. You have been carrying more than you should carry alone."
+      body: "When everything becomes too much, you surrender completely. The exhaustion is real. The collapse is real. This is your nervous system's deepest layer of protection, arising when no other response feels possible. You have been carrying more than you should carry alone."
     },
     mixed: {
       title: "Your nervous system moves between responses.",
-      body: "You do not have one fixed pattern — you shift between responses depending on the situation, the relationship, or how depleted you already feel. This is very common. It means your nervous system is highly adaptive — and understanding each response will help you notice which one is active at any given moment."
+      body: "You do not have one fixed pattern. You shift between responses depending on the situation, the relationship, or how depleted you already feel. This is very common. It means your nervous system is highly adaptive, and understanding each response will help you notice which one is active at any given moment."
     }
   };
 
   function renderDiscQuestion() {
-    if (discIdx >= discQuestions.length) {
-      showReveal();
-      return;
-    }
+    if (discIdx >= discQuestions.length) { showReveal(); return; }
     for (let i = 0; i < 3; i++) {
       const dot = document.getElementById('dp' + i);
       dot.classList.remove('active', 'done');
@@ -552,14 +572,13 @@
       else if (i === discIdx) dot.classList.add('active');
     }
     const q = discQuestions[discIdx];
-    const container = document.getElementById('disc-container');
-    container.innerHTML = `
+    document.getElementById('disc-container').innerHTML = `
       <div class="disc-q">
         <span class="qnum">Question ${discIdx + 1} of 3</span>
         ${q.q}
       </div>
       <div class="disc-options">
-        ${q.opts.map((o, i) => `<button class="disc-opt" onclick="pickDisc(this,'${o.key}')">${o.label}</button>`).join('')}
+        ${q.opts.map(o => `<button class="disc-opt" onclick="pickDisc(this,'${o.key}')">${o.label}</button>`).join('')}
       </div>`;
   }
 
@@ -567,10 +586,7 @@
     document.querySelectorAll('.disc-opt').forEach(b => b.classList.remove('sel'));
     btn.classList.add('sel');
     discScores[key]++;
-    setTimeout(() => {
-      discIdx++;
-      renderDiscQuestion();
-    }, 400);
+    setTimeout(() => { discIdx++; renderDiscQuestion(); }, 400);
   }
 
   function showReveal() {
@@ -585,8 +601,104 @@
 
   renderDiscQuestion();
 
+  // Music
+  let audioCtx = null, masterGain = null, noteTimer = null, padOscs = [], musicOn = false;
+
+  function toggleMusic() {
+    const btn = document.getElementById('musicBtn');
+    if (!musicOn) {
+      startMusic(); musicOn = true;
+      btn.textContent = '♫ Music on'; btn.classList.add('on');
+    } else {
+      stopMusic(); musicOn = false;
+      btn.textContent = '♪ Add music'; btn.classList.remove('on');
+    }
+  }
+
+  function startMusic() {
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 3);
+      masterGain.connect(audioCtx.destination);
+
+      const delay = audioCtx.createDelay(2.5);
+      delay.delayTime.value = 1.2;
+      const fb = audioCtx.createGain(); fb.gain.value = 0.35;
+      delay.connect(fb); fb.connect(delay);
+      const wet = audioCtx.createGain(); wet.gain.value = 0.4;
+      const dry = audioCtx.createGain(); dry.gain.value = 0.6;
+      delay.connect(wet); wet.connect(masterGain); dry.connect(masterGain);
+
+      const padFreqs = [132, 198, 264, 396, 528];
+      padFreqs.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        osc.type = i < 2 ? 'sine' : 'triangle';
+        osc.frequency.value = freq;
+        g.gain.value = [0.28, 0.18, 0.12, 0.08, 0.05][i];
+        const lfo = audioCtx.createOscillator();
+        const lg = audioCtx.createGain();
+        lfo.frequency.value = 0.06 + i * 0.018;
+        lg.gain.value = freq * 0.002;
+        lfo.connect(lg); lg.connect(osc.frequency);
+        osc.connect(g); g.connect(dry); g.connect(delay);
+        lfo.start(); osc.start();
+        padOscs.push(osc);
+      });
+
+      scheduleNote(dry, delay);
+    } catch(e) {}
+  }
+
+  const melodyNotes = [264, 297, 330, 396, 440, 528, 594, 660];
+
+  function scheduleNote(dry, delay) {
+    if (!audioCtx) return;
+    const ctx = audioCtx;
+    const freq = melodyNotes[Math.floor(Math.random() * melodyNotes.length)];
+    const osc = ctx.createOscillator();
+    const env = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    env.gain.setValueAtTime(0, ctx.currentTime);
+    env.gain.linearRampToValueAtTime(0.09, ctx.currentTime + 1.2);
+    env.gain.linearRampToValueAtTime(0, ctx.currentTime + 7);
+    osc.connect(env); env.connect(dry); env.connect(delay);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 8);
+    noteTimer = setTimeout(() => scheduleNote(dry, delay), 3500 + Math.random() * 5000);
+  }
+
+  function breatheMusic(phase, durationSecs) {
+    if (!audioCtx || !masterGain) return;
+    const now = audioCtx.currentTime;
+    masterGain.gain.cancelScheduledValues(now);
+    masterGain.gain.setValueAtTime(masterGain.gain.value, now);
+    if (phase === 'inhale') {
+      masterGain.gain.linearRampToValueAtTime(0.22, now + durationSecs * 0.75);
+    } else {
+      masterGain.gain.linearRampToValueAtTime(0.08, now + durationSecs);
+    }
+  }
+
+  function stopMusic() {
+    if (noteTimer) { clearTimeout(noteTimer); noteTimer = null; }
+    if (masterGain && audioCtx) {
+      masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 2);
+      setTimeout(() => {
+        try { audioCtx.close(); } catch(e) {}
+        audioCtx = null; masterGain = null; padOscs = []; musicOn = false;
+        const b = document.getElementById('musicBtn');
+        if (b) { b.textContent = '♪ Add music'; b.classList.remove('on'); }
+      }, 2200);
+    }
+  }
+
   // Breath
   let breathActive = false;
+
   function startBreath() {
     if (breathActive) return;
     breathActive = true;
@@ -600,6 +712,7 @@
       document.getElementById('bcount').textContent = '';
       document.getElementById('brounds').textContent = '';
       document.getElementById('oring').classList.remove('expand', 'hold');
+      stopMusic();
       setTimeout(() => go('s11'), 3000);
       return;
     }
@@ -610,6 +723,7 @@
 
     word.textContent = 'Breathe in';
     ring.classList.add('expand'); ring.classList.remove('hold');
+    breatheMusic('inhale', 4);
     let i = 4; cnt.textContent = i;
     const inInt = setInterval(() => { i--; cnt.textContent = i > 0 ? i : ''; if (i <= 0) clearInterval(inInt); }, 1000);
 
@@ -619,6 +733,7 @@
       const hInt = setInterval(() => { h--; cnt.textContent = h > 0 ? h : ''; if (h <= 0) clearInterval(hInt); }, 1000);
       setTimeout(() => {
         word.textContent = 'Breathe out'; ring.classList.remove('expand', 'hold');
+        breatheMusic('exhale', 8);
         let e = 8; cnt.textContent = e;
         const eInt = setInterval(() => { e--; cnt.textContent = e > 0 ? e : ''; if (e <= 0) clearInterval(eInt); }, 1000);
         setTimeout(() => runRound(r + 1), 8200);
