@@ -616,6 +616,10 @@ app.get('/week4-nervous-system', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'week4-nervous-system.html'));
 });
 
+app.get('/birth-chart', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'birth-chart.html'));
+});
+
 app.get('*', (req, res) => {
   res.redirect('/');
 });

@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cosmic Blueprint | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+    .container { max-width: 600px; width: 100%; }
+    .week-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.97rem; line-height: 1.75; color: #6b5144; margin-bottom: 28px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 18px; padding: 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .tag { display: inline-block; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 10px; }
+    .step-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #5c2318; margin-bottom: 12px; line-height: 1.4; }
+    .step-sub { font-size: 0.93rem; color: #6b5144; line-height: 1.75; margin-bottom: 20px; }
+    .body-text { font-size: 0.93rem; line-height: 1.8; color: #4a3728; }
+    .body-text + .body-text { margin-top: 14px; }
+    .callout { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 16px 20px; border-radius: 0 10px 10px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.97rem; color: #5c2318; line-height: 1.7; margin: 20px 0; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn:disabled { background: #d4c4ba; cursor: not-allowed; }
+    .btn-outline { display: block; width: 100%; padding: 14px; background: transparent; color: #5c2318; border: 1.5px solid #c4967a; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 12px; transition: all 0.2s; }
+    .btn-outline:hover { background: #f9f3eb; }
+
+    /* Form inputs */
+    input[type="text"], input[type="date"] { width: 100%; border: 1.5px solid #e8d9c4; border-radius: 12px; padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; transition: border-color 0.2s; margin-top: 6px; }
+    input[type="text"]:focus, input[type="date"]:focus { outline: none; border-color: #c4967a; background: #fff; }
+    .input-label { font-size: 0.88rem; color: #6b5144; margin-top: 18px; display: block; }
+    select { width: 100%; border: 1.5px solid #e8d9c4; border-radius: 12px; padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 0.93rem; color: #4a3728; background: #fdf9f4; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c4967a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; margin-top: 6px; transition: border-color 0.2s; }
+    select:focus { outline: none; border-color: #c4967a; background-color: #fff; }
+
+    /* Sun reveal */
+    .sun-reveal { display: none; background: linear-gradient(135deg, #f9f3eb, #f2e8d9); border-radius: 14px; padding: 22px; margin-top: 22px; border: 1px solid #e8d9c4; text-align: center; }
+    .sun-reveal.show { display: block; }
+    .sun-glyph { font-size: 2.8rem; margin-bottom: 6px; }
+    .sun-sign-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #5c2318; margin-bottom: 4px; }
+    .sun-dates { font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; color: #c4967a; }
+    .sun-element-badge { display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; }
+    .el-fire { background: #fde8df; color: #c4522a; }
+    .el-earth { background: #e8f0df; color: #5a7a40; }
+    .el-air { background: #dfe8f5; color: #3a6ab0; }
+    .el-water { background: #dff0f5; color: #2a7a90; }
+
+    /* Placement cards in s2/s3 */
+    .placement-row { margin-bottom: 18px; }
+    .placement-label { font-size: 0.88rem; color: #5c2318; font-family: 'Playfair Display', serif; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+    .placement-label .pl-symbol { font-size: 1.1rem; }
+    .placement-hint { font-size: 0.8rem; color: #9a7d6e; margin-top: 4px; font-style: italic; }
+    .astro-link { display: inline-block; margin-top: 14px; font-size: 0.85rem; color: #c4967a; text-decoration: underline; cursor: pointer; }
+    .astro-link-box { background: #f9f3eb; border-radius: 12px; padding: 16px 18px; margin-top: 14px; border: 1px dashed #e8d9c4; }
+    .astro-link-box p { font-size: 0.88rem; line-height: 1.7; color: #6b5144; }
+    .astro-link-box a { color: #c4967a; }
+
+    /* Expandable (astrology basics) */
+    .exp-cards { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+    .exp-card { border: 1.5px solid #e8d9c4; border-radius: 14px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; background: #fff; }
+    .exp-card:hover { border-color: #c4967a; }
+    .exp-card.open { border-color: #c4967a; }
+    .exp-header { display: flex; align-items: center; justify-content: space-between; padding: 15px 18px; }
+    .exp-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; }
+    .exp-icon { font-size: 1.1rem; color: #c4967a; transition: transform 0.25s; flex-shrink: 0; }
+    .exp-card.open .exp-icon { transform: rotate(45deg); }
+    .exp-body { display: none; padding: 0 18px 16px; font-size: 0.91rem; line-height: 1.75; color: #4a3728; }
+    .exp-card.open .exp-body { display: block; }
+
+    /* Reading card */
+    .reading-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .reading-glyph { font-size: 2.2rem; width: 54px; height: 54px; background: #f9f3eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .reading-meta { flex: 1; }
+    .reading-placement { font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 2px; }
+    .reading-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #5c2318; line-height: 1.3; }
+    .reading-element { font-size: 0.76rem; letter-spacing: 1.5px; text-transform: uppercase; display: inline-block; padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+
+    /* Section heads within reading */
+    .r-head { font-size: 0.76rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin: 22px 0 8px; }
+    .r-body { font-size: 0.93rem; line-height: 1.8; color: #4a3728; }
+    .r-reflection { background: #fdf9f4; border-radius: 12px; padding: 16px 18px; margin-top: 20px; border: 1px solid #ede3d4; }
+    .r-reflection p { font-size: 0.9rem; line-height: 1.72; color: #4a3728; }
+    .r-reflection .q-label { font-size: 0.76rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; display: block; }
+    textarea { width: 100%; border: 1.5px solid #e8d9c4; border-radius: 12px; padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 0.93rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 90px; line-height: 1.65; margin-top: 8px; transition: border-color 0.2s; }
+    textarea:focus { outline: none; border-color: #c4967a; background: #fff; }
+
+    /* Daily compass */
+    .element-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+    .el-card { padding: 14px 16px; border-radius: 12px; border: 1.5px solid #e8d9c4; }
+    .el-card.dominant { border-color: #c4967a; background: #fdf5ec; }
+    .el-card-label { font-size: 0.74rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+    .el-card-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; }
+    .el-card-count { font-size: 0.78rem; color: #9a7d6e; margin-top: 2px; }
+    .daily-ritual { background: #f9f3eb; border-radius: 14px; padding: 22px; margin: 20px 0; border: 1px solid #e8d9c4; }
+    .daily-ritual h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; margin-bottom: 10px; }
+    .daily-ritual p { font-size: 0.91rem; line-height: 1.75; color: #4a3728; }
+    .prompts-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+    .prompt-item { display: flex; gap: 12px; align-items: flex-start; font-size: 0.91rem; line-height: 1.7; color: #4a3728; padding: 12px 14px; background: #fdf9f4; border-radius: 10px; border: 1px solid #ede3d4; }
+    .prompt-item span:first-child { color: #c4967a; flex-shrink: 0; margin-top: 2px; }
+
+    /* Close / mirror */
+    .mirror-steps { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+    .mstep { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: #fdf9f4; border-radius: 12px; border: 1px solid #ede3d4; }
+    .mnum { width: 26px; height: 26px; border-radius: 50%; background: #f2e8d9; color: #5c2318; font-family: 'Playfair Display', serif; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .mtext { font-size: 0.91rem; line-height: 1.65; color: #4a3728; }
+    .restart { background: transparent; border: 1.5px solid #c4967a; color: #5c2318; font-size: 0.9rem; padding: 12px 28px; border-radius: 30px; cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif; margin-top: 8px; }
+    .restart:hover { background: #c4967a; color: #fff; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+    .name-in-reading { color: #5c2318; font-style: italic; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="week-label">Inner Compass · Members</div>
+  <h1>Your Cosmic<br>Blueprint</h1>
+  <div class="divider"></div>
+  <p class="intro">Your birth chart is a map of the sky in the exact moment you arrived in this world. It holds the story of your wounds, your gifts, and the direction your soul is growing toward. This is not prediction. This is remembering.</p>
+
+  <!-- s1: Name + birth date -->
+  <div class="step on" id="s1">
+    <div class="card">
+      <div class="tag">Step One</div>
+      <div class="step-title">Let's begin with you.</div>
+      <p class="step-sub">Enter your name and birth date. Your Sun sign will reveal itself, and we will build the rest of your blueprint from there.</p>
+      <label class="input-label">Your first name</label>
+      <input type="text" id="bc-name" placeholder="Your name..." oninput="checkS1()">
+      <label class="input-label">Your birth date</label>
+      <input type="date" id="bc-dob" onchange="calcSun()">
+      <div class="sun-reveal" id="sun-reveal">
+        <div class="sun-glyph" id="sr-glyph">☀</div>
+        <div class="sun-sign-name" id="sr-name"></div>
+        <div class="sun-dates" id="sr-dates"></div>
+        <div class="sun-element-badge" id="sr-badge"></div>
+        <p style="margin-top:14px;font-size:0.88rem;line-height:1.7;color:#6b5144;" id="sr-hint"></p>
+      </div>
+      <button class="btn" id="s1btn" onclick="go('s2')" disabled>Continue to your Moon and Rising →</button>
+    </div>
+  </div>
+
+  <!-- s2: Moon + Rising -->
+  <div class="step" id="s2">
+    <div class="card">
+      <div class="tag">Your Big Three</div>
+      <div class="step-title">Your Moon and Rising signs.</div>
+      <p class="step-sub">After your Sun, these are the two most powerful placements in your chart. Your Moon governs your emotional world and inner child. Your Rising governs how you show up and how others first experience you.</p>
+
+      <div class="astro-link-box">
+        <p>Not sure of your Moon or Rising? Visit <a href="https://astro.com/free-horoscopes/astro-portrait/extended-chart-selection" target="_blank">astro.com</a>, click Free Horoscopes, then Extended Chart Selection. Enter your birth date, time and place for your full chart.</p>
+      </div>
+
+      <div class="placement-row" style="margin-top:20px;">
+        <div class="placement-label"><span class="pl-symbol">☽</span> Moon Sign</div>
+        <div class="placement-hint">Your emotional world, inner child, what makes you feel safe</div>
+        <select id="bc-moon" onchange="checkS2()">
+          <option value="">Select your Moon sign...</option>
+          <option value="aries">♈ Aries</option>
+          <option value="taurus">♉ Taurus</option>
+          <option value="gemini">♊ Gemini</option>
+          <option value="cancer">♋ Cancer</option>
+          <option value="leo">♌ Leo</option>
+          <option value="virgo">♍ Virgo</option>
+          <option value="libra">♎ Libra</option>
+          <option value="scorpio">♏ Scorpio</option>
+          <option value="sagittarius">♐ Sagittarius</option>
+          <option value="capricorn">♑ Capricorn</option>
+          <option value="aquarius">♒ Aquarius</option>
+          <option value="pisces">♓ Pisces</option>
+        </select>
+      </div>
+
+      <div class="placement-row">
+        <div class="placement-label"><span class="pl-symbol">↑</span> Rising Sign (Ascendant)</div>
+        <div class="placement-hint">How you show up, your body and first impression, your social presence</div>
+        <select id="bc-rising" onchange="checkS2()">
+          <option value="">Select your Rising sign...</option>
+          <option value="aries">♈ Aries Rising</option>
+          <option value="taurus">♉ Taurus Rising</option>
+          <option value="gemini">♊ Gemini Rising</option>
+          <option value="cancer">♋ Cancer Rising</option>
+          <option value="leo">♌ Leo Rising</option>
+          <option value="virgo">♍ Virgo Rising</option>
+          <option value="libra">♎ Libra Rising</option>
+          <option value="scorpio">♏ Scorpio Rising</option>
+          <option value="sagittarius">♐ Sagittarius Rising</option>
+          <option value="capricorn">♑ Capricorn Rising</option>
+          <option value="aquarius">♒ Aquarius Rising</option>
+          <option value="pisces">♓ Pisces Rising</option>
+        </select>
+      </div>
+
+      <button class="btn" id="s2btn" onclick="go('s3')" disabled>Continue →</button>
+    </div>
+  </div>
+
+  <!-- s3: Deeper placements + astrology basics -->
+  <div class="step" id="s3">
+    <div class="card">
+      <div class="tag">Deeper Placements</div>
+      <div class="step-title">Your Saturn, Chiron and North Node.</div>
+      <p class="step-sub">These three placements carry the deepest story of your healing journey. Add them if you know them, or skip each one and explore them later. You can always return.</p>
+
+      <div class="exp-cards" style="margin-bottom:22px;">
+        <div class="exp-card" onclick="toggleExp(this)">
+          <div class="exp-header">
+            <span class="exp-name">What do these placements mean?</span>
+            <span class="exp-icon">+</span>
+          </div>
+          <div class="exp-body">
+            <p style="margin-bottom:10px;"><strong style="color:#5c2318;">Saturn</strong> is your greatest teacher. It shows where life feels like a test, where you meet restriction and resistance. But it also shows where you build your deepest mastery when you stop running from the lesson.</p>
+            <p style="margin-bottom:10px;"><strong style="color:#5c2318;">Chiron</strong> is the wounded healer. Its placement shows your deepest wound, the thing that has felt most broken about you. But Chiron also carries your greatest gift because your medicine always grows from your wound.</p>
+            <p><strong style="color:#5c2318;">North Node</strong> is your soul's direction in this lifetime. It points toward what you are growing into, the territory that feels unfamiliar but deeply calling. Your South Node (opposite sign) is where you feel comfortable but can keep you stuck.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="placement-row">
+        <div class="placement-label"><span class="pl-symbol">♄</span> Saturn Sign</div>
+        <div class="placement-hint">Your teacher, test and path to mastery</div>
+        <select id="bc-saturn">
+          <option value="skip">Skip for now</option>
+          <option value="aries">♈ Aries</option>
+          <option value="taurus">♉ Taurus</option>
+          <option value="gemini">♊ Gemini</option>
+          <option value="cancer">♋ Cancer</option>
+          <option value="leo">♌ Leo</option>
+          <option value="virgo">♍ Virgo</option>
+          <option value="libra">♎ Libra</option>
+          <option value="scorpio">♏ Scorpio</option>
+          <option value="sagittarius">♐ Sagittarius</option>
+          <option value="capricorn">♑ Capricorn</option>
+          <option value="aquarius">♒ Aquarius</option>
+          <option value="pisces">♓ Pisces</option>
+        </select>
+      </div>
+
+      <div class="placement-row">
+        <div class="placement-label"><span class="pl-symbol">⚷</span> Chiron Sign</div>
+        <div class="placement-hint">Your deepest wound and your medicine</div>
+        <select id="bc-chiron">
+          <option value="skip">Skip for now</option>
+          <option value="aries">♈ Aries</option>
+          <option value="taurus">♉ Taurus</option>
+          <option value="gemini">♊ Gemini</option>
+          <option value="cancer">♋ Cancer</option>
+          <option value="leo">♌ Leo</option>
+          <option value="virgo">♍ Virgo</option>
+          <option value="libra">♎ Libra</option>
+          <option value="scorpio">♏ Scorpio</option>
+          <option value="sagittarius">♐ Sagittarius</option>
+          <option value="capricorn">♑ Capricorn</option>
+          <option value="aquarius">♒ Aquarius</option>
+          <option value="pisces">♓ Pisces</option>
+        </select>
+      </div>
+
+      <div class="placement-row">
+        <div class="placement-label"><span class="pl-symbol">☊</span> North Node Sign</div>
+        <div class="placement-hint">Your soul's direction and calling in this lifetime</div>
+        <select id="bc-node">
+          <option value="skip">Skip for now</option>
+          <option value="aries">♈ Aries</option>
+          <option value="taurus">♉ Taurus</option>
+          <option value="gemini">♊ Gemini</option>
+          <option value="cancer">♋ Cancer</option>
+          <option value="leo">♌ Leo</option>
+          <option value="virgo">♍ Virgo</option>
+          <option value="libra">♎ Libra</option>
+          <option value="scorpio">♏ Scorpio</option>
+          <option value="sagittarius">♐ Sagittarius</option>
+          <option value="capricorn">♑ Capricorn</option>
+          <option value="aquarius">♒ Aquarius</option>
+          <option value="pisces">♓ Pisces</option>
+        </select>
+      </div>
+
+      <button class="btn" onclick="buildChart()">Begin my reading →</button>
+    </div>
+  </div>
+
+  <!-- Sun reading -->
+  <div class="step" id="ssun">
+    <div class="card">
+      <div class="reading-header">
+        <div class="reading-glyph" id="sun-glyph">☀</div>
+        <div class="reading-meta">
+          <div class="reading-placement">Your Sun</div>
+          <div class="reading-title" id="sun-title"></div>
+          <span class="reading-element" id="sun-el-badge"></span>
+        </div>
+      </div>
+      <div class="r-head">Your Core Nature</div>
+      <p class="r-body" id="sun-p1"></p>
+      <div class="r-head" style="margin-top:20px;">Your Gift</div>
+      <p class="r-body" id="sun-p2"></p>
+      <div class="callout" id="sun-callout"></div>
+      <div class="r-reflection">
+        <span class="q-label">Reflect</span>
+        <p id="sun-reflection"></p>
+        <textarea id="sun-journal" placeholder="Write what comes up..."></textarea>
+      </div>
+      <button class="btn" onclick="go('smoon')">Continue to your Moon →</button>
+    </div>
+  </div>
+
+  <!-- Moon reading -->
+  <div class="step" id="smoon">
+    <div class="card">
+      <div class="reading-header">
+        <div class="reading-glyph" id="moon-glyph">☽</div>
+        <div class="reading-meta">
+          <div class="reading-placement">Your Moon</div>
+          <div class="reading-title" id="moon-title"></div>
+          <span class="reading-element" id="moon-el-badge"></span>
+        </div>
+      </div>
+      <div class="r-head">Your Emotional World</div>
+      <p class="r-body" id="moon-p1"></p>
+      <div class="r-head" style="margin-top:20px;">Your Emotional Gift</div>
+      <p class="r-body" id="moon-p2"></p>
+      <div class="callout" id="moon-callout"></div>
+      <div class="daily-ritual" id="moon-somatic">
+        <h4>Nervous System Support for Your Moon</h4>
+        <p id="moon-somatic-text"></p>
+      </div>
+      <div class="r-reflection">
+        <span class="q-label">Reflect</span>
+        <p id="moon-reflection"></p>
+        <textarea id="moon-journal" placeholder="Write what comes up..."></textarea>
+      </div>
+      <button class="btn" onclick="go('srising')">Continue to your Rising →</button>
+    </div>
+  </div>
+
+  <!-- Rising reading -->
+  <div class="step" id="srising">
+    <div class="card">
+      <div class="reading-header">
+        <div class="reading-glyph" id="rising-glyph">↑</div>
+        <div class="reading-meta">
+          <div class="reading-placement">Your Rising (Ascendant)</div>
+          <div class="reading-title" id="rising-title"></div>
+          <span class="reading-element" id="rising-el-badge"></span>
+        </div>
+      </div>
+      <div class="r-head">The Mask You Wear</div>
+      <p class="r-body" id="rising-p1"></p>
+      <div class="r-head" style="margin-top:20px;">Your Authentic Emergence</div>
+      <p class="r-body" id="rising-p2"></p>
+      <div class="callout" id="rising-callout"></div>
+      <div class="r-reflection">
+        <span class="q-label">Reflect</span>
+        <p id="rising-reflection"></p>
+        <textarea id="rising-journal" placeholder="Write what comes up..."></textarea>
+      </div>
+      <button class="btn" id="rising-next-btn" onclick="goAfterRising()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- Saturn reading -->
+  <div class="step" id="ssaturn">
+    <div class="card">
+      <div class="reading-header">
+        <div class="reading-glyph" id="saturn-glyph">♄</div>
+        <div class="reading-meta">
+          <div class="reading-placement">Your Saturn</div>
+          <div class="reading-title" id="saturn-title"></div>
+          <span class="reading-element" id="saturn-el-badge"></span>
+        </div>
+      </div>
+      <div class="r-head">The Test</div>
+      <p class="r-body" id="saturn-p1"></p>
+      <div class="r-head" style="margin-top:20px;">The Mastery</div>
+      <p class="r-body" id="saturn-p2"></p>
+      <div class="callout" id="saturn-callout"></div>
+      <div class="r-reflection">
+        <span class="q-label">Reflect</span>
+        <p id="saturn-reflection"></p>
+        <textarea id="saturn-journal" placeholder="Write what comes up..."></textarea>
+      </div>
+      <button class="btn" id="saturn-next-btn" onclick="goAfterSaturn()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- Chiron reading -->
+  <div class="step" id="schiron">
+    <div class="card">
+      <div class="reading-header">
+        <div class="reading-glyph" id="chiron-glyph">⚷</div>
+        <div class="reading-meta">
+          <div class="reading-placement">Your Chiron</div>
+          <div class="reading-title" id="chiron-title"></div>
+          <span class="reading-element" id="chiron-el-badge"></span>
+        </div>
+      </div>
+      <div class="r-head">The Wound</div>
+      <p class="r-body" id="chiron-p1"></p>
+      <div class="r-head" style="margin-top:20px;">Your Medicine</div>
+      <p class="r-body" id="chiron-p2"></p>
+      <div class="callout" id="chiron-callout"></div>
+      <div class="r-reflection">
+        <span class="q-label">Reflect</span>
+        <p id="chiron-reflection"></p>
+        <textarea id="chiron-journal" placeholder="Write what comes up..."></textarea>
+      </div>
+      <button class="btn" id="chiron-next-btn" onclick="goAfterChiron()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- North Node reading -->
+  <div class="step" id="snode">
+    <div class="card">
+      <div class="reading-header">
+        <div class="reading-glyph" id="node-glyph">☊</div>
+        <div class="reading-meta">
+          <div class="reading-placement">Your North Node</div>
+          <div class="reading-title" id="node-title"></div>
+          <span class="reading-element" id="node-el-badge"></span>
+        </div>
+      </div>
+      <div class="r-head">Where You Have Been</div>
+      <p class="r-body" id="node-p1"></p>
+      <div class="r-head" style="margin-top:20px;">Where You Are Called</div>
+      <p class="r-body" id="node-p2"></p>
+      <div class="callout" id="node-callout"></div>
+      <div class="r-reflection">
+        <span class="q-label">Reflect</span>
+        <p id="node-reflection"></p>
+        <textarea id="node-journal" placeholder="Write what comes up..."></textarea>
+      </div>
+      <button class="btn" onclick="go('sdaily')">Continue to your Daily Compass →</button>
+    </div>
+  </div>
+
+  <!-- Daily Compass -->
+  <div class="step" id="sdaily">
+    <div class="card">
+      <div class="tag">Daily Compass</div>
+      <div class="step-title">Working with your chart every day.</div>
+      <p class="step-sub">Your chart is not a fixed thing. It is a living conversation between you and life. Here is how to use it as a daily compass for your inner work.</p>
+
+      <div class="r-head">Your Elemental Blueprint</div>
+      <div class="element-summary" id="el-summary"></div>
+      <p class="body-text" id="el-description" style="margin-top:12px;"></p>
+
+      <div class="r-head" style="margin-top:24px;">Your Moon Sign Daily Practice</div>
+      <div class="daily-ritual">
+        <h4 id="daily-ritual-title"></h4>
+        <p id="daily-ritual-text"></p>
+      </div>
+
+      <div class="r-head">Daily Reflection Prompts</div>
+      <p class="body-text" style="margin-bottom:12px;">Use these questions in the morning or when you feel reactive. They are designed around your specific placements.</p>
+      <div class="prompts-list" id="daily-prompts"></div>
+
+      <button class="btn" onclick="go('sclose')">Close with a mirror moment →</button>
+    </div>
+  </div>
+
+  <!-- Integration close -->
+  <div class="step" id="sclose">
+    <div class="card">
+      <div class="tag">Your Blueprint</div>
+      <div class="step-title" id="close-title">You are not broken.</div>
+      <p class="body-text" id="close-p1"></p>
+      <div class="callout" id="close-callout"></div>
+      <p class="body-text" style="margin-top:14px;" id="close-p2"></p>
+
+      <div class="r-head" style="margin-top:24px;">Mirror Moment</div>
+      <div class="mirror-steps">
+        <div class="mstep"><div class="mnum">1</div><div class="mtext">Find a mirror and look into your own eyes. Take three slow breaths into your belly.</div></div>
+        <div class="mstep"><div class="mnum">2</div><div class="mtext">Place your hand on your heart and feel its warmth. This is your body. This is your home.</div></div>
+        <div class="mstep"><div class="mnum">3</div><div class="mtext">Say aloud or silently: <em style="color:#5c2318;font-family:'Playfair Display',serif;" id="close-mirror-words"></em></div></div>
+        <div class="mstep"><div class="mnum">4</div><div class="mtext">Breathe in for four counts, hold for four, breathe out for six. Repeat three times.</div></div>
+      </div>
+
+      <div class="practice-box" style="border: 1.5px solid #e8d9c4; border-radius: 14px; padding: 20px; background: #fdf9f4; margin-top: 20px;">
+        <h4 style="font-family:'Playfair Display',serif;font-size:1rem;color:#5c2318;margin-bottom:10px;">Save your Blueprint</h4>
+        <p style="font-size:0.9rem;line-height:1.75;color:#4a3728;">Screenshot this page or note your placements somewhere you can return to them. The more you sit with your chart, the more it reveals. This is a lifetime of unfolding.</p>
+        <div class="callout" id="close-final-callout" style="margin-top:16px;"></div>
+      </div>
+
+      <button class="restart" onclick="location.reload()">Start a new reading</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · <em>You are the map. You are the destination.</em></div>
+</div>
+
+<script>
+  const state = { name: '', sun: '', moon: '', rising: '', saturn: 'skip', chiron: 'skip', node: 'skip' };
+
+  const signs = {
+    aries:       { symbol: '♈', name: 'Aries',       dates: 'Mar 21 – Apr 19', element: 'fire' },
+    taurus:      { symbol: '♉', name: 'Taurus',      dates: 'Apr 20 – May 20', element: 'earth' },
+    gemini:      { symbol: '♊', name: 'Gemini',      dates: 'May 21 – Jun 20', element: 'air' },
+    cancer:      { symbol: '♋', name: 'Cancer',      dates: 'Jun 21 – Jul 22', element: 'water' },
+    leo:         { symbol: '♌', name: 'Leo',         dates: 'Jul 23 – Aug 22', element: 'fire' },
+    virgo:       { symbol: '♍', name: 'Virgo',       dates: 'Aug 23 – Sep 22', element: 'earth' },
+    libra:       { symbol: '♎', name: 'Libra',       dates: 'Sep 23 – Oct 22', element: 'air' },
+    scorpio:     { symbol: '♏', name: 'Scorpio',     dates: 'Oct 23 – Nov 21', element: 'water' },
+    sagittarius: { symbol: '♐', name: 'Sagittarius', dates: 'Nov 22 – Dec 21', element: 'fire' },
+    capricorn:   { symbol: '♑', name: 'Capricorn',   dates: 'Dec 22 – Jan 19', element: 'earth' },
+    aquarius:    { symbol: '♒', name: 'Aquarius',    dates: 'Jan 20 – Feb 18', element: 'air' },
+    pisces:      { symbol: '♓', name: 'Pisces',      dates: 'Feb 19 – Mar 20', element: 'water' }
+  };
+
+  const elClass = { fire: 'el-fire', earth: 'el-earth', air: 'el-air', water: 'el-water' };
+  const elLabel = { fire: 'Fire', earth: 'Earth', air: 'Air', water: 'Water' };
+
+  function go(id) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleExp(card) { card.classList.toggle('open'); }
+
+  function getSunSign(month, day) {
+    if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return 'aries';
+    if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return 'taurus';
+    if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return 'gemini';
+    if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return 'cancer';
+    if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'leo';
+    if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'virgo';
+    if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return 'libra';
+    if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'scorpio';
+    if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'sagittarius';
+    if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return 'capricorn';
+    if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return 'aquarius';
+    return 'pisces';
+  }
+
+  function calcSun() {
+    const dob = document.getElementById('bc-dob').value;
+    if (!dob) return;
+    const [y, m, d] = dob.split('-').map(Number);
+    const sign = getSunSign(m, d);
+    state.sun = sign;
+    const s = signs[sign];
+    document.getElementById('sr-glyph').textContent = s.symbol;
+    document.getElementById('sr-name').textContent = 'Sun in ' + s.name;
+    document.getElementById('sr-dates').textContent = s.dates;
+    const badge = document.getElementById('sr-badge');
+    badge.textContent = elLabel[s.element] + ' Sign';
+    badge.className = 'sun-element-badge ' + elClass[s.element];
+    const hints = { fire: 'A fire Sun: you are here to inspire, lead and ignite.', earth: 'An earth Sun: you are here to ground, build and embody.', air: 'An air Sun: you are here to connect, communicate and bridge.', water: 'A water Sun: you are here to feel, heal and flow.' };
+    document.getElementById('sr-hint').textContent = hints[s.element];
+    document.getElementById('sun-reveal').classList.add('show');
+    checkS1();
+  }
+
+  function checkS1() {
+    const name = document.getElementById('bc-name').value.trim();
+    const dob = document.getElementById('bc-dob').value;
+    state.name = name;
+    document.getElementById('s1btn').disabled = !(name && dob && state.sun);
+  }
+
+  function checkS2() {
+    const moon = document.getElementById('bc-moon').value;
+    const rising = document.getElementById('bc-rising').value;
+    document.getElementById('s2btn').disabled = !(moon && rising);
+  }
+
+  function buildChart() {
+    state.moon = document.getElementById('bc-moon').value;
+    state.rising = document.getElementById('bc-rising').value;
+    state.saturn = document.getElementById('bc-saturn').value;
+    state.chiron = document.getElementById('bc-chiron').value;
+    state.node = document.getElementById('bc-node').value;
+    renderReading('sun', 'sun', sunReadings);
+    renderReading('moon', 'moon', moonReadings);
+    renderReading('rising', 'rising', risingReadings);
+    if (state.saturn !== 'skip') renderReading('saturn', 'saturn', saturnReadings);
+    if (state.chiron !== 'skip') renderReading('chiron', 'chiron', chironReadings);
+    if (state.node !== 'skip') renderReading('node', 'node', nodeReadings);
+    buildDaily();
+    buildClose();
+    go('ssun');
+  }
+
+  function renderReading(placement, prefix, data) {
+    const sign = state[placement];
+    const r = data[sign];
+    const s = signs[sign];
+    if (!r || !s) return;
+    const n = state.name;
+    document.getElementById(prefix + '-title').textContent = s.name;
+    const badge = document.getElementById(prefix + '-el-badge');
+    badge.textContent = elLabel[s.element];
+    badge.className = 'reading-element ' + elClass[s.element];
+    document.getElementById(prefix + '-p1').innerHTML = r.p1.replace('{name}', '<span class="name-in-reading">' + n + '</span>');
+    document.getElementById(prefix + '-p2').innerHTML = r.p2.replace('{name}', '<span class="name-in-reading">' + n + '</span>');
+    document.getElementById(prefix + '-callout').textContent = r.callout;
+    document.getElementById(prefix + '-reflection').innerHTML = r.reflection.replace('{name}', '<span class="name-in-reading">' + n + '</span>');
+    if (prefix === 'moon') {
+      document.getElementById('moon-somatic-text').textContent = r.somatic;
+    }
+  }
+
+  function goAfterRising() {
+    if (state.saturn !== 'skip') go('ssaturn');
+    else if (state.chiron !== 'skip') go('schiron');
+    else if (state.node !== 'skip') go('snode');
+    else go('sdaily');
+  }
+
+  function goAfterSaturn() {
+    if (state.chiron !== 'skip') go('schiron');
+    else if (state.node !== 'skip') go('snode');
+    else go('sdaily');
+  }
+
+  function goAfterChiron() {
+    if (state.node !== 'skip') go('snode');
+    else go('sdaily');
+  }
+
+  function buildDaily() {
+    const elementMap = { aries:'fire', leo:'fire', sagittarius:'fire', taurus:'earth', virgo:'earth', capricorn:'earth', gemini:'air', libra:'air', aquarius:'air', cancer:'water', scorpio:'water', pisces:'water' };
+    const counts = { fire:0, earth:0, air:0, water:0 };
+    ['sun','moon','rising','saturn','chiron','node'].forEach(p => {
+      if (state[p] && state[p] !== 'skip' && elementMap[state[p]]) counts[elementMap[state[p]]]++;
+    });
+    const dominant = Object.keys(counts).reduce((a,b) => counts[a] >= counts[b] ? a : b);
+    const elColors = { fire:'#fde8df', earth:'#e8f0df', air:'#dfe8f5', water:'#dff0f5' };
+    const elTextColors = { fire:'#c4522a', earth:'#5a7a40', air:'#3a6ab0', water:'#2a7a90' };
+    const summary = document.getElementById('el-summary');
+    summary.innerHTML = '';
+    Object.keys(counts).forEach(el => {
+      if (counts[el] > 0) {
+        const div = document.createElement('div');
+        div.className = 'el-card' + (el === dominant ? ' dominant' : '');
+        div.style.background = el === dominant ? elColors[el] : '#fdf9f4';
+        div.innerHTML = `<div class="el-card-label" style="color:${elTextColors[el]}">${el === dominant ? 'Dominant' : ''}</div><div class="el-card-name">${elLabel[el]}</div><div class="el-card-count">${counts[el]} placement${counts[el] > 1 ? 's' : ''}</div>`;
+        summary.appendChild(div);
+      }
+    });
+    const elDesc = {
+      fire: 'Your chart leans toward fire: you are wired for vision, action and inspiration. Your nervous system can run hot. Grounding practices and rest are your medicine.',
+      earth: 'Your chart leans toward earth: you are wired for stability, embodiment and building. Your nervous system steadies through the body and nature. Sensation-based practices restore you.',
+      air: 'Your chart leans toward air: you are wired for ideas, connection and communication. Your nervous system processes through thinking and talking. Moving into the body brings balance.',
+      water: 'Your chart leans toward water: you are wired for depth, feeling and intuition. Your nervous system feels everything. Containment, breath and quiet waters restore you.'
+    };
+    document.getElementById('el-description').textContent = elDesc[dominant];
+    const moonSign = state.moon;
+    const rituals = {
+      aries: { title: 'Aries Moon Daily Ritual', text: 'Start each morning with movement before anything else. Your Moon needs to burn off activation before it can settle. Even five minutes of shaking, dancing or walking sets your nervous system for the day. When reactive, pause and breathe before speaking.' },
+      taurus: { title: 'Taurus Moon Daily Ritual', text: 'Anchor your days in sensory rituals: warm tea, a hand on your heart, bare feet on the ground. Your Moon restores through slowness and beauty. When anxious, name five things you can touch. Let your body be your sanctuary.' },
+      gemini: { title: 'Gemini Moon Daily Ritual', text: 'Journal or voice-note your feelings each morning to move them from mind to paper. Your Moon processes through words. When overwhelmed, talk to someone you trust or write it out. Then breathe slowly to settle what the words stir.' },
+      cancer: { title: 'Cancer Moon Daily Ritual', text: 'Create a morning ritual that feels like tending yourself, warm water, a nourishing drink, a hand on your heart. Your Moon needs to feel held. When dysregulated, ask: am I trying to care for others to avoid feeling my own needs?' },
+      leo: { title: 'Leo Moon Daily Ritual', text: 'Do something purely for your own joy each day, even for five minutes. Not for anyone else. Your Moon withers without genuine self-expression. When you feel unseen or reactive, ask: what do I actually need to feel celebrated today?' },
+      virgo: { title: 'Virgo Moon Daily Ritual', text: 'Give yourself a gentle, structured morning: a short list, a clean space, a moment of quiet. Your Moon settles through order and usefulness. When critical thoughts spiral, place your hand on your belly and breathe until the tightness softens.' },
+      libra: { title: 'Libra Moon Daily Ritual', text: 'Check in with your own feelings before anyone else\'s each morning. Ask: what do I need today? Your Moon can give itself away. When dysregulated, look for where you said yes when you needed to say no.' },
+      scorpio: { title: 'Scorpio Moon Daily Ritual', text: 'Give yourself deep privacy each day, a journal, a walk alone, time to process without an audience. Your Moon needs to feel safe before it opens. When reactive, the feeling underneath your intensity is the truth to follow.' },
+      sagittarius: { title: 'Sagittarius Moon Daily Ritual', text: 'Spend time in openness each day: nature, movement, reading something expansive. Your Moon needs freedom and meaning. When contracted, ask: what is the bigger story here? What is this moment teaching me?' },
+      capricorn: { title: 'Capricorn Moon Daily Ritual', text: 'Permit yourself moments of rest and softness each day, not earned, just given. Your Moon learned to keep going. When tight or shut down, place your hands on your face as a gentle act of self-holding and breathe slowly.' },
+      aquarius: { title: 'Aquarius Moon Daily Ritual', text: 'Allow yourself to connect with your body each morning rather than immediately engaging your mind. Your Moon lives in the head. Grounding practices, barefoot time, and slow breath help you inhabit your emotional world rather than observe it.' },
+      pisces: { title: 'Pisces Moon Daily Ritual', text: 'Start your day with a boundary-setting intention: whose feelings are mine today and whose am I carrying? Your Moon needs spiritual practice and solitude. When flooded, slow breathing and cold water on your face help you come back to yourself.' }
+    };
+    const ritual = rituals[moonSign] || { title: 'Moon Daily Ritual', text: 'Begin each morning by checking in with your body. Where do you feel tension, ease, or emotion? Let your Moon sign guide you back to yourself.' };
+    document.getElementById('daily-ritual-title').textContent = ritual.title;
+    document.getElementById('daily-ritual-text').textContent = ritual.text;
+    const prompts = [];
+    const sunSign = signs[state.sun] ? signs[state.sun].name : '';
+    const moonSignName = signs[state.moon] ? signs[state.moon].name : '';
+    prompts.push({ icon: '☀', text: 'Am I living from my ' + sunSign + ' Sun\'s authentic self today, or from its shadow pattern?' });
+    prompts.push({ icon: '☽', text: 'What does my ' + moonSignName + ' Moon need to feel safe and nourished right now?' });
+    prompts.push({ icon: '↑', text: 'Is the face I am showing the world today my authentic self, or a protective mask?' });
+    if (state.saturn !== 'skip' && signs[state.saturn]) prompts.push({ icon: '♄', text: 'Where is Saturn in ' + signs[state.saturn].name + ' showing up in my life right now, as a restriction or as an invitation to grow?' });
+    if (state.chiron !== 'skip' && signs[state.chiron]) prompts.push({ icon: '⚷', text: 'In what moment today did I feel my Chiron in ' + signs[state.chiron].name + ' wound? What is the medicine I can offer myself there?' });
+    if (state.node !== 'skip' && signs[state.node]) prompts.push({ icon: '☊', text: 'Am I moving toward my North Node in ' + signs[state.node].name + ' today, or retreating into old familiar patterns?' });
+    const list = document.getElementById('daily-prompts');
+    list.innerHTML = '';
+    prompts.forEach(p => {
+      list.innerHTML += `<div class="prompt-item"><span>${p.icon}</span><span>${p.text}</span></div>`;
+    });
+  }
+
+  function buildClose() {
+    const n = state.name;
+    const sunName = signs[state.sun] ? signs[state.sun].name : '';
+    document.getElementById('close-title').textContent = n + ', you are not broken.';
+    document.getElementById('close-p1').textContent = 'Everything in your chart, every wound, every test, every shadow pattern, it has all been moving you toward something. Your Sun in ' + sunName + ' is not a personality type. It is a life force asking to be fully expressed.';
+    document.getElementById('close-callout').textContent = 'Your wounds were never the end of the story. They were the beginning of your medicine.';
+    document.getElementById('close-p2').textContent = 'This blueprint is yours to return to again and again. As you heal, the chart reveals more. What once felt like burden begins to feel like gift. That is the alchemy you are inside of right now.';
+    document.getElementById('close-mirror-words').textContent = '"I am exactly who I was born to be. My wounds are becoming my wisdom. I am safe to be seen."';
+    document.getElementById('close-final-callout').textContent = 'The sky on the day you were born said: this one is ready. And here you are. Still becoming. Still opening. That is enough.';
+  }
+
+  /* ==============================
+     READINGS DATA
+  ============================== */
+
+  const sunReadings = {
+    aries: {
+      p1: '{name}, you came here to lead, and the wound was learning that your fire might be dangerous. Somewhere along the way you found yourself fighting to justify your existence, to earn your right to act, to prove that your directness was not aggression. The shadow of Aries Sun is the warrior who forgot that not every room requires a battle.',
+      p2: 'The gift is undeniable: you are a true pioneer. When you stop fighting to prove your worth and start channelling your fire toward what you love, you initiate things that others can only dream of. Your courage is contagious, your beginnings are sacred, and your aliveness inspires everyone around you.',
+      callout: 'I do not have to earn my right to exist. My fire is not a problem, it is the medicine.',
+      reflection: '{name}, where have you been dimming your fire to make others more comfortable?'
+    },
+    taurus: {
+      p1: '{name}, your Sun in Taurus carries a deep body-level wound: scarcity. The fear that there will never be enough, that you must hold tightly to what you have, that security must be earned and then guarded. The shadow is the stubbornness that clings to the familiar even when the familiar no longer serves your growth.',
+      p2: 'The gift is profound. You are one of the most grounding presences in any room. You have the ability to create beauty, safety and lasting value from what others overlook. When you release the grip of fear and move into trust, abundance flows naturally to you. Your embodied presence is itself a gift.',
+      callout: 'I am enough. What I need comes to me. My presence alone is nourishing.',
+      reflection: 'Where in your life are you holding on so tightly that you cannot receive what wants to come?'
+    },
+    gemini: {
+      p1: '{name}, your Sun in Gemini carries the wound of being told you were too scattered, too many things at once, that you needed to choose and settle down. Somewhere you learned that your multiplicity was a problem. The shadow is the anxiety of the mind that spins and splits to avoid the discomfort of simply being still.',
+      p2: 'The gift is that you are a bridge between worlds. You hold multiple truths at once and make them accessible to others. Your curiosity is medicine in a world that demands simple answers. When you allow yourself to be fully, gloriously multidimensional, you give others permission to be complex too.',
+      callout: 'My many layers are not confusion. They are depth. I do not have to choose one thing to be real.',
+      reflection: 'Where have you been performing certainty to hide the beautiful complexity of who you actually are?'
+    },
+    cancer: {
+      p1: '{name}, your Sun in Cancer carries the wound of emotional unavailability. Caregivers who could not hold your feelings, so you learned to hold everyone else\'s while your own stayed swallowed. The shadow is the crab\'s shell, the protective walls built so thick that even warmth has trouble getting through.',
+      p2: 'The gift is profound emotional intelligence and a capacity for love that runs deeper than most people ever experience. You remember what home feels like in the body. You can create true belonging wherever you are. When you let yourself be held as fully as you hold others, your whole life transforms.',
+      callout: 'My feelings are not a burden. I deserve to be held as deeply as I hold everyone else.',
+      reflection: 'Whose feelings have you been carrying to avoid feeling your own?'
+    },
+    leo: {
+      p1: '{name}, your Sun in Leo carries the wound of conditional love. Learning to perform for approval, to shine only when permitted, to shrink when the applause stopped. The shadow is the pride that overcompensates, the need for validation that exhausts both you and the people around you.',
+      p2: 'The gift, when you stop performing for love and start simply being yourself, is radiance. You are a lighthouse. Your heart-centred presence, your generosity, your natural warmth: these are not things you do, they are things you are. When you stop auditioning, you inspire simply by existing.',
+      callout: 'My light does not need permission. I was not born to wait to be seen.',
+      reflection: 'In what areas of your life are you still performing for an audience rather than living for yourself?'
+    },
+    virgo: {
+      p1: '{name}, your Sun in Virgo carries the wound of criticism: the sense that your worth was tied to your usefulness, that good enough never quite was, that the love available to you came with conditions attached to your performance. The shadow is the perfectionism that paralyses and the self-criticism that is cruellest when no one is watching.',
+      p2: 'Your gift is sacred discernment and a healing presence that quietly tends what others overlook. You see what needs care and you care for it beautifully. When you release the impossible standard and embrace your own humanity, your service becomes truly healing rather than compulsive. Your imperfection is part of the medicine.',
+      callout: 'I am already whole. My worth is not measured in my output.',
+      reflection: 'What would you allow yourself to be, do or feel if you truly believed that good enough was enough?'
+    },
+    libra: {
+      p1: '{name}, your Sun in Libra carries the wound of self-erasure in the name of harmony. Learning to manage other people\'s emotions, to keep the peace at the cost of your own truth, to be endlessly pleasant while your own needs waited at the door. The shadow is the chronic people-pleasing that gives to get, and the passive aggression that leaks when the dam gets too full.',
+      p2: 'Your gift is the capacity for true relating, for real partnership and for justice held in beauty. When you stop giving yourself away and start bringing your whole self into relationship, you model what genuine connection looks like. Grace, fairness and the courage to have honest conversations: these are your superpowers.',
+      callout: 'My needs are not an inconvenience. True harmony includes me.',
+      reflection: 'Where have you been keeping the peace at the cost of your own truth?'
+    },
+    scorpio: {
+      p1: '{name}, your Sun in Scorpio carries the wound of betrayal and the fear of being destroyed if you are truly seen. You learned to protect your depth with darkness, to hold power through secrecy, to build walls worthy of a fortress. The shadow is the sting that protects the soft underbelly and the control that keeps intimacy at a manageable distance.',
+      p2: 'Your gift is transformation itself. You can sit in the fire of the most painful human experiences and come out changed, not destroyed. Your capacity for emotional truth, for depth and for resurrection is unmatched. When you choose to be seen, you invite others into their own depths. That is rare medicine.',
+      callout: 'I do not have to hide my depth to be safe. My wholeness, seen, is my power.',
+      reflection: 'What truth about yourself are you protecting so fiercely that even you cannot look at it?'
+    },
+    sagittarius: {
+      p1: '{name}, your Sun in Sagittarius carries the wound of confinement. Being told your truth was too big, your vision too ambitious, your need for freedom too threatening. The shadow is the restless escape artist who keeps moving to avoid arriving, the big proclamations that replace the quieter work of going deeper.',
+      p2: 'Your gift is wisdom and the ability to lift the gaze of everyone around you toward something bigger. You hold the bigger picture when others are lost in the detail. Your faith, your optimism and your philosophical courage are genuine medicine for a world that has forgotten how to believe in things. When you let yourself land, your wisdom deepens into something truly powerful.',
+      callout: 'My vision is not delusion. My faith is not naivety. I came here to show others what is possible.',
+      reflection: 'Where are you using movement or expansion to avoid something that needs you to stay and go deeper?'
+    },
+    capricorn: {
+      p1: '{name}, your Sun in Capricorn carries the wound of conditional belonging: the learning that love had to be earned through achievement, that you had to carry responsibility before you were ready, that rest was a weakness and vulnerability a liability. The shadow is the relentless ambition that builds impressive structures but wonders why they feel empty.',
+      p2: 'Your gift is mastery, integrity and the ability to build things that genuinely last. When you release the need to earn your place and build from your truth rather than your fear, you become a foundation that others can stand on. Your patience, your discipline and your quiet reliability are extraordinary gifts to the world.',
+      callout: 'I do not have to earn my right to rest. I belong here. My worth is not my output.',
+      reflection: 'What would you build if success did not need to prove anything to anyone?'
+    },
+    aquarius: {
+      p1: '{name}, your Sun in Aquarius carries the wound of otherness. Never quite fitting, always slightly outside the group, the one whose vision made others uncomfortable or whose difference felt like exile. The shadow is the detachment that holds people at arm\'s length in the name of independence, and the rebellion that is sometimes just fear of being truly known.',
+      p2: 'Your gift is visionary leadership and the ability to hold humanity\'s highest potential in your heart. Your difference was never a defect, it was your direction. When you stop trying to fit in and start trusting your unique perspective, you give others permission to be authentic too. You were never meant to belong to the crowd. You were meant to lead them somewhere new.',
+      callout: 'My otherness is not isolation. It is my gift to the collective.',
+      reflection: 'Where have you been hiding your most unusual, most true self to stay safely on the edge of belonging?'
+    },
+    pisces: {
+      p1: '{name}, your Sun in Pisces carries the wound of dissolution. The boundary between you and others was so thin you absorbed everyone\'s pain and called it your own. You were told your sensitivity was weakness, your dreaminess a flaw, your feelings too much for the practical world. The shadow is the escape into fantasy, substances or self-sacrifice to avoid the overwhelm of being so fully open.',
+      p2: 'Your gift is spiritual depth, compassion that heals at the cellular level and the ability to feel the sacred in everything. Your sensitivity is not a defect, it is your superpower. When it is anchored in a body with healthy boundaries, your compassion becomes one of the most healing forces on earth. You came here to dissolve barriers between the human and the divine.',
+      callout: 'My sensitivity is not weakness. It is the very thing that allows me to heal.',
+      reflection: 'What part of your sensitivity have you been trying to manage or hide that is actually your greatest gift?'
+    }
+  };
+
+  const moonReadings = {
+    aries: {
+      p1: '{name}, your Moon in Aries learned early that anger was dangerous or unwelcome. You developed a pattern of reacting first and reflecting second, safety felt like action, stillness felt like vulnerability. Your emotional world is fiery and immediate, which others can experience as intensity or volatility.',
+      p2: 'Your emotional gift is extraordinary courage and honesty. You feel fully and move through it quickly. When you learn to pause between the feeling and the response, your emotional fire becomes a force for truth rather than reaction. You give others permission to feel boldly.',
+      somatic: 'Your Moon restores through physical movement. When activated, shake your body, jump on the spot, or take a brisk walk before responding to anything emotionally charged. Let the body metabolise what the mind wants to react to.',
+      callout: 'My feelings are immediate and real. I can feel them fully without acting from them instantly.',
+      reflection: 'Where in your life does the speed of your emotional reactions create consequences you later regret?'
+    },
+    taurus: {
+      p1: '{name}, your Moon in Taurus learned early that instability was threatening. When care or resources were inconsistent, you found safety in the senses: food, comfort, beauty, the physical world that stayed solid when people did not. The shadow is the stubbornness that refuses to move even when movement is exactly what is needed.',
+      p2: 'Your emotional gift is steadiness and the ability to create genuine sanctuary for yourself and others. You know how to wait. You know how to stay. When you trust the process of change rather than resisting it, your groundedness becomes a gift that others anchor themselves to.',
+      somatic: 'Your Moon restores through sensory comfort. Warm baths, nourishing food, hands in soil, slow walks in nature. When dysregulated, name five things you can smell or touch to bring your nervous system home to the body.',
+      callout: 'I can feel safe even when things are changing. My groundedness comes from within.',
+      reflection: 'What are you refusing to let change because the stability of the familiar feels safer than the uncertainty of growth?'
+    },
+    gemini: {
+      p1: '{name}, your Moon in Gemini learned that emotions were safer when they were analysed and explained than when they were simply felt. In your family system, perhaps feelings were discussed rather than held, or you had to be quick and witty to get attention. The shadow is the mind that spins endlessly without ever landing in the body.',
+      p2: 'Your emotional gift is adaptability and the ability to understand emotional complexity that overwhelms others. You can hold multiple feelings at once and make sense of them. When you slow down enough to actually feel rather than just think, your emotional intelligence becomes genuinely profound.',
+      somatic: 'Your Moon restores through words and breath combined. Journal your feelings, then place your hand on your heart and breathe slowly for two minutes. This completes the circuit from head to body.',
+      callout: 'I can think my feelings and feel them in my body at the same time. Both are needed.',
+      reflection: 'What feeling have you been analysing for so long that you have forgotten to simply let yourself experience it?'
+    },
+    cancer: {
+      p1: '{name}, your Moon in Cancer is in its home sign, which means your emotional world is vast, tidal and deeply intuitive. The wound is often that your emotional sensitivity was too much for those around you, and you learned to be the caretaker for others to have a reason to stay close. The shell is both home and hiding place.',
+      p2: 'Your emotional gift is the most powerful intuition in the zodiac and a capacity for empathy that creates genuine healing. When you allow yourself to receive care as freely as you give it, the whole emotional ecosystem you carry finds balance. You remember what it feels like to be truly held.',
+      somatic: 'Your Moon restores through water and containment. Long baths, time near the ocean, or simply wrapping yourself in something warm. Ask someone you trust to simply sit with you without needing to fix anything.',
+      callout: 'I deserve to be nurtured as deeply as I nurture everyone else.',
+      reflection: 'Who in your life actually holds your emotions, and when did you last allow yourself to be held by them?'
+    },
+    leo: {
+      p1: '{name}, your Moon in Leo learned that love was something you had to perform for, that being ordinary meant being overlooked, that your emotional world needed an audience to feel real. The shadow is the constant seeking of validation, the emotional deflation when the applause stops.',
+      p2: 'Your emotional gift is generous, warm-hearted love that makes people feel truly seen and celebrated. When you stop needing to be seen to feel your feelings, your emotional world becomes genuinely luminous. You have the capacity to make others feel like the most important person in any room. That is rare and beautiful.',
+      somatic: 'Your Moon restores through creative self-expression and joyful play. Dance, sing, make something, even if no one ever sees it. The ritual is the restoration. Let yourself feel the pleasure of existing without performance.',
+      callout: 'My emotions are real whether or not anyone witnesses them. I celebrate myself.',
+      reflection: 'What do you actually feel when the performance stops and you are completely alone?'
+    },
+    virgo: {
+      p1: '{name}, your Moon in Virgo learned that feelings were safer when they were useful: channelled into helping, fixing, organising, serving. Raw emotion felt messy, and messy did not feel safe. The shadow is the anxiety that fills the space between feelings and the exhaustion of being everyone else\'s emotional support.',
+      p2: 'Your emotional gift is a deep attunement to others\' needs and a capacity for practical love that is profound in its precision. You love through service. When you give yourself permission to also need and receive, your emotional world finds the nourishment it has always offered others.',
+      somatic: 'Your Moon restores through order and gentleness. A tidy space, a simple routine, a warm drink made slowly. When anxious, clean or organise one small thing, then place your hands on your body and breathe until the tightness softens.',
+      callout: 'My feelings are not a problem to be solved. They are information to be honoured.',
+      reflection: 'What would you feel if you stopped being useful for twenty-four hours?'
+    },
+    libra: {
+      p1: '{name}, your Moon in Libra learned that emotional harmony was worth any personal cost. You became exquisitely attuned to the emotional atmosphere of any room and quietly rearranged yourself to maintain peace. The shadow is the inner life that never quite gets to exist because it is always in service of balance.',
+      p2: 'Your emotional gift is grace, diplomatic intelligence and the ability to hold two opposing feelings at once without collapsing into either. When you stop managing others\' emotional comfort and start attending to your own, your natural skill for true relating becomes a force for genuine connection.',
+      somatic: 'Your Moon restores through beauty and fair exchange. Create something aesthetically pleasing, spend time in beautiful spaces, and practice saying what you actually feel without softening it for anyone else\'s comfort.',
+      callout: 'My feelings deserve space, even the inconvenient ones. I stop managing others at my own expense.',
+      reflection: 'What emotion have you been suppressing to maintain harmony in a relationship or situation?'
+    },
+    scorpio: {
+      p1: '{name}, your Moon in Scorpio feels everything at maximum depth. The wound is that this depth felt unsafe: others were threatened by your intensity, or your emotional world was violated in ways that required you to build serious walls. The shadow is the emotional armour so impenetrable that even you sometimes cannot feel what you are protecting.',
+      p2: 'Your emotional gift is the most profound emotional wisdom in the zodiac. You understand what others cannot name, you hold space in the darkness, and you know how to alchemise the most painful feelings into genuine transformation. When you allow yourself to be seen in your depth, you give others permission to be real.',
+      somatic: 'Your Moon restores through privacy, depth and emotional release. Journaling in complete solitude, deep breathwork or crying that you do not perform for anyone. Trust your emotional process even when it looks dark from the outside.',
+      callout: 'My intensity is not damage. It is depth. I am allowed to feel this much.',
+      reflection: 'What emotion are you keeping so private that even you have not allowed yourself to fully feel it?'
+    },
+    sagittarius: {
+      p1: '{name}, your Moon in Sagittarius learned that heavy feelings were best resolved through movement, philosophy or humour. Confinement felt dangerous, so you found meaning in the expansive. The shadow is the emotional bypass, the tendency to reach for a higher perspective before you have actually let yourself feel what is here.',
+      p2: 'Your emotional gift is the ability to find genuine wisdom and meaning in even the most painful experiences. Your optimism, when it is authentic rather than avoidant, is genuinely medicine for others. When you let yourself feel before you seek the lesson, your insight becomes earned rather than escaped into.',
+      somatic: 'Your Moon restores through open space and movement. Walking in nature, running, travelling even briefly. When emotionally contracted, go outside and breathe the open air before doing anything else.',
+      callout: 'I can feel my feelings fully and find the meaning in them. Both are true.',
+      reflection: 'What feeling are you seeking a philosophy or bigger picture to avoid sitting inside?'
+    },
+    capricorn: {
+      p1: '{name}, your Moon in Capricorn learned that emotions were a luxury, that strength meant containing them, that vulnerability was a risk you could not afford. You became the steadfast one, the reliable one, the one who held it together. The shadow is the loneliness of being strong for everyone except yourself.',
+      p2: 'Your emotional gift is extraordinary endurance and the ability to hold steady for others in their most difficult moments. When you give yourself permission to soften, to need, to not be the strong one for a moment, you discover that your emotional world is far richer than the controlled surface suggests.',
+      somatic: 'Your Moon restores through permission and warmth. Literally placing your hands on your own face or wrapping yourself in warmth while breathing slowly. Give yourself the gentleness you always offer everyone else.',
+      callout: 'I am allowed to need things. My strength includes the courage to be vulnerable.',
+      reflection: 'What would you let yourself feel if you were certain no one was watching and nothing would fall apart?'
+    },
+    aquarius: {
+      p1: '{name}, your Moon in Aquarius learned to observe emotions more comfortably than to inhabit them. Feelings that were inconvenient or overwhelming were filed away under analysis, and you developed a talent for understanding humanity\'s emotional patterns while remaining somewhat outside your own. The shadow is the disconnection that feels like freedom but is actually loneliness.',
+      p2: 'Your emotional gift is the capacity to love all of humanity and to understand emotional patterns that others cannot see. When you bring that generous, inclusive compassion home to your own inner world, your emotional intelligence becomes both vast and personal. You are allowed to be as special to yourself as you are to the collective.',
+      somatic: 'Your Moon restores through grounding the body. Barefoot on earth, slow conscious breathing, physical sensation that brings you back from the mind into the present moment. The body is the way home.',
+      callout: 'I am not just an observer of feelings. I am allowed to have them fully and personally.',
+      reflection: 'Where do you intellectualise or universalise your feelings to avoid experiencing them as simply, privately yours?'
+    },
+    pisces: {
+      p1: '{name}, your Moon in Pisces is extraordinarily permeable. You felt everything before anyone named it. The wound is that you absorbed others\' feelings so completely you could not tell the difference between yours and theirs, and the world of emotion became a sea you could drown in. The shadow is the dissolution into escapism or martyrdom when the feeling-world becomes too much.',
+      p2: 'Your emotional gift is boundless compassion and a spiritual depth of feeling that connects you to something beyond the personal. When you have solid emotional boundaries, your empathy becomes one of the most powerful healing forces available. You feel God in people. That is extraordinary. It needs a container to be sustainable.',
+      somatic: 'Your Moon restores through containment and spiritual practice. A dedicated daily ritual, breath, prayer or meditation. When overwhelmed, cold water on your face and feet on the ground. Ask yourself: is this my feeling or someone else\'s?',
+      callout: 'My sensitivity is a gift, not a curse. I choose what I absorb. I am allowed to have boundaries.',
+      reflection: 'Whose feelings are you carrying right now that actually belong to someone else?'
+    }
+  };
+
+  const risingReadings = {
+    aries: {
+      p1: '{name}, with Aries Rising you walk into every room leading with energy, confidence and directness before you have said a word. People experience your assertion before your depth. The mask is the warrior: bold, decisive and ready for battle. The wound beneath it is the one who simply wanted to feel safe without having to fight for it.',
+      p2: 'As you heal, your Rising becomes genuine courageous presence rather than defence. The boldness that once protected you begins to open doors, to inspire others to act, to initiate. Your Rising in its highest expression is a pioneer who leads with heart rather than armour.',
+      callout: 'My courage is real. I no longer need to fight to prove that I deserve to be here.',
+      reflection: 'Where in your life are you still fighting battles that have already been won?'
+    },
+    taurus: {
+      p1: '{name}, with Taurus Rising you radiate a beautiful, steady, unhurried presence. People feel soothed and grounded near you before you speak. The mask is the one who has it together, who is always calm, always reliable. The wound beneath is the one who has learned to appear stable while a storm quietly moves below the surface.',
+      p2: 'As you heal, your Rising becomes genuinely embodied groundedness. The steadiness that was once protective becomes truly nourishing. People rest in your presence not because you are performing stability but because you have found it inside yourself. Your body becomes a temple you actually inhabit.',
+      callout: 'I can be both steady and moved. My groundedness includes feeling.',
+      reflection: 'What are you keeping beneath a calm surface that deserves to be seen?'
+    },
+    gemini: {
+      p1: '{name}, with Gemini Rising you adapt to every room with ease, quick-witted and curious, the one who can talk to anyone. The mask is the communicator: bright, social, fascinating. The wound beneath is the fear of being caught as just one thing, of committing fully and being found lacking.',
+      p2: 'As you heal, your adaptability becomes genuine connection rather than social performance. The wit deepens into wisdom. The curiosity becomes the bridge between your inner life and the world. People meet the real you, the one who is many things, and they find it compelling rather than confusing.',
+      callout: 'I do not have to perform my intelligence. My authentic expression is the gift.',
+      reflection: 'Which version of yourself do you feel most free to be, and why do you reserve that for only certain spaces?'
+    },
+    cancer: {
+      p1: '{name}, with Cancer Rising you walk into a room sensing everything, feeling the emotional temperature before you have oriented yourself. People experience your warmth and protectiveness first. The mask is the nurturer: caring, intuitive, emotionally available. The wound beneath is the one who has spent a lifetime caring for others to earn the belonging that should have been freely given.',
+      p2: 'As you heal, your Rising becomes freely given care rather than compelled service. The sensitivity that once read rooms for danger becomes the gift of genuine attunement. You create belonging not from fear of being excluded but from the genuine overflow of love that is your natural state.',
+      callout: 'I care because I love, not because I need to earn my place. My belonging is unconditional.',
+      reflection: 'How much of your care for others is genuine, and how much is protection against rejection?'
+    },
+    leo: {
+      p1: '{name}, with Leo Rising you command attention whether you seek it or not. Your presence is felt, your expression is bold, and people look to you for confidence even when you are not feeling it. The mask is the performer: radiant, warm, a natural leader. The wound beneath is the one who is auditioning, still seeking the applause that signals worth.',
+      p2: 'As you heal, your natural radiance stops requiring an audience. The warmth becomes unconditional, the leadership becomes service-focused, and the light you carry becomes a lighthouse rather than a spotlight. People feel genuinely seen and celebrated in your presence, not because you are performing but because you are real.',
+      callout: 'My light does not need an audience to be real. I shine because I am alive.',
+      reflection: 'What would your presence feel like if you stopped trying to be impressive and simply allowed yourself to be seen?'
+    },
+    virgo: {
+      p1: '{name}, with Virgo Rising your first impression is one of competence, precision and quiet helpfulness. People experience your capability before your heart. The mask is the one who has everything under control, who is useful and reliable. The wound beneath is the belief that your presence is only justified if you are being helpful.',
+      p2: 'As you heal, your Rising becomes the gift of discernment in action, seeing clearly what needs to be tended and tending it with love. The service becomes chosen rather than compelled, the precision becomes artistry, and the reliability becomes genuine care rather than the performance of worthiness.',
+      callout: 'I am allowed to exist without being useful. My presence is enough.',
+      reflection: 'What would you do differently if you believed you were welcome in every space whether or not you were helping?'
+    },
+    libra: {
+      p1: '{name}, with Libra Rising you are experienced as charming, harmonious and beautiful before you reveal any of your complexity. People feel at ease with you immediately. The mask is the diplomat: gracious, pleasant, aesthetically gifted. The wound beneath is the one who has smoothed their own edges so consistently that they have forgotten what the edges felt like.',
+      p2: 'As you heal, your Rising becomes genuine grace rather than performed pleasantness. The beauty you bring to the world is no longer contingent on keeping everyone comfortable. Your natural gifts of aesthetics, fairness and relational intelligence become tools of true connection rather than social management.',
+      callout: 'My grace includes my full self, including the inconvenient parts.',
+      reflection: 'What do you genuinely think, feel or want that you regularly edit out to maintain harmony?'
+    },
+    scorpio: {
+      p1: '{name}, with Scorpio Rising you make an impression before you speak: intense, magnetic, private. People sense depth and mystery and either lean in or step back. The mask is the one who sees everything and reveals nothing, whose piercing attention holds others at a safe distance. The wound beneath is the one who learned that being truly seen was dangerous.',
+      p2: 'As you heal, your intensity becomes an invitation rather than a barrier. The depth you hold begins to create genuine intimacy rather than guarded distance. People feel safe to be real with you because your presence says: I can hold it all. Nothing you show me will make me leave.',
+      callout: 'I am safe to be seen. My depth is not a weapon. It is an invitation.',
+      reflection: 'Who in your life actually gets to see you, not the mystery, not the intensity, but simply you?'
+    },
+    sagittarius: {
+      p1: '{name}, with Sagittarius Rising your presence expands the room. You are enthusiastic, philosophical and optimistic before anyone asks your views. People experience you as someone going somewhere exciting. The mask is the seeker: always on the horizon, always looking for the bigger picture. The wound beneath is the one who is sometimes moving to avoid arriving.',
+      p2: 'As you heal, your Rising becomes wisdom rather than restlessness. The expansiveness becomes genuine vision grounded in lived experience. You arrive in rooms fully rather than passing through, and your presence carries the credibility of someone who has been somewhere real and brought something back.',
+      callout: 'I can be both expansive and present. My wisdom deepens when I stay.',
+      reflection: 'Where are you still moving so that you do not have to be still with something uncomfortable?'
+    },
+    capricorn: {
+      p1: '{name}, with Capricorn Rising you project authority and reliability before you intend to. People bring you their problems before they know why. The mask is the capable one: serious, competent, the most responsible in the room. The wound beneath is the one who has been responsible so long they have forgotten what it feels like to be young, playful and free of burden.',
+      p2: 'As you heal, your Rising becomes genuine authority rather than performance of it. The competence becomes wisdom, the seriousness softens into integrity and the reliability becomes chosen rather than compelled. People trust you not because you project capability but because you are genuinely trustworthy.',
+      callout: 'I am allowed to lay down the weight sometimes. My authority does not require my exhaustion.',
+      reflection: 'What would become possible if you allowed someone else to carry something for a while?'
+    },
+    aquarius: {
+      p1: '{name}, with Aquarius Rising you arrive as someone unmistakably different: unusual, independent, ahead of the conversation. People notice immediately that you do not quite fit, and that somehow makes you compelling. The mask is the individualist: progressive, detached, gloriously original. The wound beneath is the one who was different before they chose it, who knows what it feels like to be outside and made it a home.',
+      p2: 'As you heal, your originality becomes a genuine invitation rather than a defence. The difference stops being armour and starts being a door. Your unique perspective, once offered from a place of connection rather than separation, creates space for others to step into their own authentic difference.',
+      callout: 'My uniqueness is not separation. It is the gift I bring to every room.',
+      reflection: 'How much of your independence is genuine preference, and how much is protection against the pain of not belonging?'
+    },
+    pisces: {
+      p1: '{name}, with Pisces Rising there is something otherworldly in your presence that people sense before they understand it. You feel like safety to some and mystery to others. The mask is the dreamer: compassionate, gentle, floating slightly above the ordinary. The wound beneath is the one who has learned to be elsewhere because here was sometimes too painful.',
+      p2: 'As you heal, your Rising becomes sacred presence rather than gentle absence. The spirituality becomes grounded. The compassion has structure. You arrive fully in rooms, in bodies, in conversations, and your gentle depth becomes one of the most healing presences others have ever encountered.',
+      callout: 'I can be spiritual and present at the same time. My gift lands when I land.',
+      reflection: 'Where in your life are you still floating slightly above your own experience rather than fully living it?'
+    }
+  };
+
+  const saturnReadings = {
+    aries: {
+      p1: '{name}, Saturn in Aries is testing your relationship with your own power. You may have grown up believing that your initiative was wrong, your assertiveness dangerous, or that acting first invited punishment. Life has repeatedly blocked your forward motion until you learned to lead from discipline rather than reaction.',
+      p2: 'The mastery of Saturn in Aries is authentic, patient courage. Leadership earned through self-knowledge rather than ego. When you stop fighting against the resistance and start building strength through it, you become the kind of pioneer who lasts, whose actions serve something beyond your own need to prove yourself.',
+      callout: 'I build my power slowly and from truth. My courage is earned, not performed.',
+      reflection: 'Where in your life is the resistance you keep meeting actually an invitation to slow down and build more deliberately?'
+    },
+    taurus: {
+      p1: '{name}, Saturn in Taurus is testing your relationship with security, resources and your own sense of worth. The lesson has often arrived as scarcity, whether material, emotional or spiritual, as if the universe is asking: can you know your value independent of what you have or what you earn?',
+      p2: 'The mastery is true abundance, built from the inside out. When you stop equating security with accumulation and begin building your sense of worth through embodiment and integrity, what you need begins to flow more naturally. Your Saturn in Taurus, once integrated, creates enduring value that outlasts any fluctuation in external circumstances.',
+      callout: 'My worth is not my bank balance. Security grows from the inside.',
+      reflection: 'What would change if you genuinely believed you were already enough, regardless of what you achieve or own?'
+    },
+    gemini: {
+      p1: '{name}, Saturn in Gemini is testing your relationship with your voice, your mind and your word. The lesson has often come as blocks in communication, difficulty being heard, or the sense that your ideas do not land. You may have been shamed for speaking or talking too much, or found that words failed you precisely when they mattered most.',
+      p2: 'The mastery is disciplined, intentional communication. The voice that speaks from depth rather than anxiety, the writing that takes time because it is trying to say something true. When your words are earned through the discipline of actually thinking, they carry a weight that more effortless communicators never quite achieve.',
+      callout: 'My voice matters. What I say from depth changes things.',
+      reflection: 'What is the truest thing you have been hesitating to put into words?'
+    },
+    cancer: {
+      p1: '{name}, Saturn in Cancer is testing your relationship with vulnerability, belonging and the family wound. The lesson has arrived through emotional unavailability, difficult home environments or the sense that your needs were inconvenient. You became the capable one, the one who did not need much, the one who gave because receiving felt too complicated.',
+      p2: 'The mastery is learning to receive, to need, to belong without having to earn it. Saturn in Cancer, once integrated, produces the most deeply compassionate, genuinely nurturing presence: someone who has done the work of becoming their own loving parent and can offer that earned tenderness to others.',
+      callout: 'I am allowed to need. My belonging does not have to be earned.',
+      reflection: 'What would it mean to become the loving, unconditional parent to yourself that you always needed?'
+    },
+    leo: {
+      p1: '{name}, Saturn in Leo is testing your relationship with creative expression, self-worth and the right to shine. The lesson has often arrived as blocks in creativity, fear of visibility or the painful sense that your light was too much or not enough. You may have learned to dim yourself preemptively to avoid the rejection of being seen.',
+      p2: 'The mastery is creative integrity that needs no audience. When you build your creative practice from devotion rather than performance, and when you show up for your expression regardless of the reception, Saturn in Leo produces art, leadership and self-expression of extraordinary depth and endurance.',
+      callout: 'I create because I must, not because I need to be seen. That is where the power lives.',
+      reflection: 'What would you create or express if you were absolutely certain it would be received with love?'
+    },
+    virgo: {
+      p1: '{name}, Saturn in Virgo is testing your relationship with wholeness. The lesson has arrived as perfectionism, chronic self-criticism or the paralysing sense that nothing you do is ever quite right. The body may have carried the anxiety of this placement as illness, fatigue or a sense of being fundamentally flawed.',
+      p2: 'The mastery is practical wisdom: the ability to discern what truly needs tending and tend it with grace, without the self-flagellation. Saturn in Virgo, once integrated, produces the most grounded, skilled, genuinely useful service because it comes from a place of wholeness rather than the need to compensate for imagined inadequacy.',
+      callout: 'I am whole, not despite my imperfections but including them.',
+      reflection: 'What is the standard you hold yourself to that you would never dream of holding someone you love to?'
+    },
+    libra: {
+      p1: '{name}, Saturn in Libra is testing your relationship with real partnership. The lesson has arrived through relationships that required you to give up yourself for harmony, through injustice you had to witness or navigate, or through the chronic difficulty of making decisions when every option carries weight. True relating has not felt safe or simple.',
+      p2: 'The mastery is justice held in love: the courage to have honest relationships rather than managed ones, to make decisions from your own centre, and to bring your full self into partnership. Saturn in Libra, once integrated, produces the most genuinely gracious, equitable relating. You earn the gift of real love by no longer performing a version of yourself for it.',
+      callout: 'I deserve relationships where I do not have to disappear to be loved.',
+      reflection: 'In which relationship in your life have you most consistently given up yourself to maintain the peace?'
+    },
+    scorpio: {
+      p1: '{name}, Saturn in Scorpio is testing your relationship with trust, depth and the surrender of control. The lesson has often arrived through experiences of betrayal, loss or the sense that the price of intimacy is devastation. You developed formidable defences not because you were cold but because being open once felt like it almost destroyed you.',
+      p2: 'The mastery is the discipline of emotional courage: the willingness to go to depth again even after the wound, to trust carefully and truly rather than withhold entirely. Saturn in Scorpio, once integrated, produces the most psychologically powerful, transformative presence. You become the one who has faced the abyss and returned with something real.',
+      callout: 'I can be deep and safe at the same time. Trust, built slowly, is the strongest kind.',
+      reflection: 'What is the thing you are most protecting yourself from by keeping people at a controlled distance?'
+    },
+    sagittarius: {
+      p1: '{name}, Saturn in Sagittarius is testing your relationship with truth, meaning and belief. The lesson has arrived through experiences that challenged your worldview, that punished your vision or that required you to confront the difference between what you believe and what you have actually lived. Your philosophy has had to earn itself.',
+      p2: 'The mastery is earned wisdom rather than adopted belief: a philosophy built on lived experience that keeps updating itself as you grow. Saturn in Sagittarius, once integrated, produces the teacher who speaks from depth of life rather than height of theory. Your truth becomes credible because it has been tested.',
+      callout: 'My truth is not fixed. It deepens with every experience I am willing to let change me.',
+      reflection: 'Which belief about life or yourself has been most tested by your actual lived experience?'
+    },
+    capricorn: {
+      p1: '{name}, Saturn in Capricorn is in its home sign, which means its lessons are intensified. The test has been about the meaning of success, authority and the price of ambition. You have likely worked harder than most, carried more than your share, and wondered whether any achievement will ever feel like enough.',
+      p2: 'The mastery is building something true: a life, a career, a legacy that is meaningful rather than merely impressive. Saturn in Capricorn, once integrated, produces the most genuine authority. Not the authority of title or achievement but the authority of someone who has done the inner work and now leads from integrity rather than fear.',
+      callout: 'What I build from my truth lasts. I stop building to prove and start building to matter.',
+      reflection: 'If no one would ever know what you had achieved, what would you still want to spend your life building?'
+    },
+    aquarius: {
+      p1: '{name}, Saturn in Aquarius is testing your relationship with community, belonging and your responsibility to something larger than yourself. The lesson has arrived through the tension between your need for independence and the demands of collective life: where does your individuality serve the whole, and where does it keep you isolated?',
+      p2: 'The mastery is disciplined service to the collective without losing yourself to it. Saturn in Aquarius, once integrated, produces the most visionary, structured leadership: someone who can hold a group together, build institutions that serve genuine human freedom, and belong without conforming.',
+      callout: 'I can be radically myself and deeply responsible to others at the same time.',
+      reflection: 'Where is your uniqueness in service of something greater than just being different?'
+    },
+    pisces: {
+      p1: '{name}, Saturn in Pisces is testing your relationship with boundaries, reality and the discipline of your spiritual gifts. The lesson has arrived through dissolution, through the difficulty of maintaining form in the face of the infinite, or through the exhaustion of being too open. The challenge is to be both deeply spiritual and practically grounded.',
+      p2: 'The mastery is devotion with structure: creative and spiritual gifts that land in the world because they have a container. Saturn in Pisces, once integrated, produces sacred art, healing work and spiritual leadership of extraordinary depth. Your compassion becomes sustainable because it has boundaries. Your gifts reach people because you have learned to earth them.',
+      callout: 'Structure is not the enemy of my spirit. It is the vessel that allows my gifts to reach the world.',
+      reflection: 'What would become possible in your spiritual or creative life if you introduced more consistent discipline and structure?'
+    }
+  };
+
+  const chironReadings = {
+    aries: {
+      p1: '{name}, Chiron in Aries carries the wound of existence itself: the deep cellular sense that your presence here is inconvenient, that you must fight to justify your right to be, that your identity is somehow fundamentally wrong. This can arrive as chronic self-doubt, an inability to start things, or a quiet sense of shame simply for existing.',
+      p2: 'Your medicine is initiation. As you heal your relationship with your own right to be here, you become someone who helps others begin: their healing journey, their creative life, their courageous choices. You give others permission to exist fully because you have fought your way back to your own existence. That is a rare and precious gift.',
+      callout: 'I have every right to be here. My existence is not a mistake. I am the beginning of my own healing.',
+      reflection: 'Where in your life do you still wait for permission to exist fully as you are?'
+    },
+    taurus: {
+      p1: '{name}, Chiron in Taurus carries the wound of the body and of safety in the physical world. There may have been experiences of physical violation, resource scarcity or a deep disconnection from the body as a place of safety. The core wound is: "I am not safe in my physical existence. I cannot trust the material world to hold me."',
+      p2: 'Your medicine is embodiment. As you slowly reclaim your body as a sanctuary and rebuild your sense of physical safety, you become an extraordinary guide for others learning to inhabit their bodies, to trust their senses and to know their own intrinsic worth. Your healing presence is deeply grounding.',
+      callout: 'My body is my home. Safety is something I can grow from within.',
+      reflection: 'What is one small thing you could do today to treat your body with a little more tenderness and trust?'
+    },
+    gemini: {
+      p1: '{name}, Chiron in Gemini carries the wound of the mind: the sense that your thinking is broken, your words inadequate, your intelligence somehow flawed or fragmented. This can arrive as learning differences, speech difficulties, or the persistent sense that you cannot quite get your inner world into language that lands.',
+      p2: 'Your medicine is bridging. As you make peace with your unique mind and find the words, the voice, the expression that is distinctly yours, you become someone who helps others communicate what they cannot reach alone. Your wound makes you attuned to the gap between inner experience and outer expression, and that attunement is rare medicine.',
+      callout: 'My mind is not broken. It works in ways that others need to learn from.',
+      reflection: 'What is the thing you most want to say or write that you keep deciding is not yet ready?'
+    },
+    cancer: {
+      p1: '{name}, Chiron in Cancer carries the wound of belonging and the body of the mother. There may have been early experiences of emotional unavailability, family rupture or the sense that your feeling world was too big for those meant to hold you. The core wound is: "I was not cared for in the way I needed. I do not know how to receive care."',
+      p2: 'Your medicine is creating home. As you learn to nurture yourself with the tenderness you always deserved, you become someone who creates genuine belonging for others. People feel held in your presence in a way they rarely do elsewhere. You know what it is to be unheld, and that knowledge becomes your greatest healing gift.',
+      callout: 'I am learning to be my own safe harbour. From that fullness, I create belonging for others.',
+      reflection: 'What would it mean to truly mother yourself, to give yourself the exact care and tenderness you always needed?'
+    },
+    leo: {
+      p1: '{name}, Chiron in Leo carries the wound of the creative self and the heart. There may have been experiences of humiliation, being overlooked or a sense that your self-expression was unwelcome, wrong or not worthy of attention. The core wound is: "My authentic self, expressed fully, is not welcome. I have to perform to be loved."',
+      p2: 'Your medicine is permission. As you heal your relationship with self-expression and begin to create for the love of it rather than for approval, you become someone who gives others extraordinary permission to shine. Your healing through creative courage is witnessed and it changes people. They see that it is possible, because they watch you do it.',
+      callout: 'My authentic expression is my medicine. I create, and in creating I free others to create.',
+      reflection: 'What would you make, do or express if you were completely certain it would be received with love?'
+    },
+    virgo: {
+      p1: '{name}, Chiron in Virgo carries the wound of the healer who cannot heal themselves. There is a deep sense of being fundamentally broken, of a flaw so essential that no amount of work, refinement or service can quite fix it. This wound often lands in the body as chronic illness, in the psyche as relentless self-criticism.',
+      p2: 'Your medicine is the truth of the wounded healer: that your most profound healing gifts live precisely in your own greatest woundedness. You are not broken. You are being refined. As you bring compassion to your own imperfection, you become someone who can hold others in theirs without flinching. That is extraordinary healing presence.',
+      callout: 'My wound is my medicine. My imperfection is the beginning of my gift.',
+      reflection: 'What is the part of yourself you have been trying to fix for the longest time, and what would shift if you chose to love it instead?'
+    },
+    libra: {
+      p1: '{name}, Chiron in Libra carries the wound of relationship: the sense that you do not know how to be in partnership, that you are either too much or not enough, that love always comes with a cost to the self. There may have been early experiences of deep relational injustice or the consistent loss of self in the effort to maintain connection.',
+      p2: 'Your medicine is earned wisdom about genuine relating. As you heal your relationship with partnership and learn what you actually need in love, you become someone who guides others through their deepest relational patterns. Your earned understanding of what true partnership requires, rather than what it performs, is rare and valuable.',
+      callout: 'I am learning what real love feels like, in my body, not just in theory.',
+      reflection: 'What does truly healthy love look like to you, and how far is your current reality from that vision?'
+    },
+    scorpio: {
+      p1: '{name}, Chiron in Scorpio carries the wound of the deep waters: betrayal, loss, violation or experiences of the dark that left their mark on your sense of safety in the world. The core wound is: "I have been through something that marked me. My darkness is too much, too shameful, too deep to ever fully heal."',
+      p2: 'Your medicine is the path through the underworld. As you sit with your own darkness and choose, again and again, the path of transformation over self-destruction, you become a guide for others in their most broken moments. Your presence in the dark is medicine. People feel less alone in their deepest pain because you have been there.',
+      callout: 'I have been through the dark and I came back. That is not damage. That is medicine.',
+      reflection: 'What is the experience you most rarely let yourself acknowledge as something you actually survived?'
+    },
+    sagittarius: {
+      p1: '{name}, Chiron in Sagittarius carries the wound of meaning: the sense that your truth is wrong, too big, unwanted, or that your most strongly held beliefs have been the very things that cost you most. There may have been experiences where your faith was shattered or where your vision was punished rather than celebrated.',
+      p2: 'Your medicine is meaning-making after devastation. As you rebuild your philosophy from lived experience rather than borrowed belief, you become someone who helps others find meaning in their most broken chapters. Your faith, after wounding, carries a weight and credibility that untested faith never quite achieves. People need your kind of hope.',
+      callout: 'My faith has been earned. That makes it real. That makes it medicine.',
+      reflection: 'What belief was shattered by an experience that you are now, slowly, rebuilding into something more honest and earned?'
+    },
+    capricorn: {
+      p1: '{name}, Chiron in Capricorn carries the wound of achievement and worth: the sense that your success is hollow, your authority illegitimate, your hard work perpetually insufficient. No matter what you achieve, the wound says it is not enough, that others will eventually see you are not truly qualified for the life you are living.',
+      p2: 'Your medicine is integrity in action. As you stop building to prove and start building because it matters, you become someone who models a profoundly rare kind of success: one built from the inside out, from values rather than fear. Others watch you and begin to believe that meaningful work is possible.',
+      callout: 'I build from truth, not to prove anything. That is where real authority lives.',
+      reflection: 'What would you stop doing tomorrow if you no longer needed to prove yourself to anyone?'
+    },
+    aquarius: {
+      p1: '{name}, Chiron in Aquarius carries the wound of otherness: the experience of not belonging, of being too different, too unusual, too far from the mainstream to ever find a true home. This wound is often about the collective: feeling responsible for humanity while being unable to belong to it, loving people while struggling to connect one-to-one.',
+      p2: 'Your medicine is radical belonging from the margins. As you make peace with your difference and find your true community, you become someone who builds belonging for all the ones who didn\'t fit. Your otherness was never the problem. It was always the direction. You lead the outliers home.',
+      callout: 'My difference is not exile. It is the map that leads me to my true people.',
+      reflection: 'Who are your true people, the ones who see your difference as a gift rather than a problem?'
+    },
+    pisces: {
+      p1: '{name}, Chiron in Pisces carries the wound of the mystic: a sensitivity so profound that the world of ordinary reality felt genuinely painful, a permeability so deep that the boundary between self and other dissolved before you understood what boundaries were. You may have experienced spiritual crisis, or found that your compassion left you chronically depleted.',
+      p2: 'Your medicine is compassion that has structure. As you learn to hold your gifts in a container of healthy boundaries and grounded spiritual practice, you become someone capable of healing at the collective level. Your wound has given you access to the most tender, aching places in human experience. That access, once anchored, is extraordinary medicine.',
+      callout: 'My sensitivity, with structure, becomes the most powerful healing force I carry.',
+      reflection: 'What spiritual or compassionate gift in you most needs a stronger container so it can be sustained?'
+    }
+  };
+
+  const nodeReadings = {
+    aries: {
+      p1: '{name}, your South Node in Libra means you arrive in this lifetime with a natural talent for diplomacy, relationship management and keeping everyone comfortable. You know how to read a room and adjust accordingly. That gift has also been your safety net: deferring your own desires in favour of what others need.',
+      p2: 'Your North Node in Aries calls you toward radical self-trust: making decisions without committee approval, leading your own life rather than curating it around others\' needs, choosing yourself without waiting for permission. Every time you act from your own centre rather than from what the group wants, you are exactly on course.',
+      callout: 'I am here to lead my own life. Choosing myself is not selfish. It is the work.',
+      reflection: 'What would you do differently this week if you made every decision from your own desire rather than what you think others need?'
+    },
+    taurus: {
+      p1: '{name}, your South Node in Scorpio means you arrive with a capacity for intensity, transformation and navigating the dark. You are comfortable with complexity, crisis and depth. But this comfort with intensity can become its own addiction, and the pull toward drama, power struggles or transformation for its own sake keeps you from the simplicity that genuinely heals you.',
+      p2: 'Your North Node in Taurus calls you toward simplicity, pleasure, embodiment and the ordinary miracle of a stable, beautiful life. Your evolution this lifetime is not more intensity but more groundedness: coming home to the body, to sensory pleasure, to the slowness that allows you to actually enjoy what you are building.',
+      callout: 'I am here to rest in beauty. The ordinary is my frontier.',
+      reflection: 'Where are you seeking transformation or intensity when what you actually need is rest, pleasure and simplicity?'
+    },
+    gemini: {
+      p1: '{name}, your South Node in Sagittarius means you arrive with the philosopher\'s view: the big picture, the vision, the truth-seeker always on the horizon. You are comfortable with grand narratives and sweeping ideas. But the overview can become a way of avoiding the specific, the local, the particular human being right in front of you.',
+      p2: 'Your North Node in Gemini calls you toward the particulars: the detail, the curiosity, the specific conversation, the individual truth. Your evolution is not less wisdom but more presence, meeting what is actually here rather than what the pattern suggests should be here.',
+      callout: 'I am here for the detail. God is in the specific.',
+      reflection: 'Where are you missing what is actually right in front of you because you are focused on the bigger picture?'
+    },
+    cancer: {
+      p1: '{name}, your South Node in Capricorn means you arrive with tremendous capability, self-sufficiency and a talent for making things work no matter what. You have carried responsibility well, and often early. The trap is the emotional armour that keeps you building and achieving while the feeling world waits quietly outside the door.',
+      p2: 'Your North Node in Cancer calls you home: to softness, to the feeling world, to family, to allowing yourself to need and to receive. Your evolution this lifetime is toward the vulnerable heart rather than away from it. Every time you let yourself feel rather than cope, you are exactly where you are meant to be.',
+      callout: 'I am here to feel, to need and to be held. That is my evolution, not my weakness.',
+      reflection: 'What would it mean to let your heart be as important as your capability?'
+    },
+    leo: {
+      p1: '{name}, your South Node in Aquarius means you arrive with a talent for the collective, for progressive thinking and for seeing humanity\'s patterns with beautiful clarity. But the detachment that allows that wide view can also keep you at a distance from your own heart, your own creative self, your own particular radiance.',
+      p2: 'Your North Node in Leo calls you into the personal: your individual creative expression, your own heart, the courage to stand in the spotlight as yourself rather than as the spokesperson for a cause. Your evolution is to discover that your most individual, most personal self-expression is your greatest gift to the collective.',
+      callout: 'I am here to shine as myself. My personal radiance is my gift to everyone.',
+      reflection: 'What uniquely personal, deeply felt expression have you been holding back in favour of something more universal or safe?'
+    },
+    virgo: {
+      p1: '{name}, your South Node in Pisces means you arrive with deep spiritual sensitivity, compassion and the ability to dissolve into the greater whole. You know the mystical, the merged, the surrendered. But that surrender can become a way of avoiding the practical work of actually landing in life and being of specific, grounded use.',
+      p2: 'Your North Node in Virgo calls you into practical service: the specific skill, the disciplined craft, the ability to take your spiritual gifts and earth them into something tangible and useful. Your evolution is not less magic but more landing. The world needs your gifts in form, not only in feeling.',
+      callout: 'I am here to earth my gifts. My magic is most powerful when it takes practical form.',
+      reflection: 'What spiritual gift or creative impulse in you most needs to become a grounded, consistent practice?'
+    },
+    libra: {
+      p1: '{name}, your South Node in Aries means you arrive with tremendous independence, initiative and self-determination. You know how to act alone, how to lead, how to take up space. But that self-sufficiency can become an inability to truly partner: to need, to compromise, to share power and to risk the vulnerability of genuine togetherness.',
+      p2: 'Your North Node in Libra calls you toward the art of true relating: real partnership, the courage of togetherness, the beauty of two people choosing each other honestly. Your evolution is learning that needing others is not weakness and that the most powerful thing you can build might not be something you build alone.',
+      callout: 'I am here to learn the sacred art of genuine partnership. That takes courage, not weakness.',
+      reflection: 'Where have you been most afraid to truly need someone, and what has that cost you?'
+    },
+    scorpio: {
+      p1: '{name}, your South Node in Taurus means you arrive with a talent for comfort, stability and the pleasures of the physical world. You know how to create safety and how to hold what you have built. But the attachment to comfort and security can become a barrier to the very transformation that would take you to your real life.',
+      p2: 'Your North Node in Scorpio calls you into depth, transformation and the willingness to surrender what no longer serves in exchange for what is truly alive. Your evolution is learning to let things die so that something real can be born. The loss you fear most is often the door to your truest life.',
+      callout: 'I am here to trust the transformation. What I release makes room for what I am truly becoming.',
+      reflection: 'What are you holding onto for security that you know, in your deepest self, needs to be released?'
+    },
+    sagittarius: {
+      p1: '{name}, your South Node in Gemini means you arrive with a talent for words, ideas and the ability to see and articulate complexity. You gather information with ease, make connections quickly and communicate with facility. But the restlessness of the forever-curious mind can keep you skimming surfaces when your soul is asking you to dive.',
+      p2: 'Your North Node in Sagittarius calls you toward wisdom: the big truth, the lived philosophy, the willingness to commit to a meaning and then go deep enough to test it against reality. Your evolution is from information to wisdom, from the many to the one, from clever to true.',
+      callout: 'I am here for wisdom, not just knowledge. My depth, when I commit to it, is my gift.',
+      reflection: 'What one truth, if you actually committed to living it rather than just knowing it, would change everything?'
+    },
+    capricorn: {
+      p1: '{name}, your South Node in Cancer means you arrive with emotional intelligence, deep sensitivity and a natural talent for nurturing. You understand the feeling world and the needs of others with extraordinary attunement. But the pull toward emotional caretaking and the safety of home can keep you from building your own authority in the world.',
+      p2: 'Your North Node in Capricorn calls you toward mastery, structure and building something lasting in the outer world. Your evolution is learning that your emotional intelligence does not have to stay private: it is the foundation for extraordinary leadership. Your heart inside your ambition is what makes your authority worthy of following.',
+      callout: 'I am here to build something real in the world. My feelings are the foundation, not the obstacle.',
+      reflection: 'What would you build or lead if you brought the full depth of your emotional wisdom into your work in the world?'
+    },
+    aquarius: {
+      p1: '{name}, your South Node in Leo means you arrive with a talent for self-expression, natural charisma and a genuine ability to occupy the centre of a room. You know your own particular light. But the spotlight can become its own limitation when the soul is asking you to dissolve into something larger than the personal story.',
+      p2: 'Your North Node in Aquarius calls you toward the collective: humanity\'s next chapter, the vision beyond yourself, the work that serves the future rather than the present. Your evolution is discovering that your greatest contribution is not your personal radiance but the way that radiance lights the room for everyone in it.',
+      callout: 'I am here to serve something larger than my own story. That does not diminish me. It fulfils me.',
+      reflection: 'What cause, community or collective vision genuinely lights you up beyond your own personal expression?'
+    },
+    pisces: {
+      p1: '{name}, your South Node in Virgo means you arrive with a talent for analysis, service, practical wisdom and the careful tending of what needs care. You know how to be useful, how to discern what is needed and how to organise complex things into order. But the drive to fix, analyse and refine can become a barrier to the very surrender that heals you.',
+      p2: 'Your North Node in Pisces calls you into the mystery: faith, surrender, spiritual depth and the willingness to not know, to not fix, to float in the grace of something beyond your understanding. Your evolution is learning that some things cannot be organised into wholeness. Some things can only be prayed into it.',
+      callout: 'I am here to surrender what I cannot fix and trust what I cannot see.',
+      reflection: 'Where in your life are you working harder than the situation requires because you do not yet trust the process to work without your effort?'
+    }
+  };
+</script>
+</body>
+</html>
