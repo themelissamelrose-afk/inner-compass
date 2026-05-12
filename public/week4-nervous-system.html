@@ -52,6 +52,11 @@
     .disc-dot.active { background: #5c2318; }
     .disc-reveal { padding: 20px; background: #f9f3eb; border-radius: 14px; border: 1px solid #e8d9c4; margin-top: 4px; }
     .disc-reveal p { font-size: 0.92rem; line-height: 1.75; color: #4a3728; }
+    .carry-block { background: #f9f3eb; border-radius: 10px; padding: 14px 18px; margin-bottom: 22px; border-left: 3px solid #e8d9c4; display: none; }
+    .carry-lbl { font-size: 0.74rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; }
+    .carry-item { margin-top: 8px; }
+    .carry-item-label { font-size: 0.74rem; color: #9a7d6e; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+    .carry-item-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.92rem; color: #5c2318; line-height: 1.65; }
 
     /* Expandable */
     .exp-cards { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
@@ -342,13 +347,14 @@
       <textarea id="att1" placeholder="Write what came up for you..."></textarea>
       <p class="q-label"><em>How do you see it show up in your relationships, communication, or your ability to receive love?</em></p>
       <textarea id="att2" placeholder="Notice without judgement. This is just awareness..."></textarea>
-      <button class="btn" onclick="go('s8')">Now, what do I do with this? →</button>
+      <button class="btn" onclick="carryForward('s8-carry',[{id:'att1',label:'Your attachment style'}]);go('s8')">Now, what do I do with this? →</button>
     </div>
   </div>
 
   <!-- s8: Questions to Reveal and Heal -->
   <div class="step" id="s8">
     <div class="card">
+      <div class="carry-block" id="s8-carry"></div>
       <div class="tag">Questions to Reveal and Heal</div>
       <div class="step-title">A process to navigate your reactions.</div>
       <p class="body-text">First, understand this: no one is responsible for your emotional reactions except you. That sounds confronting. But it is also the most freeing thing you will ever hear.</p>
@@ -386,13 +392,14 @@
       <p class="q-label"><em>When have you felt this before?</em><br><span style="font-size:0.82rem;color:#9a7d6e;">Let whatever comes up arise: a memory, an age, a person, a moment.</span></p>
       <textarea id="dq3" placeholder="The first time I remember feeling this..."></textarea>
       <div class="callout" style="margin-top:20px;">"As we feel safe to bring these moments into our current awareness, we can start the deeper healing."</div>
-      <button class="btn" onclick="go('sshow')">Continue →</button>
+      <button class="btn" onclick="carryForward('sshow-carry',[{id:'dq1',label:'Reactive emotion'},{id:'dq2',label:'Feeling underneath'}]);go('sshow')">Continue →</button>
     </div>
   </div>
 
   <!-- sshow: Showing Up for Yourself -->
   <div class="step" id="sshow">
     <div class="card">
+      <div class="carry-block" id="sshow-carry"></div>
       <div class="tag">Showing Up for Yourself</div>
       <div class="step-title">To run, or to show up.</div>
       <p class="body-text">Running out on ourselves only leads to distrust in ourselves. It gives us the opening to betray ourselves, to blame ourselves, which triggers your Personal Lie and the mind chatter of untruths that send you into a spiral of shame.</p>
@@ -600,6 +607,19 @@
   }
 
   renderDiscQuestion();
+
+  function carryForward(blockId, answers) {
+    const block = document.getElementById(blockId);
+    if (!block) return;
+    const items = answers.map(a => {
+      const el = document.getElementById(a.id);
+      const val = el ? el.value.trim() : '';
+      if (!val) return '';
+      const lbl = a.label ? `<div class="carry-item-label">${a.label}</div>` : '';
+      return `<div class="carry-item">${lbl}<div class="carry-item-text">${val}</div></div>`;
+    }).filter(Boolean).join('');
+    if (items) { block.innerHTML = `<div class="carry-lbl">You shared</div>${items}`; block.style.display = 'block'; }
+  }
 
   // Music
   let audioCtx = null, masterGain = null, noteTimer = null, padOscs = [], musicOn = false;

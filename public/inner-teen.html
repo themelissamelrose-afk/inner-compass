@@ -26,6 +26,11 @@
     .quote-block { background: #f9f3eb; border-left: 3px solid #c4967a; padding: 16px 20px; border-radius: 0 12px 12px 0; margin: 18px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #5c2318; line-height: 1.8; }
     textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.92rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 110px; line-height: 1.6; outline: none; transition: border-color 0.2s; margin-top: 10px; }
     textarea:focus { border-color: #c4967a; }
+    .carry-block { background: #f9f3eb; border-radius: 10px; padding: 14px 18px; margin-bottom: 22px; border-left: 3px solid #e8d9c4; display: none; }
+    .carry-lbl { font-size: 0.74rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; }
+    .carry-item { margin-top: 8px; }
+    .carry-item-label { font-size: 0.74rem; color: #9a7d6e; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+    .carry-item-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.92rem; color: #5c2318; line-height: 1.65; }
     .audio-play-btn { width: 48px; height: 48px; border-radius: 50%; background: #5c2318; color: #fff; border: none; font-size: 1.1rem; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .audio-play-btn:hover { background: #7a2f21; }
     .info-box { background: #fdf9f4; border-radius: 14px; padding: 18px 20px; border: 1px solid #ede3d4; margin-bottom: 20px; font-size: 0.92rem; line-height: 1.8; color: #6b5144; }
@@ -80,13 +85,14 @@
       <div class="q-text">What age in your teen years comes to you first?</div>
       <div class="q-note">Do not choose. Let it arrive. The age that comes first is usually the one that most needs your attention.</div>
       <textarea id="q-age" placeholder="I keep coming back to when I was... / The first age that arrives is..."></textarea>
-      <button class="btn" onclick="nextQ('s2')">Continue →</button>
+      <button class="btn" onclick="carryForward('s2-carry',[{id:'q-age',label:'The age you returned to'}]);nextQ('s2')">Continue →</button>
     </div>
   </div>
 
   <!-- S2: Outside and Inside -->
   <div class="step" id="s2">
     <div class="card">
+      <div class="carry-block" id="s2-carry"></div>
       <span class="section-tag">Head — Two Perspectives</span>
       <div class="q-text">What was going on outside of you at that time?</div>
       <div class="q-note">School. Home. Friendships. Family. What was happening in the world around her?</div>
@@ -96,13 +102,14 @@
       <div class="q-text">What was going on inside of you?</div>
       <div class="q-note">What did they feel? What did they need? What were they telling themselves about who they were and what they deserved?</div>
       <textarea id="q-inside" placeholder="Inside I felt... / What I needed most was... / I believed about myself that..."></textarea>
-      <button class="btn" onclick="nextQ('s3')">Continue →</button>
+      <button class="btn" onclick="carryForward('s3-carry',[{id:'q-inside',label:'Inside they felt'}]);nextQ('s3')">Continue →</button>
     </div>
   </div>
 
   <!-- S3: The Masks -->
   <div class="step" id="s3">
     <div class="card">
+      <div class="carry-block" id="s3-carry"></div>
       <span class="section-tag">Head — The Masks</span>
       <div class="q-text">What masks did they wear to fit in?</div>
       <div class="q-note">Your inner teen shapeshifted to adapt — to get love, to avoid rejection, to survive. They became who they needed to be in different rooms. What were those versions of them?</div>
@@ -110,13 +117,14 @@
         Think about: at school, at home, with friends, with family. Where did they show up differently? Where did they shrink? Where did they perform? Where did they become someone else entirely?
       </div>
       <textarea id="q-masks" placeholder="With friends I became... / At home I hid... / The version of me that felt most fake was... / The part of me I never showed anyone was..."></textarea>
-      <button class="btn" onclick="nextQ('s4')">Continue →</button>
+      <button class="btn" onclick="carryForward('s4-carry',[{id:'q-masks',label:'The masks they wore'}]);nextQ('s4')">Continue →</button>
     </div>
   </div>
 
   <!-- S4: What she didn't receive -->
   <div class="step" id="s4">
     <div class="card">
+      <div class="carry-block" id="s4-carry"></div>
       <span class="section-tag">Head — What They Needed</span>
       <div class="q-text">What did they most long for that they did not receive?</div>
       <div class="q-note">Not what they said they wanted. What they really needed underneath it all. The thing they would never have admitted out loud.</div>
@@ -208,13 +216,14 @@
       <div class="q-note">Let them speak first. Do not jump in. Do not try to fix what they share. Simply listen. When they are finished — ask them: "How can I be there for you?"</div>
       <div class="quote-block">"Stay in your adult self as you meet them. You are not going back into that teen. You are meeting them as the person who now understands what they were carrying."</div>
       <textarea id="q-dialogue" placeholder="What they shared with me... / What I heard underneath their words... / How they need me to show up for her..."></textarea>
-      <button class="btn" onclick="nextQ('s8')">Continue →</button>
+      <button class="btn" onclick="carryForward('s8-carry',[{id:'q-dialogue',label:'What they shared'}]);nextQ('s8')">Continue →</button>
     </div>
   </div>
 
   <!-- S8: What you see now -->
   <div class="step" id="s8">
     <div class="card">
+      <div class="carry-block" id="s8-carry"></div>
       <span class="section-tag">Heart — Compassion</span>
       <div class="q-text">Seeing them now — as the adult who knows what they did not know then — how do you feel about them?</div>
       <div class="q-note">They did the best they could with what they had. They were not wrong for protecting you. They were trying to keep you safe in the only ways they knew how.</div>
@@ -275,6 +284,19 @@
   }
 
   function nextQ(id) { go(id); }
+
+  function carryForward(blockId, answers) {
+    const block = document.getElementById(blockId);
+    if (!block) return;
+    const items = answers.map(a => {
+      const el = document.getElementById(a.id);
+      const val = el ? el.value.trim() : '';
+      if (!val) return '';
+      const lbl = a.label ? `<div class="carry-item-label">${a.label}</div>` : '';
+      return `<div class="carry-item">${lbl}<div class="carry-item-text">${val}</div></div>`;
+    }).filter(Boolean).join('');
+    if (items) { block.innerHTML = `<div class="carry-lbl">You shared</div>${items}`; block.style.display = 'block'; }
+  }
 
   function toggleAudio(audioId, btnId) {
     const audio = document.getElementById(audioId);

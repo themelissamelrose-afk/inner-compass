@@ -25,6 +25,11 @@
     .info-box strong { color: #5c2318; }
     textarea { width: 100%; padding: 14px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 110px; line-height: 1.65; outline: none; transition: border-color 0.2s; margin-top: 12px; }
     textarea:focus { border-color: #c4967a; }
+    .carry-block { background: #f9f3eb; border-radius: 10px; padding: 14px 18px; margin-bottom: 22px; border-left: 3px solid #e8d9c4; display: none; }
+    .carry-lbl { font-size: 0.74rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; }
+    .carry-item { margin-top: 8px; }
+    .carry-item-label { font-size: 0.74rem; color: #9a7d6e; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+    .carry-item-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.92rem; color: #5c2318; line-height: 1.65; }
     input[type="text"] { width: 100%; padding: 12px 16px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.95rem; color: #4a3728; background: #fdf9f4; outline: none; transition: border-color 0.2s; margin-top: 10px; }
     input[type="text"]:focus { border-color: #c4967a; }
     .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; letter-spacing: 0.3px; }
@@ -157,22 +162,24 @@
       <div class="q-text">What is your most negative thought about yourself?</div>
       <div class="q-note">Write it exactly as it sounds inside you. No softening. No editing.</div>
       <textarea id="q1" placeholder="I am not good enough... I am too much... I am not worthy of..."></textarea>
-      <button class="btn" onclick="nextQ(3)">Continue →</button>
+      <button class="btn" onclick="carryForward('s4-carry',[{id:'q1',label:'Your lie'}]);nextQ(3)">Continue →</button>
     </div>
   </div>
 
   <div class="step" id="s4">
     <div class="card">
+      <div class="carry-block" id="s4-carry"></div>
       <span class="q-num">Question 2 of 5</span>
       <div class="q-text">Why doesn't life work perfectly for you?</div>
       <div class="q-note">Notice the story you carry about why things don't quite go the way you want them to.</div>
       <textarea id="q2" placeholder="Life doesn't work for me because... I always seem to... Things never quite..."></textarea>
-      <button class="btn" onclick="nextQ(4)">Continue →</button>
+      <button class="btn" onclick="carryForward('s5-carry',[{id:'q2'}]);nextQ(4)">Continue →</button>
     </div>
   </div>
 
   <div class="step" id="s5">
     <div class="card">
+      <div class="carry-block" id="s5-carry"></div>
       <span class="q-num">Question 3 of 5</span>
       <div class="q-text">What are you afraid people will find out about you?</div>
       <div class="q-note">This is often where the lie hides — in the gap between who you show the world and what you secretly fear is true.</div>
@@ -344,6 +351,19 @@
     const ta = document.querySelector('#s'+from+' textarea');
     if (ta && !ta.value.trim()) { alert('Take your time — write whatever comes.'); return; }
     go(from);
+  }
+
+  function carryForward(blockId, answers) {
+    const block = document.getElementById(blockId);
+    if (!block) return;
+    const items = answers.map(a => {
+      const el = document.getElementById(a.id);
+      const val = el ? el.value.trim() : '';
+      if (!val) return '';
+      const lbl = a.label ? `<div class="carry-item-label">${a.label}</div>` : '';
+      return `<div class="carry-item">${lbl}<div class="carry-item-text">${val}</div></div>`;
+    }).filter(Boolean).join('');
+    if (items) { block.innerHTML = `<div class="carry-lbl">You shared</div>${items}`; block.style.display = 'block'; }
   }
 
   function revealClearing() {

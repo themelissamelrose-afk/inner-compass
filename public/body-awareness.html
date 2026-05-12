@@ -36,6 +36,9 @@
     .audio-play-btn:hover { background: #7a2f21; }
     textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #e8d9c4; border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.92rem; color: #4a3728; background: #fdf9f4; resize: vertical; min-height: 100px; line-height: 1.6; outline: none; transition: border-color 0.2s; margin-top: 14px; }
     textarea:focus { border-color: #c4967a; }
+    .carry-block { background: #f9f3eb; border-radius: 10px; padding: 14px 18px; margin-bottom: 22px; border-left: 3px solid #e8d9c4; display: none; text-align: left; }
+    .carry-lbl { font-size: 0.74rem; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; }
+    .carry-item-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.92rem; color: #5c2318; line-height: 1.65; }
 
     /* Body area list in scan step */
     .scan-areas { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
@@ -230,27 +233,29 @@
       </div>
       <div class="q-sub">Notice any sensations. Warmth, tension, openness, contraction. Let each feeling guide you to deeper insight.</div>
       <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:16px; text-align:center;">If your mind wanders, return to your breath. Let it anchor you into presence.</p>
-      <textarea placeholder="My body feels..."></textarea>
-      <button class="btn" onclick="go('s-q2')">Continue →</button>
+      <textarea id="ba-q1" placeholder="My body feels..."></textarea>
+      <button class="btn" onclick="carryForward('sq2-carry',[{id:'ba-q1'}]);go('s-q2')">Continue →</button>
     </div>
   </div>
 
   <!-- STEP: Q2 -->
   <div class="step" id="s-q2">
     <div class="card" style="max-width:580px; text-align:center;">
+      <div class="carry-block" id="sq2-carry"></div>
       <span class="section-tag">Body Question 2 of 3</span>
       <div class="q-big">What am I avoiding<br>feeling?</div>
       <div class="q-divider"></div>
       <div class="q-sub">Your mind's job is to protect you. But the body holds what the mind moves past. Is there something present that you have been bypassing?</div>
       <p style="font-size:0.85rem; font-style:italic; color:#9a7d6e; margin-top:16px; text-align:center;">You do not need to solve it. Simply be willing to see it.</p>
-      <textarea placeholder="What I have been avoiding..."></textarea>
-      <button class="btn" onclick="go('s-q3')">Continue →</button>
+      <textarea id="ba-q2" placeholder="What I have been avoiding..."></textarea>
+      <button class="btn" onclick="carryForward('sq3-carry',[{id:'ba-q2'}]);go('s-q3')">Continue →</button>
     </div>
   </div>
 
   <!-- STEP: Q3 -->
   <div class="step" id="s-q3">
     <div class="card" style="max-width:580px; text-align:center;">
+      <div class="carry-block" id="sq3-carry"></div>
       <span class="section-tag">Body Question 3 of 3</span>
       <div class="q-big">What message is my body<br>trying to communicate<br>to me?</div>
       <div class="q-divider"></div>
@@ -494,6 +499,19 @@
     if (audio.paused) { audio.play(); btn.textContent = '⏸'; }
     else { audio.pause(); btn.textContent = '▶'; }
     audio.onended = () => { btn.textContent = '▶'; };
+  }
+
+  function carryForward(blockId, answers) {
+    const block = document.getElementById(blockId);
+    if (!block) return;
+    const items = answers.map(a => {
+      const el = document.getElementById(a.id);
+      const val = el ? el.value.trim() : '';
+      if (!val) return '';
+      const lbl = a.label ? `<div class="carry-item-label">${a.label}</div>` : '';
+      return `<div class="carry-item">${lbl}<div class="carry-item-text">${val}</div></div>`;
+    }).filter(Boolean).join('');
+    if (items) { block.innerHTML = `<div class="carry-lbl">You shared</div>${items}`; block.style.display = 'block'; }
   }
 </script>
 </body>
