@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const fs = require('fs');
+const Astronomy = require('astronomy-engine');
 
 let stripe;
 try {
@@ -286,6 +287,156 @@ Returning: "Welcome back. How are you right now — in your body, in this moment
 
 Always start with the body. Always start with now.`;
 
+// ─── ASTROLOGY CHART CALCULATIONS ───────────────────────────────────────────
+
+function longitudeToSign(lon) {
+  const signs = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces'];
+  return signs[Math.floor((((lon % 360) + 360) % 360) / 30)];
+}
+
+function getSunSign(month, day) {
+  if ((month===3&&day>=21)||(month===4&&day<=19)) return 'aries';
+  if ((month===4&&day>=20)||(month===5&&day<=20)) return 'taurus';
+  if ((month===5&&day>=21)||(month===6&&day<=20)) return 'gemini';
+  if ((month===6&&day>=21)||(month===7&&day<=22)) return 'cancer';
+  if ((month===7&&day>=23)||(month===8&&day<=22)) return 'leo';
+  if ((month===8&&day>=23)||(month===9&&day<=22)) return 'virgo';
+  if ((month===9&&day>=23)||(month===10&&day<=22)) return 'libra';
+  if ((month===10&&day>=23)||(month===11&&day<=21)) return 'scorpio';
+  if ((month===11&&day>=22)||(month===12&&day<=21)) return 'sagittarius';
+  if ((month===12&&day>=22)||(month===1&&day<=19)) return 'capricorn';
+  if ((month===1&&day>=20)||(month===2&&day<=18)) return 'aquarius';
+  return 'pisces';
+}
+
+function getMoonSign(astroTime) {
+  const moonEq = Astronomy.GeoMoon(astroTime);
+  const ecliptic = Astronomy.Ecliptic(moonEq);
+  return longitudeToSign(ecliptic.elon);
+}
+
+function getAscendant(astroTime, lat, lng) {
+  const gst = Astronomy.SiderealTime(astroTime); // hours
+  const ramcDeg = ((gst * 15) + lng + 360) % 360;
+  const ramcRad = ramcDeg * Math.PI / 180;
+  const eps = 23.4397 * Math.PI / 180;
+  const phi = lat * Math.PI / 180;
+  const num = -Math.cos(ramcRad);
+  const den = Math.sin(ramcRad) * Math.cos(eps) + Math.tan(phi) * Math.sin(eps);
+  let asc = Math.atan2(num, den) * 180 / Math.PI;
+  if (Math.sin(ramcRad) < 0) asc += 180;
+  return longitudeToSign(((asc % 360) + 360) % 360);
+}
+
+function getSaturnSign(astroTime) {
+  const vec = Astronomy.GeoVector('Saturn', astroTime, true);
+  const ecl = Astronomy.Ecliptic(vec);
+  return longitudeToSign(ecl.elon);
+}
+
+// North Node lookup — moves retrograde ~18 months per sign
+function getNodeSign(birthDate) {
+  const d = new Date(birthDate);
+  const ranges = [
+    ['2023-07-17','2025-01-11','aries'],
+    ['2022-01-19','2023-07-17','taurus'],
+    ['2020-05-05','2022-01-19','gemini'],
+    ['2018-11-07','2020-05-05','cancer'],
+    ['2017-05-10','2018-11-07','leo'],
+    ['2015-11-12','2017-05-10','virgo'],
+    ['2014-02-19','2015-11-12','libra'],
+    ['2012-08-30','2014-02-19','scorpio'],
+    ['2011-03-03','2012-08-30','sagittarius'],
+    ['2009-08-22','2011-03-03','capricorn'],
+    ['2007-12-19','2009-08-22','aquarius'],
+    ['2006-06-23','2007-12-19','pisces'],
+    ['2004-12-27','2006-06-23','aries'],
+    ['2003-04-15','2004-12-27','taurus'],
+    ['2001-10-14','2003-04-15','gemini'],
+    ['2000-04-10','2001-10-14','cancer'],
+    ['1998-10-21','2000-04-10','leo'],
+    ['1997-01-26','1998-10-21','virgo'],
+    ['1995-07-31','1997-01-26','libra'],
+    ['1994-02-02','1995-07-31','scorpio'],
+    ['1992-08-01','1994-02-02','sagittarius'],
+    ['1991-02-02','1992-08-01','capricorn'],
+    ['1989-08-11','1991-02-02','aquarius'],
+    ['1987-11-17','1989-08-11','pisces'],
+    ['1986-05-06','1987-11-17','aries'],
+    ['1984-09-25','1986-05-06','taurus'],
+    ['1983-03-17','1984-09-25','gemini'],
+    ['1981-09-24','1983-03-17','cancer'],
+    ['1980-03-28','1981-09-24','leo'],
+  ];
+  for (const [start, end, sign] of ranges) {
+    if (d >= new Date(start) && d < new Date(end)) return sign;
+  }
+  return null;
+}
+
+// Chiron lookup — eccentric orbit, varies 4-8 yrs per sign
+function getChironSign(birthDate) {
+  const d = new Date(birthDate);
+  const ranges = [
+    ['2018-04-17','2027-06-01','aries'],
+    ['2011-02-08','2018-04-17','pisces'],
+    ['2005-12-29','2011-02-08','aquarius'],
+    ['2001-12-11','2005-12-29','capricorn'],
+    ['1999-02-10','2001-12-11','sagittarius'],
+    ['1996-09-10','1999-02-10','scorpio'],
+    ['1993-09-03','1996-09-10','libra'],
+    ['1988-06-21','1993-09-03','cancer'], // includes virgo/leo brief transits; simplified
+    ['1983-11-29','1988-06-21','gemini'],
+    ['1976-05-28','1983-11-29','taurus'],
+  ];
+  for (const [start, end, sign] of ranges) {
+    if (d >= new Date(start) && d < new Date(end)) return sign;
+  }
+  return null;
+}
+
+function calculateChart({ year, month, day, utcHour, utcMinute, lat, lng }) {
+  const utcDate = new Date(Date.UTC(year, month - 1, day, utcHour, utcMinute));
+  const astroTime = Astronomy.MakeTime(utcDate);
+  const sun = getSunSign(month, day);
+  const moon = getMoonSign(astroTime);
+  const rising = getAscendant(astroTime, lat, lng);
+  const saturn = getSaturnSign(astroTime);
+  const node = getNodeSign(utcDate);
+  const chiron = getChironSign(utcDate);
+  return { sun, moon, rising, saturn, chiron, node };
+}
+
+// ─── BIRTH CHART SYSTEM PROMPT ───────────────────────────────────────────────
+const ASTRO_SYSTEM_PROMPT = `You are The Inner Compass — Melissa Melrose's healing-focused astrological guide. You generate deeply personal, compassionate birth chart readings grounded in Melissa's transformation and nervous system healing framework.
+
+Your lens: every placement carries a wound and a gift. The wound is where we contracted. The gift is what grows when we heal it. You always acknowledge the wound with love before revealing the gift.
+
+Your voice is warm, intimate, poetic and direct. You write as though you know this person's soul. You use nervous system and somatic language naturally.
+
+STRICT RULES:
+- No em dashes. Use commas, colons or full stops instead.
+- Second person always ("you", "your").
+- Each placement section: 3 short paragraphs. Wound first. Gift second. Close with a one-sentence affirmation in quotes.
+- Format with clear headers: ## ☀ Sun in [Sign], ## ☽ Moon in [Sign], ## ↑ Rising in [Sign], ## ♄ Saturn in [Sign], ## ⚷ Chiron in [Sign], ## ☊ North Node in [Sign]
+- Skip any placement marked as null or unknown.`;
+
+// ─── ASTROLOGY SECTION ADDED TO MAIN SYSTEM PROMPT ──────────────────────────
+const ASTRO_CHAT_CONTEXT = `
+
+## BIRTH CHART AWARENESS
+
+You understand astrology through Melissa's healing lens. When chart data is provided in [CHART DATA] below, you know this person's placements intimately and weave them naturally into your responses.
+
+Sun = their core life force and the authentic self they are growing into.
+Moon = their emotional world, inner child and nervous system patterns.
+Rising = the mask they show the world and their authentic emergence.
+Saturn = their greatest test and the path to their deepest mastery.
+Chiron = their deepest wound and the medicine they carry for others.
+North Node = where their soul is being called to grow this lifetime.
+
+When they ask about their chart, reflect their specific placements back in Melissa's voice: wound acknowledged first, gift revealed second, always grounded in the body and the present moment.`;
+
 // Subscribe — create Stripe subscription and user account
 app.post('/api/subscribe', async (req, res) => {
   const { name, email, password } = req.body;
@@ -497,12 +648,81 @@ app.get('/api/admin/users', requireAdmin, (req, res) => {
   res.json({ users: list });
 });
 
+// Chart calculation endpoint
+app.post('/api/chart', (req, res) => {
+  try {
+    const { year, month, day, utcHour, utcMinute, lat, lng } = req.body;
+    if (!year || !month || !day || utcHour === undefined || !lat || !lng) {
+      return res.status(400).json({ error: 'Missing birth data' });
+    }
+    const chart = calculateChart({ year, month, day, utcHour: Number(utcHour), utcMinute: Number(utcMinute || 0), lat: Number(lat), lng: Number(lng) });
+    res.json({ ok: true, chart });
+  } catch (err) {
+    console.error('Chart error:', err);
+    res.status(500).json({ error: 'Chart calculation failed' });
+  }
+});
+
+// AI birth reading — streams personalized reading for all placements
+app.post('/api/birth-reading', async (req, res) => {
+  const { chart, name } = req.body;
+  if (!chart) return res.status(400).json({ error: 'Chart required' });
+
+  const signNames = { aries:'Aries', taurus:'Taurus', gemini:'Gemini', cancer:'Cancer', leo:'Leo', virgo:'Virgo', libra:'Libra', scorpio:'Scorpio', sagittarius:'Sagittarius', capricorn:'Capricorn', aquarius:'Aquarius', pisces:'Pisces' };
+  const lines = [`Generate a full birth chart reading for ${name || 'this person'}.`];
+  lines.push(`Sun in ${signNames[chart.sun] || chart.sun}`);
+  lines.push(`Moon in ${signNames[chart.moon] || chart.moon}`);
+  lines.push(`Rising in ${signNames[chart.rising] || chart.rising}`);
+  if (chart.saturn) lines.push(`Saturn in ${signNames[chart.saturn] || chart.saturn}`);
+  if (chart.chiron) lines.push(`Chiron in ${signNames[chart.chiron] || chart.chiron}`);
+  if (chart.node) lines.push(`North Node in ${signNames[chart.node] || chart.node}`);
+  lines.push('\nWrite a full personalised reading covering each placement. Use the format and framework in your instructions.');
+
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  try {
+    const stream = await client.messages.stream({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 2048,
+      system: ASTRO_SYSTEM_PROMPT,
+      messages: [{ role: 'user', content: lines.join('\n') }],
+    });
+    for await (const chunk of stream) {
+      if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
+        res.write(`data: ${JSON.stringify({ text: chunk.delta.text })}\n\n`);
+      }
+    }
+    res.write('data: [DONE]\n\n');
+    res.end();
+  } catch (err) {
+    console.error('Birth reading error:', err);
+    res.write(`data: ${JSON.stringify({ error: 'Reading failed' })}\n\n`);
+    res.end();
+  }
+});
+
 // Chat — protected
 app.post('/api/chat', async (req, res) => {
-  const { messages } = req.body;
+  const { messages, chart } = req.body;
 
   if (!messages || !Array.isArray(messages)) {
     return res.status(400).json({ error: 'Messages required' });
+  }
+
+  const signNames = { aries:'Aries', taurus:'Taurus', gemini:'Gemini', cancer:'Cancer', leo:'Leo', virgo:'Virgo', libra:'Libra', scorpio:'Scorpio', sagittarius:'Sagittarius', capricorn:'Capricorn', aquarius:'Aquarius', pisces:'Pisces' };
+  let systemWithChart = SYSTEM_PROMPT + ASTRO_CHAT_CONTEXT;
+  if (chart && chart.sun) {
+    const parts = [];
+    if (chart.name) parts.push(`Name: ${chart.name}`);
+    if (chart.sun) parts.push(`Sun: ${signNames[chart.sun]}`);
+    if (chart.moon) parts.push(`Moon: ${signNames[chart.moon]}`);
+    if (chart.rising) parts.push(`Rising: ${signNames[chart.rising]}`);
+    if (chart.saturn) parts.push(`Saturn: ${signNames[chart.saturn]}`);
+    if (chart.chiron) parts.push(`Chiron: ${signNames[chart.chiron]}`);
+    if (chart.node) parts.push(`North Node: ${signNames[chart.node]}`);
+    systemWithChart += `\n\n[CHART DATA]\n${parts.join('\n')}`;
   }
 
   res.setHeader('Content-Type', 'text/event-stream');
@@ -513,7 +733,7 @@ app.post('/api/chat', async (req, res) => {
     const stream = await client.messages.stream({
       model: 'claude-sonnet-4-6',
       max_tokens: 1024,
-      system: SYSTEM_PROMPT,
+      system: systemWithChart,
       messages: messages,
     });
 

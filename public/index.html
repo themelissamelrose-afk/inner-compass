@@ -342,6 +342,21 @@
   let history = [];
   let isStreaming = false;
 
+  // Load saved birth chart
+  let savedChart = null;
+  try {
+    const raw = localStorage.getItem('innerCompassChart');
+    if (raw) savedChart = JSON.parse(raw);
+  } catch {}
+
+  // Show chart indicator if chart is loaded
+  if (savedChart && savedChart.sun) {
+    const indicator = document.createElement('div');
+    indicator.style.cssText = 'text-align:center;padding:8px 16px;font-size:0.78rem;letter-spacing:1.5px;text-transform:uppercase;color:#c4967a;border-bottom:1px solid #f2e8d9;';
+    indicator.innerHTML = '✦ Your chart is connected &nbsp;·&nbsp; <a href="/birth-chart" style="color:#c4967a;text-decoration:underline;">update</a>';
+    messagesEl.insertAdjacentElement('beforebegin', indicator);
+  }
+
   // Auto-resize textarea
   inputEl.addEventListener('input', () => {
     inputEl.style.height = 'auto';
@@ -432,7 +447,7 @@
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history, chart: savedChart }),
       });
 
       if (!response.ok) throw new Error('Server error');
