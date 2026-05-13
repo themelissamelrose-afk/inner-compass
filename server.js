@@ -941,6 +941,10 @@ app.get('/birth-chart', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'birth-chart.html'));
 });
 
+app.get('/morning-ritual', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'morning-ritual.html'));
+});
+
 app.get('*', (req, res) => {
   res.redirect('/');
 });
