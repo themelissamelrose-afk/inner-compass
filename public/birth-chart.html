@@ -233,13 +233,25 @@
     const [year, month, day] = dateStr.split('-').map(Number);
     const [localHour, localMinute] = timeStr.split(':').map(Number);
 
-    // Estimate UTC offset from longitude (approximate to nearest 0.5hr)
-    const utcOffset = Math.round(geo.lng / 15 * 2) / 2;
-    let utcHour = localHour - utcOffset;
-    let utcMinute = localMinute;
-    let utcDay = day, utcMonth = month, utcYear = year;
-    if (utcHour < 0) { utcHour += 24; utcDay -= 1; }
-    if (utcHour >= 24) { utcHour -= 24; utcDay += 1; }
+    let utcYear, utcMonth, utcDay, utcHour, utcMinute;
+    try {
+      const tzRes = await fetch('/api/timezone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lat: geo.lat, lng: geo.lng, year, month, day, localHour, localMinute })
+      });
+      const tzJson = await tzRes.json();
+      if (!tzJson.ok) throw new Error(tzJson.error || 'Timezone lookup failed');
+      ({ utcYear, utcMonth, utcDay, utcHour, utcMinute } = tzJson);
+    } catch (e) {
+      // Fall back to longitude estimate if timezone lookup fails
+      const utcOffset = Math.round(geo.lng / 15 * 2) / 2;
+      utcHour = localHour - utcOffset;
+      utcMinute = localMinute;
+      utcDay = day; utcMonth = month; utcYear = year;
+      if (utcHour < 0) { utcHour += 24; utcDay -= 1; }
+      if (utcHour >= 24) { utcHour -= 24; utcDay += 1; }
+    }
 
     let chartData;
     try {

@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const fs = require('fs');
 const Astronomy = require('astronomy-engine');
+const { find: geoTzFind } = require('geo-tz');
 
 let stripe;
 try {
@@ -422,11 +423,35 @@ function getAscendant(astroTime, lat, lng) {
   const ramcRad = ramcDeg * Math.PI / 180;
   const eps = 23.4397 * Math.PI / 180;
   const phi = lat * Math.PI / 180;
-  const num = -Math.cos(ramcRad);
-  const den = Math.sin(ramcRad) * Math.cos(eps) + Math.tan(phi) * Math.sin(eps);
-  let asc = Math.atan2(num, den) * 180 / Math.PI;
-  if (Math.sin(ramcRad) < 0) asc += 180;
+  const num = Math.cos(ramcRad);
+  const den = -Math.sin(ramcRad) * Math.cos(eps) - Math.tan(phi) * Math.sin(eps);
+  const asc = Math.atan2(num, den) * 180 / Math.PI;
   return longitudeToSign(((asc % 360) + 360) % 360);
+}
+
+function localToUtc(year, month, day, hour, minute, tz) {
+  const pad = n => String(n).padStart(2, '0');
+  const naiveUtcMs = new Date(`${year}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(minute)}:00Z`).getTime();
+  const intl = new Intl.DateTimeFormat('en-CA', {
+    timeZone: tz,
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit',
+    hourCycle: 'h23'
+  });
+  const parts = intl.formatToParts(new Date(naiveUtcMs)).reduce((acc, p) => {
+    if (p.type !== 'literal') acc[p.type] = parseInt(p.value, 10);
+    return acc;
+  }, {});
+  const tzShownMs = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute);
+  const wantedMs = Date.UTC(year, month - 1, day, hour, minute);
+  const actualUtc = new Date(naiveUtcMs + (wantedMs - tzShownMs));
+  return {
+    utcYear: actualUtc.getUTCFullYear(),
+    utcMonth: actualUtc.getUTCMonth() + 1,
+    utcDay: actualUtc.getUTCDate(),
+    utcHour: actualUtc.getUTCHours(),
+    utcMinute: actualUtc.getUTCMinutes()
+  };
 }
 
 function getSaturnSign(astroTime) {
@@ -750,6 +775,19 @@ app.get('/api/admin/users', requireAdmin, (req, res) => {
 });
 
 // Chart calculation endpoint
+app.post('/api/timezone', (req, res) => {
+  try {
+    const { lat, lng, year, month, day, localHour, localMinute } = req.body;
+    const zones = geoTzFind(Number(lat), Number(lng));
+    if (!zones || !zones.length) return res.status(400).json({ error: 'Could not determine timezone for this location' });
+    const utc = localToUtc(Number(year), Number(month), Number(day), Number(localHour), Number(localMinute), zones[0]);
+    res.json({ ok: true, timezone: zones[0], ...utc });
+  } catch (err) {
+    console.error('Timezone error:', err);
+    res.status(500).json({ error: 'Timezone lookup failed' });
+  }
+});
+
 app.post('/api/chart', (req, res) => {
   try {
     const { year, month, day, utcHour, utcMinute, lat, lng } = req.body;
