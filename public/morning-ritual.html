@@ -71,6 +71,11 @@
     .ri-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: #5c2318; margin-bottom: 4px; }
     .ri-desc { font-size: 0.88rem; line-height: 1.7; color: #6b5144; }
     .ri-tip { margin-top: 8px; font-size: 0.82rem; color: #c4967a; font-style: italic; }
+    .ri-audio { margin-top: 12px; }
+    .ri-play-btn { display: inline-flex; align-items: center; gap: 7px; background: #5c2318; color: #fff; border: none; border-radius: 20px; padding: 8px 18px; font-size: 0.82rem; font-family: 'Lato', sans-serif; cursor: pointer; transition: background 0.2s; }
+    .ri-play-btn:hover { background: #7a2f21; }
+    .ri-play-btn.playing { background: #c4967a; }
+    .ri-play-btn svg { flex-shrink: 0; }
 
     /* Affirmation */
     .affirmation-wrap { text-align: center; margin: 28px 0; }
@@ -379,12 +384,14 @@
       icon: '🌱', title: 'Earthing', mins: 10, featured: false,
       desc: 'Step outside with bare feet on grass, soil, sand or stone. Stand still. Feel the contact between your body and the earth. Let yourself breathe slowly and arrive in your body and in this day. Even 5 to 10 minutes measurably reduces cortisol and inflammation.',
       tip: 'This is not optional for mothers. It is one of the fastest nervous system resets available.',
+      audio: '/audio-grounding.m4a',
       tags: ['grounding'], needTags: ['grounding','calm','connection']
     },
     stillness: {
-      icon: '🕯', title: 'Stillness and Presence', mins: 8, featured: false,
-      desc: 'Sit quietly, eyes closed or softly open. You do not need to empty your mind. Simply observe your breath, notice your body, and let thoughts pass without following them. Set an intention for your day before you open your eyes.',
+      icon: '🕯', title: 'Heart Connection', mins: 8, featured: false,
+      desc: 'Place both hands over your heart and close your eyes. Let your awareness drop out of your head and into the space behind your hands. Breathe here. You do not need to fix or change anything. Simply arrive.',
       tip: 'Stillness is not doing nothing. It is doing the most important thing.',
+      audio: '/audio-heart-meditation.m4a',
       tags: ['stillness'], needTags: ['clarity','connection','calm']
     },
     journalling: {
@@ -409,6 +416,7 @@
       icon: '🌟', title: 'Morning Affirmation', mins: 2, featured: false,
       desc: 'Stand at your mirror, look into your own eyes and speak your intention aloud. Say: "Today I choose myself. I am allowed to begin again. My presence is enough." Repeat three times. The combination of eye contact, voice and intention lands differently than silent thought.',
       tip: 'Speak it aloud. The body hears what the voice says.',
+      audio: '/audio-affirmation.m4a',
       tags: ['all'], needTags: ['connection','clarity','calm']
     }
   };
@@ -492,15 +500,57 @@
       if (!b) return;
       const div = document.createElement('div');
       div.className = 'ritual-item' + (b.featured ? ' featured' : '');
+      const audioId = 'audio-' + key;
+      const audioHtml = b.audio ? `
+        <div class="ri-audio">
+          <audio id="${audioId}" src="${b.audio}" preload="none"></audio>
+          <button class="ri-play-btn" onclick="toggleAudio('${audioId}', this)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg>
+            Listen with Melissa
+          </button>
+        </div>` : '';
       div.innerHTML = `
         <div class="ri-time"><span class="ri-mins">${b.mins}</span><span class="ri-unit">min</span></div>
         <div class="ri-content">
           <div class="ri-title"><span class="ri-icon">${b.icon}</span>${b.title}</div>
           <div class="ri-desc">${b.desc}</div>
           <div class="ri-tip">${b.tip}</div>
+          ${audioHtml}
         </div>`;
       list.appendChild(div);
     });
+  }
+
+  let _currentAudio = null;
+  let _currentBtn = null;
+
+  function toggleAudio(id, btn) {
+    const audio = document.getElementById(id);
+    if (!audio) return;
+    // Stop any other playing audio
+    if (_currentAudio && _currentAudio !== audio) {
+      _currentAudio.pause();
+      _currentAudio.currentTime = 0;
+      if (_currentBtn) { _currentBtn.classList.remove('playing'); _currentBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg> Listen with Melissa'; }
+    }
+    if (audio.paused) {
+      audio.play();
+      btn.classList.add('playing');
+      btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/></svg> Playing...';
+      _currentAudio = audio;
+      _currentBtn = btn;
+      audio.onended = () => {
+        btn.classList.remove('playing');
+        btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg> Listen with Melissa';
+        _currentAudio = null; _currentBtn = null;
+      };
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+      btn.classList.remove('playing');
+      btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg> Listen with Melissa';
+      _currentAudio = null; _currentBtn = null;
+    }
   }
 
   // Breath animation
