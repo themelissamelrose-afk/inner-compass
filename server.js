@@ -96,6 +96,19 @@ app.get('/welcome', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'welcome.html'));
 });
 
+// Protect all member content — anything not in the public allowlist requires a valid session
+const PUBLIC_ROUTES = new Set(['/', '/login', '/subscribe', '/webinar', '/admin']);
+const PUBLIC_API_PREFIXES = ['/api/login', '/api/register', '/api/webinar-register', '/api/subscribe', '/api/webhook', '/api/activate', '/api/admin'];
+
+function protectMemberContent(req, res, next) {
+  if (PUBLIC_ROUTES.has(req.path)) return next();
+  if (PUBLIC_API_PREFIXES.some(p => req.path.startsWith(p))) return next();
+  // Allow static assets (images, audio, fonts, manifests — not HTML pages)
+  if (/\.(css|js|png|jpg|jpeg|gif|svg|ico|mp3|m4a|wav|woff|woff2|ttf|json|webmanifest)$/i.test(req.path)) return next();
+  requireAuth(req, res, next);
+}
+
+app.use(protectMemberContent);
 app.use(express.static(path.join(__dirname, 'public')));
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
