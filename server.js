@@ -719,6 +719,10 @@ app.get('/morning-ritual', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'morning-ritual.html'));
 });
 
+app.get('/becoming-whole', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'becoming-whole.html'));
+});
+
 app.get('*', (req, res) => {
   res.redirect('/');
 });
