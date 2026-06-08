@@ -97,7 +97,7 @@ app.get('/welcome', requireAuth, (req, res) => {
 });
 
 // Protect all member content — anything not in the public allowlist requires a valid session
-const PUBLIC_ROUTES = new Set(['/', '/login', '/subscribe', '/webinar', '/admin']);
+const PUBLIC_ROUTES = new Set(['/', '/login', '/subscribe', '/webinar', '/admin', '/becoming-whole']);
 const PUBLIC_API_PREFIXES = ['/api/login', '/api/register', '/api/webinar-register', '/api/subscribe', '/api/webhook', '/api/activate', '/api/admin'];
 
 function protectMemberContent(req, res, next) {
