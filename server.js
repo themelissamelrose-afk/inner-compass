@@ -113,7 +113,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-const SYSTEM_PROMPT = fs.readFileSync(path.join(__dirname, 'system-prompt.md'), 'utf8');;
+const _corePrompt = fs.readFileSync(path.join(__dirname, 'system-prompt.md'), 'utf8');
+const _contentPath = path.join(__dirname, 'content-library.md');
+const _contentLibrary = fs.existsSync(_contentPath) ? fs.readFileSync(_contentPath, 'utf8') : '';
+const SYSTEM_PROMPT = _contentLibrary.trim()
+  ? _corePrompt + "\n\n---\n\n## MELISSA'S PUBLISHED CONTENT & TEACHINGS\n\nThe following are Melissa's own words. Draw on these naturally in conversation.\n\n" + _contentLibrary
+  : _corePrompt;
 
 
 // ─── ASTROLOGY CHART CALCULATIONS ───────────────────────────────────────────
