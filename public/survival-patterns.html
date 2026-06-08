@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identify Your Survival Pattern | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 580px; width: 100%; }
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.96rem; line-height: 1.85; color: #6b5144; margin-bottom: 30px; }
+    .step { display: none; }
+    .step.on { display: block; }
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .card.centre { text-align: center; }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #5c2318; line-height: 1.35; margin-bottom: 16px; }
+    .card-body { font-size: 0.94rem; line-height: 1.85; color: #6b5144; margin-bottom: 14px; }
+    .pull-quote { border-left: 3px solid #c4967a; padding: 14px 20px; margin: 20px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #5c2318; line-height: 1.8; background: #f9f3eb; border-radius: 0 12px 12px 0; }
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn:disabled { background: #d4c4ba; cursor: not-allowed; }
+    .nav { display: flex; gap: 12px; margin-top: 24px; }
+    .nav-back { flex: 0 0 auto; padding: 14px 20px; background: transparent; color: #9a7d6e; border: 1.5px solid #e8d9c4; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; }
+    .nav-back:hover { border-color: #c4967a; color: #5c2318; }
+    .nav-fwd { flex: 1; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; transition: background 0.2s; }
+    .nav-fwd:hover { background: #7a2f21; }
+    .nav-fwd:disabled { background: #d4c4ba; cursor: not-allowed; }
+
+    /* Question styles */
+    .q-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 10px; }
+    .q-text { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #5c2318; line-height: 1.5; margin-bottom: 8px; }
+    .echo-block { background: #f9f3eb; border-radius: 10px; padding: 10px 14px; margin-bottom: 18px; display: none; }
+    .echo-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 4px; }
+    .echo-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.92rem; color: #5c2318; line-height: 1.5; }
+    textarea { width: 100%; border: 1.5px solid #e8d9c4; border-radius: 12px; padding: 14px 16px; font-size: 0.95rem; font-family: 'Lato', sans-serif; color: #4a3728; background: #fdfaf6; resize: vertical; min-height: 110px; line-height: 1.7; margin-top: 14px; transition: border-color 0.2s; outline: none; }
+    textarea:focus { border-color: #c4967a; }
+    textarea::placeholder { color: #c4967a; opacity: 0.6; }
+
+    /* Pattern selector */
+    .pattern-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+    .pattern-opt { border: 1.5px solid #e8d9c4; border-radius: 14px; padding: 16px 18px; cursor: pointer; transition: all 0.18s; background: #fdfaf6; }
+    .pattern-opt:hover { border-color: #c4967a; background: #f9f3eb; }
+    .pattern-opt.sel { background: #5c2318; border-color: #5c2318; }
+    .po-safety { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 4px; transition: color 0.18s; }
+    .pattern-opt.sel .po-safety { color: #e8c4b2; }
+    .po-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #5c2318; transition: color 0.18s; }
+    .pattern-opt.sel .po-name { color: #fff; }
+    .po-desc { font-size: 0.84rem; color: #9a7d6e; line-height: 1.55; margin-top: 5px; transition: color 0.18s; }
+    .pattern-opt.sel .po-desc { color: #e8d4c0; }
+
+    /* Breath animation */
+    .breath-wrap { text-align: center; padding: 10px 0; }
+    .breath-circle-outer { width: 120px; height: 120px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; transition: transform 4s ease-in-out, background 4s ease; }
+    .breath-circle-outer.expand { transform: scale(1.35); background: #e8d4be; }
+    .breath-circle-inner { width: 60px; height: 60px; border-radius: 50%; background: #c4967a; opacity: 0.28; }
+    .breath-word { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; min-height: 28px; }
+    .breath-count { font-size: 1.5rem; color: #c4967a; font-family: 'Playfair Display', serif; margin-top: 4px; min-height: 32px; }
+    .breath-round { font-size: 0.76rem; letter-spacing: 1.5px; text-transform: uppercase; color: #c4967a; margin-top: 6px; }
+    .breath-start { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 13px 32px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 18px; transition: background 0.2s; }
+    .breath-start:hover { background: #7a2f21; }
+
+    /* Review */
+    .review-row { padding: 14px 0; border-bottom: 1px solid #f0e6d8; }
+    .review-row:last-child { border-bottom: none; }
+    .review-q { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 5px; }
+    .review-a { font-family: 'Playfair Display', serif; font-size: 0.98rem; color: #4a3728; line-height: 1.6; font-style: italic; }
+
+    /* Bridge: recognition thread */
+    .thread-row { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid #f0e6d8; }
+    .thread-row:last-child { border-bottom: none; }
+    .thread-dot { width: 8px; height: 8px; border-radius: 50%; background: #c4967a; flex-shrink: 0; margin-top: 7px; }
+    .thread-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 3px; }
+    .thread-text { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: #4a3728; line-height: 1.55; }
+
+    /* Gift box */
+    .gift-box { background: linear-gradient(135deg, #f9f3eb, #f2e8d9); border: 1px solid #c4967a; border-radius: 16px; padding: 24px; margin: 22px 0; text-align: center; }
+    .gift-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 10px; }
+    .gift-text { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #5c2318; line-height: 1.7; }
+
+    /* Sacred 6 breath */
+    .s6-phase-msg { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: #5c2318; line-height: 1.7; margin-top: 14px; min-height: 48px; text-align: center; }
+
+    /* Complete */
+    .transform-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #fff; border-radius: 10px; border: 1px solid #f0e6d8; margin-bottom: 8px; }
+    .tr-from { font-size: 0.88rem; color: #9a7d6e; flex: 1; }
+    .tr-arrow { color: #c4967a; flex-shrink: 0; font-size: 0.9rem; }
+    .tr-to { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #5c2318; font-style: italic; flex: 1; }
+    .complete-line { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #5c2318; line-height: 1.8; text-align: center; margin: 18px 0; }
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Inner Compass · Melissa Melrose</div>
+  <h1>Identify Your<br>Survival Pattern</h1>
+  <div class="divider"></div>
+
+  <!-- s0: Intro -->
+  <div class="step on" id="s0">
+    <p class="intro">Most of us are running a pattern we didn't choose. We adapted it in childhood to stay safe, connected, and loved. And it worked. Until it didn't.</p>
+    <div class="card">
+      <span class="section-tag">The Foundation</span>
+      <div class="card-title">What is a Survival Pattern?</div>
+      <div class="card-body">Before we had language for what we were feeling, our nervous system was already learning. It watched. It adapted. It created responses that kept us close to the people we needed most.</div>
+      <div class="card-body">Those responses became automatic. And then, quietly, they became our identity.</div>
+      <div class="pull-quote">We learned how to belong. How to stay connected. How to remain safe. And in doing so, those adaptations slowly became the lens we see ourselves through.</div>
+      <div class="card-body">This practice helps you name yours, trace it back to where it began, and meet it with understanding rather than shame.</div>
+      <button class="btn" onclick="goStep('s0b')">I'm ready to look</button>
+    </div>
+  </div>
+
+  <!-- s0b: Why patterns persist -->
+  <div class="step" id="s0b">
+    <div class="card">
+      <span class="section-tag">The Deeper Truth</span>
+      <div class="card-title">Why We Can't Just Stop</div>
+      <div class="card-body">Survival patterns don't persist because we are broken or unaware. They persist because our nervous system still receives a quiet payoff from them.</div>
+      <div class="pull-quote">Familiarity becomes mistaken for love. Repetition becomes mistaken for safety. And the pattern continues, long after the circumstances that created it have passed.</div>
+      <div class="card-body">This is why understanding alone is rarely enough. Real change begins when we can see the pattern clearly, trace it back to where it started, and recognise what we were protecting.</div>
+      <div class="card-body">That is what we are doing today.</div>
+      <button class="btn" onclick="goStep('s0c')">Continue</button>
+    </div>
+  </div>
+
+  <!-- s0c: The 5 patterns overview -->
+  <div class="step" id="s0c">
+    <div class="card">
+      <span class="section-tag">The Patterns</span>
+      <div class="card-title">Five Ways We Learned to Stay Safe</div>
+      <div class="card-body">These are the five most common nervous system adaptations. You may recognise one immediately, or see yourself across several. There is no right answer.</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin:18px 0;">
+        <div style="padding:12px 16px;background:#f9f3eb;border-radius:10px;border-left:3px solid #c4967a;">
+          <strong style="font-family:'Playfair Display',serif;color:#5c2318;font-size:0.97rem;">The People Pleaser</strong>
+          <span style="display:block;font-size:0.84rem;color:#9a7d6e;margin-top:3px;">Safety through keeping others happy</span>
+        </div>
+        <div style="padding:12px 16px;background:#f9f3eb;border-radius:10px;border-left:3px solid #c4967a;">
+          <strong style="font-family:'Playfair Display',serif;color:#5c2318;font-size:0.97rem;">The Over-Explainer</strong>
+          <span style="display:block;font-size:0.84rem;color:#9a7d6e;margin-top:3px;">Safety through justifying your needs</span>
+        </div>
+        <div style="padding:12px 16px;background:#f9f3eb;border-radius:10px;border-left:3px solid #c4967a;">
+          <strong style="font-family:'Playfair Display',serif;color:#5c2318;font-size:0.97rem;">The High Achiever</strong>
+          <span style="display:block;font-size:0.84rem;color:#9a7d6e;margin-top:3px;">Safety through performance and output</span>
+        </div>
+        <div style="padding:12px 16px;background:#f9f3eb;border-radius:10px;border-left:3px solid #c4967a;">
+          <strong style="font-family:'Playfair Display',serif;color:#5c2318;font-size:0.97rem;">The Over-Functioner</strong>
+          <span style="display:block;font-size:0.84rem;color:#9a7d6e;margin-top:3px;">Safety through control and responsibility</span>
+        </div>
+        <div style="padding:12px 16px;background:#f9f3eb;border-radius:10px;border-left:3px solid #c4967a;">
+          <strong style="font-family:'Playfair Display',serif;color:#5c2318;font-size:0.97rem;">The Over-Giver</strong>
+          <span style="display:block;font-size:0.84rem;color:#9a7d6e;margin-top:3px;">Safety through giving and self-abandonment</span>
+        </div>
+      </div>
+      <button class="btn" onclick="goStep('s1')">Begin the Practice</button>
+    </div>
+  </div>
+
+  <!-- s1: Opening breath -->
+  <div class="step" id="s1">
+    <div class="brand">Opening Breath</div>
+    <h1>First, Arrive<br>into Your Body</h1>
+    <div class="divider"></div>
+    <p class="intro">Before we look inward, let's get out of your head. Place a hand on your heart or belly.</p>
+    <div class="card centre">
+      <div class="breath-wrap">
+        <div class="breath-circle-outer" id="s1Ring"><div class="breath-circle-inner"></div></div>
+        <div class="breath-word" id="s1Word">Ready</div>
+        <div class="breath-count" id="s1Count"></div>
+        <div class="breath-round" id="s1Round">3 slow sighs</div>
+        <button class="breath-start" id="s1Btn" onclick="startOpeningBreath()">Begin Breaths</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- s2: Q1 — Pattern selection -->
+  <div class="step" id="s2">
+    <div class="card">
+      <span class="q-label">Question 1 of 5</span>
+      <div class="q-text">Which of these patterns feels most like you?</div>
+      <p style="font-size:0.88rem;color:#9a7d6e;line-height:1.6;margin-bottom:4px;">Trust your first instinct. Choose the one that lands in your body, not just your head.</p>
+      <div class="pattern-grid" id="patternGrid">
+        <div class="pattern-opt" onclick="selectPattern(this,'pleaser','The People Pleaser','Safety Through Approval','your capacity for empathy and deep care')">
+          <span class="po-safety">Safety Through Approval</span>
+          <div class="po-name">The People Pleaser</div>
+          <div class="po-desc">You keep others happy to maintain harmony and connection, often at the cost of your own needs.</div>
+        </div>
+        <div class="pattern-opt" onclick="selectPattern(this,'explainer','The Over-Explainer','Safety Through Justification','your clarity and your gift for being understood')">
+          <span class="po-safety">Safety Through Justification</span>
+          <div class="po-name">The Over-Explainer</div>
+          <div class="po-desc">You justify your needs and decisions before stating them, as if they must be earned through enough explanation.</div>
+        </div>
+        <div class="pattern-opt" onclick="selectPattern(this,'achiever','The High Achiever','Safety Through Performance','your extraordinary capacity to create and build')">
+          <span class="po-safety">Safety Through Performance</span>
+          <div class="po-name">The High Achiever</div>
+          <div class="po-desc">You earn love and safety through what you produce. Stillness feels uncomfortable. Rest feels unearned.</div>
+        </div>
+        <div class="pattern-opt" onclick="selectPattern(this,'functioner','The Over-Functioner','Safety Through Control','your strength, reliability and natural leadership')">
+          <span class="po-safety">Safety Through Control</span>
+          <div class="po-name">The Over-Functioner</div>
+          <div class="po-desc">You take responsibility for everything and everyone. Letting go feels like danger.</div>
+        </div>
+        <div class="pattern-opt" onclick="selectPattern(this,'giver','The Over-Giver','Safety Through Self-Abandonment','your warmth, generosity and capacity to love')">
+          <span class="po-safety">Safety Through Self-Abandonment</span>
+          <div class="po-name">The Over-Giver</div>
+          <div class="po-desc">You place others first until your own needs feel invisible. Giving is how you earn belonging.</div>
+        </div>
+      </div>
+      <button class="btn" id="s2btn" onclick="goStep('s3')" disabled>This is mine</button>
+    </div>
+  </div>
+
+  <!-- s3: Q2 — Where does it show up -->
+  <div class="step" id="s3">
+    <div class="card">
+      <span class="q-label">Question 2 of 5</span>
+      <div class="q-text" id="q2Text">Where do you notice this pattern most alive in your life right now?</div>
+      <div class="echo-block" id="echo2" style="display:block;">
+        <span class="echo-label">Your pattern</span>
+        <span class="echo-text" id="echo2Text"></span>
+      </div>
+      <textarea id="a2" placeholder="In my relationships, at work, with my family..." oninput="checkFwd('s3fwd','a2')"></textarea>
+      <div class="nav">
+        <button class="nav-back" onclick="goStep('s2')">Back</button>
+        <button class="nav-fwd" id="s3fwd" onclick="goStep('s4')" disabled>Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- s4: Q3 — What it costs -->
+  <div class="step" id="s4">
+    <div class="card">
+      <span class="q-label">Question 3 of 5</span>
+      <div class="q-text">What is this pattern costing you?</div>
+      <div class="echo-block" id="echo3">
+        <span class="echo-label">You said</span>
+        <span class="echo-text" id="echo3Text"></span>
+      </div>
+      <p style="font-size:0.88rem;color:#9a7d6e;line-height:1.6;margin-top:6px;">What are you giving up, pushing down, or losing to keep this pattern going?</p>
+      <textarea id="a3" placeholder="My voice, my rest, my time, myself..." oninput="checkFwd('s4fwd','a3')"></textarea>
+      <div class="nav">
+        <button class="nav-back" onclick="goStep('s3')">Back</button>
+        <button class="nav-fwd" id="s4fwd" onclick="goStep('s5')" disabled>Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- s5: Mid-breath -->
+  <div class="step" id="s5">
+    <div class="brand">Mid-Practice Breath</div>
+    <h1>Breathe with<br>What You've Shared</h1>
+    <div class="divider"></div>
+    <p class="intro">You've named something real. Before we go deeper, let's pause here together.</p>
+    <div class="card centre">
+      <div class="breath-wrap">
+        <div class="breath-circle-outer" id="s5Ring"><div class="breath-circle-inner"></div></div>
+        <div class="breath-word" id="s5Word">Ready</div>
+        <div class="breath-count" id="s5Count"></div>
+        <div class="breath-round" id="s5Round">3 breaths</div>
+        <button class="breath-start" id="s5Btn" onclick="startMidBreath()">Begin Breaths</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- s6: Q4 — Track it back -->
+  <div class="step" id="s6">
+    <div class="card">
+      <span class="q-label">Question 4 of 5</span>
+      <div class="q-text" id="q4Text">When do you first remember being this way?</div>
+      <div class="echo-block" id="echo4" style="display:block;">
+        <span class="echo-label">Your pattern</span>
+        <span class="echo-text" id="echo4Text"></span>
+      </div>
+      <p style="font-size:0.88rem;color:#9a7d6e;line-height:1.6;margin-top:6px;">How old were you? What was happening around you? Who was there?</p>
+      <textarea id="a4" placeholder="I was about... and I remember..." oninput="checkFwd('s6fwd','a4')"></textarea>
+      <div class="nav">
+        <button class="nav-back" onclick="goStep('s5')">Back</button>
+        <button class="nav-fwd" id="s6fwd" onclick="goStep('s7')" disabled>Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- s7: Q5 — The adaptation -->
+  <div class="step" id="s7">
+    <div class="card">
+      <span class="q-label">Question 5 of 5</span>
+      <div class="q-text">In that memory, what were you protecting?</div>
+      <div class="echo-block" id="echo5">
+        <span class="echo-label">You said</span>
+        <span class="echo-text" id="echo5Text"></span>
+      </div>
+      <p style="font-size:0.88rem;color:#9a7d6e;line-height:1.6;margin-top:6px;">What did this pattern allow you to hold onto? Connection, love, safety, peace, belonging?</p>
+      <textarea id="a5" placeholder="I was protecting..." oninput="checkFwd('s7fwd','a5')"></textarea>
+      <div class="nav">
+        <button class="nav-back" onclick="goStep('s6')">Back</button>
+        <button class="nav-fwd" id="s7fwd" onclick="goStep('s8')" disabled>Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- s8: Review -->
+  <div class="step" id="s8">
+    <div class="brand">Your Answers</div>
+    <h1>The Thread<br>You've Named</h1>
+    <div class="divider"></div>
+    <div class="card">
+      <div id="reviewRows"></div>
+      <div class="nav">
+        <button class="nav-back" onclick="goStep('s7')">Back</button>
+        <button class="nav-fwd" onclick="goStep('s9')">See Your Pattern</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- s9: Recognition — the adaptation named -->
+  <div class="step" id="s9">
+    <div class="brand">Your Recognition</div>
+    <h1>You Adapted<br>to Survive</h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">What You Carried</span>
+      <div class="card-title" id="recognitionTitle"></div>
+      <div class="card-body" id="recognitionBody"></div>
+      <div class="pull-quote" id="recognitionQuote"></div>
+      <div class="gift-box">
+        <span class="gift-label">The Gift Inside Your Pattern</span>
+        <div class="gift-text" id="giftText"></div>
+      </div>
+      <div class="card-body">This is not something to fix. It is something to understand. And once you understand it, you are no longer inside it. You are standing beside it, with the power to choose.</div>
+      <div class="nav">
+        <button class="nav-back" onclick="goStep('s8')">Back</button>
+        <button class="nav-fwd" onclick="goStep('s9b')">Finding Presence</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- s9b: Presence as the interruption -->
+  <div class="step" id="s9b">
+    <div class="card">
+      <span class="section-tag">Beyond the Pattern</span>
+      <div class="card-title">Presence is How<br>You Interrupt It</div>
+      <div class="card-body">The nervous system will continue running its pattern until something interrupts it. Not willpower. Not knowing better. Something much older and more powerful than thought.</div>
+      <div class="card-body">Presence.</div>
+      <div class="pull-quote">When you drop beneath the thinking mind and the body's automatic responses, there is a place that has never been broken. A place that was never defined by the pattern. That is where real change becomes possible.</div>
+      <div class="card-body">Every time you notice the pattern activating and you pause, even for one breath, you are no longer inside it. You are witnessing it. And what you can witness, you can choose to interrupt.</div>
+      <div class="card-body">This is not about perfection. It is about the moment between the trigger and the response. That moment is your freedom.</div>
+      <div class="pull-quote" style="font-size:0.92rem;">The pattern is not you. It is what you learned. And presence is how you find your way back to what was always underneath it.</div>
+      <div class="nav">
+        <button class="nav-back" onclick="goStep('s9')">Back</button>
+        <button class="nav-fwd" onclick="goStep('s10')">Breathe Into It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- s10: Sacred 6 breath -->
+  <div class="step" id="s10">
+    <div class="brand">Closing Practice</div>
+    <h1>Breathe Into<br>Your Pattern</h1>
+    <div class="divider"></div>
+    <p class="intro">Place a hand on your heart. We are going to breathe into what you have named, with love rather than judgement.</p>
+    <div class="card centre">
+      <span class="section-tag">Sacred 6 Breath</span>
+      <div style="font-size:0.82rem;color:#9a7d6e;margin-bottom:18px;">Inhale 6 · Hold 6 · Exhale 6 · Rest 6</div>
+      <audio id="s10Audio" src="/audio-sacred6.m4a" preload="auto"></audio>
+      <div class="breath-wrap">
+        <div class="breath-circle-outer" id="s10Ring"><div class="breath-circle-inner"></div></div>
+        <div class="breath-word" id="s10Word">Ready</div>
+        <div class="breath-count" id="s10Count"></div>
+        <div class="breath-round" id="s10Round">4 rounds</div>
+        <div class="s6-phase-msg" id="s10Msg"></div>
+        <button class="breath-start" id="s10Btn" onclick="startSacred6()">Begin Sacred 6</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- s11: Complete -->
+  <div class="step" id="s11">
+    <div class="brand">You Did It</div>
+    <h1>You Have<br>Named It</h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">From Adaptation to Wholeness</span>
+      <div class="card-body" id="completeOpener"></div>
+      <div style="margin: 20px 0;" id="transformRows"></div>
+      <div class="complete-line" id="completeLine"></div>
+      <div class="pull-quote">What once felt like your weakness becomes your wisdom. What was once unconscious is now seen. And what is seen, can finally be changed.</div>
+      <button class="btn" onclick="window.location.href='/blame-observation'">Explore Another Practice</button>
+      <button class="btn" style="background:transparent;color:#5c2318;border:1.5px solid #e8d9c4;margin-top:12px;" onclick="goStep('s0')">Start Again</button>
+    </div>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+  const answers = { pattern: null, patternName: '', patternGift: '', a2: '', a3: '', a4: '', a5: '' };
+
+  const patternData = {
+    pleaser: {
+      name: 'The People Pleaser',
+      safety: 'Safety Through Approval',
+      gift: 'Your capacity for empathy and deep care for others.',
+      recognition: 'You learned that harmony required you to keep others happy. Your nervous system became an expert at reading the room, anticipating needs, and smoothing tension before it arose.',
+      quote: 'The little version of you who learned to please did not do it out of weakness. They did it to stay close to the people they needed most. That was love. That was wisdom.',
+      healing: 'Your needs matter without needing to be earned.',
+      newPossibility: 'Connection that includes you'
+    },
+    explainer: {
+      name: 'The Over-Explainer',
+      safety: 'Safety Through Justification',
+      gift: 'Your clarity and your extraordinary gift for making things understood.',
+      recognition: 'You learned that your needs required permission. That your choices had to be earned through enough explanation, enough justification, enough proof that you deserved what you were asking for.',
+      quote: 'The little version of you who learned to explain was simply trying to be understood in an environment where being misunderstood felt dangerous. That was not weakness. That was survival.',
+      healing: 'You are allowed to state your needs simply, without a reason.',
+      newPossibility: 'Speaking without justifying'
+    },
+    achiever: {
+      name: 'The High Achiever',
+      safety: 'Safety Through Performance',
+      gift: 'Your extraordinary capacity to create, build, and bring things into being.',
+      recognition: 'You learned that love and approval came through what you produced. Stillness felt unsafe. Rest felt like falling behind. And beneath all the striving was a quiet fear that without the output, you might not be enough.',
+      quote: 'The little version of you who learned to achieve was simply trying to matter in an environment where mattering felt conditional. Every goal was a way of saying: look, I am worth something. That was not ego. That was a child doing their best.',
+      healing: 'Your worth was never tied to what you produce.',
+      newPossibility: 'Rest as something sacred'
+    },
+    functioner: {
+      name: 'The Over-Functioner',
+      safety: 'Safety Through Control',
+      gift: 'Your strength, your reliability, and your natural capacity to lead and hold others.',
+      recognition: 'You learned early that stability required someone to take responsibility. If you did not hold it together, it might fall apart. And so you became the one who carries, who manages, who never fully lets go.',
+      quote: 'The little version of you who learned to control was not controlling out of selfishness. They were simply trying to create safety in a world that felt unpredictable. That was enormous courage.',
+      healing: 'You are allowed to be held, too.',
+      newPossibility: 'Receiving as much as you give'
+    },
+    giver: {
+      name: 'The Over-Giver',
+      safety: 'Safety Through Self-Abandonment',
+      gift: 'Your extraordinary warmth, generosity, and capacity to love deeply.',
+      recognition: 'You learned that love and belonging came through giving. Your own needs slowly moved into the background, not because they did not matter, but because placing others first once kept you safe and close.',
+      quote: 'The little version of you who learned to give was simply trying to earn a place in the room. And they gave everything they had to stay there. That was not weakness. That was loyalty. That was love.',
+      healing: 'You are allowed to need as much as you give.',
+      newPossibility: 'Including yourself in your own care'
+    }
+  };
+
+  function goStep(id) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (id === 's3') prepareQ2();
+    if (id === 's4') prepareQ3();
+    if (id === 's7') prepareQ5();
+    if (id === 's8') prepareReview();
+    if (id === 's9') prepareRecognition();
+    if (id === 's11') prepareComplete();
+  }
+
+  function checkFwd(btnId, fieldId) {
+    const val = document.getElementById(fieldId).value.trim();
+    document.getElementById(btnId).disabled = val.length < 5;
+    if (fieldId === 'a2') answers.a2 = val;
+    if (fieldId === 'a3') answers.a3 = val;
+    if (fieldId === 'a4') answers.a4 = val;
+    if (fieldId === 'a5') answers.a5 = val;
+  }
+
+  function shortEcho(text, len = 70) {
+    if (!text) return '';
+    return text.length > len ? text.substring(0, len).trim() + '...' : text;
+  }
+
+  function selectPattern(el, key, name, safety, gift) {
+    document.querySelectorAll('.pattern-opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    answers.pattern = key;
+    answers.patternName = name;
+    answers.patternGift = gift;
+    document.getElementById('s2btn').disabled = false;
+  }
+
+  function prepareQ2() {
+    if (!answers.patternName) return;
+    document.getElementById('q2Text').textContent = 'As ' + answers.patternName + ', where do you notice this pattern most alive in your life right now?';
+    document.getElementById('echo2Text').textContent = answers.patternName;
+  }
+
+  function prepareQ3() {
+    answers.a2 = document.getElementById('a2').value.trim();
+    document.getElementById('echo3Text').textContent = shortEcho(answers.a2);
+    document.getElementById('echo3').style.display = answers.a2 ? 'block' : 'none';
+  }
+
+  function prepareQ5() {
+    answers.a4 = document.getElementById('a4').value.trim();
+    document.getElementById('echo5Text').textContent = shortEcho(answers.a4);
+    document.getElementById('echo5').style.display = answers.a4 ? 'block' : 'none';
+    if (answers.patternName) {
+      document.getElementById('q4Text').textContent = 'When do you first remember being ' + answers.patternName + '?';
+      document.getElementById('echo4Text').textContent = answers.patternName;
+    }
+  }
+
+  function prepareReview() {
+    answers.a2 = document.getElementById('a2').value.trim();
+    answers.a3 = document.getElementById('a3').value.trim();
+    answers.a4 = document.getElementById('a4').value.trim();
+    answers.a5 = document.getElementById('a5').value.trim();
+
+    const rows = [
+      { q: 'Your Pattern', a: answers.patternName },
+      { q: 'Where it shows up', a: answers.a2 },
+      { q: 'What it costs you', a: answers.a3 },
+      { q: 'When it began', a: answers.a4 },
+      { q: 'What you were protecting', a: answers.a5 }
+    ];
+
+    document.getElementById('reviewRows').innerHTML = rows.map(r => `
+      <div class="review-row">
+        <span class="review-q">${r.q}</span>
+        <div class="review-a">${r.a || '...'}</div>
+      </div>`).join('');
+  }
+
+  function prepareRecognition() {
+    const pd = patternData[answers.pattern] || patternData.pleaser;
+    document.getElementById('recognitionTitle').textContent = 'You Learned to Be ' + pd.name;
+    document.getElementById('recognitionBody').textContent = pd.recognition + (answers.a5 ? ' You were protecting ' + answers.a5.toLowerCase().replace(/\.$/, '') + '.' : '');
+    document.getElementById('recognitionQuote').textContent = pd.quote;
+    document.getElementById('giftText').textContent = pd.gift;
+  }
+
+  function prepareComplete() {
+    const pd = patternData[answers.pattern] || patternData.pleaser;
+    document.getElementById('completeOpener').textContent = 'You have named your pattern. You have traced it back to where it began. And you have breathed into it with love. This is not a small thing.';
+
+    const rows = [
+      { from: answers.patternName || 'Your pattern', to: 'Now seen, not hidden' },
+      { from: 'What it cost you', to: pd.healing },
+      { from: 'The adaptation', to: pd.newPossibility }
+    ];
+
+    document.getElementById('transformRows').innerHTML = rows.map(r => `
+      <div class="transform-row">
+        <span class="tr-from">${r.from}</span>
+        <span class="tr-arrow">→</span>
+        <span class="tr-to">${r.to}</span>
+      </div>`).join('');
+
+    const feeling = answers.a5 ? answers.a5.split(' ').slice(0, 6).join(' ') : 'what you needed to protect';
+    document.getElementById('completeLine').textContent = 'You adapted to protect ' + feeling.toLowerCase().replace(/\.$/, '') + '. That was not a flaw. That was you doing the best you could. And now you can choose something new.';
+  }
+
+  // Opening breath — 3 slow sighs
+  function startOpeningBreath() {
+    document.getElementById('s1Btn').style.display = 'none';
+    startAmbientMusic(0.10, 3);
+    runSigh('s1Ring','s1Word','s1Count','s1Round', 0, 3, () => {
+      stopAmbientMusic(2);
+      setTimeout(() => goStep('s2'), 800);
+    });
+  }
+
+  function runSigh(ringId, wordId, countId, roundId, current, total, onDone) {
+    if (current >= total) { onDone(); return; }
+    const ring = document.getElementById(ringId);
+    document.getElementById(wordId).textContent = 'Breathe in';
+    document.getElementById(roundId).textContent = (current + 1) + ' of ' + total;
+    ring.classList.remove('expand');
+    let c = 4;
+    document.getElementById(countId).textContent = c;
+    const inhale = setInterval(() => {
+      c--; document.getElementById(countId).textContent = c > 0 ? c : '';
+      if (c <= 0) {
+        clearInterval(inhale);
+        ring.classList.add('expand');
+        document.getElementById(wordId).textContent = 'Sigh out';
+        document.getElementById(countId).textContent = '';
+        setTimeout(() => {
+          ring.classList.remove('expand');
+          setTimeout(() => runSigh(ringId, wordId, countId, roundId, current + 1, total, onDone), 600);
+        }, 5000);
+      }
+    }, 1000);
+  }
+
+  // Mid breath — 3 breaths
+  function startMidBreath() {
+    document.getElementById('s5Btn').style.display = 'none';
+    startAmbientMusic(0.10, 3);
+    runSigh('s5Ring','s5Word','s5Count','s5Round', 0, 3, () => {
+      stopAmbientMusic(2);
+      setTimeout(() => goStep('s6'), 800);
+    });
+  }
+
+  // Sacred 6
+  let s6Running = false;
+  function startSacred6() {
+    if (s6Running) return;
+    s6Running = true;
+    document.getElementById('s10Btn').style.display = 'none';
+    startAmbientMusic(0.10, 4);
+    const audio = document.getElementById('s10Audio');
+    audio.volume = 0.85;
+    audio.play().catch(() => {});
+
+    const pd = patternData[answers.pattern] || patternData.pleaser;
+    const protection = answers.a5 ? answers.a5.toLowerCase().replace(/\.$/, '').split(' ').slice(0,5).join(' ') : 'what you needed most';
+    const memory = answers.a4 ? answers.a4.toLowerCase().split('.')[0].split(' ').slice(0,8).join(' ') : 'that early memory';
+
+    const phaseMsg = {
+      inhale:  'Breathe into ' + pd.name + '. Your adult self is here with them now.',
+      holdTop: 'Stay with ' + memory + '. You are safe to be here.',
+      exhale:  'Release the need to keep holding this alone. You are safe to let it soften.',
+      rest:    'You were protecting ' + protection + '. That was love. Rest here.'
+    };
+
+    runSacred6Rounds(0, 4, phaseMsg, () => {
+      stopAmbientMusic(3);
+      setTimeout(() => { s6Running = false; goStep('s11'); }, 1000);
+    });
+  }
+
+  function runSacred6Rounds(round, total, phaseMsg, onDone) {
+    if (round >= total) { onDone(); return; }
+    const ring = document.getElementById('s10Ring');
+    const word = document.getElementById('s10Word');
+    const count = document.getElementById('s10Count');
+    const roundEl = document.getElementById('s10Round');
+    const msg = document.getElementById('s10Msg');
+    roundEl.textContent = 'Round ' + (round + 1) + ' of ' + total;
+
+    const phases = [
+      { label: 'Breathe in', dur: 6000, expand: true,  msgKey: 'inhale'  },
+      { label: 'Hold',       dur: 6000, expand: true,   msgKey: 'holdTop' },
+      { label: 'Breathe out',dur: 6000, expand: false,  msgKey: 'exhale'  },
+      { label: 'Rest',       dur: 6000, expand: false,  msgKey: 'rest'    }
+    ];
+
+    let pi = 0;
+    function nextPhase() {
+      if (pi >= phases.length) { runSacred6Rounds(round + 1, total, phaseMsg, onDone); return; }
+      const ph = phases[pi];
+      word.textContent = ph.label;
+      msg.textContent = phaseMsg[ph.msgKey] || '';
+      if (ph.expand) ring.classList.add('expand'); else ring.classList.remove('expand');
+      let s = ph.dur / 1000;
+      count.textContent = s;
+      const t = setInterval(() => {
+        s--; count.textContent = s > 0 ? s : '';
+        if (s <= 0) { clearInterval(t); pi++; setTimeout(nextPhase, 300); }
+      }, 1000);
+    }
+    nextPhase();
+  }
+
+  // Ambient music
+  const ambientAudio = new Audio('/music-ambient.mp3');
+  ambientAudio.loop = true;
+  ambientAudio.volume = 0;
+  let _ambientFadeTimer = null;
+
+  function startAmbientMusic(vol = 0.13, fade = 2.5) {
+    if (_ambientFadeTimer) { clearInterval(_ambientFadeTimer); _ambientFadeTimer = null; }
+    ambientAudio.play().catch(() => {});
+    const steps = Math.ceil(fade * 20);
+    const step = vol / steps;
+    let i = 0;
+    _ambientFadeTimer = setInterval(() => {
+      i++;
+      ambientAudio.volume = Math.min(vol, Math.round((ambientAudio.volume + step) * 1000) / 1000);
+      if (i >= steps) { clearInterval(_ambientFadeTimer); _ambientFadeTimer = null; }
+    }, 1000 / 20);
+  }
+
+  function stopAmbientMusic(fade = 2.5) {
+    if (_ambientFadeTimer) { clearInterval(_ambientFadeTimer); _ambientFadeTimer = null; }
+    if (ambientAudio.paused) return;
+    const start = ambientAudio.volume;
+    const steps = Math.ceil(fade * 20);
+    const step = start / steps;
+    let i = 0;
+    _ambientFadeTimer = setInterval(() => {
+      i++;
+      ambientAudio.volume = Math.max(0, Math.round((ambientAudio.volume - step) * 1000) / 1000);
+      if (i >= steps) {
+        clearInterval(_ambientFadeTimer); _ambientFadeTimer = null;
+        ambientAudio.pause();
+      }
+    }, 1000 / 20);
+  }
+</script>
+</body>
+</html>

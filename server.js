@@ -936,7 +936,11 @@ app.get('/gratitude', (req, res) => {
 });
 
 app.get('/pattern-identifier', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pattern-identifier.html'));
+  res.sendFile(path.join(__dirname, 'public', 'survival-patterns.html'));
+});
+
+app.get('/identify-your-pattern', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'survival-patterns.html'));
 });
 
 app.get('/blame-observation', (req, res) => {
