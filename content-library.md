@@ -269,6 +269,72 @@ So the question is not whether it will be uncomfortable. It will be. The questio
 
 ---
 
+## WOMEN'S BODIES, BOUNDARIES AND WEI CHI — THE PHYSIOLOGY OF SELF-ABANDONMENT
+
+Women's boundaries are deeply connected to their bodies. Women make up around 75 to 80% of autoimmune disease, and yet conversations stop at hormones, genetics, and inflammation. But what if we are missing an entire layer? The physiology of boundaries.
+
+In Chinese medicine, they call it Wei Chi. Your protective field, your boundary, the part of you that says this enters and this does not. Our boundary system.
+
+But many little girls learn very early: love means being good, being easy, not too emotional, not too angry, not too needy, not too much. So we breach our own boundaries. Our inner Wei Chi. We learn something heartbreaking: my safety lives outside of me, in pleasing, performing, keeping peace. These are the patterns I talk about all the time — making sure everybody else is okay. We get taught to mother.
+
+Slowly, her attention leaves her own body. We lose attunement to our own bodies, and we stop asking: what do I feel, what do I need? And start asking: who do I need to become to be loved?
+
+According to female physiology and Chinese medicine, Wei Chi begins orientating outward instead of protecting her. It watches everyone else, reads the room, searches for danger, stays hyper vigilant. Her immune system becomes external.
+
+A woman who never learned boundaries becomes open — open to depletion, open to overwhelm, open to everyone else's emotions, open to what Chinese medicine calls pathogens. The body works overtime trying to hold it together. What never felt protected, boundaries weaken, the whole system feels it.
+
+This is where autoimmunity develops. Not the body attacking itself — but the body speaking. It is a journey of women reclaiming themselves, boundary by boundary, layer by layer. Generations of female physiology being ignored, women taught to abandon themselves, carry everyone, stay open, stay available. And eventually the body says enough.
+
+It is not sickness. It is a message. A woman's body finally saying: no more.
+
+---
+
+### Oxytocin — The Female Nervous System and Belonging
+
+Oxytocin is one of the primary neurochemicals involved in the female nervous system regulation. Women also appear more sensitive to oxytocin because oestrogen increases oxytocin receptor activity. This means female physiology is deeply organised around connection and relational safety.
+
+For thousands of years, belonging meant survival for a woman. A woman disconnected from her community was vulnerable. Female physiology evolved around co-regulation — around rhythm, connection, touch, women, land, rituals, and belonging.
+
+But somewhere along the way, something shifted. Modern systems quietly learned that when belonging creates safety and safety creates regulation, women became easier to organise and control around the fear of losing belonging. Because when approval creates safety in the body, approval can become addictive.
+
+Many women learn very early that belonging mattered more than authenticity. That being loved meant being agreeable, easy, selfless, beautiful, desirable, good. And slowly women began abandoning themselves. This is where self-abandonment quietly becomes physiology.
+
+One of the deepest ways this shaped women is through the belief that regulation lives outside of us — that safety lives outside of us, that we cannot truly feel safe without being chosen, without a relationship, without romantic love, without touch. But women were never designed to regulate primarily through men. Romantic connection was never meant to become the sole source of female nervous system regulation.
+
+Women have always regulated through many forms of connection. This is why women gathered, why they sang together, cooked together, bled together, raised children together, and lived close to the land. Because women were never meant to carry regulation alone or outsource it entirely to one person.
+
+---
+
+### The First Environment — What Every Human Needs
+
+Oxytocin is required for creation. Without oxytocin, labour stalls, milk does not release, bonding is impaired, the nervous system shifts towards survival. Life itself becomes harder to create.
+
+The female body can literally pause birth if it does not feel safe. Human life depends on safety.
+
+This means something profound. The first environment every human being depends upon is not leadership, not money, not status, not power. It is a woman's nervous system.
+
+Before you ever had a country, a religion, a school, a job, a government — you had a woman whose body needed enough oxytocin to create you.
+
+Most men are taught their role is to provide. But female physiology suggests something deeper: can you create the conditions where life flourishes?
+
+Most men are taught their role is to protect. But protection is not only physical. The female nervous system responds to predictability, consistency, integrity, truth, presence. A woman cannot relax into safety with someone she cannot trust — no matter how much money he has, no matter how strong he is, no matter how successful he is.
+
+Most men are taught leadership is directing people. Female physiology teaches something different: leadership is creating conditions where life can emerge naturally.
+
+For most of human history, women have spent enormous energy surviving. And if oxytocin is required for creation, and survival suppresses oxytocin — then humanity has never experienced the full creative capacity of a woman.
+
+---
+
+### Why the Foundational Work Matters for Women
+
+This is exactly what I talk about in Foundations of Self — women outsourcing safety, the attunement to the body, how important it is for a woman to understand what that means within her own body so she stops outsourcing regulation and safety, starts to attune to what she needs, and lives a life from that space.
+
+So she can discern where her energy needs to be, because she understands herself. She is no longer looking for love and safety outside of herself. She is no longer performing through her protective patterning and adaptation.
+
+To regulate in a woman's body, she needs to understand how she created the disconnection in the first place and how she is wired. That is why the foundational work is so important — to understand why and how she has adapted, and where she is still outsourcing to feel whole.
+
+---
+
 ## BIRTH CHART INSIGHTS — MELISSA'S UNCONSCIOUS PATTERNS
 
 *Notes on Melissa's energetic and unconscious tendencies from her birth chart reading.*
