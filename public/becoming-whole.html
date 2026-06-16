@@ -376,17 +376,17 @@
 
     .price-cards {
       display: flex;
-      gap: 24px;
-      max-width: 820px;
+      gap: 20px;
+      max-width: 1080px;
       margin: 0 auto;
       justify-content: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
 
     .price-card {
       flex: 1;
-      min-width: 300px;
-      max-width: 380px;
+      min-width: 0;
+      max-width: 360px;
       background: var(--white);
       border-radius: 28px;
       padding: 44px 36px;
@@ -519,6 +519,7 @@
       .split { grid-template-columns: 1fr; gap: 40px; }
       .split.flip { direction: ltr; }
       .split-photo { aspect-ratio: 4/3; }
+      .price-cards { flex-wrap: wrap; }
       .price-card { min-width: 280px; padding: 32px 24px; }
       .price-amount { font-size: 52px; }
     }
@@ -580,8 +581,8 @@
   <div class="section-inner">
     <div style="max-width: 720px; margin: 0 auto; text-align: center;">
       <span class="section-label">This Is Not About Fixing Yourself</span>
-      <h2 class="section-title">If you feel overwhelmed, exhausted,<br>or stuck — <em>you are not broken.</em></h2>
-      <p class="section-body" style="margin: 0 auto 32px; max-width: 620px; text-align: center;">The coping strategies that once kept you safe — over-functioning, people-pleasing, staying strong for everyone else — are intelligent responses shaped by your nervous system. But survival is not the same as living.</p>
+      <h2 class="section-title">If you feel overwhelmed, exhausted,<br>or stuck. <em>You are not broken.</em></h2>
+      <p class="section-body" style="margin: 0 auto 32px; max-width: 620px; text-align: center;">The coping strategies that once kept you safe, over-functioning, people-pleasing, staying strong for everyone else, are intelligent responses shaped by your nervous system. But survival is not the same as living.</p>
       <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(20px,3vw,28px); color:var(--burgundy); line-height:1.5;">Becoming Whole is a sacred space designed to support you in moving beyond survival and returning to your body, your truth, and your emotional sovereignty.</p>
     </div>
   </div>
@@ -616,7 +617,7 @@
     <div style="text-align:center; max-width:580px; margin:0 auto;">
       <span class="section-label">What Becoming Whole Offers</span>
       <h2 class="section-title">Gently guided to understand your patterns,<br>regulate, and <em>reconnect.</em></h2>
-      <p style="font-size:16px; color:var(--text-muted); line-height:1.8; margin-top:12px;">A space of safety, integration, and embodiment — where healing unfolds at a pace your body can trust.</p>
+      <p style="font-size:16px; color:var(--text-muted); line-height:1.8; margin-top:12px;">A space of safety, integration, and embodiment. Healing that unfolds at a pace your body can trust.</p>
     </div>
     <div class="features-grid">
       <div class="feature-card">
@@ -662,7 +663,7 @@
       <div class="feature-card">
         <div class="f-icon">🧭</div>
         <h3>Inner Compass Access</h3>
-        <p>Available as an add-on — your daily AI companion built entirely in Melissa's voice, frameworks, and lived wisdom. Support between sessions, any time you need it.</p>
+        <p>Available as an add-on. Your daily AI companion built entirely in Melissa's voice, frameworks, and lived wisdom. Support between sessions, any time you need it.</p>
       </div>
     </div>
   </div>
@@ -680,7 +681,7 @@
         <h2 class="section-title">From reacting in survival<br>to responding in <em>truth.</em></h2>
         <p class="section-body" style="margin-bottom: 24px;">When you understand your nervous system and learn to regulate from within, you gain the power to respond consciously rather than react from survival.</p>
         <p class="section-body" style="margin-bottom: 24px;">Becoming Whole helps you build emotional safety and self-trust, understand and release survival patterns, cultivate presence, clarity, and resilience, and reconnect with your body as a place of truth and guidance.</p>
-        <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:18px; color:var(--rose); line-height:1.6;">This is the foundation for living, leading, and creating from alignment rather than fear.</p>
+        <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:18px; color:var(--rose); line-height:1.6;">This is the foundation for living, leading, and creating from alignment, not fear.</p>
       </div>
     </div>
   </div>
@@ -702,7 +703,7 @@
       <div class="split-text">
         <span class="section-label">A Note from Melissa</span>
         <h2 class="section-title" style="margin-bottom:24px;">I created this for those<br>who know there is <em>more.</em></h2>
-        <p class="section-body" style="margin-bottom:18px;">I created Becoming Whole for those who know there is more — more truth, more peace, and more of themselves waiting to be reclaimed.</p>
+        <p class="section-body" style="margin-bottom:18px;">I created Becoming Whole for those who know there is more. More truth, more peace, and more of themselves waiting to be reclaimed.</p>
         <p class="section-body" style="margin-bottom:18px;">This is a space where you are met with compassion, honesty, and deep respect for your journey. A space where healing is not forced, but gently supported through presence, safety, and understanding.</p>
         <p class="section-body" style="margin-bottom:24px;">You don't need to do this alone. I look forward to walking alongside you.</p>
         <p style="font-family:'Playfair Display', serif; font-style:italic; font-size:20px; color:var(--burgundy);">Melissa x 💛</p>
@@ -717,7 +718,7 @@
   <div style="position:absolute; inset:0; background:rgba(30,12,6,0.55); display:flex; align-items:center; justify-content:center;">
     <div style="text-align:center; padding:0 24px;">
       <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(22px,3.5vw,38px); color:#fff; line-height:1.5; max-width:680px; margin:0 auto;">This is not about rushing transformation<br>or forcing healing.</p>
-      <p style="font-size:15px; color:rgba(255,255,255,0.8); margin-top:16px; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.7;">It is about creating the internal conditions where change becomes possible — gently, safely, and sustainably.</p>
+      <p style="font-size:15px; color:rgba(255,255,255,0.8); margin-top:16px; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.7;">It is about creating the internal conditions where change becomes possible, gently, safely, and sustainably.</p>
       <p style="font-size:12px; letter-spacing:0.25em; text-transform:uppercase; color:var(--rose-soft); margin-top:20px;">Melissa Melrose</p>
     </div>
   </div>
@@ -731,26 +732,26 @@
       <!-- TEXT SIDE -->
       <div>
         <span class="section-label" style="color: var(--rose-soft);">Included in the Bundle</span>
-        <h2 style="font-family:'Playfair Display',serif; font-size: clamp(28px,4vw,44px); color:#fff; line-height:1.25; margin-bottom:20px;">Meet <em style="color:var(--rose-soft); font-style:italic;">Inner Compass</em><br>— Melissa in your pocket</h2>
-        <p style="font-size:17px; color:rgba(255,255,255,0.78); line-height:1.85; margin-bottom:20px;">Between live sessions, life keeps moving. Triggers come up. Emotions surface. Old patterns pull. Inner Compass is your 24/7 companion — an AI built entirely in Melissa's voice, trained on her exact frameworks, teachings, and methodology.</p>
-        <p style="font-size:17px; color:rgba(255,255,255,0.78); line-height:1.85; margin-bottom:32px;">It is not generic AI. It does not give wellness platitudes. It responds the way Melissa does — with presence, validation, and her somatic approach. Any time you need it, day or night.</p>
+        <h2 style="font-family:'Playfair Display',serif; font-size: clamp(28px,4vw,44px); color:#fff; line-height:1.25; margin-bottom:20px;">Meet <em style="color:var(--rose-soft); font-style:italic;">Inner Compass.</em><br>Melissa in your pocket.</h2>
+        <p style="font-size:17px; color:rgba(255,255,255,0.78); line-height:1.85; margin-bottom:20px;">Between live sessions, life keeps moving. Triggers come up. Emotions surface. Old patterns pull. Inner Compass is your 24/7 companion, an AI built entirely in Melissa's voice, trained on her exact frameworks, teachings, and methodology.</p>
+        <p style="font-size:17px; color:rgba(255,255,255,0.78); line-height:1.85; margin-bottom:32px;">It is not generic AI. It does not give wellness platitudes. It responds the way Melissa does, with presence, validation, and her somatic approach. Any time you need it, day or night.</p>
 
         <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:36px;">
           <div style="display:flex; align-items:flex-start; gap:14px;">
             <span style="width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.12); color:var(--rose-soft); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0;">✓</span>
-            <p style="font-size:15px; color:rgba(255,255,255,0.78); line-height:1.6;">AI chat in Melissa's voice — trained on her somatic and nervous system frameworks</p>
+            <p style="font-size:15px; color:rgba(255,255,255,0.78); line-height:1.6;">AI chat in Melissa's voice, trained on her somatic and nervous system frameworks</p>
           </div>
           <div style="display:flex; align-items:flex-start; gap:14px;">
             <span style="width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.12); color:var(--rose-soft); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0;">✓</span>
-            <p style="font-size:15px; color:rgba(255,255,255,0.78); line-height:1.6;">Cosmic blueprint — personalised birth chart calculator with your Sun, Moon, Rising and more</p>
+            <p style="font-size:15px; color:rgba(255,255,255,0.78); line-height:1.6;">Cosmic blueprint. Personalised birth chart calculator with your Sun, Moon, Rising and more</p>
           </div>
           <div style="display:flex; align-items:flex-start; gap:14px;">
             <span style="width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.12); color:var(--rose-soft); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0;">✓</span>
-            <p style="font-size:15px; color:rgba(255,255,255,0.78); line-height:1.6;">Interactive morning ritual builder — guided breathwork, Sacred Six, and daily presence practice</p>
+            <p style="font-size:15px; color:rgba(255,255,255,0.78); line-height:1.6;">Interactive morning ritual builder with guided breathwork, Sacred Six, and daily presence practice</p>
           </div>
           <div style="display:flex; align-items:flex-start; gap:14px;">
             <span style="width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,0.12); color:var(--rose-soft); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0;">✓</span>
-            <p style="font-size:15px; color:rgba(255,255,255,0.78); line-height:1.6;">Somatic tools, nervous system check-ins, and guided practices — available any time you need them</p>
+            <p style="font-size:15px; color:rgba(255,255,255,0.78); line-height:1.6;">Somatic tools, nervous system check-ins, and guided practices available any time you need them</p>
           </div>
         </div>
 
@@ -763,7 +764,7 @@
           <p style="font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--rose-soft); margin-bottom:12px;">Inner Compass AI</p>
           <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:17px; color:#fff; line-height:1.6; margin-bottom:16px;">"I keep replaying a conversation and I can't stop feeling angry about it."</p>
           <div style="background:rgba(196,150,122,0.18); border-radius:12px; padding:16px 18px; text-align:left;">
-            <p style="font-size:13px; color:rgba(255,255,255,0.85); line-height:1.7;">That anger is telling you something important. Before we do anything else — what did that conversation trigger in you? Not what the other person did, but what you felt in response to it.</p>
+            <p style="font-size:13px; color:rgba(255,255,255,0.85); line-height:1.7;">That anger is telling you something important. Before we do anything else, what did that conversation trigger in you? Not what the other person did, but what you felt in response to it.</p>
           </div>
         </div>
         <p style="font-size:12px; color:rgba(255,255,255,0.4); letter-spacing:0.08em;">Responds like Melissa. Available 24/7.</p>
@@ -810,10 +811,10 @@
     </div>
 
     <div class="price-card featured">
-      <span class="price-badge hot">Best Value · Annual</span>
+      <span class="price-badge hot">Best Value. Annual</span>
       <div class="price-amount"><sup>$</sup>233</div>
       <p class="price-period">USD per year</p>
-      <p class="price-aud">approx $333 AUD · save 2 months</p>
+      <p class="price-aud">approx $333 AUD, save 2 months</p>
       <div class="price-includes">
         <div class="pi-row"><span class="pi-check">✓</span>Everything in monthly</div>
         <div class="pi-row"><span class="pi-check">✓</span>2 months free</div>
@@ -829,7 +830,7 @@
       <span class="price-badge" style="background: var(--burgundy); color: #fff;">Bundle · Best Value</span>
       <div class="price-amount"><sup>$</sup>29</div>
       <p class="price-period">USD per month</p>
-      <p class="price-aud">approx $44 AUD · Becoming Whole + Inner Compass</p>
+      <p class="price-aud">approx $44 AUD. Becoming Whole and Inner Compass</p>
       <div class="price-includes">
         <div class="pi-row"><span class="pi-check">✓</span>Everything in Becoming Whole</div>
         <div class="pi-row"><span class="pi-check">✓</span>Full Inner Compass access included</div>
