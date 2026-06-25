@@ -97,8 +97,8 @@ app.get('/welcome', requireAuth, (req, res) => {
 });
 
 // Protect all member content — anything not in the public allowlist requires a valid session
-const PUBLIC_ROUTES = new Set(['/', '/login', '/subscribe', '/webinar', '/admin', '/becoming-whole']);
-const PUBLIC_API_PREFIXES = ['/api/login', '/api/register', '/api/webinar-register', '/api/subscribe', '/api/webhook', '/api/activate', '/api/admin'];
+const PUBLIC_ROUTES = new Set(['/', '/login', '/subscribe', '/webinar', '/admin', '/becoming-whole', '/quiz']);
+const PUBLIC_API_PREFIXES = ['/api/login', '/api/register', '/api/webinar-register', '/api/subscribe', '/api/webhook', '/api/activate', '/api/admin', '/api/quiz-register'];
 
 function protectMemberContent(req, res, next) {
   if (PUBLIC_ROUTES.has(req.path)) return next();
@@ -673,6 +673,23 @@ app.get('/pattern-identifier', (req, res) => {
 
 app.get('/identify-your-pattern', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'survival-patterns.html'));
+});
+
+app.get('/quiz', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pattern-quiz.html'));
+});
+
+app.post('/api/quiz-register', async (req, res) => {
+  const { firstName, email, pattern } = req.body;
+  if (!firstName || !email) return res.status(400).json({ error: 'Missing fields' });
+  try {
+    await addToMailerLite(firstName, email);
+    console.log(`Quiz lead: ${firstName} (${email}) — pattern: ${pattern}`);
+    res.json({ ok: true });
+  } catch(e) {
+    console.error('Quiz register error:', e.message);
+    res.status(500).json({ error: 'Failed to register' });
+  }
 });
 
 app.get('/blame-observation', (req, res) => {

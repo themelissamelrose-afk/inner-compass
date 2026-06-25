@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identify Your Survival Pattern | Melissa Melrose</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 20px; }
+    .container { max-width: 600px; width: 100%; }
+
+    .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 2.1rem; color: #5c2318; line-height: 1.3; }
+    .divider { width: 48px; height: 2px; background: #c4967a; margin: 18px 0; }
+    .intro { font-size: 0.97rem; line-height: 1.85; color: #6b5144; margin-bottom: 30px; }
+
+    .step { display: none; }
+    .step.on { display: block; }
+
+    .card { background: #fff; border-radius: 20px; padding: 36px 32px; box-shadow: 0 4px 28px rgba(92,35,24,0.07); }
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 14px; }
+    p.body { font-size: 0.96rem; line-height: 1.85; color: #4a3728; margin-bottom: 12px; }
+
+    .pull-quote { border-left: 3px solid #c4967a; padding: 14px 20px; margin: 20px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #5c2318; line-height: 1.8; background: #f9f3eb; border-radius: 0 12px 12px 0; }
+    .info-card { background: #f9f3eb; border-radius: 14px; padding: 20px 22px; margin: 16px 0; border-left: 3px solid #c4967a; }
+
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+    .btn:hover { background: #7a2f21; }
+    .btn:disabled { background: #d4c4ba; cursor: not-allowed; }
+
+    .btn-outline { display: block; width: 100%; padding: 14px; background: transparent; color: #5c2318; border: 1.5px solid #e8d9c4; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 12px; transition: all 0.2s; text-align: center; }
+    .btn-outline:hover { border-color: #c4967a; }
+
+    /* Progress bar */
+    .progress-wrap { margin-bottom: 28px; }
+    .progress-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #c4967a; display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .progress-track { height: 3px; background: #f0e6d8; border-radius: 10px; }
+    .progress-fill { height: 100%; border-radius: 10px; background: #c4967a; transition: width 0.5s ease; }
+
+    /* Statements */
+    .statements { display: flex; flex-direction: column; gap: 10px; margin: 18px 0; }
+    .stmt { display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px; border: 1.5px solid #e8d9c4; border-radius: 12px; background: #fdf9f4; cursor: pointer; transition: all 0.2s; user-select: none; }
+    .stmt:hover { border-color: #c4967a; background: #fdf5ec; }
+    .stmt.sel { border-color: #5c2318; background: #f2e8d9; }
+    .stmt-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #c4967a; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: transparent; transition: all 0.2s; margin-top: 1px; }
+    .stmt.sel .stmt-check { background: #5c2318; border-color: #5c2318; color: #fff; }
+    .stmt-text { font-size: 0.93rem; line-height: 1.65; color: #4a3728; }
+    .stmt.sel .stmt-text { color: #5c2318; }
+    .sel-count { text-align: center; font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; color: #c4967a; margin: 10px 0; }
+
+    /* Pattern bars */
+    .pattern-bars { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
+    .p-bar-row {}
+    .p-bar-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+    .p-bar-name { font-family: 'Playfair Display', serif; font-size: 0.97rem; color: #5c2318; }
+    .p-bar-score { font-size: 0.78rem; letter-spacing: 1px; color: #9a7d6e; text-transform: uppercase; }
+    .p-bar-track { height: 8px; background: #f2e8d9; border-radius: 10px; overflow: hidden; }
+    .p-bar-fill { height: 100%; border-radius: 10px; background: #c4967a; width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+    .p-bar-row.primary .p-bar-name { font-weight: 600; }
+    .p-bar-row.primary .p-bar-fill { background: #5c2318; }
+
+    /* Pattern reveal */
+    .pattern-reveal { background: #f9f3eb; border-radius: 16px; padding: 28px 24px; margin: 20px 0; }
+    .pattern-reveal.primary { border-left: 4px solid #5c2318; background: #f2e8d9; }
+    .pr-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; display: block; }
+    .pr-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #5c2318; margin-bottom: 4px; }
+    .pr-subtitle { font-size: 0.85rem; color: #9a7d6e; font-style: italic; margin-bottom: 16px; }
+    .pr-body { font-size: 0.93rem; line-height: 1.8; color: #4a3728; }
+    .pr-body em { color: #5c2318; font-style: italic; }
+
+    /* Gift shadow row */
+    .gs-row { display: flex; gap: 12px; margin-top: 16px; }
+    .gs-box { flex: 1; border-radius: 12px; padding: 14px 16px; }
+    .gs-box.gift { background: #edf4ee; }
+    .gs-box.shadow { background: #f9f0ec; }
+    .gs-label { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: #9a7d6e; display: block; margin-bottom: 5px; }
+    .gs-text { font-size: 0.87rem; line-height: 1.6; color: #4a3728; }
+
+    /* Reflection */
+    textarea { width: 100%; border: 1.5px solid #e8d9c4; border-radius: 12px; padding: 14px 16px; font-size: 0.95rem; font-family: 'Lato', sans-serif; color: #4a3728; background: #fdfaf6; resize: vertical; min-height: 100px; line-height: 1.7; margin-top: 14px; transition: border-color 0.2s; outline: none; }
+    textarea:focus { border-color: #c4967a; }
+    textarea::placeholder { color: #c4967a; opacity: 0.6; }
+
+    /* Breathwork */
+    .breath-wrap { text-align: center; padding: 16px 0; }
+    .breath-circle-outer { width: 120px; height: 120px; border-radius: 50%; background: #f2e8d9; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; transition: transform 4s ease-in-out, background 4s ease; }
+    .breath-circle-outer.expand { transform: scale(1.35); background: #e8d4be; }
+    .breath-circle-inner { width: 60px; height: 60px; border-radius: 50%; background: #c4967a; opacity: 0.28; }
+    .breath-word { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; min-height: 28px; }
+    .breath-count { font-size: 1.5rem; color: #c4967a; font-family: 'Playfair Display', serif; margin-top: 4px; min-height: 32px; }
+    .breath-round { font-size: 0.76rem; letter-spacing: 1.5px; text-transform: uppercase; color: #c4967a; margin-top: 6px; }
+    .breath-start { background: #5c2318; color: #fff; border: none; border-radius: 30px; padding: 13px 32px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 18px; transition: background 0.2s; }
+    .breath-start:hover { background: #7a2f21; }
+
+    /* Email capture */
+    .field-wrap { margin-bottom: 16px; }
+    .field-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #9a7d6e; display: block; margin-bottom: 8px; }
+    input[type="text"], input[type="email"] { width: 100%; border: 1.5px solid #e8d9c4; border-radius: 12px; padding: 14px 16px; font-size: 0.97rem; font-family: 'Lato', sans-serif; color: #4a3728; background: #fdfaf6; outline: none; transition: border-color 0.2s; }
+    input:focus { border-color: #c4967a; }
+    .field-note { font-size: 0.8rem; color: #9a7d6e; margin-top: 6px; font-style: italic; }
+
+    /* Vow / final */
+    .vow-block { background: #5c2318; border-radius: 16px; padding: 28px 24px; text-align: center; margin: 20px 0; }
+    .vow-text { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #faf5ee; line-height: 1.9; }
+    .vow-em { color: #f2d4bc; font-style: italic; }
+
+    .seal { width: 72px; height: 72px; border-radius: 50%; background: #f2e8d9; border: 2px solid #c4967a; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.8rem; }
+
+    /* Next step CTA */
+    .next-wrap { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+    .next-card { border-radius: 16px; padding: 22px 24px; border: 1.5px solid #e8d9c4; background: #fdfaf6; text-decoration: none; display: block; transition: border-color 0.2s, background 0.2s; }
+    .next-card:hover { border-color: #c4967a; background: #fdf5ec; }
+    .next-card.featured { background: #5c2318; border-color: #5c2318; }
+    .next-card.featured:hover { background: #7a2f21; border-color: #7a2f21; }
+    .nc-tag { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: #c4967a; display: block; margin-bottom: 6px; }
+    .next-card.featured .nc-tag { color: #e8c4b2; }
+    .nc-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; margin-bottom: 6px; }
+    .next-card.featured .nc-title { color: #fff; }
+    .nc-body { font-size: 0.88rem; line-height: 1.65; color: #7a5a4a; }
+    .next-card.featured .nc-body { color: rgba(255,255,255,0.75); }
+
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.82rem; color: #c4967a; text-align: center; margin-top: 36px; opacity: 0.65; }
+
+    @media (max-width: 480px) {
+      .card { padding: 26px 20px; }
+      h1 { font-size: 1.7rem; }
+      .gs-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">Melissa Melrose</div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap" style="display:none;">
+    <div class="progress-label">
+      <span id="progressLabel">Step 1 of 7</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- S0: INTRO -->
+  <div class="step on" id="s0">
+    <h1>Identify Your<br>Survival Pattern</h1>
+    <div class="divider"></div>
+    <p class="intro">Before you can change what is quietly running your life, you need to be able to see it.</p>
+    <div class="card">
+      <span class="section-tag">You Adapted Brilliantly</span>
+      <p class="body">Before you had words for what you were feeling, your nervous system was already learning. It watched. It adapted. It created responses that kept you close to the people you needed most.</p>
+      <p class="body">These are not flaws. They are not signs that something is wrong with you. They are <em style="color:#5c2318;">survival patterns</em> — intelligent, clever ways your nervous system learned to maintain connection and stay safe in the family system you grew up inside.</p>
+      <div class="pull-quote">The problem is not that you have these patterns. The problem is that they were formed for a world that no longer exists — and your nervous system never got the memo.</div>
+      <p class="body">This quiz will help you name yours, understand what it was protecting, and see why uncovering it is the beginning of coming home to yourself.</p>
+      <button class="btn" onclick="go(1)">Begin the Quiz</button>
+    </div>
+  </div>
+
+  <!-- S1: WHY PATTERNS PERSIST -->
+  <div class="step" id="s1">
+    <h1>Why These Patterns<br><em style="color:#c4967a;">Stay With Us</em></h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">Understanding the Protector</span>
+      <p class="body">Survival patterns don't persist because we are broken or unaware. They persist because our nervous system still receives a quiet payoff from them.</p>
+      <p class="body">The People Pleaser keeps people close. The High Achiever earns love through output. The Over-Functioner creates safety through control. The Over-Giver stays needed. The Over-Explainer avoids rejection by being fully understood.</p>
+      <div class="pull-quote">Familiarity becomes mistaken for love. Repetition becomes mistaken for safety. And the pattern continues, long after the circumstances that created it have passed.</div>
+      <p class="body">This is why understanding alone is rarely enough. Real change begins when we can see the pattern clearly, trace it back to where it started, and recognise what we were protecting.</p>
+      <p class="body" style="font-style:italic; color:#6b5144;">That is exactly what this quiz is here to help you do.</p>
+      <button class="btn" onclick="go(2)">Continue</button>
+    </div>
+  </div>
+
+  <!-- S2: STATEMENTS -->
+  <div class="step" id="s2">
+    <h1>Which of These<br>Feel True for You?</h1>
+    <div class="divider"></div>
+    <p class="intro">Read each one slowly. Select everything that resonates — even if it feels uncomfortable to admit. The more honest you are, the clearer your pattern becomes.</p>
+    <div class="card">
+      <span class="section-tag">Select All That Apply</span>
+      <div class="statements" id="stmtList"></div>
+      <div class="sel-count" id="selCount">0 selected</div>
+      <button class="btn" id="seePatternBtn" onclick="goResults()" disabled>Reveal My Pattern</button>
+    </div>
+  </div>
+
+  <!-- S3: PATTERN PROFILE -->
+  <div class="step" id="s3">
+    <h1>Your Pattern<br><em style="color:#c4967a;">Profile</em></h1>
+    <div class="divider"></div>
+    <p class="intro">Here is what your nervous system has been doing quietly in the background — and what it was trying to protect.</p>
+    <div class="card">
+      <span class="section-tag">Your Patterns</span>
+      <div class="pattern-bars" id="patternBars"></div>
+    </div>
+    <div id="primaryReveal" style="margin-top:16px;"></div>
+    <div id="secondaryReveal" style="margin-top:10px;"></div>
+    <div style="margin-top:16px;">
+      <button class="btn" onclick="go(4)">Understand the Protector</button>
+    </div>
+  </div>
+
+  <!-- S4: THE PROTECTOR DEEP DIVE -->
+  <div class="step" id="s4">
+    <h1>The Protector<br><em style="color:#c4967a;" id="s4PatternName">Within You</em></h1>
+    <div class="divider"></div>
+    <div class="card" id="protectorCard">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <!-- S5: WHERE IT LIVES NOW -->
+  <div class="step" id="s5">
+    <h1>Where Does It<br><em style="color:#c4967a;">Live Right Now?</em></h1>
+    <div class="divider"></div>
+    <p class="intro">Before we go deeper, take a moment to bring this into your present life.</p>
+    <div class="card">
+      <span class="section-tag" id="s5PatternTag"></span>
+      <p style="font-family:'Playfair Display',serif; font-size:1.15rem; color:#5c2318; line-height:1.6; margin-bottom:18px;" id="s5Question"></p>
+      <textarea id="s5Answer" placeholder="Take your time. There is no right answer here." oninput="checkS5()"></textarea>
+      <button class="btn" id="s5Btn" onclick="go(6)" disabled>Continue</button>
+    </div>
+  </div>
+
+  <!-- S6: WHY WE UNCOVER IT -->
+  <div class="step" id="s6">
+    <h1>Why We Want<br><em style="color:#c4967a;">to Uncover This</em></h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">The Possibility</span>
+      <p class="body">Seeing your pattern is not about blame. It is not about shame. It is not about tearing down the parts of you that worked so hard to keep you safe.</p>
+      <p class="body">It is about understanding. Because when we can see the pattern clearly, it loses its automatic grip on us. We stop reacting and start responding. We stop abandoning ourselves and start choosing.</p>
+      <div class="pull-quote" id="healingQuote"></div>
+      <div class="info-card">
+        <p style="font-size:0.93rem; line-height:1.85; color:#4a3728;">When the foundation begins to shift, something powerful happens. <em style="color:#5c2318;">Self-abandonment softens. Self-trust returns. Self-love emerges naturally.</em> What once felt like your weakness becomes your wisdom. Sensitivity becomes intuition. Control becomes leadership. Over-giving becomes true generosity from a full cup.</p>
+      </div>
+      <p class="body" style="text-align:center; font-style:italic; color:#9a7d6e; margin-top:8px;">This is the process of becoming whole. Not fixing yourself. Returning to yourself.</p>
+      <button class="btn" onclick="go(7)">Take a Breath With Me</button>
+    </div>
+  </div>
+
+  <!-- S7: BREATHWORK -->
+  <div class="step" id="s7">
+    <h1>Before We Go<br><em style="color:#c4967a;">Any Deeper</em></h1>
+    <div class="divider"></div>
+    <p class="intro">You have named something real. Place a hand on your heart. We are going to breathe into what you have seen, with love rather than judgement.</p>
+    <div class="card">
+      <span class="section-tag">Sacred Six Breath</span>
+      <audio id="breathAudio" src="/audio-sacred6.m4a" preload="auto"></audio>
+      <div class="breath-wrap">
+        <div class="breath-circle-outer" id="breathRing"><div class="breath-circle-inner"></div></div>
+        <div class="breath-word" id="breathWord">Ready</div>
+        <div class="breath-count" id="breathCount"></div>
+        <div class="breath-round" id="breathRound">4 rounds · 6 counts each phase</div>
+        <button class="breath-start" id="breathBtn" onclick="startBreath()">Begin Sacred Six</button>
+      </div>
+      <button class="btn" id="breathNextBtn" style="display:none;" onclick="go(8)">Continue</button>
+    </div>
+  </div>
+
+  <!-- S8: EMAIL CAPTURE -->
+  <div class="step" id="s8">
+    <h1>Receive Your<br><em style="color:#c4967a;">Pattern Guide</em></h1>
+    <div class="divider"></div>
+    <p class="intro">You have done something most people never do. You have looked at your pattern honestly, with compassion. Enter your details below and I will send you your personalised pattern guide — plus what to do next.</p>
+    <div class="card">
+      <span class="section-tag">Your Free Pattern Guide</span>
+      <div class="field-wrap">
+        <label class="field-label" for="firstName">First Name</label>
+        <input type="text" id="firstName" placeholder="Your first name" oninput="checkEmail()" />
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="emailInput">Email Address</label>
+        <input type="email" id="emailInput" placeholder="your@email.com" oninput="checkEmail()" />
+        <p class="field-note">No spam. Ever. Unsubscribe any time.</p>
+      </div>
+      <button class="btn" id="emailBtn" onclick="submitEmail()" disabled>Send Me My Guide</button>
+      <button class="btn-outline" onclick="go(9)">Skip and see result</button>
+      <div id="emailMsg" style="display:none; text-align:center; padding:14px; margin-top:14px; background:#f2e8d9; border-radius:10px; font-family:'Playfair Display',serif; font-style:italic; color:#5c2318; font-size:0.95rem;"></div>
+    </div>
+  </div>
+
+  <!-- S9: FINAL RESULT + PATHWAY -->
+  <div class="step" id="s9">
+    <div class="seal">✦</div>
+    <div class="brand" style="text-align:center;">You Have Seen It</div>
+    <h1 style="text-align:center;" id="finalTitle">You Named Your Pattern</h1>
+    <div class="divider" style="margin: 18px auto;"></div>
+
+    <div class="card">
+      <span class="section-tag">What Is Now Possible</span>
+      <p class="body" style="text-align:center; font-family:'Playfair Display',serif; font-size:1.1rem; color:#5c2318; line-height:1.7; margin-bottom:20px;">These patterns are not your identity.<br>They are not your fault.<br>They are not permanent.<br><br><em>They are the beginning of your map home.</em></p>
+
+      <div class="vow-block">
+        <div class="vow-text" id="finalVow"></div>
+      </div>
+
+      <p class="body" style="text-align:center; font-style:italic; color:#9a7d6e; margin-top: 4px;">What once kept you safe can become what sets you free. When it is seen with understanding, not shame.</p>
+    </div>
+
+    <div style="margin-top:28px;">
+      <p style="font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:#c4967a; text-align:center; margin-bottom:16px;">Your Next Step</p>
+
+      <div class="next-wrap">
+        <a href="https://inner-compass-production-7970.up.railway.app/becoming-whole" class="next-card featured">
+          <span class="nc-tag">Community and Daily Support</span>
+          <div class="nc-title">Becoming Whole + Inner Compass</div>
+          <p class="nc-body">Join the membership community and get daily AI support in Melissa's voice. The community holds you. Inner Compass meets you in the moment. From $44 AUD per month.</p>
+        </a>
+        <a href="https://inner-compass-production-7970.up.railway.app/subscribe" class="next-card">
+          <span class="nc-tag">Daily AI Companion</span>
+          <div class="nc-title">Inner Compass Alone</div>
+          <p class="nc-body">Access Melissa's AI companion, birth chart, morning ritual, breathwork, and somatic tools. Available 24/7 in her voice. From $15 AUD per month.</p>
+        </a>
+        <a href="https://www.skool.com/becoming-whole-5804" class="next-card">
+          <span class="nc-tag">The Community</span>
+          <div class="nc-title">Becoming Whole</div>
+          <p class="nc-body">Monthly live coaching, weekly teachings, breathwork journeys, and a supportive community holding you as you return to yourself.</p>
+        </a>
+      </div>
+    </div>
+
+    <p style="text-align:center; font-family:'Playfair Display',serif; font-style:italic; font-size:1rem; color:#9a7d6e; margin-top:28px; line-height:1.7;">If this resonated, the next step is to go deeper.<br>I am here when you are ready.</p>
+    <p style="text-align:center; font-family:'Playfair Display',serif; font-size:0.95rem; color:#c4967a; margin-top:8px;">Big love, Melissa x</p>
+  </div>
+
+  <div class="footer" id="footerEl">Melissa Melrose · Becoming Whole</div>
+</div>
+
+<script>
+  // ── DATA ──────────────────────────────────────────────────────────────────
+
+  const patterns = [
+    {
+      id: 'pp',
+      name: 'The People Pleaser',
+      subtitle: 'Safety Through Approval',
+      core: 'You learned that harmony and connection were maintained by keeping others happy. Your nervous system became highly attuned to the emotions and needs of others — <em>before your own</em>. Conflict felt dangerous. Disapproval felt like abandonment. So you learned to read the room, keep the peace, and shrink yourself to maintain love.',
+      gift: 'Deep empathy and the ability to hold space for others.',
+      shadow: 'Self-abandonment. Silencing your own needs to keep the peace.',
+      why: 'You kept people close. You prevented conflict. You stayed safe inside belonging.',
+      healing: 'Your needs matter without needing to be earned.',
+      quote: 'The little version of you who learned to please did not do it out of weakness. They did it to stay close to the people they needed most. That was love. That was wisdom.',
+      vow: 'You are allowed to take up space.\nYou are allowed to need things.\nYou are allowed to disappoint people\nand still be worthy of love.',
+      reflection: 'Where in your life are you currently saying yes when you mean no?'
+    },
+    {
+      id: 'oe',
+      name: 'The Over-Explainer',
+      subtitle: 'Safety Through Justification',
+      core: 'You developed in an environment where your choices, feelings, or boundaries were questioned or misunderstood. Your nervous system learned that <em>explaining everything</em> was the path to safety. If you could make them understand, they could not reject you. So words became armour.',
+      gift: 'Clear communication and a deep desire to be truly understood.',
+      shadow: 'Exhausting over-justification. As if your needs must always be earned.',
+      why: 'You reduced the chance of rejection by making yourself completely understood.',
+      healing: 'Your truth is enough. You do not have to earn the right to be heard.',
+      quote: 'You do not need to justify your boundaries. You do not need to explain your needs until someone agrees they are valid. You are allowed to simply say: this is what I need.',
+      vow: 'You do not need anyone\'s permission\nto have needs.\nYou do not need to explain yourself\ninto being heard.',
+      reflection: 'When did you last set a boundary without explaining why?'
+    },
+    {
+      id: 'ha',
+      name: 'The High Achiever',
+      subtitle: 'Safety Through Performance',
+      core: 'You learned that recognition, approval, and love came through achievement. Your nervous system became wired toward productivity, success, and <em>constant striving</em>. Rest felt dangerous. Stillness felt like falling behind. So you kept moving, kept producing, kept earning your place.',
+      gift: 'Incredible drive, discipline, and the ability to create meaningful results.',
+      shadow: 'Tying your worth to output. Unable to rest, unable to feel enough.',
+      why: 'Achievement kept you visible, valued, and loved.',
+      healing: 'You are enough without the doing.',
+      quote: 'You have been working so hard to earn something you already have. You were worthy before the achievement. You will be worthy after it. You are worthy in the rest.',
+      vow: 'You are allowed to rest.\nYou are allowed to exist\nwithout producing.\nYou were never your output.',
+      reflection: 'What would you do differently if your worth had nothing to do with what you achieved?'
+    },
+    {
+      id: 'of',
+      name: 'The Over-Functioner',
+      subtitle: 'Safety Through Control',
+      core: 'You learned early that stability required you to take charge. In an environment that felt uncertain or overwhelming, <em>control became safety</em>. You became the one who holds it all together. The reliable one. The strong one. The one nobody has to worry about.',
+      gift: 'Natural leadership, reliability, and the capacity to hold things together.',
+      shadow: 'Burnout and relentless inner pressure. Carrying far more than your fair share.',
+      why: 'Control gave you a sense of safety in an environment that felt unpredictable.',
+      healing: 'Safety lives within you, not in what you can manage.',
+      quote: 'Strength was never meant to be something you perform for others. The bravest thing you can do is let yourself be held, too.',
+      vow: 'You are allowed to put things down.\nYou are allowed to ask for help.\nYour strength is not diminished\nby your vulnerability.',
+      reflection: 'What are you currently carrying that was never yours to carry?'
+    },
+    {
+      id: 'og',
+      name: 'The Over-Giver',
+      subtitle: 'Safety Through Self-Abandonment',
+      core: 'You learned that love and connection came through giving, supporting, and making yourself indispensable. Your own needs <em>slowly moved into the background</em> as a way of earning belonging. To receive felt uncomfortable. To need felt like a burden. So you gave, and gave, and gave.',
+      gift: 'Generosity, warmth, and the capacity to make others feel deeply cared for.',
+      shadow: 'Depletion. Giving from an empty well, disconnected from your own needs.',
+      why: 'Giving kept people close. It made you feel worthy of love.',
+      healing: 'You are as worthy of receiving as you are of giving.',
+      quote: 'You cannot pour from an empty vessel. And the women who changed the world were not the ones who gave everything away. They were the ones who learned to fill themselves first.',
+      vow: 'You are allowed to receive.\nYou are allowed to need.\nYou are allowed to be\nas important as everyone else.',
+      reflection: 'What do you need right now that you have not allowed yourself to ask for?'
+    }
+  ];
+
+  const statements = [
+    { pattern: 'pp', text: 'I say yes when I mean no, to avoid upsetting someone or causing tension' },
+    { pattern: 'pp', text: 'I feel responsible for the emotions and comfort of the people around me' },
+    { pattern: 'pp', text: 'I go out of my way to avoid conflict, even when something is genuinely bothering me' },
+    { pattern: 'oe', text: 'I over-explain my decisions and choices, especially when setting a boundary' },
+    { pattern: 'oe', text: 'I feel anxious and unsettled if I sense someone has misunderstood me' },
+    { pattern: 'oe', text: 'When I feel uncomfortable or challenged, I find myself talking more to justify myself' },
+    { pattern: 'ha', text: 'I struggle to rest without feeling guilty, lazy, or unproductive' },
+    { pattern: 'ha', text: 'Deep down, I tie my worth to how much I achieve or produce' },
+    { pattern: 'ha', text: 'I push myself constantly, even when I am exhausted or running on empty' },
+    { pattern: 'of', text: 'I take on more responsibility than my fair share because it just feels easier' },
+    { pattern: 'of', text: 'When things are out of my control, I feel genuine anxiety or unease' },
+    { pattern: 'of', text: 'I find it very hard to ask for help, even when I clearly need it' },
+    { pattern: 'og', text: 'I give more than I receive in most of my relationships' },
+    { pattern: 'og', text: 'I feel uncomfortable, even guilty, when people try to give to me or care for me' },
+    { pattern: 'og', text: 'I stay in situations that deplete me because others still seem to need me' }
+  ];
+
+  // ── STATE ─────────────────────────────────────────────────────────────────
+
+  let primaryPattern = null;
+  let secondaryPattern = null;
+  const scores = { pp: 0, oe: 0, ha: 0, of: 0, og: 0 };
+
+  // ── NAVIGATION ────────────────────────────────────────────────────────────
+
+  const TOTAL_STEPS = 9;
+  const stepProgress = { 0: 0, 1: 10, 2: 25, 3: 40, 4: 55, 5: 65, 6: 75, 7: 82, 8: 90, 9: 100 };
+
+  function go(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+    document.getElementById('s' + n).classList.add('on');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const pw = document.getElementById('progressWrap');
+    if (n === 0) {
+      pw.style.display = 'none';
+    } else {
+      pw.style.display = 'block';
+      const pct = stepProgress[n] || 0;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressPct').textContent = pct + '%';
+      document.getElementById('progressLabel').textContent = 'Step ' + n + ' of ' + TOTAL_STEPS;
+    }
+
+    if (n === 3) renderResults();
+    if (n === 4) renderProtector();
+    if (n === 5) renderReflection();
+    if (n === 6) renderHealing();
+    if (n === 9) renderFinal();
+  }
+
+  // ── BUILD STATEMENTS ──────────────────────────────────────────────────────
+
+  function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+  const displayed = shuffle(statements);
+  const list = document.getElementById('stmtList');
+  displayed.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'stmt';
+    div.dataset.pattern = s.pattern;
+    div.innerHTML = `<div class="stmt-check">✓</div><div class="stmt-text">${s.text}</div>`;
+    div.onclick = () => {
+      div.classList.toggle('sel');
+      const n = document.querySelectorAll('.stmt.sel').length;
+      document.getElementById('selCount').textContent = n + ' selected';
+      document.getElementById('seePatternBtn').disabled = n === 0;
+    };
+    list.appendChild(div);
+  });
+
+  // ── SCORE AND RESULTS ─────────────────────────────────────────────────────
+
+  function goResults() {
+    document.querySelectorAll('.stmt.sel').forEach(s => scores[s.dataset.pattern]++);
+    const sorted = [...patterns].sort((a, b) => scores[b.id] - scores[a.id]);
+    primaryPattern = sorted[0];
+    secondaryPattern = scores[sorted[1].id] > 0 ? sorted[1] : null;
+    go(3);
+  }
+
+  function renderResults() {
+    const barsEl = document.getElementById('patternBars');
+    barsEl.innerHTML = '';
+    const sorted = [...patterns].sort((a, b) => scores[b.id] - scores[a.id]);
+
+    sorted.forEach((p, i) => {
+      const pct = Math.round((scores[p.id] / 3) * 100);
+      const row = document.createElement('div');
+      row.className = 'p-bar-row' + (i === 0 && scores[p.id] > 0 ? ' primary' : '');
+      row.innerHTML = `
+        <div class="p-bar-header">
+          <span class="p-bar-name">${p.name}</span>
+          <span class="p-bar-score">${scores[p.id]} / 3</span>
+        </div>
+        <div class="p-bar-track"><div class="p-bar-fill" style="width:0%" data-pct="${pct}%"></div></div>
+      `;
+      barsEl.appendChild(row);
+    });
+
+    setTimeout(() => {
+      document.querySelectorAll('.p-bar-fill').forEach(el => {
+        el.style.width = el.dataset.pct;
+      });
+    }, 100);
+
+    const makeReveal = (p, isPrimary) => {
+      if (!p) return '';
+      return `
+        <div class="pattern-reveal ${isPrimary ? 'primary' : ''}">
+          <span class="pr-tag">${isPrimary ? 'Your Primary Pattern' : 'Secondary Pattern'}</span>
+          <div class="pr-title">${p.name}</div>
+          <div class="pr-subtitle">${p.subtitle}</div>
+          <p class="pr-body">${p.core}</p>
+        </div>
+      `;
+    };
+
+    document.getElementById('primaryReveal').innerHTML = makeReveal(primaryPattern, true);
+    document.getElementById('secondaryReveal').innerHTML = secondaryPattern ? makeReveal(secondaryPattern, false) : '';
+  }
+
+  function renderProtector() {
+    if (!primaryPattern) return;
+    document.getElementById('s4PatternName').textContent = primaryPattern.name;
+    document.getElementById('protectorCard').innerHTML = `
+      <span class="section-tag">${primaryPattern.subtitle}</span>
+      <p class="body">${primaryPattern.core}</p>
+      <div class="pull-quote">${primaryPattern.quote}</div>
+      <div class="gs-row">
+        <div class="gs-box gift">
+          <span class="gs-label">The Gift</span>
+          <p class="gs-text">${primaryPattern.gift}</p>
+        </div>
+        <div class="gs-box shadow">
+          <span class="gs-label">The Shadow</span>
+          <p class="gs-text">${primaryPattern.shadow}</p>
+        </div>
+      </div>
+      <div style="margin-top:20px; padding:16px 18px; background:#f9f3eb; border-radius:12px;">
+        <span style="font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:#c4967a; display:block; margin-bottom:6px;">Why You Adapted This Way</span>
+        <p style="font-size:0.92rem; line-height:1.75; color:#4a3728; font-style:italic;">${primaryPattern.why}</p>
+      </div>
+      <button class="btn" onclick="go(5)" style="margin-top:24px;">Where Does It Live Now?</button>
+    `;
+  }
+
+  function renderReflection() {
+    if (!primaryPattern) return;
+    document.getElementById('s5PatternTag').textContent = primaryPattern.name;
+    document.getElementById('s5Question').textContent = primaryPattern.reflection;
+  }
+
+  function checkS5() {
+    const val = document.getElementById('s5Answer').value.trim();
+    document.getElementById('s5Btn').disabled = val.length < 5;
+  }
+
+  function renderHealing() {
+    if (!primaryPattern) return;
+    document.getElementById('healingQuote').textContent = primaryPattern.healing;
+  }
+
+  function renderFinal() {
+    if (!primaryPattern) return;
+    document.getElementById('finalTitle').textContent = primaryPattern.name;
+    document.getElementById('finalVow').innerHTML = primaryPattern.vow.replace(/\n/g, '<br>');
+  }
+
+  // ── BREATHWORK ────────────────────────────────────────────────────────────
+
+  let breathTimer = null;
+  function startBreath() {
+    document.getElementById('breathBtn').style.display = 'none';
+    const audio = document.getElementById('breathAudio');
+    try { audio.play(); } catch(e) {}
+
+    const phases = [
+      { word: 'Inhale', counts: 6 },
+      { word: 'Hold', counts: 6 },
+      { word: 'Exhale', counts: 6 },
+      { word: 'Hold', counts: 6 }
+    ];
+    const totalRounds = 4;
+    let round = 0, phase = 0, count = 0;
+    const ring = document.getElementById('breathRing');
+    const word = document.getElementById('breathWord');
+    const cnt = document.getElementById('breathCount');
+    const roundEl = document.getElementById('breathRound');
+
+    function tick() {
+      const p = phases[phase];
+      if (phase === 0) ring.classList.add('expand');
+      else ring.classList.remove('expand');
+      word.textContent = p.word;
+      cnt.textContent = count + 1;
+      roundEl.textContent = 'Round ' + (round + 1) + ' of ' + totalRounds;
+      count++;
+      if (count >= p.counts) {
+        count = 0;
+        phase++;
+        if (phase >= phases.length) {
+          phase = 0;
+          round++;
+          if (round >= totalRounds) {
+            word.textContent = 'Complete';
+            cnt.textContent = '';
+            roundEl.textContent = '';
+            ring.classList.remove('expand');
+            document.getElementById('breathNextBtn').style.display = 'block';
+            return;
+          }
+        }
+      }
+      breathTimer = setTimeout(tick, 1000);
+    }
+    tick();
+  }
+
+  // ── EMAIL CAPTURE ─────────────────────────────────────────────────────────
+
+  function checkEmail() {
+    const name = document.getElementById('firstName').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    document.getElementById('emailBtn').disabled = !(name.length > 0 && email.includes('@'));
+  }
+
+  async function submitEmail() {
+    const name = document.getElementById('firstName').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    const btn = document.getElementById('emailBtn');
+    const msg = document.getElementById('emailMsg');
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    try {
+      await fetch('/api/quiz-register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName: name, email, pattern: primaryPattern ? primaryPattern.name : 'Unknown' })
+      });
+      msg.textContent = 'Your guide is on its way. Check your inbox shortly.';
+      msg.style.display = 'block';
+      setTimeout(() => go(9), 1800);
+    } catch(e) {
+      go(9);
+    }
+  }
+</script>
+</body>
+</html>
