@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Witch Wound Ritual | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a0f0a;
+      --deep: #2a1510;
+      --burgundy: #5c2318;
+      --rose: #c4967a;
+      --rose-soft: #ddb89a;
+      --linen: #faf5ee;
+      --sand: #f2e8d9;
+      --muted: #9a7d6e;
+      --text: #faf5ee;
+      --text-soft: rgba(250,245,238,0.75);
+      --text-muted: rgba(250,245,238,0.45);
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(196,150,122,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 20px 80px;
+    }
+
+    .container { max-width: 600px; width: 100%; }
+
+    .brand {
+      font-size: 10px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 6vw, 2.6rem);
+      color: var(--text);
+      line-height: 1.25;
+      font-weight: 400;
+    }
+
+    h1 em { color: var(--rose-soft); font-style: italic; }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--rose);
+      opacity: 0.5;
+      margin: 20px 0;
+    }
+
+    .step { display: none; }
+    .step.on { display: block; }
+
+    /* PROGRESS */
+    .progress-wrap { margin-bottom: 32px; }
+    .progress-track { height: 1px; background: rgba(196,150,122,0.2); border-radius: 10px; }
+    .progress-fill { height: 100%; border-radius: 10px; background: var(--rose); transition: width 0.6s ease; }
+    .progress-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--rose); margin-bottom: 10px; display: flex; justify-content: space-between; }
+
+    /* CARD */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      margin-bottom: 16px;
+    }
+
+    .card.lit {
+      background: rgba(196,150,122,0.08);
+      border-color: rgba(196,150,122,0.3);
+    }
+
+    .section-tag {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    p.body {
+      font-size: 0.96rem;
+      line-height: 1.88;
+      color: var(--text-soft);
+      margin-bottom: 14px;
+    }
+
+    p.body em { color: var(--rose-soft); font-style: italic; }
+
+    .pull-quote {
+      border-left: 2px solid var(--rose);
+      padding: 14px 20px;
+      margin: 20px 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.8;
+      background: rgba(196,150,122,0.06);
+      border-radius: 0 12px 12px 0;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--burgundy);
+      color: var(--linen);
+      border: none;
+      border-radius: 12px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      cursor: pointer;
+      margin-top: 24px;
+      transition: background 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .btn:hover { background: #7a2f21; }
+    .btn.rose { background: transparent; border: 1px solid rgba(196,150,122,0.4); color: var(--rose-soft); margin-top: 12px; }
+    .btn.rose:hover { border-color: var(--rose); color: var(--text); }
+
+    /* SYMPTOMS CHECK */
+    .symptom-list { display: flex; flex-direction: column; gap: 10px; margin: 18px 0; }
+    .sym-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(196,150,122,0.2);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .sym-item:hover { border-color: rgba(196,150,122,0.5); background: rgba(196,150,122,0.05); }
+    .sym-item.sel { border-color: var(--rose); background: rgba(196,150,122,0.1); }
+    .sym-check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,150,122,0.4);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: transparent;
+      margin-top: 2px;
+      transition: all 0.2s;
+    }
+    .sym-item.sel .sym-check { background: var(--rose); border-color: var(--rose); color: #fff; }
+    .sym-text { font-size: 0.93rem; line-height: 1.6; color: var(--text-soft); }
+    .sym-item.sel .sym-text { color: var(--text); }
+
+    /* JOURNAL */
+    textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,150,122,0.25);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 0.95rem;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      color: var(--text);
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.75;
+      margin-top: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    textarea:focus { border-color: var(--rose); }
+    textarea::placeholder { color: rgba(196,150,122,0.45); }
+
+    .journal-prompt {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 4px;
+    }
+
+    /* GROUNDING RITUAL */
+    .ritual-step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(196,150,122,0.12);
+    }
+    .ritual-step:last-child { border-bottom: none; }
+    .ritual-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--rose);
+      flex-shrink: 0;
+      width: 28px;
+      margin-top: 2px;
+    }
+    .ritual-text { font-size: 0.94rem; line-height: 1.8; color: var(--text-soft); }
+    .ritual-text strong { color: var(--text); font-weight: 400; }
+
+    /* BREATH */
+    .breath-wrap { text-align: center; padding: 16px 0; }
+    .breath-circle-outer {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: rgba(196,150,122,0.1);
+      border: 1px solid rgba(196,150,122,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      transition: transform 4s ease-in-out, background 4s ease, border-color 4s ease;
+    }
+    .breath-circle-outer.expand {
+      transform: scale(1.3);
+      background: rgba(196,150,122,0.2);
+      border-color: rgba(196,150,122,0.6);
+    }
+    .breath-circle-inner {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--rose);
+      opacity: 0.25;
+    }
+    .breath-word { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--text); min-height: 28px; }
+    .breath-count { font-size: 1.4rem; color: var(--rose); font-family: 'Playfair Display', serif; margin-top: 4px; min-height: 30px; }
+    .breath-sub { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--rose); margin-top: 6px; opacity: 0.7; }
+    .breath-start {
+      background: transparent;
+      border: 1px solid rgba(196,150,122,0.4);
+      color: var(--rose-soft);
+      border-radius: 30px;
+      padding: 12px 32px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 18px;
+      transition: all 0.2s;
+    }
+    .breath-start:hover { border-color: var(--rose); color: var(--text); }
+
+    /* DECLARATION */
+    .declaration {
+      background: rgba(92,35,24,0.3);
+      border: 1px solid rgba(92,35,24,0.5);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .declaration p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 2;
+    }
+    .declaration em { color: var(--rose-soft); }
+
+    /* CANDLE ANIMATION */
+    .candle-wrap { text-align: center; padding: 20px 0; }
+    .candle {
+      display: inline-block;
+      position: relative;
+    }
+    .candle-body {
+      width: 14px;
+      height: 60px;
+      background: linear-gradient(to bottom, #f2e8d9, #ddb89a);
+      border-radius: 3px 3px 2px 2px;
+      margin: 0 auto;
+    }
+    .flame {
+      width: 10px;
+      height: 22px;
+      background: radial-gradient(ellipse at bottom, #f9a825 0%, #e65100 60%, transparent 100%);
+      border-radius: 50% 50% 30% 30%;
+      margin: 0 auto;
+      animation: flicker 1.8s ease-in-out infinite alternate;
+      position: relative;
+      top: 2px;
+      filter: blur(0.5px);
+    }
+    @keyframes flicker {
+      0% { transform: scaleX(1) scaleY(1) rotate(-1deg); opacity: 0.9; }
+      25% { transform: scaleX(0.9) scaleY(1.05) rotate(1deg); opacity: 1; }
+      50% { transform: scaleX(1.05) scaleY(0.95) rotate(-0.5deg); opacity: 0.95; }
+      75% { transform: scaleX(0.95) scaleY(1.1) rotate(1.5deg); opacity: 1; }
+      100% { transform: scaleX(1) scaleY(1) rotate(-1deg); opacity: 0.9; }
+    }
+    .glow {
+      position: absolute;
+      top: -8px; left: -12px;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(249,168,37,0.25) 0%, transparent 70%);
+      animation: flicker 1.8s ease-in-out infinite alternate;
+    }
+
+    /* MOON */
+    .moon { font-size: 3rem; text-align: center; display: block; margin: 0 auto 16px; filter: drop-shadow(0 0 12px rgba(196,150,122,0.4)); }
+
+    /* CLOSING */
+    .seal {
+      width: 68px; height: 68px;
+      border-radius: 50%;
+      background: rgba(196,150,122,0.1);
+      border: 1px solid rgba(196,150,122,0.35);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.6rem;
+    }
+
+    .footer {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      color: var(--rose);
+      text-align: center;
+      margin-top: 40px;
+      opacity: 0.5;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <span class="brand">Inner Compass · Melissa Melrose</span>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap" style="display:none;">
+    <div class="progress-label">
+      <span id="progressLabel">The Ritual</span>
+      <span id="progressPct"></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- S0: OPENING -->
+  <div class="step on" id="s0">
+    <h1>The Witch Wound<br><em>Ritual</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:28px;">A sacred space to name, release, and reclaim what has been buried in the blood and bones for generations.</p>
+    <div class="card">
+      <span class="section-tag">Before You Begin</span>
+      <p class="body">This ritual works with a layer that runs deeper than the inner child. The witch wound is ancestral, collective, woven through our DNA from the Burning Times. It shows up in the patterns of persecution, betrayal, and being misunderstood that repeat across our relationships. It is the reason some of us still feel unsafe being fully seen.</p>
+      <p class="body">This is not separate from your healing journey. It is a deeper layer of it.</p>
+      <div class="pull-quote">Find somewhere quiet. Light a candle if you have one. This is sacred time for you.</div>
+      <button class="btn" onclick="go(1)">Enter the Ritual</button>
+    </div>
+  </div>
+
+  <!-- S1: DO YOU CARRY IT -->
+  <div class="step" id="s1">
+    <h1>Do You Carry<br><em>the Wound?</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Select everything that resonates. Be honest with yourself. This is a safe space.</p>
+    <div class="card">
+      <span class="section-tag">Recognition</span>
+      <div class="symptom-list" id="symptomList">
+        <div class="sym-item" onclick="this.classList.toggle('sel')"><div class="sym-check">✓</div><div class="sym-text">Speaking my truth feels deeply unsafe, even in relationships where I should feel safe</div></div>
+        <div class="sym-item" onclick="this.classList.toggle('sel')"><div class="sym-check">✓</div><div class="sym-text">Being authentically seen by others feels threatening, like something bad will follow</div></div>
+        <div class="sym-item" onclick="this.classList.toggle('sel')"><div class="sym-check">✓</div><div class="sym-text">I dim my own light, shrink myself, and hide my gifts so as not to attract negative attention</div></div>
+        <div class="sym-item" onclick="this.classList.toggle('sel')"><div class="sym-check">✓</div><div class="sym-text">I doubt and diminish my own emotions and intuition, even when they are clearly speaking to me</div></div>
+        <div class="sym-item" onclick="this.classList.toggle('sel')"><div class="sym-check">✓</div><div class="sym-text">I feel both too much and not enough at the same time</div></div>
+        <div class="sym-item" onclick="this.classList.toggle('sel')"><div class="sym-check">✓</div><div class="sym-text">I carry a pattern of persecution, betrayal, or being deeply misunderstood across relationships</div></div>
+        <div class="sym-item" onclick="this.classList.toggle('sel')"><div class="sym-check">✓</div><div class="sym-text">Stepping into my power or owning my gifts triggers a deep fear I cannot fully explain</div></div>
+        <div class="sym-item" onclick="this.classList.toggle('sel')"><div class="sym-check">✓</div><div class="sym-text">I feel a tightness in my throat when I try to speak up or be seen</div></div>
+      </div>
+      <button class="btn" onclick="go(2)">I See Myself Here</button>
+    </div>
+  </div>
+
+  <!-- S2: WHAT IT IS -->
+  <div class="step" id="s2">
+    <h1>What Is the<br><em>Witch Wound?</em></h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">The Ancestral Story</span>
+      <p class="body">The Witch Wound is an inherited, collective trauma rooted in the Burning Times. Tens of thousands of women and men were persecuted, tortured, and executed. Healers. Midwives. Wise women. Anyone too outspoken, too powerful, too different.</p>
+      <p class="body">Our ancestors who survived carried this not just in memory but <em>in their bodies</em>. Their fear, shame, grief, and survival instincts were passed down through the ages. They now live in our blood and bones.</p>
+      <div class="pull-quote">This is not just history. It is living in the patterns of every woman who has ever made herself smaller so others would not feel threatened by her light.</div>
+      <p class="body">The witch wound and the sisterhood wound run deep in our DNA. It does not discount the inner child work. It is a deeper layer beneath it. When we follow the chord back through the patterns of persecution, being misunderstood, and betrayal, we find it playing through every relationship dynamic in our lives.</p>
+      <button class="btn" onclick="go(3)">I Feel This</button>
+    </div>
+  </div>
+
+  <!-- S3: JOURNAL — RELEASE -->
+  <div class="step" id="s3">
+    <h1>Release<br><em>What You Carry</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Write freely. Do not edit yourself. Let what has been held in the body move through the hand.</p>
+    <div class="card">
+      <span class="section-tag">Journal — Release</span>
+      <div class="journal-prompt">What needs of mine have not been met?</div>
+      <textarea id="j1" placeholder="Write freely here..." rows="4"></textarea>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <div class="journal-prompt">I do not feel validated because...</div>
+      <textarea id="j2" placeholder="Complete this honestly..." rows="3"></textarea>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <div class="journal-prompt">I am scared of ________ because it feels like it means ________.</div>
+      <textarea id="j3" placeholder="Fill in both spaces..." rows="3"></textarea>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <div class="journal-prompt">Where in my life am I still making myself smaller to feel safe?</div>
+      <textarea id="j4" placeholder="Where does this live right now?" rows="3"></textarea>
+    </div>
+    <button class="btn" onclick="go(4)" style="margin-top:8px;">I Have Written It Down</button>
+  </div>
+
+  <!-- S4: GROUNDING RITUAL -->
+  <div class="step" id="s4">
+    <h1>The Grounding<br><em>Ritual</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Move slowly through each step. There is no rush here. This is your time.</p>
+    <div class="card">
+      <span class="section-tag">Earth Yourself</span>
+      <div class="ritual-step">
+        <span class="ritual-num">I</span>
+        <p class="ritual-text"><strong>Come to the ground.</strong> Sit on the earth outside under the sky, or settle on the floor beside a window. Feel every place your body connects with what is beneath you.</p>
+      </div>
+      <div class="ritual-step">
+        <span class="ritual-num">II</span>
+        <p class="ritual-text"><strong>Breathe three times.</strong> Deep breath in through the nose. Long exhale out through the mouth. Let the body arrive here fully before you continue.</p>
+      </div>
+      <div class="ritual-step">
+        <span class="ritual-num">III</span>
+        <p class="ritual-text"><strong>Visualise the cord.</strong> Imagine a cord of energy, or roots, extending from the base of your spine down into the earth below you. Feel the connection.</p>
+      </div>
+      <div class="ritual-step">
+        <span class="ritual-num">IV</span>
+        <p class="ritual-text"><strong>Send it down.</strong> With each exhale, send any pent-up energy, fear, or emotion that does not belong to you down through that cord and into the earth. She can hold it. You do not have to.</p>
+      </div>
+      <div class="ritual-step">
+        <span class="ritual-num">V</span>
+        <p class="ritual-text"><strong>Repeat as many cycles as you need.</strong> Breathe in. Release down. There is no limit. Stay as long as the body asks you to.</p>
+      </div>
+    </div>
+    <button class="btn" onclick="go(5)">I Am Grounded</button>
+  </div>
+
+  <!-- S5: BREATHWORK -->
+  <div class="step" id="s5">
+    <h1>Breathe Into<br><em>the Wound</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Place one hand on your throat. The other on your heart. We are breathing into the places that have been afraid to speak.</p>
+    <div class="card">
+      <span class="section-tag">Sacred Six Breath</span>
+      <audio id="breathAudio" src="/audio-sacred6.m4a" preload="auto"></audio>
+      <div class="breath-wrap">
+        <div class="breath-circle-outer" id="breathRing"><div class="breath-circle-inner"></div></div>
+        <div class="breath-word" id="breathWord">Ready</div>
+        <div class="breath-count" id="breathCount"></div>
+        <div class="breath-sub" id="breathSub">4 rounds · 6 counts each phase</div>
+        <button class="breath-start" id="breathBtn" onclick="startBreath()">Begin Sacred Six</button>
+      </div>
+      <button class="btn" id="breathNextBtn" style="display:none;" onclick="go(6)">Continue</button>
+    </div>
+  </div>
+
+  <!-- S6: THROAT CHAKRA -->
+  <div class="step" id="s6">
+    <h1>Reclaim<br><em>Your Voice</em></h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">Throat Chakra Activation</span>
+      <p class="body">The throat chakra is where the witch wound lives in the body. The fear of being heard, misunderstood, or persecuted for speaking up. This is where we begin to reclaim.</p>
+      <div class="ritual-step">
+        <span class="ritual-num">I</span>
+        <p class="ritual-text"><strong>Place your hand on your throat.</strong> Feel the warmth of your own touch there. This is a sacred part of you.</p>
+      </div>
+      <div class="ritual-step">
+        <span class="ritual-num">II</span>
+        <p class="ritual-text"><strong>Speak your name aloud.</strong> Slowly. Three times. Let yourself be heard by yourself first. <em>Your name is not something you should be afraid to own.</em></p>
+      </div>
+      <div class="ritual-step">
+        <span class="ritual-num">III</span>
+        <p class="ritual-text"><strong>Hum or chant.</strong> Any tone, any sound. Let it vibrate in the throat. This activates and opens what has been held shut.</p>
+      </div>
+      <div class="ritual-step">
+        <span class="ritual-num">IV</span>
+        <p class="ritual-text"><strong>Speak this aloud.</strong> Softly or with full voice. Either is enough.</p>
+      </div>
+      <div class="pull-quote" style="margin-top:16px;">"I am allowed to be seen. I am allowed to be heard. My truth is safe to speak. My gifts are safe to share. I am not my ancestors' fear. I am their healing."</div>
+      <button class="btn" onclick="go(7)">I Have Spoken It</button>
+    </div>
+  </div>
+
+  <!-- S7: CENTERING AND CANDLE -->
+  <div class="step" id="s7">
+    <h1>Centre in<br><em>the Light</em></h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">Moon Centering</span>
+      <div class="candle-wrap">
+        <span class="moon">🌕</span>
+        <div class="candle">
+          <div class="glow"></div>
+          <div class="flame"></div>
+          <div class="candle-body"></div>
+        </div>
+        <p style="font-size:0.82rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--rose); margin-top:14px; opacity:0.7;">Light your candle if you have one</p>
+      </div>
+      <p class="body" style="margin-top:20px;">Imagine lunar energy showering down on you. As you visualise this light flowing down through the crown of your head and into your body, decide what energy you want to attract. Peace. Visibility. Voice. Power. Trust.</p>
+      <p class="body">Look back at what you wrote in your journal. Read it with compassion, not judgement. These were the places that have been afraid. They deserve to be seen.</p>
+      <button class="btn" onclick="go(8)">I Am Centred</button>
+    </div>
+  </div>
+
+  <!-- S8: THE DECLARATION -->
+  <div class="step" id="s8">
+    <h1>The<br><em>Declaration</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Speak this aloud. Place your hand on your heart as you do. Let the body receive these words, not just the mind.</p>
+    <div class="card">
+      <span class="section-tag">Release What Is Not Yours</span>
+      <div class="declaration">
+        <p>
+          "I release that which is not mine.<br>
+          I release all obstacles on my path<br>
+          that do not bring me to my higher good.<br>
+          I release limiting beliefs.<br>
+          I release self-doubt and fear.<br><br>
+          <em>I am not my ancestors' persecution.<br>
+          I am their healing.</em><br><br>
+          I am safe to be seen.<br>
+          I am safe to speak.<br>
+          I am safe to step into my full power.<br><br>
+          What I am seeking is already on its way to me."
+        </p>
+      </div>
+      <button class="btn" onclick="go(9)">I Declare This</button>
+    </div>
+  </div>
+
+  <!-- S9: INTENTION AND CLOSING -->
+  <div class="step" id="s9">
+    <h1>Set Your<br><em>Intention</em></h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">Closing the Ritual</span>
+      <div class="journal-prompt" style="margin-bottom:16px;">What do you choose to call in as you move forward?</div>
+      <textarea id="jIntention" placeholder="Write your intention here..." rows="4"></textarea>
+      <p class="body" style="margin-top:20px; font-size:0.9rem;">Hold your intention to your heart. Say aloud: <em>"I am complete. What I am seeking is on its way to me."</em></p>
+      <p class="body" style="font-size:0.9rem;">You may burn or bury your release journal entries from earlier if you feel called to do so. This completes the ritual.</p>
+      <button class="btn" onclick="go(10)" style="margin-top:8px;">Complete the Ritual</button>
+    </div>
+  </div>
+
+  <!-- S10: CLOSING -->
+  <div class="step" id="s10">
+    <div class="seal">✦</div>
+    <h1 style="text-align:center;">You Did<br><em>the Work</em></h1>
+    <div class="divider" style="margin:18px auto;"></div>
+
+    <div class="card lit" style="text-align:center;">
+      <span class="moon" style="font-size:2rem; display:block; margin-bottom:16px;">🌕</span>
+      <span class="section-tag" style="text-align:center;">What Is Now True</span>
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:1.1rem; color:var(--text); line-height:1.8; margin-bottom:20px;">You have named what your ancestors could not name.<br>You have spoken what they were forced to silence.<br>You have reclaimed what was taken from them.</p>
+      <div class="pull-quote" style="text-align:left;">Witches have never been the ones we should fear. It has always been those who were threatened by women in their power. It is time to stop hiding your magic and reclaim your truth.</div>
+      <p style="font-size:0.9rem; color:var(--text-soft); line-height:1.8; margin-top:16px;">Repeat this ritual at the new and full moon. Create new release lists and new intentions each time. The healing deepens with each return.</p>
+    </div>
+
+    <div style="margin-top:28px;">
+      <a href="/app" style="display:block; background:var(--burgundy); color:var(--linen); border-radius:12px; padding:16px; text-align:center; text-decoration:none; font-family:'Playfair Display',serif; font-size:1.05rem; transition:background 0.2s;" onmouseover="this.style.background='#7a2f21'" onmouseout="this.style.background='#5c2318'">Continue With Inner Compass</a>
+      <button onclick="go(0)" class="btn rose" style="margin-top:12px;">Begin the Ritual Again</button>
+    </div>
+
+    <p style="text-align:center; font-family:'Playfair Display',serif; font-style:italic; font-size:0.95rem; color:var(--rose-soft); margin-top:28px; line-height:1.7;">Big love, Melissa x</p>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+  const stepPct = { 0:0, 1:10, 2:22, 3:35, 4:48, 5:58, 6:68, 7:76, 8:85, 9:93, 10:100 };
+  const stepNames = { 0:'', 1:'Recognition', 2:'Understanding', 3:'Release', 4:'Grounding', 5:'Breathwork', 6:'Voice', 7:'Centring', 8:'Declaration', 9:'Intention', 10:'Complete' };
+
+  function go(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+    document.getElementById('s' + n).classList.add('on');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const pw = document.getElementById('progressWrap');
+    if (n === 0) {
+      pw.style.display = 'none';
+    } else {
+      pw.style.display = 'block';
+      document.getElementById('progressFill').style.width = (stepPct[n] || 0) + '%';
+      document.getElementById('progressPct').textContent = (stepPct[n] || 0) + '%';
+      document.getElementById('progressLabel').textContent = stepNames[n] || 'The Ritual';
+    }
+  }
+
+  // Breathwork
+  function startBreath() {
+    document.getElementById('breathBtn').style.display = 'none';
+    const audio = document.getElementById('breathAudio');
+    try { audio.play(); } catch(e) {}
+
+    const phases = [
+      { word: 'Inhale', counts: 6 },
+      { word: 'Hold', counts: 6 },
+      { word: 'Exhale', counts: 6 },
+      { word: 'Hold', counts: 6 }
+    ];
+    const totalRounds = 4;
+    let round = 0, phase = 0, count = 0;
+    const ring = document.getElementById('breathRing');
+    const word = document.getElementById('breathWord');
+    const cnt = document.getElementById('breathCount');
+    const sub = document.getElementById('breathSub');
+
+    function tick() {
+      const p = phases[phase];
+      if (phase === 0) ring.classList.add('expand');
+      else ring.classList.remove('expand');
+      word.textContent = p.word;
+      cnt.textContent = count + 1;
+      sub.textContent = 'Round ' + (round + 1) + ' of ' + totalRounds;
+      count++;
+      if (count >= p.counts) {
+        count = 0;
+        phase++;
+        if (phase >= phases.length) {
+          phase = 0;
+          round++;
+          if (round >= totalRounds) {
+            word.textContent = 'Complete';
+            cnt.textContent = '';
+            sub.textContent = '';
+            ring.classList.remove('expand');
+            document.getElementById('breathNextBtn').style.display = 'block';
+            return;
+          }
+        }
+      }
+      setTimeout(tick, 1000);
+    }
+    tick();
+  }
+</script>
+</body>
+</html>

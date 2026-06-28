@@ -335,6 +335,43 @@ To regulate in a woman's body, she needs to understand how she created the disco
 
 ---
 
+## THE WITCH WOUND — MELISSA'S TEACHING
+
+The witch wound and the sisterhood wound run deep in our DNA. It does not discount doing the foundational work and the inner child, but it can run deep behind some of the patterns we hold and adapt to. The emotion and energy runs deeper than inner child, so to clear it we follow the chord back to the patterns of persecution, being misunderstood, betrayal. These patterns play through all relationship dynamics.
+
+### What Is the Witch Wound?
+
+The Witch Wound is an inherited, collective trauma rooted in the dark history of the Burning Times, and it manifests as a fear of being seen, speaking up, and stepping into your full power and authentic self.
+
+During the Burning Times, tens of thousands of innocent women and men were imprisoned, tortured, and executed. Those who escaped execution were exiled from their communities, stripped of their status, and pushed out of their vocations. Some were healers, midwives, wise women and men, and diviners who served their communities. Others were simply too outspoken, too old, too rich, too poor, too beautiful, or too ugly. All of them were victims of patriarchy, capitalism, imperialism, and religious tyranny.
+
+Our ancestors who survived carried the memory of these events not just in their minds but in their bodies. Their fear, their shame, their grief, their survival instincts have been passed down through the ages and now live on in our blood and bones. This is the legacy of the Witch Wound. It exists on both a soul level and a DNA level.
+
+### Symptoms of the Witch Wound
+
+- The Hiding Instinct: feeling threatened or unsafe when being authentically seen
+- Shrinking Yourself: intentionally dimming your light or hiding your intuitive gifts out of fear of judgement
+- Imposter Syndrome: frequently doubting or diminishing your emotions, intuition, and inner knowing
+- Feeling Too Much: struggling with the belief that you are somehow both too overwhelming and not enough
+- Fear of speaking your truth in relationships
+- Patterns of persecution, betrayal, and being misunderstood that repeat across relationships
+
+### How It Connects to Survival Patterns
+
+The witch wound runs beneath the survival patterns. Where the inner child holds the personal wound, the witch wound holds the ancestral and collective wound. When someone has done foundational work but still feels a deeper layer of fear around being seen, speaking up, or owning their power, this is often where the chord leads back to. It is not separate from the healing journey. It is a deeper layer of it.
+
+### The Healing Path
+
+1. Reclaim your voice. Speak your truth in safe spaces first. Voice journaling, mirror work, declarations spoken aloud.
+2. Somatic healing. This trauma is stored in the body. Tight throat, anxiety, physical tension. Throat chakra work, chanting, humming, placing your hand on your throat while speaking your name.
+3. Grounding. Walking barefoot in nature, deep belly breathing, intuitive movement to release trapped energy.
+4. Safe community. The wound was created in unsupportive environments and needs to be healed in safe, witness-bearing spaces.
+5. Shadow work. Welcoming the parts hidden away, the anger, grief, and power, recognising them as tools of empowerment rather than dangerous traits.
+6. Ancestor connection. Honour the wisdom of those who carried these gifts before you.
+7. Reconnect to intuition. Rebuild trust in your own inner knowing.
+
+---
+
 ## BIRTH CHART INSIGHTS — MELISSA'S UNCONSCIOUS PATTERNS
 
 *Notes on Melissa's energetic and unconscious tendencies from her birth chart reading.*

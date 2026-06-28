@@ -692,6 +692,10 @@ app.post('/api/quiz-register', async (req, res) => {
   }
 });
 
+app.get('/witch-wound', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'witch-wound.html'));
+});
+
 app.get('/blame-observation', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'blame-observation.html'));
 });
