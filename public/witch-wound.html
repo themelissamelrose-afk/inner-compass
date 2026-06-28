@@ -430,7 +430,19 @@
       <div class="journal-prompt">Where in my life am I still making myself smaller to feel safe?</div>
       <textarea id="j4" placeholder="Where does this live right now?" rows="3"></textarea>
     </div>
-    <button class="btn" onclick="go(4)" style="margin-top:8px;">I Have Written It Down</button>
+    <button class="btn" onclick="goAck()" style="margin-top:8px;">I Have Written It Down</button>
+  </div>
+
+  <!-- SACK: ACKNOWLEDGEMENT -->
+  <div class="step" id="sack">
+    <h1>What You're<br><em>Carrying</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Before we move forward, let what you have shared be truly witnessed.</p>
+    <div class="card lit">
+      <span class="section-tag">You Are Being Seen</span>
+      <div id="ackContent"></div>
+    </div>
+    <button class="btn" onclick="go(4)">I Feel Seen. Continue.</button>
   </div>
 
   <!-- S4: GROUNDING RITUAL -->
@@ -598,12 +610,13 @@
 </div>
 
 <script>
-  const stepPct = { 0:0, 1:10, 2:22, 3:35, 4:48, 5:58, 6:68, 7:76, 8:85, 9:93, 10:100 };
-  const stepNames = { 0:'', 1:'Recognition', 2:'Understanding', 3:'Release', 4:'Grounding', 5:'Breathwork', 6:'Voice', 7:'Centring', 8:'Declaration', 9:'Intention', 10:'Complete' };
+  const stepPct = { 0:0, 1:10, 2:22, 3:35, ack:42, 4:50, 5:60, 6:70, 7:78, 8:87, 9:94, 10:100 };
+  const stepNames = { 0:'', 1:'Recognition', 2:'Understanding', 3:'Release', ack:'You Are Seen', 4:'Grounding', 5:'Breathwork', 6:'Voice', 7:'Centring', 8:'Declaration', 9:'Intention', 10:'Complete' };
 
   function go(n) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
-    document.getElementById('s' + n).classList.add('on');
+    const el = document.getElementById('s' + n);
+    if (el) el.classList.add('on');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const pw = document.getElementById('progressWrap');
@@ -615,6 +628,70 @@
       document.getElementById('progressPct').textContent = (stepPct[n] || 0) + '%';
       document.getElementById('progressLabel').textContent = stepNames[n] || 'The Ritual';
     }
+  }
+
+  function goAck() {
+    buildWitchAck();
+    go('ack');
+  }
+
+  function buildWitchAck() {
+    const checked = [...document.querySelectorAll('#symptomList .sym-item.sel')]
+      .map(el => el.querySelector('.sym-text').textContent.trim());
+    const journalText = ['j1','j2','j3','j4'].map(id => (document.getElementById(id).value || '')).join(' ');
+
+    const t = {
+      hiding: /hid(e|ing)|stay small|smaller|shrink|invisible|dim my|disappear|suppress/i.test(journalText),
+      voice: /voice|speak(ing)?|throat|words|say |silent|silence|express|tongue|speak up/i.test(journalText),
+      fear: /fear|scared|afraid|unsafe|danger|threat|terrif|anxious|worry|anxiety/i.test(journalText),
+      betrayal: /betray|hurt|misunderstood|persecute|punish|abandon|pushed out|reject/i.test(journalText),
+      unworthy: /\benough\b|worthy|deserve|matter|important|validate|recogni|believe in/i.test(journalText),
+      giving: /give everything|giving everything|carry|hold it|responsible|support others|care for|too much/i.test(journalText),
+      power: /power|gift|magic|intuition|knowing|ability|strength|my light|my gifts/i.test(journalText),
+      needs: /needs?|need to be|unmet|not been met|not felt|missing|lack/i.test(journalText),
+    };
+
+    let parts = [];
+
+    if (checked.length >= 2) {
+      parts.push(`<p class="body">You named that <em>${checked[0].toLowerCase()}</em>, and that <em>${checked[1].toLowerCase()}</em>. These are not small things to say aloud. That is the wound becoming visible, and visibility is where the healing begins.</p>`);
+    } else if (checked.length === 1) {
+      parts.push(`<p class="body">You named that <em>${checked[0].toLowerCase()}</em>. That kind of honesty takes courage. The wound is clearest when we are willing to look directly at it without turning away.</p>`);
+    } else {
+      parts.push(`<p class="body">You showed up for this. That alone is significant. The body often knows what the mind is still finding words for, and yours brought you here.</p>`);
+    }
+
+    const themeLines = [];
+    if (t.hiding) themeLines.push('the pull to stay hidden and not take up space');
+    if (t.voice) themeLines.push('an uncertain or silenced voice');
+    if (t.fear) themeLines.push('fear living in the body as a constant low hum');
+    if (t.betrayal) themeLines.push('a pattern of being hurt, misunderstood, or pushed out');
+    if (t.unworthy) themeLines.push('a quiet ongoing question of whether you are truly enough');
+    if (t.needs) themeLines.push('needs that have gone unmet, perhaps for a very long time');
+    if (t.giving) themeLines.push('carrying more than your share, giving more than you receive');
+    if (t.power) themeLines.push('a complicated or fearful relationship with your own power and gifts');
+
+    if (themeLines.length >= 2) {
+      parts.push(`<p class="body">In what you wrote, <em>${themeLines[0]}</em> and <em>${themeLines[1]}</em> both came through. Your nervous system has been holding this, often alone, for a very long time. Of course it is exhausted.</p>`);
+    } else if (themeLines.length === 1) {
+      parts.push(`<p class="body">In what you wrote, <em>${themeLines[0]}</em> came through clearly. This is not weakness. It is the lived reality of someone who has been carrying something ancient without knowing its name.</p>`);
+    }
+
+    const patterns = [];
+    if (t.hiding || t.fear) patterns.push('People Pleaser');
+    if (t.voice) patterns.push('Over-Explainer');
+    if (t.giving) patterns.push('Over-Giver');
+
+    if (patterns.length > 0) {
+      const pStr = patterns.length === 1
+        ? 'the ' + patterns[0]
+        : 'the ' + patterns[0] + ' and the ' + patterns[1];
+      parts.push(`<p class="body">In daily life this often surfaces as ${pStr} pattern. The exhausting, constant work of making yourself acceptable, safe, and palatable to others. You adapted brilliantly. And now you are choosing something different.</p>`);
+    }
+
+    parts.push(`<div class="pull-quote">You are not broken. You are a woman who has been carrying her ancestors' survival. Today we begin to set it down together.</div>`);
+
+    document.getElementById('ackContent').innerHTML = parts.join('');
   }
 
   // Breathwork

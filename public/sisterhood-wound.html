@@ -237,8 +237,20 @@
         <p class="reflect-q">What would I allow myself to feel, say, or be if I trusted that women were safe?</p>
         <textarea placeholder="Let yourself dream here..." rows="3"></textarea>
       </div>
-      <button class="btn" onclick="go(5)">I Have Written It</button>
+      <button class="btn" onclick="goAck()">I Have Written It</button>
     </div>
+  </div>
+
+  <!-- SACK: ACKNOWLEDGEMENT -->
+  <div class="step" id="sack">
+    <h1>What I See<br><em>in You</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Before we move forward, let what you have written be truly received.</p>
+    <div class="card warm">
+      <span class="section-tag">You Are Being Seen</span>
+      <div id="ackContent"></div>
+    </div>
+    <button class="btn" onclick="go(5)">I Feel Seen. Continue.</button>
   </div>
 
   <!-- S5: BREATHWORK -->
@@ -358,12 +370,13 @@
 </div>
 
 <script>
-  const stepPct = { 0:0, 1:12, 2:25, 3:38, 4:52, 5:64, 6:76, 7:88, 8:100 };
-  const stepNames = { 0:'', 1:'Recognition', 2:'Origins', 3:'Melissa\'s Story', 4:'Reflection', 5:'Breathwork', 6:'The Healing', 7:'Declaration', 8:'Complete' };
+  const stepPct = { 0:0, 1:12, 2:25, 3:38, 4:52, ack:58, 5:66, 6:78, 7:89, 8:100 };
+  const stepNames = { 0:'', 1:'Recognition', 2:'Origins', 3:'Melissa\'s Story', 4:'Reflection', ack:'You Are Seen', 5:'Breathwork', 6:'The Healing', 7:'Declaration', 8:'Complete' };
 
   function go(n) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
-    document.getElementById('s' + n).classList.add('on');
+    const el = document.getElementById('s' + n);
+    if (el) el.classList.add('on');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const pw = document.getElementById('progressWrap');
     if (n === 0) { pw.style.display = 'none'; } else {
@@ -372,6 +385,74 @@
       document.getElementById('progressPct').textContent = (stepPct[n] || 0) + '%';
       document.getElementById('progressLabel').textContent = stepNames[n] || 'The Pathway';
     }
+  }
+
+  function goAck() {
+    buildSisterhoodAck();
+    go('ack');
+  }
+
+  function buildSisterhoodAck() {
+    const checked = [...document.querySelectorAll('.check-list .check-item.sel')]
+      .map(el => el.querySelector('.check-text').textContent.trim());
+    const textareas = document.querySelectorAll('#s4 textarea');
+    const journalText = [...textareas].map(t => t.value || '').join(' ');
+
+    const t = {
+      comparison: /compar|behind|her success|their success|jealous|envy|trigger|competit|achiev|not enough/i.test(journalText),
+      betrayal: /betray|hurt|trust|expected|push.out|left me|rejected|abandon|disappoint|wound|scars/i.test(journalText),
+      isolation: /alone|lonely|isolat|by myself|just me|distance|wall|guard|keep.*(away|close)|myself/i.test(journalText),
+      giving: /give|gave|giving|power to|everything|celebrat.*her|support her|help her|carry/i.test(journalText),
+      shame: /shame|ashamed|guilty|guilt|wrong|bad|shouldn|judge|judging|critical|embarr/i.test(journalText),
+      safety: /safe|unsafe|fear|scared|afraid|protect|guard|wall|let.*in|too close/i.test(journalText),
+      longing: /long|wish|want to|dream|hope|allow|feel free|imagine/i.test(journalText),
+      mother: /mother|mum\b|mom\b|mama|daughter|childhood|grew up|growing up|early|young/i.test(journalText),
+      notSeen: /not seen|not recogni|not valued|not celebrat|invisible|overlook|dismissed|ignored/i.test(journalText),
+    };
+
+    let parts = [];
+
+    if (checked.length >= 2) {
+      parts.push(`<p class="body">You named that <em>${checked[0].toLowerCase()}</em>, and that <em>${checked[1].toLowerCase()}</em>. These are not small things to say out loud. That honesty is the wound beginning to open, and opening is the only way through.</p>`);
+    } else if (checked.length === 1) {
+      parts.push(`<p class="body">You named that <em>${checked[0].toLowerCase()}</em>. Naming that truthfully is the first act of reclamation. It means you are no longer pretending it is not there.</p>`);
+    } else {
+      parts.push(`<p class="body">You showed up for this, and that matters more than you know. The body often arrives before the words do. Trust what brought you here.</p>`);
+    }
+
+    const themeLines = [];
+    if (t.comparison) themeLines.push('comparison quietly eating away at your sense of what is possible for you');
+    if (t.betrayal) themeLines.push('the anticipation of being hurt or let down before it even happens');
+    if (t.isolation) themeLines.push('a learned habit of keeping yourself at a safe distance from other women');
+    if (t.giving) themeLines.push('giving your light and power to others before you allow it for yourself');
+    if (t.shame) themeLines.push('shame about the parts of you that have felt competitive or critical');
+    if (t.safety) themeLines.push('a deep need to feel safe before you can let anyone truly close');
+    if (t.longing) themeLines.push('a genuine longing for something different, a truer way of being with women');
+    if (t.mother) themeLines.push('roots that reach back to early experiences with the feminine');
+    if (t.notSeen) themeLines.push('a quiet grief around not being truly seen or celebrated by other women');
+
+    if (themeLines.length >= 2) {
+      parts.push(`<p class="body">In what you wrote, <em>${themeLines[0]}</em> and <em>${themeLines[1]}</em> both came through. These are not random thoughts. They are the wound telling you exactly where it lives.</p>`);
+    } else if (themeLines.length === 1) {
+      parts.push(`<p class="body">In what you wrote, <em>${themeLines[0]}</em> came through. This is not a character flaw. It is the wound doing what it was designed to do: protect you from getting hurt again.</p>`);
+    }
+
+    const patterns = [];
+    if (t.giving) patterns.push('Over-Giver');
+    if (t.isolation) patterns.push('Over-Functioner');
+    if (t.comparison) patterns.push('High Achiever');
+    if (t.safety || t.betrayal) patterns.push('People Pleaser');
+
+    if (patterns.length > 0) {
+      const pStr = patterns.length === 1
+        ? 'the ' + patterns[0]
+        : 'the ' + patterns[0] + ' and the ' + patterns[1];
+      parts.push(`<p class="body">In daily life, this often shows up as ${pStr} pattern. Staying self-sufficient so rejection cannot reach you. Giving before receiving so you stay in control. Working hard enough to earn your place. These were brilliant adaptations. And you are ready for something more.</p>`);
+    }
+
+    parts.push(`<div class="pull-quote" style="text-align:left;">Her success is a mirror, not a threat. Your gifts are real. Your need for connection is sacred, not weak. You are allowed to let women close. You are allowed to be held without losing yourself.</div>`);
+
+    document.getElementById('ackContent').innerHTML = parts.join('');
   }
 
   function startBreath() {
