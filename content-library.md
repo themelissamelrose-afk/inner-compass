@@ -372,6 +372,80 @@ The witch wound runs beneath the survival patterns. Where the inner child holds 
 
 ---
 
+## THE SISTERHOOD WOUND — MELISSA'S TEACHING
+
+The sisterhood wound is a subconscious belief that relationships with other women are inherently unsafe, competitive, or bound to end in betrayal. It is rooted in generational trauma and societal conditioning, and it often causes women to experience quiet grief, judgement, or mistrust toward one another. It runs alongside the witch wound, and both are collective, ancestral layers that sit beneath the personal survival patterns.
+
+The feminine is rising and awakening right now, and as part of the healing process many feminine wounds are being surfaced and purged in the collective. One of the deepest feminine wounds is within sisterhood. There is a deep conditioning within the feminine that can be felt as disconnection, the feeling that you need to go it alone, to distrust other sisters, to see other sisters as competition.
+
+Together we rise. A sister's success is your success. Her pain is your pain. Her beauty is a reflection of your beauty. Her light is a mirror of your own divine light. We are all reflections of each other. If we truly want to create a new earth, we have to come back to oneness.
+
+### Melissa's Personal Experience
+
+A feminine wound I carried was that I would put all of my power into another sister. I would celebrate their gifts and do whatever I could to help them rise, yet I would not feel the same about myself. I had to learn that I was giving my power away and that it would be much more healthy to give that support from a balanced place within. Do you give your power away? Do you put your energy into helping others over yourself? Do you see the gifts, beauty, and light in your sisters but struggle to recognise it in yourself? If so, it is time to reclaim your power.
+
+### Origins of the Sisterhood Wound
+
+Long before we were born, women gathered in community, helping one another, raising children, and sharing wisdom. Sisterhood was the norm. In ancient civilisations across the world, the feminine was revered. Women held respected roles as priestesses, midwives, oracles, and keepers of the mysteries. Women gathered in red tents, temples, and healing circles to support one another and attune to the rhythms of nature and the moon. Connection, not competition, was the foundation.
+
+As patriarchal systems rose, the feminine was devalued and suppressed. The witch hunts shattered trust between women. Survival sometimes meant betrayal. Women learned to stay silent, to not make waves, to distance themselves from their own power and from one another. Trust became dangerous. Sisterhood became a liability.
+
+Generations later, that fear still echoes in our nervous systems and our relationships. Modern culture continues to program women to compete, to compare, and to doubt one another. We absorbed a belief that there is not enough space for all of us to shine.
+
+But beneath this inherited fear is something ancient and true. A memory that lives in our bones, that we were once whole together. That we thrived not in competition, but in communion.
+
+### Symptoms of the Sisterhood Wound
+
+- The Competition Trap: believing there is limited space for female success, leading to comparison
+- Fear of Betrayal: expecting to be excluded, gossiped about, or pushed out of social circles
+- Isolation: subconsciously keeping female friends at arm's length to protect from emotional pain
+- Giving power away to other women while not recognising your own gifts
+- Feeling triggered by another woman's success
+- Struggling to truly trust or let feminine relationships in
+- Shutting down the feminine side completely out of protection
+
+### The Healing Path
+
+1. Self-awareness. Notice when you are passing judgement on another woman and ask whether it is rooted in your own insecurity.
+2. Safe community. Participate in intentional, judgement-free groups to experience authentic female connection. This wound was created in separation and heals in witnessed sisterhood.
+3. Dismantle comparison. Actively celebrate the wins of other women. Their success does not diminish yours.
+4. Reclaim your own gifts. Practice seeing in yourself what you so easily see in others.
+5. Circle work. Something profound happens when women come together in the name of healing, love, and sisterhood. The level of sisterhood that forms in circle creates shifts that are hard to find anywhere else.
+
+### Healing Is Collective
+
+Healing the sister wound is not just about mending relationships with other women. It is about reclaiming the sacred feminine. Within us, between us, and in the world. When we choose to heal, we are not just healing ourselves. We are healing generations.
+
+We are the daughters of the goddess. The granddaughters of women who once danced under the moon, who knew the power of gathering, and who trusted in each other's magic. Now it is time to return.
+
+### How Inner Compass Uses This Knowledge
+
+Recognise the sisterhood wound when someone describes any of the following:
+- Feeling triggered, competitive with, or quietly jealous of another woman's success
+- A pattern of female friendships ending in betrayal, hurt, or being pushed out
+- Keeping women at arm's length even when they long for closeness
+- Giving everything to support other women while not recognising or investing in themselves
+- Feeling safer with men than with women
+- Quiet shame or guilt about judging or comparing themselves to other women
+- Struggling to receive celebration, support, or love from other women
+- A belief that there is not enough space for all women to succeed
+
+When these patterns appear, name the wound gently and validate first. Then offer the framing:
+
+"What you are describing sounds like it might be touching the sisterhood wound. This is not personal to you. It is ancestral, collective, and incredibly common in women. The fear that female connection leads to betrayal was learned across generations. And the good news is it heals. It heals in self-awareness, in safe circle, in choosing to celebrate other women rather than compete with them. It heals when we are willing to receive as well as give."
+
+Connect the sisterhood wound to survival patterns in this way:
+- Over-Giver: giving power and energy to other women while starving themselves of the same
+- People Pleaser: expecting rejection or betrayal, appeasing women to stay safe
+- Over-Functioner: doing life alone rather than risking the hurt of female closeness
+- High Achiever: proving worth through success because comparison has made enough feel impossible
+
+The sisterhood wound and the witch wound almost always run together. If someone is exploring one, gently offer the other as a possible deeper layer.
+
+Direct them to the Sisterhood Wound Pathway at /sisterhood-wound for a guided healing experience. Direct them to the pattern quiz at /quiz to identify which survival pattern the wound is feeding.
+
+---
+
 ## BIRTH CHART INSIGHTS — MELISSA'S UNCONSCIOUS PATTERNS
 
 *Notes on Melissa's energetic and unconscious tendencies from her birth chart reading.*
