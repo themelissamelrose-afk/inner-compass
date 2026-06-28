@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Sisterhood Wound | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #160d12;
+      --deep: #221018;
+      --plum: #4a1a30;
+      --rose: #c4847a;
+      --rose-soft: #ddb0a8;
+      --gold: #c4a87a;
+      --linen: #faf5ee;
+      --text: #faf5ee;
+      --text-soft: rgba(250,245,238,0.75);
+      --text-muted: rgba(250,245,238,0.45);
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(196,132,122,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 20px 80px;
+    }
+
+    .container { max-width: 600px; width: 100%; }
+
+    .brand { font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--rose); margin-bottom: 16px; display: block; }
+
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 6vw, 2.6rem); color: var(--text); line-height: 1.25; font-weight: 400; }
+    h1 em { color: var(--rose-soft); font-style: italic; }
+
+    .divider { width: 40px; height: 1px; background: var(--rose); opacity: 0.4; margin: 20px 0; }
+
+    .step { display: none; }
+    .step.on { display: block; }
+
+    .progress-wrap { margin-bottom: 32px; }
+    .progress-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--rose); margin-bottom: 10px; display: flex; justify-content: space-between; }
+    .progress-track { height: 1px; background: rgba(196,132,122,0.2); border-radius: 10px; }
+    .progress-fill { height: 100%; border-radius: 10px; background: var(--rose); transition: width 0.6s ease; }
+
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 32px 28px; margin-bottom: 16px; }
+    .card.warm { background: rgba(196,132,122,0.07); border-color: rgba(196,132,122,0.28); }
+
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--rose); display: block; margin-bottom: 14px; }
+
+    p.body { font-size: 0.96rem; line-height: 1.88; color: var(--text-soft); margin-bottom: 14px; }
+    p.body em { color: var(--rose-soft); font-style: italic; }
+    p.body strong { color: var(--text); font-weight: 400; }
+
+    .pull-quote { border-left: 2px solid var(--rose); padding: 14px 20px; margin: 20px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: var(--text); line-height: 1.8; background: rgba(196,132,122,0.06); border-radius: 0 12px 12px 0; }
+
+    .btn { display: block; width: 100%; padding: 16px; background: var(--plum); color: var(--linen); border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: background 0.2s; letter-spacing: 0.02em; }
+    .btn:hover { background: #6b2440; }
+    .btn.outline { background: transparent; border: 1px solid rgba(196,132,122,0.35); color: var(--rose-soft); margin-top: 12px; }
+    .btn.outline:hover { border-color: var(--rose); color: var(--text); }
+
+    /* RECOGNITION CHECKLIST */
+    .check-list { display: flex; flex-direction: column; gap: 10px; margin: 18px 0; }
+    .check-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; border: 1px solid rgba(196,132,122,0.18); border-radius: 12px; cursor: pointer; transition: all 0.2s; user-select: none; }
+    .check-item:hover { border-color: rgba(196,132,122,0.45); background: rgba(196,132,122,0.04); }
+    .check-item.sel { border-color: var(--rose); background: rgba(196,132,122,0.1); }
+    .check-dot { width: 20px; height: 20px; border-radius: 50%; border: 1px solid rgba(196,132,122,0.4); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; margin-top: 2px; transition: all 0.2s; }
+    .check-item.sel .check-dot { background: var(--rose); border-color: var(--rose); color: #fff; }
+    .check-text { font-size: 0.93rem; line-height: 1.6; color: var(--text-soft); }
+    .check-item.sel .check-text { color: var(--text); }
+
+    /* REFLECTION QUESTIONS */
+    .reflect-block { margin-bottom: 20px; }
+    .reflect-q { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: var(--text); line-height: 1.65; margin-bottom: 6px; }
+    textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(196,132,122,0.22); border-radius: 12px; padding: 14px 16px; font-size: 0.94rem; font-family: 'Lato', sans-serif; font-weight: 300; color: var(--text); resize: vertical; min-height: 90px; line-height: 1.75; outline: none; transition: border-color 0.2s; margin-top: 8px; }
+    textarea:focus { border-color: var(--rose); }
+    textarea::placeholder { color: rgba(196,132,122,0.4); }
+
+    /* WOMEN GRID */
+    .origin-row { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid rgba(196,132,122,0.1); }
+    .origin-row:last-child { border-bottom: none; }
+    .origin-icon { font-size: 1.1rem; flex-shrink: 0; width: 28px; text-align: center; margin-top: 2px; }
+    .origin-text { font-size: 0.93rem; line-height: 1.75; color: var(--text-soft); }
+    .origin-text strong { color: var(--text); font-weight: 400; }
+
+    /* HEALING STEPS */
+    .heal-step { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid rgba(196,132,122,0.1); }
+    .heal-step:last-child { border-bottom: none; }
+    .heal-num { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--rose); flex-shrink: 0; width: 24px; margin-top: 3px; }
+    .heal-text { font-size: 0.94rem; line-height: 1.8; color: var(--text-soft); }
+    .heal-text strong { color: var(--text); font-weight: 400; }
+
+    /* BREATH */
+    .breath-wrap { text-align: center; padding: 16px 0; }
+    .breath-circle-outer { width: 110px; height: 110px; border-radius: 50%; background: rgba(196,132,122,0.1); border: 1px solid rgba(196,132,122,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; transition: transform 4s ease-in-out, background 4s ease; }
+    .breath-circle-outer.expand { transform: scale(1.3); background: rgba(196,132,122,0.2); }
+    .breath-circle-inner { width: 52px; height: 52px; border-radius: 50%; background: var(--rose); opacity: 0.25; }
+    .breath-word { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--text); min-height: 28px; }
+    .breath-count { font-size: 1.4rem; color: var(--rose); font-family: 'Playfair Display', serif; margin-top: 4px; min-height: 30px; }
+    .breath-sub { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--rose); margin-top: 6px; opacity: 0.7; }
+    .breath-start { background: transparent; border: 1px solid rgba(196,132,122,0.4); color: var(--rose-soft); border-radius: 30px; padding: 12px 32px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 18px; transition: all 0.2s; }
+    .breath-start:hover { border-color: var(--rose); color: var(--text); }
+
+    /* DECLARATION */
+    .declaration { background: rgba(74,26,48,0.35); border: 1px solid rgba(196,132,122,0.25); border-radius: 16px; padding: 28px 24px; text-align: center; margin: 20px 0; }
+    .declaration p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: var(--text); line-height: 2.1; }
+    .declaration em { color: var(--rose-soft); }
+
+    /* CLOSING */
+    .seal { width: 68px; height: 68px; border-radius: 50%; background: rgba(196,132,122,0.1); border: 1px solid rgba(196,132,122,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.6rem; }
+
+    .next-card { border-radius: 16px; padding: 22px 24px; border: 1px solid rgba(196,132,122,0.22); background: rgba(255,255,255,0.03); text-decoration: none; display: block; margin-bottom: 12px; transition: border-color 0.2s, background 0.2s; }
+    .next-card:hover { border-color: var(--rose); background: rgba(196,132,122,0.06); }
+    .next-card.featured { background: rgba(74,26,48,0.4); border-color: rgba(196,132,122,0.4); }
+    .next-card.featured:hover { background: rgba(74,26,48,0.6); }
+    .nc-tag { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--rose); display: block; margin-bottom: 6px; }
+    .nc-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text); margin-bottom: 6px; }
+    .nc-body { font-size: 0.88rem; line-height: 1.65; color: var(--text-soft); }
+
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.8rem; color: var(--rose); text-align: center; margin-top: 40px; opacity: 0.5; letter-spacing: 0.05em; }
+
+    @media (max-width: 480px) {
+      .card { padding: 24px 18px; }
+      h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <span class="brand">Inner Compass · Melissa Melrose</span>
+
+  <div class="progress-wrap" id="progressWrap" style="display:none;">
+    <div class="progress-label">
+      <span id="progressLabel">The Pathway</span>
+      <span id="progressPct"></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- S0: OPENING -->
+  <div class="step on" id="s0">
+    <h1>The Sisterhood<br><em>Wound</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:28px;">A pathway back to authentic connection with other women, and with yourself.</p>
+    <div class="card">
+      <span class="section-tag">Do You Feel This?</span>
+      <p class="body">Does another woman's success quietly trigger you? Do you keep female friendships at arm's length even when you long for closeness? Do you give everything to other women while struggling to receive? Do you expect betrayal before it even happens?</p>
+      <p class="body">If any of these land somewhere in your body, you may be carrying the sisterhood wound. And you are not alone in this.</p>
+      <div class="pull-quote">This is not a personal failing. It is an inherited fear, passed down from generations of women who learned that sisterhood was dangerous. The healing begins the moment you name it.</div>
+      <button class="btn" onclick="go(1)">Begin the Pathway</button>
+    </div>
+  </div>
+
+  <!-- S1: RECOGNITION -->
+  <div class="step" id="s1">
+    <h1>Do You Carry<br><em>This Wound?</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Select everything that resonates. Honesty here is the beginning of the healing.</p>
+    <div class="card">
+      <span class="section-tag">Recognition</span>
+      <div class="check-list">
+        <div class="check-item" onclick="this.classList.toggle('sel')"><div class="check-dot">✓</div><div class="check-text">Another woman's success can quietly make me feel like I am falling behind or not enough</div></div>
+        <div class="check-item" onclick="this.classList.toggle('sel')"><div class="check-dot">✓</div><div class="check-text">I expect female friendships to eventually end in hurt, betrayal, or being pushed out</div></div>
+        <div class="check-item" onclick="this.classList.toggle('sel')"><div class="check-dot">✓</div><div class="check-text">I keep women at arm's length even when I want to be close, just in case</div></div>
+        <div class="check-item" onclick="this.classList.toggle('sel')"><div class="check-dot">✓</div><div class="check-text">I give my power, energy, and celebration to other women but struggle to recognise the same in myself</div></div>
+        <div class="check-item" onclick="this.classList.toggle('sel')"><div class="check-dot">✓</div><div class="check-text">I feel safer in relationships with men than with women</div></div>
+        <div class="check-item" onclick="this.classList.toggle('sel')"><div class="check-dot">✓</div><div class="check-text">I notice quiet judgement toward other women and feel ashamed of it</div></div>
+        <div class="check-item" onclick="this.classList.toggle('sel')"><div class="check-dot">✓</div><div class="check-text">Being fully seen or celebrated by other women feels uncomfortable or unsafe</div></div>
+        <div class="check-item" onclick="this.classList.toggle('sel')"><div class="check-dot">✓</div><div class="check-text">I have a pattern of female friendships that went wrong in ways I still carry</div></div>
+      </div>
+      <button class="btn" onclick="go(2)">I See Myself Here</button>
+    </div>
+  </div>
+
+  <!-- S2: WHERE IT COMES FROM -->
+  <div class="step" id="s2">
+    <h1>Where This<br><em>Wound Began</em></h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">The Ancestral Story</span>
+      <p class="body">Long before we were born, women gathered in community. Healing together. Raising children together. Holding each other in circle. Sisterhood was not just valued. It was essential. Connection, not competition, was the foundation of feminine life.</p>
+      <p class="body">As patriarchal systems rose, the feminine was devalued and suppressed. Women were pitted against each other for male approval, resources, and status. During the witch hunts, trust between women shattered completely. <em>Survival sometimes meant betrayal.</em></p>
+      <div class="pull-quote">Women learned to stay silent. To not make waves. To distance themselves from their own power and from one another. Trust became dangerous. Sisterhood became a liability.</div>
+      <p class="body">Generations later, that fear still echoes in our nervous systems. We absorbed a belief that there is not enough space for all of us to shine. That other women are a threat. That closeness leads to pain.</p>
+      <p class="body">But beneath this inherited fear is something ancient and true. A memory that lives in our bones, that we were once whole together. That we thrived not in competition, but in communion.</p>
+      <button class="btn" onclick="go(3)">I Feel This in My Body</button>
+    </div>
+  </div>
+
+  <!-- S3: MELISSA'S STORY -->
+  <div class="step" id="s3">
+    <h1>From<br><em>Melissa</em></h1>
+    <div class="divider"></div>
+    <div class="card warm">
+      <span class="section-tag">A Personal Share</span>
+      <p class="body">A feminine wound I carried for a long time was that I would put all of my power into another sister. I would celebrate their gifts, do whatever I could to help them rise, hold their vision even bigger than they could hold it themselves.</p>
+      <p class="body">And yet I would not feel the same about myself.</p>
+      <p class="body">I had to learn that I was giving my power away. That it would be much more healthy to give that support from a balanced place within, not from a place of giving everything while quietly starving myself of the same recognition.</p>
+      <div class="pull-quote">Do you see the gifts, beauty, and light in your sisters but struggle to recognise it in yourself? If so, it is time to reclaim your power. It is time to see yourself as the powerful woman you so easily see in others.</div>
+      <p class="body">What I have found through circle work is how incredibly healing it is to be truly seen, heard, and held without judgement by other women. Many women will say the circle is the first time they have felt it. The first time feminine connection has felt safe. That is the medicine of true sisterhood.</p>
+      <button class="btn" onclick="go(4)">Continue</button>
+    </div>
+  </div>
+
+  <!-- S4: REFLECTION -->
+  <div class="step" id="s4">
+    <h1>Write Into<br><em>the Wound</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Let what has been held quietly come to the surface. Write freely. Nothing here is wrong.</p>
+    <div class="card">
+      <span class="section-tag">Reflection</span>
+      <div class="reflect-block">
+        <p class="reflect-q">When did I first learn that other women were not safe?</p>
+        <textarea placeholder="A memory, a feeling, a relationship..." rows="3"></textarea>
+      </div>
+      <div class="reflect-block">
+        <p class="reflect-q">Where do I still hold myself back around women out of fear of judgement or betrayal?</p>
+        <textarea placeholder="Write honestly..." rows="3"></textarea>
+      </div>
+      <div class="reflect-block">
+        <p class="reflect-q">What gifts, beauty, or power do I see in other women that I have not yet claimed as my own?</p>
+        <textarea placeholder="What do you see in them that is also in you?" rows="3"></textarea>
+      </div>
+      <div class="reflect-block">
+        <p class="reflect-q">What would I allow myself to feel, say, or be if I trusted that women were safe?</p>
+        <textarea placeholder="Let yourself dream here..." rows="3"></textarea>
+      </div>
+      <button class="btn" onclick="go(5)">I Have Written It</button>
+    </div>
+  </div>
+
+  <!-- S5: BREATHWORK -->
+  <div class="step" id="s5">
+    <h1>Breathe Into<br><em>the Separation</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Place one hand on your heart. This breath is for the part of you that learned it was not safe to be close to other women.</p>
+    <div class="card">
+      <span class="section-tag">Sacred Six Breath</span>
+      <audio id="breathAudio" src="/audio-sacred6.m4a" preload="auto"></audio>
+      <div class="breath-wrap">
+        <div class="breath-circle-outer" id="breathRing"><div class="breath-circle-inner"></div></div>
+        <div class="breath-word" id="breathWord">Ready</div>
+        <div class="breath-count" id="breathCount"></div>
+        <div class="breath-sub" id="breathSub">4 rounds · 6 counts each phase</div>
+        <button class="breath-start" id="breathBtn" onclick="startBreath()">Begin Sacred Six</button>
+      </div>
+      <button class="btn" id="breathNextBtn" style="display:none;" onclick="go(6)">Continue</button>
+    </div>
+  </div>
+
+  <!-- S6: THE HEALING PATH -->
+  <div class="step" id="s6">
+    <h1>The Path<br><em>Back to Each Other</em></h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">The Healing</span>
+      <p class="body" style="margin-bottom:20px;">Healing the sisterhood wound is not just about mending your relationships with other women. It is about reclaiming the sacred feminine within you, between you and others, and in the world.</p>
+      <div class="heal-step">
+        <span class="heal-num">I</span>
+        <p class="heal-text"><strong>Notice the judgement without shame.</strong> When you feel competitive or critical toward another woman, pause. Ask gently: what insecurity in me is being activated right now?</p>
+      </div>
+      <div class="heal-step">
+        <span class="heal-num">II</span>
+        <p class="heal-text"><strong>Celebrate her wins.</strong> Actively, consciously, out loud. Her success does not diminish yours. It is a mirror of what is possible for you too.</p>
+      </div>
+      <div class="heal-step">
+        <span class="heal-num">III</span>
+        <p class="heal-text"><strong>Reclaim what you give away.</strong> Every time you see a gift in another woman, say it to yourself also. She is a mirror. What you recognise in her already lives in you.</p>
+      </div>
+      <div class="heal-step">
+        <span class="heal-num">IV</span>
+        <p class="heal-text"><strong>Seek safe circle.</strong> The wound was created in separation and heals in witnessed sisterhood. Find or create small, intentional spaces with women where you can be honest without performance.</p>
+      </div>
+      <div class="heal-step">
+        <span class="heal-num">V</span>
+        <p class="heal-text"><strong>Let yourself be held.</strong> Receiving from women is part of the healing. Allow it. Practice it. It is as sacred as what you give.</p>
+      </div>
+      <button class="btn" onclick="go(7)">I Am Ready to Return</button>
+    </div>
+  </div>
+
+  <!-- S7: DECLARATION -->
+  <div class="step" id="s7">
+    <h1>Speak the<br><em>Return</em></h1>
+    <div class="divider"></div>
+    <p style="font-size:0.97rem; line-height:1.85; color:var(--text-soft); margin-bottom:24px;">Read this aloud. Place your hand on your heart. Let the body hear these words, not just the mind.</p>
+    <div class="card">
+      <span class="section-tag">Declaration</span>
+      <div class="declaration">
+        <p>
+          "I release the belief that other women<br>
+          are a threat to my belonging.<br><br>
+          I release the fear that her success<br>
+          means less for me.<br><br>
+          <em>Her light is a mirror of my own.<br>
+          Her rising is part of mine.</em><br><br>
+          I am safe to be seen by women.<br>
+          I am safe to be celebrated by women.<br>
+          I am safe to let women close.<br><br>
+          We are not separated from one another.<br>
+          We are in this together.<br><br>
+          <em>Together we rise.</em>"
+        </p>
+      </div>
+      <button class="btn" onclick="go(8)">I Speak This Truth</button>
+    </div>
+  </div>
+
+  <!-- S8: CLOSING -->
+  <div class="step" id="s8">
+    <div class="seal">♀</div>
+    <h1 style="text-align:center;">You Are<br><em>Remembering</em></h1>
+    <div class="divider" style="margin:18px auto;"></div>
+
+    <div class="card warm" style="text-align:center;">
+      <span class="section-tag" style="display:block; text-align:center;">What Is Now True</span>
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:1.1rem; color:var(--text); line-height:1.85; margin-bottom:20px;">We are the daughters of the goddess. The granddaughters of women who once danced under the moon, who knew the power of gathering, and who trusted in each other's magic.</p>
+      <div class="pull-quote" style="text-align:left;">This is true sisterhood. It has the power to change your life. To bring deep healing in your feminine. And with each circle, you will continue to rise in greater love and compassion for yourself, for others, and for the world.</div>
+      <p style="font-size:0.9rem; color:var(--text-soft); line-height:1.8; margin-top:16px;">Return to this pathway whenever the wound resurfaces. The healing deepens each time you choose connection over separation.</p>
+    </div>
+
+    <div style="margin-top:28px;">
+      <p style="font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:var(--rose); text-align:center; margin-bottom:16px;">Come Home to Your Sisters</p>
+      <a href="https://inner-compass-production-7970.up.railway.app/becoming-whole" class="next-card featured">
+        <span class="nc-tag">Sacred Community</span>
+        <div class="nc-title">Becoming Whole</div>
+        <p class="nc-body">A safe, intentional space for women to heal, rise, and be truly held. Monthly live coaching, breathwork, and a community designed around authentic sisterhood. This is where the wound heals.</p>
+      </a>
+      <a href="https://inner-compass-production-7970.up.railway.app/subscribe" class="next-card">
+        <span class="nc-tag">Daily Support</span>
+        <div class="nc-title">Inner Compass</div>
+        <p class="nc-body">Your private AI companion in Melissa's voice. Available between sessions for the moments when the wound whispers and you need to be met with understanding.</p>
+      </a>
+      <a href="/witch-wound" class="next-card">
+        <span class="nc-tag">The Deeper Layer</span>
+        <div class="nc-title">The Witch Wound Ritual</div>
+        <p class="nc-body">The sisterhood wound and the witch wound often run together. If this resonated, explore the witch wound next.</p>
+      </a>
+    </div>
+
+    <p style="text-align:center; font-family:'Playfair Display',serif; font-style:italic; font-size:0.95rem; color:var(--rose-soft); margin-top:28px; line-height:1.7;">You are not too much. You are not alone.<br>We are in this together.</p>
+    <p style="text-align:center; font-family:'Playfair Display',serif; font-size:0.95rem; color:var(--rose); margin-top:8px;">Big love, Melissa x</p>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+  const stepPct = { 0:0, 1:12, 2:25, 3:38, 4:52, 5:64, 6:76, 7:88, 8:100 };
+  const stepNames = { 0:'', 1:'Recognition', 2:'Origins', 3:'Melissa\'s Story', 4:'Reflection', 5:'Breathwork', 6:'The Healing', 7:'Declaration', 8:'Complete' };
+
+  function go(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+    document.getElementById('s' + n).classList.add('on');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const pw = document.getElementById('progressWrap');
+    if (n === 0) { pw.style.display = 'none'; } else {
+      pw.style.display = 'block';
+      document.getElementById('progressFill').style.width = (stepPct[n] || 0) + '%';
+      document.getElementById('progressPct').textContent = (stepPct[n] || 0) + '%';
+      document.getElementById('progressLabel').textContent = stepNames[n] || 'The Pathway';
+    }
+  }
+
+  function startBreath() {
+    document.getElementById('breathBtn').style.display = 'none';
+    try { document.getElementById('breathAudio').play(); } catch(e) {}
+    const phases = [{ word: 'Inhale', counts: 6 }, { word: 'Hold', counts: 6 }, { word: 'Exhale', counts: 6 }, { word: 'Hold', counts: 6 }];
+    const totalRounds = 4;
+    let round = 0, phase = 0, count = 0;
+    const ring = document.getElementById('breathRing');
+    const word = document.getElementById('breathWord');
+    const cnt = document.getElementById('breathCount');
+    const sub = document.getElementById('breathSub');
+    function tick() {
+      const p = phases[phase];
+      if (phase === 0) ring.classList.add('expand'); else ring.classList.remove('expand');
+      word.textContent = p.word;
+      cnt.textContent = count + 1;
+      sub.textContent = 'Round ' + (round + 1) + ' of ' + totalRounds;
+      count++;
+      if (count >= p.counts) {
+        count = 0; phase++;
+        if (phase >= phases.length) {
+          phase = 0; round++;
+          if (round >= totalRounds) {
+            word.textContent = 'Complete'; cnt.textContent = ''; sub.textContent = '';
+            ring.classList.remove('expand');
+            document.getElementById('breathNextBtn').style.display = 'block';
+            return;
+          }
+        }
+      }
+      setTimeout(tick, 1000);
+    }
+    tick();
+  }
+</script>
+</body>
+</html>
