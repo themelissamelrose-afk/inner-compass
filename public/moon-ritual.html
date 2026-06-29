@@ -423,7 +423,7 @@
       'I release what is not mine to carry',
       'Empty, I am held'
     ],
-    audioFile: ''   // add path here when Melissa records e.g. '/audio-moon-capricorn-june.mp3'
+    audioFile: '/music-ambient.mp3'
   };
 
   /* ============================================================
@@ -595,12 +595,11 @@
     document.getElementById('breathReadyCard').style.display = 'none';
     document.getElementById('breathActiveWrap').style.display = 'block';
 
-    // Start generative lunar ambience
-    startLunarMusic();
-
-    // Play Melissa's recording over the top if available
+    // Play ambient music
     const audio = document.getElementById('breathAudio');
     if (audio.src && !audio.src.endsWith('/')) {
+      audio.volume = 0.7;
+      audio.loop = true;
       audio.play().catch(() => {});
     }
 
@@ -667,7 +666,14 @@
             sub.textContent = '';
             ring.style.transform = 'scale(1)';
             ring.style.boxShadow = '0 0 70px rgba(200,212,232,0.4)';
-            stopLunarMusic();
+            // Fade out music
+            const fadeAudio = document.getElementById('breathAudio');
+            if (fadeAudio && !fadeAudio.paused) {
+              const fade = setInterval(() => {
+                if (fadeAudio.volume > 0.05) { fadeAudio.volume -= 0.05; }
+                else { fadeAudio.pause(); fadeAudio.volume = 0.7; clearInterval(fade); }
+              }, 150);
+            }
             setTimeout(() => { document.getElementById('breathNextBtn').style.display = 'block'; }, 1400);
             return;
           }
