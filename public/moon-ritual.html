@@ -516,77 +516,72 @@
   /* ============================================================
      BREATHWORK
   ============================================================ */
-  /* ── LUNAR MELODY — crystal bell tones, pentatonic, melodic ── */
-  let _lunarCtx = null, _lunarOscs = [], _lunarMaster = null, _lunarTimer = null;
+  /* ── LUNAR MELODY — synced to breath phases ── */
+  let _lunarCtx = null, _lunarOscs = [], _lunarMaster = null;
 
   function startLunarMusic() {
     try {
       _lunarCtx = new (window.AudioContext || window.webkitAudioContext)();
       const ctx = _lunarCtx;
-
       _lunarMaster = ctx.createGain();
       _lunarMaster.gain.setValueAtTime(0, ctx.currentTime);
-      _lunarMaster.gain.linearRampToValueAtTime(0.48, ctx.currentTime + 9); // slow open
+      _lunarMaster.gain.linearRampToValueAtTime(0.45, ctx.currentTime + 8);
       _lunarMaster.connect(ctx.destination);
-
-      // A minor pentatonic — dreamy, celestial
-      // A3  C4      D4      E4      G4   A4   C5      D5
-      const scale = [220, 261.63, 293.66, 329.63, 392, 440, 523.25, 587.33];
-
-      // Melody — rises, wanders, settles, rises again — like opening to the moon
-      const pat = [0,1,3,5,6,5,3,4,2,1,0,2,4,5,4,2,1,3,5,6,5,3,1,0];
-      let idx = 0;
-      let nextTime = ctx.currentTime + 2;
-
-      // Each note is a crystal bell — 3 harmonics with long ring
-      function bell(freq, when) {
-        const vols   = [0.38, 0.07, 0.025];
-        const decays = [4.8,  3.2,  1.8];
-        vols.forEach((vol, i) => {
-          const osc = ctx.createOscillator();
-          const g   = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.value = freq * (i + 1);
-          g.gain.setValueAtTime(0, when);
-          g.gain.linearRampToValueAtTime(vol, when + 0.07);
-          g.gain.exponentialRampToValueAtTime(0.0001, when + decays[i]);
-          osc.connect(g);
-          g.connect(_lunarMaster);
-          osc.start(when);
-          osc.stop(when + decays[i] + 0.2);
-          _lunarOscs.push(osc);
-        });
-      }
-
-      function schedule() {
-        if (!_lunarCtx) return;
-        while (nextTime < ctx.currentTime + 3.5) {
-          bell(scale[pat[idx % pat.length]], nextTime);
-          idx++;
-          nextTime += 2.1;
-        }
-        _lunarTimer = setTimeout(schedule, 800);
-      }
-      schedule();
-
-      // Warm bass pad underneath — very soft
+      // Warm bass pad — very soft, always present
       [55, 110].forEach((f, i) => {
-        const o = ctx.createOscillator();
-        const g = ctx.createGain();
-        o.type = 'sine';
-        o.frequency.value = f;
-        g.gain.value = i === 0 ? 0.12 : 0.05;
-        o.connect(g);
-        g.connect(_lunarMaster);
-        o.start();
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sine'; o.frequency.value = f;
+        g.gain.value = i === 0 ? 0.10 : 0.04;
+        o.connect(g); g.connect(_lunarMaster); o.start();
         _lunarOscs.push(o);
       });
-
     } catch(e) {}
   }
 
+  // Called at the start of each breath phase — music follows the breath
+  function playBreathPhase(phaseName) {
+    if (!_lunarCtx || !_lunarMaster) return;
+    const ctx = _lunarCtx, now = ctx.currentTime;
+    const A2=110, A3=220, D4=293.66, E4=329.63, G4=392, A4=440, C5=523.25;
+
+    function bell(freq, delay, vol) {
+      [1, 2, 3].forEach((h, i) => {
+        const decays = [5.5, 3.5, 2.0];
+        const vols   = [vol, vol*0.16, vol*0.05];
+        const osc = ctx.createOscillator(), g = ctx.createGain();
+        osc.type = 'sine'; osc.frequency.value = freq * h;
+        const t = now + delay;
+        g.gain.setValueAtTime(0, t);
+        g.gain.linearRampToValueAtTime(vols[i], t + 0.06);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + decays[i]);
+        osc.connect(g); g.connect(_lunarMaster);
+        osc.start(t); osc.stop(t + decays[i] + 0.2);
+        _lunarOscs.push(osc);
+      });
+    }
+
+    if (phaseName === 'INHALE') {
+      // Rising — A3 → D4 → A4 — opens upward with the breath
+      bell(A3, 0,   0.32);
+      bell(D4, 2.1, 0.30);
+      bell(A4, 4.4, 0.26);
+    } else if (phaseName === 'HOLD') {
+      // Suspended — two notes hovering at the top
+      bell(A4, 0.6, 0.20);
+      bell(G4, 3.5, 0.16);
+    } else if (phaseName === 'EXHALE') {
+      // Descending — G4 → D4 → A3 — releases and comes home
+      bell(G4, 0,   0.28);
+      bell(D4, 2.1, 0.25);
+      bell(A3, 4.4, 0.20);
+    } else if (phaseName === 'REST') {
+      // Spacious — one low quiet note, then a distant shimmer
+      bell(A2, 1.8, 0.11);
+      bell(E4, 4.2, 0.06);
+    }
+  }
+
   function stopLunarMusic() {
-    if (_lunarTimer) { clearTimeout(_lunarTimer); _lunarTimer = null; }
     if (!_lunarCtx || !_lunarMaster) return;
     _lunarMaster.gain.linearRampToValueAtTime(0, _lunarCtx.currentTime + 4);
     setTimeout(() => {
@@ -652,7 +647,7 @@
 
     function tick() {
       const p = phases[phase];
-      if (count === 0) setPhase(p);
+      if (count === 0) { setPhase(p); playBreathPhase(p.instruction); }
       cnt.textContent = count + 1;
       sub.textContent = 'Round ' + (round + 1) + ' of ' + totalRounds;
       count++;
