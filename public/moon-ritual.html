@@ -516,11 +516,67 @@
   /* ============================================================
      BREATHWORK
   ============================================================ */
+  /* ── LUNAR AMBIENT MUSIC — generated in browser, no file needed ── */
+  let _lunarCtx = null, _lunarOscs = [], _lunarMaster = null;
+
+  function startLunarMusic() {
+    try {
+      _lunarCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const ctx = _lunarCtx;
+      _lunarMaster = ctx.createGain();
+      _lunarMaster.gain.setValueAtTime(0, ctx.currentTime);
+      _lunarMaster.gain.linearRampToValueAtTime(0.28, ctx.currentTime + 10); // slow open
+      _lunarMaster.connect(ctx.destination);
+
+      function layer(freq, vol, lfoHz, lfoDepth, lfoTarget) {
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        const g = ctx.createGain();
+        g.gain.value = vol;
+        osc.connect(g);
+        g.connect(_lunarMaster);
+        if (lfoHz) {
+          const l = ctx.createOscillator();
+          l.type = 'sine';
+          l.frequency.value = lfoHz;
+          const lg = ctx.createGain();
+          lg.gain.value = lfoDepth;
+          l.connect(lg);
+          lg.connect(lfoTarget === 'freq' ? osc.frequency : g.gain);
+          l.start();
+          _lunarOscs.push(l);
+        }
+        osc.start();
+        _lunarOscs.push(osc);
+      }
+
+      layer(96,  0.55, 0.05, 1.8, 'freq');  // deep lunar base, slow breath pulse
+      layer(192, 0.22, 0.08, 2.2, 'freq');  // warm octave
+      layer(288, 0.10, 0.06, 1.2, 'freq');  // harmonic warmth
+      layer(576, 0.05, 0.14, 0.03, 'amp');  // high shimmer, pulse
+      layer(960, 0.02, 0.25, 0.018, 'amp'); // starlight sparkle
+    } catch(e) {}
+  }
+
+  function stopLunarMusic() {
+    if (!_lunarCtx || !_lunarMaster) return;
+    _lunarMaster.gain.linearRampToValueAtTime(0, _lunarCtx.currentTime + 5);
+    setTimeout(() => {
+      _lunarOscs.forEach(o => { try { o.stop(); } catch(e) {} });
+      _lunarOscs = [];
+      if (_lunarCtx) { _lunarCtx.close().catch(() => {}); _lunarCtx = null; _lunarMaster = null; }
+    }, 5500);
+  }
+
   function startBreath() {
     document.getElementById('breathReadyCard').style.display = 'none';
     document.getElementById('breathActiveWrap').style.display = 'block';
 
-    // Play audio if available
+    // Start generative lunar ambience
+    startLunarMusic();
+
+    // Play Melissa's recording over the top if available
     const audio = document.getElementById('breathAudio');
     if (audio.src && !audio.src.endsWith('/')) {
       audio.play().catch(() => {});
@@ -589,6 +645,7 @@
             sub.textContent = '';
             ring.style.transform = 'scale(1)';
             ring.style.boxShadow = '0 0 70px rgba(200,212,232,0.4)';
+            stopLunarMusic();
             setTimeout(() => { document.getElementById('breathNextBtn').style.display = 'block'; }, 1400);
             return;
           }
