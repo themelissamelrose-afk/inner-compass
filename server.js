@@ -97,7 +97,7 @@ app.get('/welcome', requireAuth, (req, res) => {
 });
 
 // Protect all member content — anything not in the public allowlist requires a valid session
-const PUBLIC_ROUTES = new Set(['/', '/login', '/subscribe', '/webinar', '/admin', '/becoming-whole', '/quiz', '/witch-wound', '/sisterhood-wound', '/moon-ritual']);
+const PUBLIC_ROUTES = new Set(['/', '/login', '/subscribe', '/webinar', '/admin', '/becoming-whole', '/quiz', '/witch-wound', '/sisterhood-wound', '/moon-ritual', '/cycle']);
 const PUBLIC_API_PREFIXES = ['/api/login', '/api/register', '/api/webinar-register', '/api/subscribe', '/api/webhook', '/api/activate', '/api/admin', '/api/quiz-register'];
 
 function protectMemberContent(req, res, next) {
@@ -709,6 +709,10 @@ app.get('/sisterhood-wound', (req, res) => {
 
 app.get('/moon-ritual', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'moon-ritual.html'));
+});
+
+app.get('/cycle', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'cycle.html'));
 });
 
 app.get('/blame-observation', (req, res) => {

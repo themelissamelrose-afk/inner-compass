@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Inner Seasons | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --linen: #faf5ee;
+      --sand: #f0e8d8;
+      --text: #2c2218;
+      --text-soft: rgba(44,34,24,0.7);
+      --text-muted: rgba(44,34,24,0.45);
+
+      /* Season colours */
+      --winter: #6b84a0;
+      --winter-bg: rgba(107,132,160,0.08);
+      --winter-border: rgba(107,132,160,0.25);
+
+      --spring: #7a9e7e;
+      --spring-bg: rgba(122,158,126,0.08);
+      --spring-border: rgba(122,158,126,0.25);
+
+      --summer: #c4a87a;
+      --summer-bg: rgba(196,168,122,0.1);
+      --summer-border: rgba(196,168,122,0.3);
+
+      --autumn: #b87355;
+      --autumn-bg: rgba(184,115,85,0.09);
+      --autumn-border: rgba(184,115,85,0.28);
+
+      --card-bg: rgba(255,255,255,0.6);
+      --card-border: rgba(44,34,24,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--linen);
+      color: var(--text);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(160deg, #f0e8d8 0%, #e8dcc8 50%, #ddd0b8 100%);
+      padding: 52px 24px 48px;
+      text-align: center;
+      border-bottom: 1px solid rgba(44,34,24,0.08);
+    }
+    .brand { font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--autumn); display: block; margin-bottom: 16px; opacity: 0.8; }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 2.8rem); color: var(--text); line-height: 1.2; font-weight: 400; }
+    h1 em { color: var(--autumn); font-style: italic; }
+    .hero-sub { font-size: 1rem; color: var(--text-soft); max-width: 480px; margin: 16px auto 0; line-height: 1.8; }
+    .divider { width: 40px; height: 1px; background: var(--autumn); opacity: 0.4; margin: 20px auto; }
+
+    /* CYCLE CALCULATOR */
+    .calc-wrap { max-width: 640px; margin: 0 auto; padding: 40px 24px 0; }
+    .calc-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 28px; margin-bottom: 32px; backdrop-filter: blur(8px); }
+    .calc-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--autumn); margin-bottom: 16px; display: block; }
+    .calc-intro { font-size: 0.94rem; color: var(--text-soft); margin-bottom: 20px; line-height: 1.75; }
+    .field-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+    .field { flex: 1; min-width: 160px; }
+    .field label { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+    .field input, .field select { width: 100%; padding: 11px 14px; border: 1px solid rgba(44,34,24,0.15); border-radius: 10px; font-family: 'Lato', sans-serif; font-size: 0.94rem; color: var(--text); background: rgba(255,255,255,0.7); outline: none; transition: border-color 0.2s; }
+    .field input:focus, .field select:focus { border-color: var(--autumn); }
+    .calc-btn { display: block; width: 100%; padding: 14px; background: var(--autumn); color: var(--linen); border: none; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 8px; transition: background 0.2s; }
+    .calc-btn:hover { background: #9e5d3e; }
+
+    /* RESULT BANNER */
+    .result-banner { border-radius: 16px; padding: 24px; margin-bottom: 32px; display: none; }
+    .result-banner.show { display: block; }
+    .rb-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+    .rb-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 6px; }
+    .rb-days { font-size: 0.85rem; opacity: 0.75; margin-bottom: 12px; }
+    .rb-summary { font-size: 0.94rem; line-height: 1.8; }
+    .rb-bar { height: 6px; border-radius: 10px; margin: 16px 0 0; opacity: 0.4; }
+
+    /* CYCLE CALENDAR STRIP */
+    .cal-strip { display: flex; gap: 3px; margin: 16px 0 0; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+    .cal-day { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 400; color: rgba(255,255,255,0.85); position: relative; }
+    .cal-day.today { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--text); }
+    .cal-day span { font-size: 8px; }
+
+    /* SECTION HEADING */
+    .section-head { max-width: 640px; margin: 0 auto; padding: 0 24px; margin-bottom: 8px; }
+    .section-head h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 400; color: var(--text); }
+    .section-head p { font-size: 0.93rem; color: var(--text-soft); margin-top: 6px; }
+
+    /* SEASON CARDS */
+    .seasons-grid { max-width: 640px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; gap: 20px; margin-top: 24px; }
+
+    .season-card { border-radius: 20px; overflow: hidden; border: 1px solid; }
+    .season-card.winter { border-color: var(--winter-border); }
+    .season-card.spring { border-color: var(--spring-border); }
+    .season-card.summer { border-color: var(--summer-border); }
+    .season-card.autumn { border-color: var(--autumn-border); }
+
+    .season-header { padding: 22px 24px 18px; cursor: pointer; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .season-card.winter .season-header { background: var(--winter-bg); }
+    .season-card.spring .season-header { background: var(--spring-bg); }
+    .season-card.summer .season-header { background: var(--summer-bg); }
+    .season-card.autumn .season-header { background: var(--autumn-bg); }
+
+    .sh-left { flex: 1; }
+    .sh-emoji { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+    .sh-phase { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px; display: block; }
+    .season-card.winter .sh-phase { color: var(--winter); }
+    .season-card.spring .sh-phase { color: var(--spring); }
+    .season-card.summer .sh-phase { color: var(--summer); }
+    .season-card.autumn .sh-phase { color: var(--autumn); }
+    .sh-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--text); }
+    .sh-days { font-size: 0.8rem; color: var(--text-muted); margin-top: 3px; }
+    .sh-toggle { font-size: 1.2rem; color: var(--text-muted); flex-shrink: 0; margin-top: 4px; transition: transform 0.3s; }
+    .season-card.open .sh-toggle { transform: rotate(180deg); }
+
+    .season-body { display: none; padding: 0 24px 24px; }
+    .season-card.open .season-body { display: block; }
+
+    .season-intro { font-size: 0.94rem; line-height: 1.85; color: var(--text-soft); padding: 16px 0; border-bottom: 1px solid rgba(44,34,24,0.07); }
+
+    .detail-tabs { display: flex; gap: 8px; margin: 18px 0 16px; flex-wrap: wrap; }
+    .dtab { padding: 7px 14px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; border: 1px solid rgba(44,34,24,0.15); background: transparent; color: var(--text-soft); transition: all 0.2s; }
+    .dtab.on { color: var(--linen); border-color: transparent; }
+    .season-card.winter .dtab.on { background: var(--winter); }
+    .season-card.spring .dtab.on { background: var(--spring); }
+    .season-card.summer .dtab.on { background: var(--summer); }
+    .season-card.autumn .dtab.on { background: var(--autumn); }
+
+    .detail-panel { display: none; }
+    .detail-panel.on { display: block; }
+    .detail-panel ul { padding-left: 0; list-style: none; }
+    .detail-panel li { font-size: 0.92rem; line-height: 1.75; color: var(--text-soft); padding: 6px 0; border-bottom: 1px solid rgba(44,34,24,0.05); display: flex; gap: 10px; align-items: flex-start; }
+    .detail-panel li:last-child { border-bottom: none; }
+    .detail-panel li::before { content: '·'; color: var(--text-muted); flex-shrink: 0; margin-top: 1px; }
+    .detail-panel .note { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: 10px; padding: 10px 14px; background: rgba(44,34,24,0.04); border-radius: 10px; line-height: 1.7; }
+
+    .energy-tag { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; margin: 2px; color: var(--linen); }
+    .energy-tags { margin: 12px 0 6px; }
+    .season-card.winter .energy-tag { background: var(--winter); opacity: 0.8; }
+    .season-card.spring .energy-tag { background: var(--spring); opacity: 0.85; }
+    .season-card.summer .energy-tag { background: var(--summer); }
+    .season-card.autumn .energy-tag { background: var(--autumn); opacity: 0.85; }
+
+    .seed-box { background: rgba(44,34,24,0.04); border-radius: 12px; padding: 14px 16px; margin-top: 8px; }
+    .seed-box strong { font-size: 0.85rem; color: var(--text); font-weight: 400; display: block; margin-bottom: 8px; letter-spacing: 0.02em; }
+    .seed-row { display: flex; align-items: center; gap: 12px; padding: 6px 0; font-size: 0.88rem; color: var(--text-soft); }
+    .seed-icon { font-size: 1rem; }
+
+    /* SEED CYCLING EXPLAINER */
+    .seed-section { max-width: 640px; margin: 40px auto 0; padding: 0 24px; }
+    .seed-section h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400; margin-bottom: 10px; }
+    .seed-section p { font-size: 0.93rem; color: var(--text-soft); line-height: 1.8; margin-bottom: 12px; }
+
+    .seed-phases { display: flex; gap: 14px; flex-wrap: wrap; margin: 20px 0; }
+    .seed-phase { flex: 1; min-width: 220px; border-radius: 14px; padding: 18px; }
+    .seed-phase.f { background: var(--spring-bg); border: 1px solid var(--spring-border); }
+    .seed-phase.l { background: var(--autumn-bg); border: 1px solid var(--autumn-border); }
+    .seed-phase h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 400; margin-bottom: 10px; }
+    .seed-phase.f h4 { color: var(--spring); }
+    .seed-phase.l h4 { color: var(--autumn); }
+
+    /* PLANNING SECTION */
+    .plan-section { max-width: 640px; margin: 40px auto 0; padding: 0 24px; }
+    .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .plan-item { border-radius: 14px; padding: 16px; font-size: 0.88rem; line-height: 1.7; color: var(--text-soft); }
+    .plan-item h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 400; margin-bottom: 6px; }
+    .plan-item.winter { background: var(--winter-bg); border: 1px solid var(--winter-border); }
+    .plan-item.spring { background: var(--spring-bg); border: 1px solid var(--spring-border); }
+    .plan-item.summer { background: var(--summer-bg); border: 1px solid var(--summer-border); }
+    .plan-item.autumn { background: var(--autumn-bg); border: 1px solid var(--autumn-border); }
+    .plan-item.winter h4 { color: var(--winter); }
+    .plan-item.spring h4 { color: var(--spring); }
+    .plan-item.summer h4 { color: var(--summer); }
+    .plan-item.autumn h4 { color: var(--autumn); }
+
+    /* CLOSING */
+    .closing { max-width: 640px; margin: 48px auto 0; padding: 0 24px; text-align: center; }
+    .closing p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: var(--text-soft); line-height: 1.85; margin-bottom: 8px; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
+    .cta { padding: 13px 24px; border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; }
+    .cta.solid { background: var(--autumn); color: var(--linen); }
+    .cta.solid:hover { background: #9e5d3e; }
+    .cta.outline { border: 1px solid rgba(44,34,24,0.2); color: var(--text-soft); }
+    .cta.outline:hover { border-color: var(--autumn); color: var(--text); }
+
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 48px; opacity: 0.5; }
+
+    @media (max-width: 480px) {
+      .plan-grid { grid-template-columns: 1fr; }
+      .field-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="brand">Inner Compass · Melissa Melrose</span>
+  <h1>Your Inner<br><em>Seasons</em></h1>
+  <div class="divider"></div>
+  <p class="hero-sub">You are not built for a 24-hour cycle. You move through four distinct inner seasons every month, each with its own energy, needs, gifts, and medicine. Learning to live with your cycle rather than against it changes everything.</p>
+</div>
+
+<div class="calc-wrap">
+
+  <!-- CYCLE CALCULATOR -->
+  <div class="calc-card">
+    <span class="calc-title">Find Your Phase</span>
+    <p class="calc-intro">Enter the first day of your last period and your average cycle length. I'll show you where you are right now and what your body is asking for.</p>
+    <div class="field-row">
+      <div class="field">
+        <label>First day of last period</label>
+        <input type="date" id="cycleStart">
+      </div>
+      <div class="field">
+        <label>Cycle length (days)</label>
+        <select id="cycleLength">
+          <option value="24">24 days</option>
+          <option value="25">25 days</option>
+          <option value="26">26 days</option>
+          <option value="27">27 days</option>
+          <option value="28" selected>28 days (average)</option>
+          <option value="29">29 days</option>
+          <option value="30">30 days</option>
+          <option value="31">31 days</option>
+          <option value="32">32 days</option>
+          <option value="35">35 days</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Period length (days)</label>
+        <select id="periodLength">
+          <option value="3">3 days</option>
+          <option value="4">4 days</option>
+          <option value="5" selected>5 days</option>
+          <option value="6">6 days</option>
+          <option value="7">7 days</option>
+        </select>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calculate()">Show My Phase</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-banner" id="resultBanner">
+    <span class="rb-tag" id="rbTag"></span>
+    <div class="rb-title" id="rbTitle"></div>
+    <div class="rb-days" id="rbDays"></div>
+    <div class="rb-summary" id="rbSummary"></div>
+    <div class="cal-strip" id="calStrip"></div>
+  </div>
+
+</div>
+
+<!-- FOUR SEASONS -->
+<div class="section-head">
+  <h2>The Four Inner Seasons</h2>
+  <p>Tap each season to explore the energy, food, movement, and seeds for that phase of your cycle.</p>
+</div>
+
+<div class="seasons-grid">
+
+  <!-- WINTER -->
+  <div class="season-card winter" id="card-winter">
+    <div class="season-header" onclick="toggleCard('winter')">
+      <div class="sh-left">
+        <span class="sh-emoji">❄️</span>
+        <span class="sh-phase">Phase One</span>
+        <div class="sh-name">Inner Winter — Menstruation</div>
+        <div class="sh-days">Days 1 to 5 (approximately)</div>
+      </div>
+      <div class="sh-toggle">▾</div>
+    </div>
+    <div class="season-body">
+      <p class="season-intro">Oestrogen and progesterone are at their lowest. Energy naturally rests. The veil between conscious and unconscious is at its thinnest. This is a deeply intuitive, visionary time when you allow it rather than fight it. Many women report their most profound insights come during their bleed.</p>
+      <div class="energy-tags">
+        <span class="energy-tag">Rest</span>
+        <span class="energy-tag">Reflection</span>
+        <span class="energy-tag">Intuition</span>
+        <span class="energy-tag">Clarity</span>
+        <span class="energy-tag">Truth-telling</span>
+      </div>
+      <div class="detail-tabs">
+        <button class="dtab on" onclick="showTab('winter','nourish',this)">Nourish</button>
+        <button class="dtab" onclick="showTab('winter','move',this)">Move</button>
+        <button class="dtab" onclick="showTab('winter','seeds',this)">Seeds</button>
+        <button class="dtab" onclick="showTab('winter','plan',this)">Plan</button>
+      </div>
+      <div class="detail-panel on" id="winter-nourish">
+        <ul>
+          <li><span>Iron-rich foods to replenish what is lost: lentils, kidney beans, leafy greens, pumpkin seeds</span></li>
+          <li><span>Warming, cooked foods: soups, stews, broths, roasted vegetables</span></li>
+          <li><span>Dark chocolate (high cacao) — magnesium eases cramping and supports mood</span></li>
+          <li><span>Nourishing fats: avocado, coconut oil, olive oil, ghee</span></li>
+          <li><span>Ginger and turmeric tea for warmth and inflammation</span></li>
+          <li><span>Bone broth to replenish minerals</span></li>
+        </ul>
+        <div class="note">Avoid caffeine and alcohol — they intensify cramping and disrupt sleep during this phase. Raw cold foods are harder to digest when the body needs warmth.</div>
+      </div>
+      <div class="detail-panel" id="winter-move">
+        <ul>
+          <li><span>Rest is valid, valuable, and productive — honour it without guilt</span></li>
+          <li><span>Gentle yoga and restorative poses: legs up the wall, child's pose, supported supine positions</span></li>
+          <li><span>Slow walking in nature — the rhythm soothes the nervous system</span></li>
+          <li><span>Stretching and breathwork</span></li>
+          <li><span>Avoid intense cardio or heavy lifting — this can increase blood loss and deepen depletion</span></li>
+        </ul>
+        <div class="note">Listen to the body above every other instruction. If it says rest, rest. There is no power in pushing through this phase. Recovery comes faster when you honour it.</div>
+      </div>
+      <div class="detail-panel" id="winter-seeds">
+        <div class="seed-box">
+          <strong>Days 1–14 Seed Protocol</strong>
+          <div class="seed-row"><span class="seed-icon">🌱</span><span>1 tablespoon ground flaxseeds daily — supports oestrogen regulation and metabolism</span></div>
+          <div class="seed-row"><span class="seed-icon">🎃</span><span>1 tablespoon ground pumpkin seeds daily — zinc supports progesterone production for the next phase</span></div>
+        </div>
+        <div class="note">Seeds must be ground (not whole) for nutrients to absorb. Add to smoothies, porridge, yoghurt, or salads. Store ground seeds in the fridge.</div>
+      </div>
+      <div class="detail-panel" id="winter-plan">
+        <ul>
+          <li><span>Review the month that has passed — what worked, what didn't, what do you want differently</span></li>
+          <li><span>Journal, dream, and set intentions for the cycle ahead</span></li>
+          <li><span>Schedule minimal obligations — protect this time for yourself</span></li>
+          <li><span>Cancel what doesn't feel aligned — your discernment is sharp right now</span></li>
+          <li><span>Avoid making big decisions or commitments from this state</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPRING -->
+  <div class="season-card spring" id="card-spring">
+    <div class="season-header" onclick="toggleCard('spring')">
+      <div class="sh-left">
+        <span class="sh-emoji">🌿</span>
+        <span class="sh-phase">Phase Two</span>
+        <div class="sh-name">Inner Spring — Follicular</div>
+        <div class="sh-days">Days 6 to 13 (approximately)</div>
+      </div>
+      <div class="sh-toggle">▾</div>
+    </div>
+    <div class="season-body">
+      <p class="season-intro">Oestrogen begins to rise. Follicles mature. Energy returns gradually and then steadily. The body and mind begin to open. New ideas feel exciting and possible. Motivation rebuilds. This is the best phase for starting new things, learning, and saying yes.</p>
+      <div class="energy-tags">
+        <span class="energy-tag">Optimism</span>
+        <span class="energy-tag">Creativity</span>
+        <span class="energy-tag">Curiosity</span>
+        <span class="energy-tag">New beginnings</span>
+        <span class="energy-tag">Learning</span>
+      </div>
+      <div class="detail-tabs">
+        <button class="dtab on" onclick="showTab('spring','nourish',this)">Nourish</button>
+        <button class="dtab" onclick="showTab('spring','move',this)">Move</button>
+        <button class="dtab" onclick="showTab('spring','seeds',this)">Seeds</button>
+        <button class="dtab" onclick="showTab('spring','plan',this)">Plan</button>
+      </div>
+      <div class="detail-panel on" id="spring-nourish">
+        <ul>
+          <li><span>Light, fresh foods: salads, sprouts, fresh vegetables, smoothies, fresh herbs</span></li>
+          <li><span>Fermented foods to support gut health which influences hormone balance: sauerkraut, kimchi, kefir, natural yoghurt</span></li>
+          <li><span>Eggs — support follicle development</span></li>
+          <li><span>Lean proteins: chicken, fish, legumes, tofu</span></li>
+          <li><span>Fresh herbs: parsley, basil, mint, coriander</span></li>
+          <li><span>Seeds and nuts as snacks</span></li>
+        </ul>
+        <div class="note">The body tolerates lighter, rawer foods better in this phase. The gut is more receptive. This is a good time to reduce heavy, processed, or inflammatory foods.</div>
+      </div>
+      <div class="detail-panel" id="spring-move">
+        <ul>
+          <li><span>Increase intensity — the body is ready and will respond well</span></li>
+          <li><span>Strength training: this is a great phase to lift heavier and build muscle</span></li>
+          <li><span>Cardiovascular training: running, cycling, swimming, dance classes</span></li>
+          <li><span>Try something new — the follicular energy loves novelty</span></li>
+          <li><span>Recovery is faster in this phase — you can push more</span></li>
+        </ul>
+      </div>
+      <div class="detail-panel" id="spring-seeds">
+        <div class="seed-box">
+          <strong>Continue Days 1–14 Seed Protocol</strong>
+          <div class="seed-row"><span class="seed-icon">🌱</span><span>1 tablespoon ground flaxseeds daily</span></div>
+          <div class="seed-row"><span class="seed-icon">🎃</span><span>1 tablespoon ground pumpkin seeds daily</span></div>
+        </div>
+      </div>
+      <div class="detail-panel" id="spring-plan">
+        <ul>
+          <li><span>Start new projects, pitch ideas, begin learning something new</span></li>
+          <li><span>Book networking events, interviews, first meetings, social catch-ups</span></li>
+          <li><span>Brainstorming and creative planning is at its most generative here</span></li>
+          <li><span>Say yes to opportunities that felt too much during your winter</span></li>
+          <li><span>Begin anything you want momentum on</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMER -->
+  <div class="season-card summer" id="card-summer">
+    <div class="season-header" onclick="toggleCard('summer')">
+      <div class="sh-left">
+        <span class="sh-emoji">☀️</span>
+        <span class="sh-phase">Phase Three</span>
+        <div class="sh-name">Inner Summer — Ovulation</div>
+        <div class="sh-days">Days 14 to 17 (approximately)</div>
+      </div>
+      <div class="sh-toggle">▾</div>
+    </div>
+    <div class="season-body">
+      <p class="season-intro">Oestrogen peaks. LH surges and triggers ovulation. Energy is at its highest. The body is magnetic, warm, and open. This is the time when women often feel most themselves, most alive, most connected. The voice is strongest. Presence is fullest. Use it well.</p>
+      <div class="energy-tags">
+        <span class="energy-tag">Confidence</span>
+        <span class="energy-tag">Magnetism</span>
+        <span class="energy-tag">Communication</span>
+        <span class="energy-tag">Visibility</span>
+        <span class="energy-tag">Connection</span>
+      </div>
+      <div class="detail-tabs">
+        <button class="dtab on" onclick="showTab('summer','nourish',this)">Nourish</button>
+        <button class="dtab" onclick="showTab('summer','move',this)">Move</button>
+        <button class="dtab" onclick="showTab('summer','seeds',this)">Seeds</button>
+        <button class="dtab" onclick="showTab('summer','plan',this)">Plan</button>
+      </div>
+      <div class="detail-panel on" id="summer-nourish">
+        <ul>
+          <li><span>Anti-inflammatory foods: berries, leafy greens, oily fish (salmon, sardines, mackerel), walnuts</span></li>
+          <li><span>Cruciferous vegetables to support oestrogen clearance: broccoli, cauliflower, Brussels sprouts, kale</span></li>
+          <li><span>Fibre for hormone metabolism: vegetables, whole grains, legumes</span></li>
+          <li><span>Fresh fruits and salads — the body tolerates raw foods well now</span></li>
+          <li><span>Hydration is especially important around ovulation</span></li>
+          <li><span>Light, energising meals rather than heavy ones</span></li>
+        </ul>
+      </div>
+      <div class="detail-panel" id="summer-move">
+        <ul>
+          <li><span>Peak performance phase — train at your highest intensity here</span></li>
+          <li><span>HIIT, heavy lifting, long runs, competitive sport</span></li>
+          <li><span>Group fitness classes — you are most social and energised now</span></li>
+          <li><span>Anything that feels alive and challenging</span></li>
+          <li><span>Recovery is excellent — this is not the time to hold back</span></li>
+        </ul>
+      </div>
+      <div class="detail-panel" id="summer-seeds">
+        <div class="seed-box">
+          <strong>Transition to Days 15–28 Seed Protocol</strong>
+          <div class="seed-row"><span class="seed-icon">🌻</span><span>1 tablespoon ground sunflower seeds daily — Vitamin E supports progesterone production</span></div>
+          <div class="seed-row"><span class="seed-icon">⚫</span><span>1 tablespoon ground sesame seeds daily — selenium and zinc support the corpus luteum</span></div>
+        </div>
+      </div>
+      <div class="detail-panel" id="summer-plan">
+        <ul>
+          <li><span>Launch products, services, campaigns — visibility is highest now</span></li>
+          <li><span>Book public speaking, presentations, media appearances, podcasts</span></li>
+          <li><span>Hold important negotiations, difficult conversations, collaborative work</span></li>
+          <li><span>Host events, dinners, gatherings — you are magnetic</span></li>
+          <li><span>Schedule your most visible, outward-facing work for this window</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTUMN -->
+  <div class="season-card autumn" id="card-autumn">
+    <div class="season-header" onclick="toggleCard('autumn')">
+      <div class="sh-left">
+        <span class="sh-emoji">🍂</span>
+        <span class="sh-phase">Phase Four</span>
+        <div class="sh-name">Inner Autumn — Luteal</div>
+        <div class="sh-days">Days 18 to 28 (approximately)</div>
+      </div>
+      <div class="sh-toggle">▾</div>
+    </div>
+    <div class="season-body">
+      <p class="season-intro">Progesterone rises then falls. Oestrogen declines. The body prepares to shed. The inner critic can get louder in the final days — this is the PMS window. But this phase also has a profound gift: it strips away pretence. What is not working becomes impossible to ignore. Boundaries become clearer. Use the discernment.</p>
+      <div class="energy-tags">
+        <span class="energy-tag">Discernment</span>
+        <span class="energy-tag">Completion</span>
+        <span class="energy-tag">Nesting</span>
+        <span class="energy-tag">Detail-focus</span>
+        <span class="energy-tag">Truth-telling</span>
+      </div>
+      <div class="detail-tabs">
+        <button class="dtab on" onclick="showTab('autumn','nourish',this)">Nourish</button>
+        <button class="dtab" onclick="showTab('autumn','move',this)">Move</button>
+        <button class="dtab" onclick="showTab('autumn','seeds',this)">Seeds</button>
+        <button class="dtab" onclick="showTab('autumn','plan',this)">Plan</button>
+      </div>
+      <div class="detail-panel on" id="autumn-nourish">
+        <ul>
+          <li><span>Complex carbohydrates to stabilise blood sugar and support serotonin: sweet potato, brown rice, oats, legumes</span></li>
+          <li><span>Magnesium-rich foods to reduce PMS, cramping, and anxiety: dark leafy greens, pumpkin seeds, dark chocolate, almonds, bananas</span></li>
+          <li><span>Omega-3 fats to reduce inflammation and support mood: salmon, walnuts, chia seeds, flaxseed oil</span></li>
+          <li><span>Calcium: dairy or fortified plant milks, sardines, broccoli, almonds</span></li>
+          <li><span>Warming, cooked foods as the body moves toward winter</span></li>
+        </ul>
+        <div class="note">Reduce caffeine, alcohol, and sugar especially in days 22 to 28 — sensitivity is heightened and they amplify mood instability. Stable blood sugar is the single most effective tool for reducing PMS.</div>
+      </div>
+      <div class="detail-panel" id="autumn-move">
+        <ul>
+          <li><span>Moderate, sustainable movement: pilates, yoga, strength at medium intensity</span></li>
+          <li><span>Long walks — especially in nature — ground the nervous system</span></li>
+          <li><span>Swimming is deeply soothing in this phase</span></li>
+          <li><span>In the final days (22 to 28) let the body guide you — it may ask for gentleness</span></li>
+          <li><span>Movement helps with progesterone balance and genuinely reduces PMS</span></li>
+        </ul>
+        <div class="note">This is not a rest phase — but it is not a peak phase either. Moderate, consistent movement is the sweet spot.</div>
+      </div>
+      <div class="detail-panel" id="autumn-seeds">
+        <div class="seed-box">
+          <strong>Continue Days 15–28 Seed Protocol</strong>
+          <div class="seed-row"><span class="seed-icon">🌻</span><span>1 tablespoon ground sunflower seeds daily</span></div>
+          <div class="seed-row"><span class="seed-icon">⚫</span><span>1 tablespoon ground sesame seeds daily</span></div>
+        </div>
+        <div class="note">Give seed cycling at least 3 full cycles to feel the shift — hormone balance changes slowly and that is a good thing.</div>
+      </div>
+      <div class="detail-panel" id="autumn-plan">
+        <ul>
+          <li><span>Complete and edit rather than begin — this phase is made for finishing</span></li>
+          <li><span>Admin, detail work, reviewing, and organising thrive here</span></li>
+          <li><span>Declutter your home, your inbox, your commitments</span></li>
+          <li><span>Reduce social obligations especially in the final week</span></li>
+          <li><span>Honest conversations with trusted people — your truth-telling is sharp</span></li>
+          <li><span>Prepare for the rest and reflection of your approaching winter</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SEED CYCLING -->
+<div class="seed-section">
+  <div class="divider" style="margin-left:0;"></div>
+  <h3>Seed Cycling at a Glance</h3>
+  <p>Seed cycling uses the natural lignans, zinc, selenium, and vitamin E in four specific seeds to support your body's hormone production at each phase of the cycle. It is gentle, food-based hormone support that works with your body rather than overriding it.</p>
+  <div class="seed-phases">
+    <div class="seed-phase f">
+      <h4>Days 1 to 14 — Follicular Seeds</h4>
+      <div class="seed-row"><span class="seed-icon">🌱</span><span style="font-size:0.9rem;">Ground flaxseeds — 1 tbsp daily<br><span style="font-size:0.8rem; opacity:0.7;">Regulates oestrogen, supports hormone metabolism</span></span></div>
+      <div class="seed-row" style="margin-top:8px;"><span class="seed-icon">🎃</span><span style="font-size:0.9rem;">Ground pumpkin seeds — 1 tbsp daily<br><span style="font-size:0.8rem; opacity:0.7;">Zinc supports progesterone in the phase ahead</span></span></div>
+    </div>
+    <div class="seed-phase l">
+      <h4>Days 15 to 28 — Luteal Seeds</h4>
+      <div class="seed-row"><span class="seed-icon">🌻</span><span style="font-size:0.9rem;">Ground sunflower seeds — 1 tbsp daily<br><span style="font-size:0.8rem; opacity:0.7;">Vitamin E supports corpus luteum and progesterone</span></span></div>
+      <div class="seed-row" style="margin-top:8px;"><span class="seed-icon">⚫</span><span style="font-size:0.9rem;">Ground sesame seeds — 1 tbsp daily<br><span style="font-size:0.8rem; opacity:0.7;">Selenium supports hormone production and thyroid</span></span></div>
+    </div>
+  </div>
+  <p style="font-size:0.85rem; color:var(--text-muted);">Add to smoothies, porridge, yoghurt, salads, or nut butter. Seeds must be ground for absorption. Store ground seeds in the fridge. Allow 3 full cycles to notice the shift.</p>
+</div>
+
+<!-- PLANNING GUIDE -->
+<div class="plan-section">
+  <div class="divider" style="margin-left:0;"></div>
+  <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:400; margin-bottom:10px;">Plan Your Month Around Your Cycle</h3>
+  <p style="font-size:0.93rem; color:var(--text-soft); line-height:1.8; margin-bottom:8px;">When you know what phase is coming, you can schedule with your biology instead of against it. This is not rigid planning. It is intelligent alignment.</p>
+  <div class="plan-grid">
+    <div class="plan-item winter">
+      <h4>❄️ Inner Winter</h4>
+      Rest, journalling, reviewing, dreaming. Protect this time. Schedule nothing if you can.
+    </div>
+    <div class="plan-item spring">
+      <h4>🌿 Inner Spring</h4>
+      New projects, learning, first meetings, creative work, networking. Say yes here.
+    </div>
+    <div class="plan-item summer">
+      <h4>☀️ Inner Summer</h4>
+      Launches, speaking, visibility, negotiations, hosting, being seen. Your most powerful window.
+    </div>
+    <div class="plan-item autumn">
+      <h4>🍂 Inner Autumn</h4>
+      Completion, editing, admin, honest conversations, nesting. Reduce social load at the end.
+    </div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="divider"></div>
+  <p>You are not too much in autumn.<br>You are not lazy in winter.<br>You are not manic in summer.<br>You are a woman living in her seasons.</p>
+  <p style="margin-top:12px; font-size:0.9rem; font-style:normal; color:var(--text-muted);">Big love, Melissa x</p>
+  <div class="cta-row">
+    <a href="/moon-ritual" class="cta solid">This Month's Moon Ritual</a>
+    <a href="/quiz" class="cta outline">Uncover Your Pattern</a>
+  </div>
+</div>
+
+<div class="footer">Inner Compass · Melissa Melrose</div>
+
+<script>
+  /* ── SEASON DATA ── */
+  const seasons = {
+    winter: { name: 'Inner Winter', phase: 'Menstruation', color: '#6b84a0', days: [1,5] },
+    spring: { name: 'Inner Spring', phase: 'Follicular', color: '#7a9e7e', days: [6,13] },
+    summer: { name: 'Inner Summer', phase: 'Ovulation', color: '#c4a87a', days: [14,17] },
+    autumn: { name: 'Inner Autumn', phase: 'Luteal', color: '#b87355', days: [18,99] },
+  };
+
+  const seasonMessages = {
+    winter: 'Your body is asking for rest, warmth, and inward reflection right now. This is not a failing — it is a feature. The deepest clarity of your entire cycle is available to you in stillness.',
+    spring: 'Energy is returning and the world is opening again. This is your most creatively alive and optimistic phase. Say yes to new things, begin what has been waiting, and let the momentum build.',
+    summer: 'You are in your most magnetic, confident, and communicative phase. This is the time to be seen, to speak, to lead, and to connect. Use this window wisely — it is your peak.',
+    autumn: 'You are moving inward. Your discernment is sharp and what is not working becomes impossible to ignore. Complete what needs finishing, reduce your load, and honour the sensitivity as wisdom rather than weakness.',
+  };
+
+  /* ── CALCULATOR ── */
+  function calculate() {
+    const startVal = document.getElementById('cycleStart').value;
+    if (!startVal) { alert('Please enter the first day of your last period.'); return; }
+    const cycleLen = parseInt(document.getElementById('cycleLength').value);
+    const periodLen = parseInt(document.getElementById('periodLength').value);
+
+    const start = new Date(startVal);
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    start.setHours(0,0,0,0);
+
+    let diff = Math.floor((today - start) / 86400000);
+    if (diff < 0) { alert('The start date is in the future. Please check the date.'); return; }
+
+    // Current cycle day (1-based)
+    const cycleDay = (diff % cycleLen) + 1;
+
+    // Determine phase
+    let season;
+    if (cycleDay <= periodLen) season = 'winter';
+    else if (cycleDay <= 13) season = 'spring';
+    else if (cycleDay <= 17) season = 'summer';
+    else season = 'autumn';
+
+    const s = seasons[season];
+    const daysLeft = season === 'autumn'
+      ? cycleLen - cycleDay + 1
+      : (season === 'summer' ? 18 - cycleDay : season === 'spring' ? 14 - cycleDay : periodLen - cycleDay + 1);
+
+    const banner = document.getElementById('resultBanner');
+    banner.style.background = s.color + '15';
+    banner.style.border = '1px solid ' + s.color + '40';
+    banner.className = 'result-banner show';
+
+    document.getElementById('rbTag').style.color = s.color;
+    document.getElementById('rbTag').textContent = s.phase;
+    document.getElementById('rbTitle').textContent = s.name;
+    document.getElementById('rbTitle').style.color = s.color;
+    document.getElementById('rbDays').textContent = 'Cycle day ' + cycleDay + ' of ' + cycleLen + ' · ' + Math.max(1, daysLeft) + ' days remaining in this phase';
+    document.getElementById('rbSummary').textContent = seasonMessages[season];
+
+    // Calendar strip
+    const strip = document.getElementById('calStrip');
+    strip.innerHTML = '';
+    for (let d = 1; d <= cycleLen; d++) {
+      const ph = d <= periodLen ? 'winter' : d <= 13 ? 'spring' : d <= 17 ? 'summer' : 'autumn';
+      const div = document.createElement('div');
+      div.className = 'cal-day' + (d === cycleDay ? ' today' : '');
+      div.style.background = seasons[ph].color + (d === cycleDay ? 'ff' : '55');
+      div.innerHTML = '<span>' + d + '</span>';
+      div.title = 'Day ' + d + ' — ' + seasons[ph].name;
+      strip.appendChild(div);
+    }
+
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Auto-open the matching season card
+    openCard(season);
+  }
+
+  /* ── ACCORDION ── */
+  function toggleCard(id) {
+    const card = document.getElementById('card-' + id);
+    card.classList.toggle('open');
+  }
+
+  function openCard(id) {
+    document.querySelectorAll('.season-card').forEach(c => c.classList.remove('open'));
+    document.getElementById('card-' + id).classList.add('open');
+    setTimeout(() => {
+      document.getElementById('card-' + id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 200);
+  }
+
+  /* ── TABS ── */
+  function showTab(season, tab, btn) {
+    const card = document.getElementById('card-' + season);
+    card.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('on'));
+    card.querySelectorAll('.dtab').forEach(b => b.classList.remove('on'));
+    document.getElementById(season + '-' + tab).classList.add('on');
+    btn.classList.add('on');
+  }
+
+  /* ── PRE-FILL TODAY'S DATE ── */
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  document.getElementById('cycleStart').max = yyyy + '-' + mm + '-' + dd;
+</script>
+</body>
+</html>

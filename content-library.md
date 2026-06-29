@@ -460,4 +460,192 @@ Her remarkable ability to savour life's pleasures also means that indulging Taur
 
 Noticing when addictive behaviours arise — they are often clues pointing to where she is avoiding necessary evolution.
 
+---
+
+## A WOMAN'S INNER SEASONS — THE FOUR PHASES OF THE MONTHLY CYCLE
+
+Women are not designed for a 24-hour cycle. We are cyclical beings, moving through four distinct inner seasons every month — each with its own energy, gifts, needs, and medicine. When we learn to live with our cycle rather than against it, everything changes. Our productivity, our relationships, our creativity, our health, our nervous system.
+
+Most women have been taught to perform at the same level every single day. To push through fatigue, to apologise for sensitivity, to override what the body is asking. This is not a failing. It is the result of living in a world designed around male biology, which genuinely runs on a 24-hour cycle. Female biology runs on a 28-day cycle (on average). Understanding this is not just wellness. It is liberation.
+
+### Why This Matters
+
+When a woman tracks and honours her cycle, she can:
+- Plan her most demanding work for her high-energy phases
+- Rest without guilt during her low-energy phases
+- Understand her emotional fluctuations as hormonal intelligence, not weakness
+- Nourish her body with what it specifically needs at each phase
+- Exercise in ways that support rather than deplete her hormones
+- Reduce PMS, fatigue, brain fog, and cycle-related pain over time
+
+### The Moon and the Cycle
+
+A woman's cycle has historically been understood to sync with the lunar cycle. The average menstrual cycle is 28 days, the same as a lunar month. Many women naturally bleed with the new moon (the White Moon cycle — menstruating in the dark, ovulating in the full moon's light) or with the full moon (the Red Moon cycle, the cycle of the healers, mystics, and creative women who bleed under the full moon's light). Neither is superior. Both are sacred.
+
+---
+
+### PHASE ONE — INNER WINTER — MENSTRUATION (Days 1 to 5, approximately)
+
+**What is happening in the body:**
+Oestrogen and progesterone are at their lowest. The uterine lining sheds. Energy is naturally at its lowest point of the month. The veil between the conscious and unconscious is at its thinnest — this is a deeply intuitive, visionary time if we allow it.
+
+**The energy and gifts of this phase:**
+Rest, reflection, clarity, intuition, truth-telling. The inner critic quiets. What truly matters becomes clear. This is the time when women can access their deepest knowing if they are not forcing activity. Many women report their most profound insights come during their bleed.
+
+**What the body needs:**
+Warmth, gentleness, stillness. Reduced social demands. Earlier sleep. Heat on the belly. Permission to do less.
+
+**What to eat:**
+- Iron-rich foods to replenish what is lost: lentils, kidney beans, leafy greens, red meat if you eat it, pumpkin seeds
+- Warming foods: soups, stews, broths, cooked vegetables rather than raw
+- Dark chocolate (high cacao) supports magnesium which eases cramping
+- Avoid caffeine and alcohol which intensify cramping and disrupt sleep
+- Nourishing fats: avocado, coconut oil, olive oil
+- Ginger and turmeric tea for inflammation and warmth
+
+**How to exercise:**
+Rest is valid and valuable. If movement is desired: gentle yoga, restorative poses, slow walking in nature, stretching, breathwork. Avoid intense cardio or heavy lifting as this can increase blood loss and depletion. Listen to the body above all.
+
+**Seed cycling:**
+Ground flaxseeds (1 tablespoon daily) — supports oestrogen metabolism
+Ground pumpkin seeds (1 tablespoon daily) — rich in zinc which supports progesterone production for the coming phase
+
+**Planning your month:**
+This is not the time for big launches, hard conversations, or heavy output. It is the time for reflection, journalling, reviewing, and dreaming. What worked last month? What needs to change? What is the vision? Allow the inner wisdom of this phase to inform your next cycle.
+
+---
+
+### PHASE TWO — INNER SPRING — FOLLICULAR (Days 6 to 13, approximately)
+
+**What is happening in the body:**
+Oestrogen begins to rise. Follicles in the ovaries mature. Energy gradually returns. The body and mind begin to open after the inner winter's rest.
+
+**The energy and gifts of this phase:**
+Optimism, curiosity, creativity, the desire to begin. New ideas feel exciting and possible. Motivation returns. This is the best time to start new projects, learn new things, and say yes to opportunities. The mind is sharp and open.
+
+**What the body needs:**
+Fresh air, new experiences, stimulation, socialising, light and play. The energy of spring. Say yes to more.
+
+**What to eat:**
+- Light, fresh foods: salads, sprouts, fresh vegetables, smoothies
+- Fermented foods to support the gut which influences hormones: sauerkraut, kimchi, yoghurt, kefir
+- Eggs support follicle development
+- Seeds and nuts
+- Lean proteins
+- Fresh herbs: parsley, basil, mint
+- Avoid heavy processed foods which slow the energy of this rising phase
+
+**How to exercise:**
+This is the time to increase intensity. The body responds well to new exercise, strength training, cardio, dance, anything that feels energising and alive. Try the class you have been thinking about. Increase weights. Your recovery is faster, your stamina higher.
+
+**Seed cycling:**
+Continue ground flaxseeds (1 tablespoon daily)
+Continue ground pumpkin seeds (1 tablespoon daily)
+
+**Planning your month:**
+Ideal for: starting projects, brainstorming, pitching ideas, learning, social events, networking, creative work, interviews, first meetings. Book your most ambitious activities here.
+
+---
+
+### PHASE THREE — INNER SUMMER — OVULATION (Days 14 to 17, approximately)
+
+**What is happening in the body:**
+Oestrogen peaks. A surge of LH (luteinising hormone) triggers ovulation. This is the only time in the cycle conception is possible. Energy is at its peak. The body is magnetic, warm, and open.
+
+**The energy and gifts of this phase:**
+Confidence, magnetism, communication, leadership, visibility. The desire to connect, to be seen, to give, to collaborate. This is the time when women often feel most themselves, most alive, most attractive. The voice is strongest. Presence is fullest.
+
+**What the body needs:**
+Connection, expression, visibility, celebration, being out in the world.
+
+**What to eat:**
+- Anti-inflammatory foods to support the body through ovulation: berries, leafy greens, oily fish (salmon, sardines), walnuts
+- Lighter, fresh meals — the body does not need as much warming now
+- Fibre to support oestrogen clearance: vegetables, whole grains, legumes
+- Raw foods are well-tolerated now — salads, fresh fruit, smoothies
+- Cruciferous vegetables (broccoli, cauliflower, kale) support oestrogen metabolism
+- Hydration is especially important during ovulation
+
+**How to exercise:**
+Peak performance time. HIIT, heavy lifting, group fitness classes, running, competitive sport, anything high intensity. The body can handle it. Recovery is excellent. This is not the time to hold back.
+
+**Seed cycling:**
+Transition to: ground sunflower seeds (1 tablespoon daily) — support progesterone production
+Ground sesame seeds (1 tablespoon daily) — rich in zinc and selenium for the luteal phase ahead
+
+**Planning your month:**
+Ideal for: public speaking, important presentations, first dates, hosting events, launching anything, big negotiations, media appearances, being seen. Your most outward, visible, magnetic work belongs here.
+
+---
+
+### PHASE FOUR — INNER AUTUMN — LUTEAL (Days 18 to 28, approximately)
+
+**What is happening in the body:**
+Progesterone rises (if there is no pregnancy) then falls toward the end of the phase. Oestrogen also declines. The body prepares to shed again. Pre-menstrual symptoms are most common in the second half of this phase (days 22 to 28) when both hormones drop.
+
+**The energy and gifts of this phase:**
+Detail-orientation, discernment, completion, nesting, truth-telling. The inner critic can get louder (this is the PMS window). But this phase also has a gift: it strips away pretence. What is not working becomes impossible to ignore. Boundaries become clearer. The desire to nest, to tend, to finish, to simplify.
+
+**What the body needs:**
+Completion rather than starting. Reducing commitments. Earlier sleep. Warmth. Solitude balanced with chosen connection. More magnesium. Gentleness without collapse.
+
+**What to eat:**
+- Complex carbohydrates to stabilise blood sugar and support serotonin: sweet potato, brown rice, oats, legumes
+- Magnesium-rich foods to reduce PMS, cramping, and anxiety: dark leafy greens, pumpkin seeds, dark chocolate, almonds, bananas
+- Calcium-rich foods: dairy or fortified alternatives, sardines, broccoli
+- Warming, cooked foods as the body begins to move toward inner winter
+- Reduce caffeine and alcohol especially in days 22 to 28 as sensitivity is heightened
+- Reduce sugar to avoid mood crashes
+- Increase omega-3 fats: salmon, walnuts, chia seeds — reduce inflammation and support mood
+
+**How to exercise:**
+Moderate, sustainable movement. Pilates, yoga, strength training at moderate intensity, long walks, swimming. This is not the phase for maximum intensity but it is also not rest — movement helps with progesterone balance and reduces PMS. In the final days, listen carefully. The body will tell you what it needs.
+
+**Seed cycling:**
+Continue ground sunflower seeds (1 tablespoon daily)
+Continue ground sesame seeds (1 tablespoon daily)
+
+**Planning your month:**
+Ideal for: editing, reviewing, completing projects, admin, deep focused work, honest conversations with trusted people, decluttering, nesting, preparing for the next cycle. Avoid over-scheduling social obligations especially in the final week.
+
+---
+
+### SEED CYCLING — THE FULL PICTURE
+
+Seed cycling is the practice of eating specific seeds at specific phases of the cycle to naturally support hormone balance. It works by providing the building blocks the body needs to produce and metabolise oestrogen and progesterone in the right amounts at the right times.
+
+**Phase 1 and 2 (Days 1 to 14) — Follicular and Menstrual:**
+- 1 tablespoon ground flaxseeds daily
+- 1 tablespoon ground pumpkin seeds daily
+- These support oestrogen production and block excess oestrogen (flax contains lignans which are phytoestrogenic and help regulate oestrogen receptor activity)
+
+**Phase 3 and 4 (Days 15 to 28) — Ovulatory and Luteal:**
+- 1 tablespoon ground sesame seeds daily
+- 1 tablespoon ground sunflower seeds daily
+- These support progesterone production. Sesame seeds contain selenium which supports the corpus luteum in producing progesterone. Sunflower seeds are high in vitamin E which also supports progesterone.
+
+**How to use them:**
+Add to smoothies, porridge, yoghurt, salads, or mix into a nut butter. Seeds must be ground (not whole) for the nutrients to be absorbed. Store ground seeds in the fridge and grind fresh when possible. Give it three full cycles to feel the benefit — hormone balance takes time to shift.
+
+**Who benefits most:**
+Women with irregular cycles, PMS, painful periods, hormonal acne, low progesterone, oestrogen dominance, or those coming off hormonal contraception. Also deeply supportive for perimenopause.
+
+---
+
+### HOW INNER COMPASS USES THIS KNOWLEDGE
+
+When a woman comes to Inner Compass and shares something about her energy, mood, cravings, or body, consider asking where she is in her cycle. This context changes everything about how to support her.
+
+If she feels low energy and withdrawn → she may be in her inner winter (menstrual phase). Validate the rest. Do not push her toward action.
+
+If she feels optimistic and ready to begin → she may be in inner spring (follicular). Encourage the new starts, the creative energy, the optimism.
+
+If she feels magnetic and social and on fire → she may be in inner summer (ovulation). Celebrate it. Help her use it well.
+
+If she feels overwhelmed, irritable, or everything feels too much → she may be in inner autumn (luteal), especially late luteal. Validate the sensitivity as intelligence, not weakness. Offer grounding. Reduce the list.
+
+If she does not track her cycle, offer to help her understand the four phases and begin to notice her own patterns. The cycle page at /cycle will walk her through this.
+
+Do not assume. Ask. And always hold the cyclical nature of a woman's experience as normal, natural, and wise.
+
 
