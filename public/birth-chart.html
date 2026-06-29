@@ -42,12 +42,17 @@
     .loading-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #5c2318; margin-bottom: 8px; }
     .loading-sub { font-size: 0.88rem; color: #9a7d6e; }
 
-    /* Placements bar */
-    .placements-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
-    .placement-pill { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 30px; border: 1.5px solid #e8d9c4; background: #fdf9f4; font-size: 0.85rem; color: #4a3728; }
-    .placement-pill .symbol { font-size: 1rem; }
+    /* Placements grid */
+    .placements-grid { margin: 20px 0; }
+    .group-label { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: #c4967a; margin: 14px 0 7px; display: block; width: 100%; }
+    .group-label:first-child { margin-top: 0; }
+    .placements-row { display: flex; flex-wrap: wrap; gap: 7px; }
+    .placement-pill { display: inline-flex; align-items: center; gap: 5px; padding: 7px 12px; border-radius: 30px; border: 1.5px solid #e8d9c4; background: #fdf9f4; font-size: 0.83rem; color: #4a3728; }
+    .placement-pill .symbol { font-size: 0.95rem; }
     .placement-pill .sign-name { font-family: 'Playfair Display', serif; color: #5c2318; }
-    .placement-pill .label { font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: #9a7d6e; }
+    .placement-pill .label { font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: #9a7d6e; }
+    .placement-pill .deg-tag { font-size: 0.68rem; color: #b8967a; opacity: 0.8; }
+    .placement-pill .house-tag { font-size: 0.68rem; background: #5c2318; color: #fff; border-radius: 20px; padding: 1px 6px; margin-left: 1px; opacity: 0.75; }
     .el-fire { border-color: #f5c8b4; background: #fff5f0; }
     .el-earth { border-color: #c8dcb4; background: #f5faf0; }
     .el-air { border-color: #b4c8e8; background: #f0f5ff; }
@@ -168,13 +173,25 @@
     pisces:      { name:'Pisces',      symbol:'♓', element:'water' }
   };
 
+  const SIGN_DISPLAY = { aries:'Aries', taurus:'Taurus', gemini:'Gemini', cancer:'Cancer', leo:'Leo', virgo:'Virgo', libra:'Libra', scorpio:'Scorpio', sagittarius:'Sagittarius', capricorn:'Capricorn', aquarius:'Aquarius', pisces:'Pisces' };
+
   const PLACEMENTS = [
-    { key:'sun',    symbol:'☀', label:'Sun' },
-    { key:'moon',   symbol:'☽', label:'Moon' },
-    { key:'rising', symbol:'↑', label:'Rising' },
-    { key:'saturn', symbol:'♄', label:'Saturn' },
-    { key:'chiron', symbol:'⚷', label:'Chiron' },
-    { key:'node',   symbol:'☊', label:'North Node' },
+    { key:'rising',     symbol:'↑', label:'Rising',      group:'Angles' },
+    { key:'mc',         symbol:'⊼', label:'Midheaven',   group:'Angles' },
+    { key:'descendant', symbol:'↓', label:'Descendant',  group:'Angles' },
+    { key:'ic',         symbol:'⊻', label:'IC',          group:'Angles' },
+    { key:'sun',        symbol:'☀', label:'Sun',         group:'Personal' },
+    { key:'moon',       symbol:'☽', label:'Moon',        group:'Personal' },
+    { key:'mercury',    symbol:'☿', label:'Mercury',     group:'Personal' },
+    { key:'venus',      symbol:'♀', label:'Venus',       group:'Personal' },
+    { key:'mars',       symbol:'♂', label:'Mars',        group:'Personal' },
+    { key:'jupiter',    symbol:'♃', label:'Jupiter',     group:'Social' },
+    { key:'saturn',     symbol:'♄', label:'Saturn',      group:'Social' },
+    { key:'uranus',     symbol:'♅', label:'Uranus',      group:'Outer' },
+    { key:'neptune',    symbol:'♆', label:'Neptune',     group:'Outer' },
+    { key:'node',       symbol:'☊', label:'North Node',  group:'Points' },
+    { key:'southnode',  symbol:'☋', label:'South Node',  group:'Points' },
+    { key:'chiron',     symbol:'⚷', label:'Chiron',      group:'Points' },
   ];
 
   function checkForm() {
@@ -286,14 +303,33 @@
   function renderPlacements(chart) {
     const grid = document.getElementById('placements-grid');
     grid.innerHTML = '';
-    PLACEMENTS.forEach(p => {
-      const sign = chart[p.key];
-      if (!sign || !SIGNS[sign]) return;
-      const s = SIGNS[sign];
-      const pill = document.createElement('div');
-      pill.className = 'placement-pill el-' + s.element;
-      pill.innerHTML = `<span class="symbol">${p.symbol}</span><span class="label">${p.label}</span><span class="sign-name">${s.symbol} ${s.name}</span>`;
-      grid.appendChild(pill);
+    const groups = ['Angles','Personal','Social','Outer','Points'];
+    const groupLabels = { Angles:'Angles', Personal:'Personal Planets', Social:'Social Planets', Outer:'Outer Planets', Points:'Points & Nodes' };
+
+    groups.forEach(g => {
+      const items = PLACEMENTS.filter(p => p.group === g);
+      let hasAny = false;
+      const pills = [];
+      items.forEach(p => {
+        const raw = chart[p.key];
+        if (!raw) return;
+        const signKey = typeof raw === 'string' ? raw : raw.sign;
+        if (!signKey || !SIGNS[signKey]) return;
+        const s = SIGNS[signKey];
+        const house = (typeof raw === 'object' && raw.house) ? `<span class="house-tag">H${raw.house}</span>` : '';
+        const deg   = (typeof raw === 'object' && raw.degree !== null && raw.degree !== undefined) ? `<span class="deg-tag">${raw.degree}°</span>` : '';
+        const pill = `<div class="placement-pill el-${s.element}" title="${p.label} in ${s.name}${raw.house ? ', House '+raw.house : ''}">
+          <span class="symbol">${p.symbol}</span>
+          <span class="label">${p.label}</span>
+          <span class="sign-name">${s.symbol} ${s.name}</span>
+          ${deg}${house}
+        </div>`;
+        pills.push(pill);
+        hasAny = true;
+      });
+      if (hasAny) {
+        grid.innerHTML += `<div class="group-label">${groupLabels[g]}</div>` + pills.join('');
+      }
     });
   }
 

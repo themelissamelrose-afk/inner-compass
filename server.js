@@ -130,42 +130,54 @@ if (_moonContent.trim()) {
 
 // ─── ASTROLOGY CHART CALCULATIONS ───────────────────────────────────────────
 
+const SIGN_NAMES = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces'];
+
 function longitudeToSign(lon) {
-  const signs = ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces'];
-  return signs[Math.floor((((lon % 360) + 360) % 360) / 30)];
+  return SIGN_NAMES[Math.floor((((lon % 360) + 360) % 360) / 30)];
 }
 
-function getSunSign(month, day) {
-  if ((month===3&&day>=21)||(month===4&&day<=19)) return 'aries';
-  if ((month===4&&day>=20)||(month===5&&day<=20)) return 'taurus';
-  if ((month===5&&day>=21)||(month===6&&day<=20)) return 'gemini';
-  if ((month===6&&day>=21)||(month===7&&day<=22)) return 'cancer';
-  if ((month===7&&day>=23)||(month===8&&day<=22)) return 'leo';
-  if ((month===8&&day>=23)||(month===9&&day<=22)) return 'virgo';
-  if ((month===9&&day>=23)||(month===10&&day<=22)) return 'libra';
-  if ((month===10&&day>=23)||(month===11&&day<=21)) return 'scorpio';
-  if ((month===11&&day>=22)||(month===12&&day<=21)) return 'sagittarius';
-  if ((month===12&&day>=22)||(month===1&&day<=19)) return 'capricorn';
-  if ((month===1&&day>=20)||(month===2&&day<=18)) return 'aquarius';
-  return 'pisces';
+function normLon(lon) { return ((lon % 360) + 360) % 360; }
+
+function placementFromLon(lon, ascLon) {
+  const n = normLon(lon), a = normLon(ascLon);
+  return { sign: longitudeToSign(n), degree: Math.floor(n % 30), house: Math.floor(((n - a + 360) % 360) / 30) % 12 + 1 };
 }
 
-function getMoonSign(astroTime) {
-  const moonEq = Astronomy.GeoMoon(astroTime);
-  const ecliptic = Astronomy.Ecliptic(moonEq);
-  return longitudeToSign(ecliptic.elon);
+function placementFromSignApprox(sign, ascLon) {
+  if (!sign) return null;
+  const idx = SIGN_NAMES.indexOf(sign);
+  if (idx === -1) return null;
+  const a = normLon(ascLon);
+  return { sign, degree: null, house: Math.floor(((idx * 30 + 15 - a + 360) % 360) / 30) % 12 + 1 };
 }
 
-function getAscendant(astroTime, lat, lng) {
-  const gst = Astronomy.SiderealTime(astroTime); // hours
-  const ramcDeg = ((gst * 15) + lng + 360) % 360;
-  const ramcRad = ramcDeg * Math.PI / 180;
+function getBodyLon(name, astroTime) {
+  const vec = Astronomy.GeoVector(name, astroTime, true);
+  return normLon(Astronomy.Ecliptic(vec).elon);
+}
+
+function getMoonLon(astroTime) {
+  return normLon(Astronomy.Ecliptic(Astronomy.GeoMoon(astroTime)).elon);
+}
+
+function getAscendantLon(astroTime, lat, lng) {
+  const gst = Astronomy.SiderealTime(astroTime);
+  const ramcRad = ((gst * 15 + lng + 360) % 360) * Math.PI / 180;
   const eps = 23.4397 * Math.PI / 180;
   const phi = lat * Math.PI / 180;
-  const num = Math.cos(ramcRad);
-  const den = -Math.sin(ramcRad) * Math.cos(eps) - Math.tan(phi) * Math.sin(eps);
-  const asc = Math.atan2(num, den) * 180 / Math.PI;
-  return longitudeToSign(((asc % 360) + 360) % 360);
+  return normLon(Math.atan2(Math.cos(ramcRad), -Math.sin(ramcRad) * Math.cos(eps) - Math.tan(phi) * Math.sin(eps)) * 180 / Math.PI);
+}
+
+function getMidheavenLon(astroTime, lng) {
+  const gst = Astronomy.SiderealTime(astroTime);
+  const ramcRad = ((gst * 15 + lng + 360) % 360) * Math.PI / 180;
+  const eps = 23.4397 * Math.PI / 180;
+  return normLon(Math.atan2(Math.sin(ramcRad), Math.cos(ramcRad) * Math.cos(eps)) * 180 / Math.PI);
+}
+
+function getNorthNodeLon(utcDate) {
+  const D = (utcDate - new Date('2000-01-01T12:00:00Z')) / 86400000;
+  return normLon(125.0445552 - 0.0529537619165 * D);
 }
 
 function localToUtc(year, month, day, hour, minute, tz) {
@@ -193,53 +205,7 @@ function localToUtc(year, month, day, hour, minute, tz) {
   };
 }
 
-function getSaturnSign(astroTime) {
-  const vec = Astronomy.GeoVector('Saturn', astroTime, true);
-  const ecl = Astronomy.Ecliptic(vec);
-  return longitudeToSign(ecl.elon);
-}
-
-// North Node lookup — moves retrograde ~18 months per sign
-function getNodeSign(birthDate) {
-  const d = new Date(birthDate);
-  const ranges = [
-    ['2023-07-17','2025-01-11','aries'],
-    ['2022-01-19','2023-07-17','taurus'],
-    ['2020-05-05','2022-01-19','gemini'],
-    ['2018-11-07','2020-05-05','cancer'],
-    ['2017-05-10','2018-11-07','leo'],
-    ['2015-11-12','2017-05-10','virgo'],
-    ['2014-02-19','2015-11-12','libra'],
-    ['2012-08-30','2014-02-19','scorpio'],
-    ['2011-03-03','2012-08-30','sagittarius'],
-    ['2009-08-22','2011-03-03','capricorn'],
-    ['2007-12-19','2009-08-22','aquarius'],
-    ['2006-06-23','2007-12-19','pisces'],
-    ['2004-12-27','2006-06-23','aries'],
-    ['2003-04-15','2004-12-27','taurus'],
-    ['2001-10-14','2003-04-15','gemini'],
-    ['2000-04-10','2001-10-14','cancer'],
-    ['1998-10-21','2000-04-10','leo'],
-    ['1997-01-26','1998-10-21','virgo'],
-    ['1995-07-31','1997-01-26','libra'],
-    ['1994-02-02','1995-07-31','scorpio'],
-    ['1992-08-01','1994-02-02','sagittarius'],
-    ['1991-02-02','1992-08-01','capricorn'],
-    ['1989-08-11','1991-02-02','aquarius'],
-    ['1987-11-17','1989-08-11','pisces'],
-    ['1986-05-06','1987-11-17','aries'],
-    ['1984-09-25','1986-05-06','taurus'],
-    ['1983-03-17','1984-09-25','gemini'],
-    ['1981-09-24','1983-03-17','cancer'],
-    ['1980-03-28','1981-09-24','leo'],
-  ];
-  for (const [start, end, sign] of ranges) {
-    if (d >= new Date(start) && d < new Date(end)) return sign;
-  }
-  return null;
-}
-
-// Chiron lookup — eccentric orbit, varies 4-8 yrs per sign
+// Chiron lookup — eccentric orbit, sign by date range
 function getChironSign(birthDate) {
   const d = new Date(birthDate);
   const ranges = [
@@ -250,7 +216,7 @@ function getChironSign(birthDate) {
     ['1999-02-10','2001-12-11','sagittarius'],
     ['1996-09-10','1999-02-10','scorpio'],
     ['1993-09-03','1996-09-10','libra'],
-    ['1988-06-21','1993-09-03','cancer'], // includes virgo/leo brief transits; simplified
+    ['1988-06-21','1993-09-03','cancer'],
     ['1983-11-29','1988-06-21','gemini'],
     ['1976-05-28','1983-11-29','taurus'],
   ];
@@ -263,13 +229,27 @@ function getChironSign(birthDate) {
 function calculateChart({ year, month, day, utcHour, utcMinute, lat, lng }) {
   const utcDate = new Date(Date.UTC(year, month - 1, day, utcHour, utcMinute));
   const astroTime = Astronomy.MakeTime(utcDate);
-  const sun = getSunSign(month, day);
-  const moon = getMoonSign(astroTime);
-  const rising = getAscendant(astroTime, lat, lng);
-  const saturn = getSaturnSign(astroTime);
-  const node = getNodeSign(utcDate);
-  const chiron = getChironSign(utcDate);
-  return { sun, moon, rising, saturn, chiron, node };
+  const ascLon = getAscendantLon(astroTime, lat, lng);
+  const mcLon  = getMidheavenLon(astroTime, lng);
+  const nnLon  = getNorthNodeLon(utcDate);
+  return {
+    sun:        placementFromLon(getBodyLon('Sun',     astroTime), ascLon),
+    moon:       placementFromLon(getMoonLon(astroTime),            ascLon),
+    rising:     placementFromLon(ascLon,                           ascLon),
+    mc:         placementFromLon(mcLon,                            ascLon),
+    descendant: placementFromLon(normLon(ascLon + 180),            ascLon),
+    ic:         placementFromLon(normLon(mcLon  + 180),            ascLon),
+    mercury:    placementFromLon(getBodyLon('Mercury', astroTime), ascLon),
+    venus:      placementFromLon(getBodyLon('Venus',   astroTime), ascLon),
+    mars:       placementFromLon(getBodyLon('Mars',    astroTime), ascLon),
+    jupiter:    placementFromLon(getBodyLon('Jupiter', astroTime), ascLon),
+    saturn:     placementFromLon(getBodyLon('Saturn',  astroTime), ascLon),
+    uranus:     placementFromLon(getBodyLon('Uranus',  astroTime), ascLon),
+    neptune:    placementFromLon(getBodyLon('Neptune', astroTime), ascLon),
+    node:       placementFromLon(nnLon,                            ascLon),
+    southnode:  placementFromLon(normLon(nnLon + 180),             ascLon),
+    chiron:     placementFromSignApprox(getChironSign(utcDate),    ascLon),
+  };
 }
 
 // ─── BIRTH CHART SYSTEM PROMPT ───────────────────────────────────────────────
@@ -277,14 +257,44 @@ const ASTRO_SYSTEM_PROMPT = `You are The Inner Compass — Melissa Melrose's hea
 
 Your lens: every placement carries a wound and a gift. The wound is where we contracted. The gift is what grows when we heal it. You always acknowledge the wound with love before revealing the gift.
 
+PLANET MEANINGS THROUGH THE HEALING LENS:
+Sun: life force and authentic self growing into expression. The identity beneath the performance.
+Moon: emotional world, inner child, nervous system patterns. How you learned to feel — or not feel.
+Rising/ASC: the emergent authentic self, the face dissolving into truth. House 1 cusp.
+Midheaven/MC: public calling, vocation, what you are here to contribute. The visible apex of the chart.
+Descendant/DC: what you project and attract in relationship. The disowned self seeking wholeness through another. House 7 cusp.
+IC: roots, private self, what you carry quietly from family of origin. The foundation beneath everything.
+Mercury: how you process and communicate. The nervous system's language. Where intellect became armour or stayed clear.
+Venus: how you love and receive. Where worthiness was first wounded. Your relationship with beauty, pleasure, and being wanted.
+Mars: desire, assertion, anger, passion. Where your needs went underground or became force. Your engine.
+Jupiter: where you expand and are blessed. Your path to abundance, meaning, and growth.
+Saturn: greatest test and path to deepest mastery. Where you contracted around authority, discipline, or limitation.
+Uranus: where you break from inherited pattern. Where awakenings arrive as disruptions. Your liberation point.
+Neptune: where you dissolve, dream, and reach for the sacred. Also where illusion and self-erasure live.
+Chiron: the deepest wound you carry — and the medicine you offer others precisely because of it.
+North Node: where the soul is growing this lifetime. What feels unfamiliar but calls you.
+South Node: what you are releasing. Past mastery that can become a crutch. The known path you are being asked to evolve beyond.
+
+HOUSES (the area of life where each planet expresses itself):
+1 = identity/body/presence, 2 = worth/money/values, 3 = mind/communication/siblings, 4 = roots/home/family of origin, 5 = creativity/joy/children, 6 = health/service/daily ritual, 7 = partnership/relationship/contracts, 8 = transformation/death/shared resources, 9 = belief/travel/philosophy, 10 = career/public life/calling, 11 = community/vision/friends, 12 = unconscious/spirituality/what is hidden.
+
 Your voice is warm, intimate, poetic and direct. You write as though you know this person's soul. You use nervous system and somatic language naturally.
 
 STRICT RULES:
-- No em dashes. Use commas, colons or full stops instead.
+- No em dashes. Use commas, colons, or full stops instead.
 - Second person always ("you", "your").
-- Each placement section: 3 short paragraphs. Wound first. Gift second. Close with a one-sentence affirmation in quotes.
-- Format with clear headers: ## ☀ Sun in [Sign], ## ☽ Moon in [Sign], ## ↑ Rising in [Sign], ## ♄ Saturn in [Sign], ## ⚷ Chiron in [Sign], ## ☊ North Node in [Sign]
-- Skip any placement marked as null or unknown.`;
+- Structure the reading as follows:
+  1. THE BIG THREE: Sun, Moon, Rising — 3 paragraphs each. Wound first. Gift second. Affirmation in quotes.
+  2. YOUR ANGLES: Midheaven, Descendant, IC — 2 paragraphs each. What you are called to, who you attract, what you carry from home.
+  3. YOUR INNER PLANETS: Mercury, Venus, Mars — 2 paragraphs each. Mind, love, desire.
+  4. YOUR OUTER PLANETS: Jupiter, Saturn, Uranus, Neptune — 1 paragraph each. Expansion, mastery, liberation, dissolution.
+  5. THE NODAL AXIS: North Node and South Node together — 2 paragraphs. Soul direction and what you are releasing.
+  6. CHIRON: THE WOUND AND THE MEDICINE — 3 paragraphs.
+  7. A closing paragraph titled THE HOUSES SPEAK: weave together what the most significant house placements reveal about where this life wants to be lived.
+- Include house numbers in each header: e.g. ## ☀ Sun in Leo — House 5
+- Close each main section with a one-sentence affirmation in quotes.
+- Skip any placement marked as null or unknown.
+- End the entire reading with: "What would you like to explore further? Ask me about any placement, pattern, or theme in your chart."`;
 
 // ─── ASTROLOGY SECTION ADDED TO MAIN SYSTEM PROMPT ──────────────────────────
 const ASTRO_CHAT_CONTEXT = `
@@ -293,12 +303,23 @@ const ASTRO_CHAT_CONTEXT = `
 
 You understand astrology through Melissa's healing lens. When chart data is provided in [CHART DATA] below, you know this person's placements intimately and weave them naturally into your responses.
 
-Sun = their core life force and the authentic self they are growing into.
-Moon = their emotional world, inner child and nervous system patterns.
-Rising = the mask they show the world and their authentic emergence.
-Saturn = their greatest test and the path to their deepest mastery.
+Sun = life force and the authentic self growing into expression.
+Moon = emotional world, inner child, and nervous system patterns.
+Rising/ASC = the emergent authentic self and the cusp of House 1.
+Midheaven/MC = public calling and what they are here to contribute to the world.
+Descendant/DC = what they project and attract in relationship, the cusp of House 7.
+IC = roots, private self, and what they carry from family of origin.
+Mercury = how they think and communicate. Their nervous system's language.
+Venus = how they love and receive. Where worthiness was first wounded.
+Mars = desire, assertion, anger. Their engine and their relationship with need.
+Jupiter = where they expand and are blessed. Their path to abundance and meaning.
+Saturn = greatest test and path to deepest mastery.
+Uranus = where they break from inherited pattern. Where awakenings arrive.
+Neptune = where they dissolve, dream, and reach for the sacred.
 Chiron = their deepest wound and the medicine they carry for others.
-North Node = where their soul is being called to grow this lifetime.
+North Node = where the soul is growing this lifetime.
+South Node = what they are releasing. Past mastery becoming a crutch.
+House number = the area of life where that planet expresses. House 1 = self, 4 = roots, 7 = relationship, 10 = career, etc.
 
 When they ask about their chart, reflect their specific placements back in Melissa's voice: wound acknowledged first, gift revealed second, always grounded in the body and the present moment.`;
 
@@ -546,15 +567,28 @@ app.post('/api/birth-reading', async (req, res) => {
   const { chart, name } = req.body;
   if (!chart) return res.status(400).json({ error: 'Chart required' });
 
-  const signNames = { aries:'Aries', taurus:'Taurus', gemini:'Gemini', cancer:'Cancer', leo:'Leo', virgo:'Virgo', libra:'Libra', scorpio:'Scorpio', sagittarius:'Sagittarius', capricorn:'Capricorn', aquarius:'Aquarius', pisces:'Pisces' };
-  const lines = [`Generate a full birth chart reading for ${name || 'this person'}.`];
-  lines.push(`Sun in ${signNames[chart.sun] || chart.sun}`);
-  lines.push(`Moon in ${signNames[chart.moon] || chart.moon}`);
-  lines.push(`Rising in ${signNames[chart.rising] || chart.rising}`);
-  if (chart.saturn) lines.push(`Saturn in ${signNames[chart.saturn] || chart.saturn}`);
-  if (chart.chiron) lines.push(`Chiron in ${signNames[chart.chiron] || chart.chiron}`);
-  if (chart.node) lines.push(`North Node in ${signNames[chart.node] || chart.node}`);
-  lines.push('\nWrite a full personalised reading covering each placement. Use the format and framework in your instructions.');
+  const SN = { aries:'Aries', taurus:'Taurus', gemini:'Gemini', cancer:'Cancer', leo:'Leo', virgo:'Virgo', libra:'Libra', scorpio:'Scorpio', sagittarius:'Sagittarius', capricorn:'Capricorn', aquarius:'Aquarius', pisces:'Pisces' };
+
+  function fmtP(p, label) {
+    if (!p) return null;
+    const sign = typeof p === 'string' ? p : p.sign;
+    if (!sign) return null;
+    const signName = SN[sign] || sign;
+    const deg  = (typeof p === 'object' && p.degree !== null) ? ` ${p.degree}°` : '';
+    const house = (typeof p === 'object' && p.house) ? ` — House ${p.house}` : '';
+    return `${label}: ${signName}${deg}${house}`;
+  }
+
+  const lines = [`Generate a full birth chart reading for ${name || 'this person'}.`, ''];
+  [
+    ['sun','Sun'], ['moon','Moon'], ['rising','Rising (Ascendant)'],
+    ['mc','Midheaven (MC)'], ['descendant','Descendant (DC)'], ['ic','IC (Imum Coeli)'],
+    ['mercury','Mercury'], ['venus','Venus'], ['mars','Mars'],
+    ['jupiter','Jupiter'], ['saturn','Saturn'], ['uranus','Uranus'], ['neptune','Neptune'],
+    ['node','North Node'], ['southnode','South Node'], ['chiron','Chiron'],
+  ].forEach(([key, label]) => { const r = fmtP(chart[key], label); if (r) lines.push(r); });
+
+  lines.push('\nWrite a full personalised reading covering all placements. Use the exact structure and healing framework in your instructions.');
 
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
@@ -563,7 +597,7 @@ app.post('/api/birth-reading', async (req, res) => {
   try {
     const stream = await client.messages.stream({
       model: 'claude-sonnet-4-6',
-      max_tokens: 2048,
+      max_tokens: 4096,
       system: ASTRO_SYSTEM_PROMPT,
       messages: [{ role: 'user', content: lines.join('\n') }],
     });
@@ -589,17 +623,23 @@ app.post('/api/chat', async (req, res) => {
     return res.status(400).json({ error: 'Messages required' });
   }
 
-  const signNames = { aries:'Aries', taurus:'Taurus', gemini:'Gemini', cancer:'Cancer', leo:'Leo', virgo:'Virgo', libra:'Libra', scorpio:'Scorpio', sagittarius:'Sagittarius', capricorn:'Capricorn', aquarius:'Aquarius', pisces:'Pisces' };
+  const SNC = { aries:'Aries', taurus:'Taurus', gemini:'Gemini', cancer:'Cancer', leo:'Leo', virgo:'Virgo', libra:'Libra', scorpio:'Scorpio', sagittarius:'Sagittarius', capricorn:'Capricorn', aquarius:'Aquarius', pisces:'Pisces' };
   let systemWithChart = SYSTEM_PROMPT + ASTRO_CHAT_CONTEXT;
   if (chart && chart.sun) {
+    function fmtC(p, label) {
+      if (!p) return null;
+      const sign = typeof p === 'string' ? p : p.sign;
+      if (!sign) return null;
+      const house = (typeof p === 'object' && p.house) ? ` (H${p.house})` : '';
+      return `${label}: ${SNC[sign] || sign}${house}`;
+    }
     const parts = [];
     if (chart.name) parts.push(`Name: ${chart.name}`);
-    if (chart.sun) parts.push(`Sun: ${signNames[chart.sun]}`);
-    if (chart.moon) parts.push(`Moon: ${signNames[chart.moon]}`);
-    if (chart.rising) parts.push(`Rising: ${signNames[chart.rising]}`);
-    if (chart.saturn) parts.push(`Saturn: ${signNames[chart.saturn]}`);
-    if (chart.chiron) parts.push(`Chiron: ${signNames[chart.chiron]}`);
-    if (chart.node) parts.push(`North Node: ${signNames[chart.node]}`);
+    [['sun','Sun'],['moon','Moon'],['rising','Rising'],['mc','MC'],['descendant','Descendant'],
+     ['ic','IC'],['mercury','Mercury'],['venus','Venus'],['mars','Mars'],['jupiter','Jupiter'],
+     ['saturn','Saturn'],['uranus','Uranus'],['neptune','Neptune'],
+     ['node','North Node'],['southnode','South Node'],['chiron','Chiron']
+    ].forEach(([k,l]) => { const r = fmtC(chart[k],l); if (r) parts.push(r); });
     systemWithChart += `\n\n[CHART DATA]\n${parts.join('\n')}`;
   }
 
