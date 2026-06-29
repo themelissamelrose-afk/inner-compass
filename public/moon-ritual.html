@@ -279,8 +279,11 @@
         </div>
       </div>
 
-      <!-- Guided phrase — the main text -->
-      <div id="breathPhrase" style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;color:var(--text);min-height:36px;line-height:1.5;margin-bottom:10px;padding:0 16px;transition:opacity 0.5s;"></div>
+      <!-- Phase instruction — INHALE / HOLD / EXHALE / REST -->
+      <div id="breathInstruction" style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-soft);opacity:0.7;margin-bottom:10px;min-height:14px;transition:opacity 0.4s;"></div>
+
+      <!-- Mantra phrase -->
+      <div id="breathPhrase" style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--text);min-height:52px;line-height:1.6;margin-bottom:10px;padding:0 20px;transition:opacity 0.5s;"></div>
 
       <!-- Count -->
       <div id="breathCount" style="font-size:2rem;color:var(--gold-soft);font-family:'Playfair Display',serif;min-height:40px;margin-bottom:4px;"></div>
@@ -413,12 +416,12 @@
          [0] inhale  [1] hold in  [2] exhale  [3] hold out
        audioFile: path to Melissa's recorded audio — set to '' if not yet recorded
     ────────────────────────────────────────────────────────────── */
-    breathIntro: 'Place both hands on your heart. Close your eyes. As you breathe, imagine the full moon\'s light filling your body on the inhale, and on the exhale, release everything that is not yours to carry into the earth beneath you.',
+    breathIntro: 'Place both hands on your heart. Soften your jaw. Let your eyes close. We breathe together now — four rounds of six. On each inhale, draw the moon\'s light into your body. On each hold, let it settle into your cells. On each exhale, release what you have been carrying that is not yours. On each rest, trust the empty space.',
     breathGuide: [
-      'Breathe in the moonlight',
-      'Hold and receive',
-      'Release what is not yours',
-      'Rest in the darkness'
+      'I breathe in the moon\'s light',
+      'I let it settle. I am full.',
+      'I release what is not mine to carry',
+      'Empty, I am held'
     ],
     audioFile: ''   // add path here when Melissa records e.g. '/audio-moon-capricorn-june.mp3'
   };
@@ -523,40 +526,50 @@
       audio.play().catch(() => {});
     }
 
-    const guides = MOON.breathGuide || ['Breathe in', 'Hold', 'Breathe out', 'Hold'];
+    const guides = MOON.breathGuide || [
+      'I breathe in the moon\'s light',
+      'I receive. I am full.',
+      'I release what is not mine',
+      'Empty, I am held'
+    ];
     const phases = [
-      { phrase: guides[0], counts: 6, expand: true },
-      { phrase: guides[1], counts: 6, expand: true },
-      { phrase: guides[2], counts: 6, expand: false },
-      { phrase: guides[3], counts: 6, expand: false }
+      { instruction: 'INHALE',  phrase: guides[0], counts: 6, expand: true  },
+      { instruction: 'HOLD',    phrase: guides[1], counts: 6, expand: true  },
+      { instruction: 'EXHALE',  phrase: guides[2], counts: 6, expand: false },
+      { instruction: 'REST',    phrase: guides[3], counts: 6, expand: false },
     ];
     const totalRounds = 4;
     let round = 0, phase = 0, count = 0;
 
-    const ring   = document.getElementById('breathRing');
-    const phrase = document.getElementById('breathPhrase');
-    const cnt    = document.getElementById('breathCount');
-    const sub    = document.getElementById('breathSub');
+    const ring        = document.getElementById('breathRing');
+    const phraseEl    = document.getElementById('breathPhrase');
+    const instrEl     = document.getElementById('breathInstruction');
+    const cnt         = document.getElementById('breathCount');
+    const sub         = document.getElementById('breathSub');
 
-    function setPhrase(text) {
-      phrase.style.opacity = '0';
-      setTimeout(() => { phrase.textContent = text; phrase.style.opacity = '1'; }, 300);
+    function setPhase(p) {
+      instrEl.style.opacity = '0';
+      phraseEl.style.opacity = '0';
+      setTimeout(() => {
+        instrEl.textContent = p.instruction;
+        phraseEl.textContent = p.phrase;
+        instrEl.style.opacity = '1';
+        phraseEl.style.opacity = '1';
+      }, 350);
+      if (p.expand) {
+        ring.style.transform = 'scale(1.28)';
+        ring.style.background = 'rgba(200,212,232,0.14)';
+        ring.style.boxShadow = '0 0 50px rgba(200,212,232,0.22)';
+      } else {
+        ring.style.transform = 'scale(1)';
+        ring.style.background = 'rgba(200,212,232,0.05)';
+        ring.style.boxShadow = 'none';
+      }
     }
 
     function tick() {
       const p = phases[phase];
-      if (count === 0) {
-        setPhrase(p.phrase);
-        if (p.expand) {
-          ring.style.transform = 'scale(1.25)';
-          ring.style.background = 'rgba(200,212,232,0.14)';
-          ring.style.boxShadow = '0 0 40px rgba(200,212,232,0.2)';
-        } else {
-          ring.style.transform = 'scale(1)';
-          ring.style.background = 'rgba(200,212,232,0.05)';
-          ring.style.boxShadow = 'none';
-        }
-      }
+      if (count === 0) setPhase(p);
       cnt.textContent = count + 1;
       sub.textContent = 'Round ' + (round + 1) + ' of ' + totalRounds;
       count++;
@@ -565,12 +578,18 @@
         if (phase >= phases.length) {
           phase = 0; round++;
           if (round >= totalRounds) {
-            setPhrase('Complete');
+            instrEl.style.opacity = '0';
+            phraseEl.style.opacity = '0';
+            setTimeout(() => {
+              instrEl.textContent = '';
+              phraseEl.textContent = 'You are breathed.';
+              phraseEl.style.opacity = '1';
+            }, 400);
             cnt.textContent = '';
             sub.textContent = '';
             ring.style.transform = 'scale(1)';
-            ring.style.boxShadow = '0 0 60px rgba(200,212,232,0.35)';
-            setTimeout(() => { document.getElementById('breathNextBtn').style.display = 'block'; }, 1200);
+            ring.style.boxShadow = '0 0 70px rgba(200,212,232,0.4)';
+            setTimeout(() => { document.getElementById('breathNextBtn').style.display = 'block'; }, 1400);
             return;
           }
         }
