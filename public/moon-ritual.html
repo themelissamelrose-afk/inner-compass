@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Moon Ritual | Inner Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0c0f1e;
+      --deep: #121628;
+      --navy: #1a2040;
+      --silver: #c8d4e8;
+      --silver-soft: rgba(200,212,232,0.7);
+      --silver-muted: rgba(200,212,232,0.4);
+      --gold: #c4a87a;
+      --gold-soft: #dac49a;
+      --linen: #faf5ee;
+      --text: #eef2f8;
+      --text-soft: rgba(238,242,248,0.72);
+      --text-muted: rgba(238,242,248,0.42);
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(200,212,232,0.15);
+      --accent: var(--silver);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 20px 80px;
+    }
+
+    /* Subtle star field */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 15% 18%, rgba(200,212,232,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 72% 8%, rgba(200,212,232,0.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 32%, rgba(200,212,232,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 55%, rgba(200,212,232,0.15) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 72%, rgba(200,212,232,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 5% 80%, rgba(200,212,232,0.15) 0%, transparent 100%),
+        radial-gradient(1px 1px at 92% 88%, rgba(200,212,232,0.18) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 45% 25%, rgba(200,212,232,0.3) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container { max-width: 600px; width: 100%; position: relative; z-index: 1; }
+
+    .brand { font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--silver); margin-bottom: 16px; display: block; opacity: 0.6; }
+
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 6vw, 2.6rem); color: var(--text); line-height: 1.25; font-weight: 400; }
+    h1 em { color: var(--gold-soft); font-style: italic; }
+
+    .divider { width: 40px; height: 1px; background: var(--silver); opacity: 0.25; margin: 20px 0; }
+
+    .step { display: none; }
+    .step.on { display: block; }
+
+    /* PROGRESS */
+    .progress-wrap { margin-bottom: 32px; }
+    .progress-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); margin-bottom: 10px; display: flex; justify-content: space-between; opacity: 0.65; }
+    .progress-track { height: 1px; background: rgba(200,212,232,0.15); border-radius: 10px; }
+    .progress-fill { height: 100%; border-radius: 10px; background: linear-gradient(to right, var(--silver), var(--gold)); transition: width 0.6s ease; }
+
+    /* CARDS */
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 32px 28px; margin-bottom: 16px; }
+    .card.lunar { background: rgba(200,212,232,0.05); border-color: rgba(200,212,232,0.22); }
+    .card.gold { background: rgba(196,168,122,0.07); border-color: rgba(196,168,122,0.25); }
+
+    .section-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--silver); display: block; margin-bottom: 14px; opacity: 0.75; }
+
+    p.body { font-size: 0.96rem; line-height: 1.88; color: var(--text-soft); margin-bottom: 14px; }
+    p.body em { color: var(--gold-soft); font-style: italic; }
+    p.body strong { color: var(--text); font-weight: 400; }
+
+    .pull-quote { border-left: 2px solid var(--silver); padding: 14px 20px; margin: 20px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: var(--text); line-height: 1.8; background: rgba(200,212,232,0.04); border-radius: 0 12px 12px 0; opacity: 0.9; }
+
+    /* MOON DISPLAY */
+    .moon-header { text-align: center; padding: 20px 0 28px; }
+    .moon-emoji { font-size: 4rem; display: block; filter: drop-shadow(0 0 24px rgba(200,212,232,0.5)); margin-bottom: 14px; animation: moonPulse 4s ease-in-out infinite; }
+    @keyframes moonPulse { 0%, 100% { filter: drop-shadow(0 0 18px rgba(200,212,232,0.4)); } 50% { filter: drop-shadow(0 0 32px rgba(200,212,232,0.7)); } }
+    .moon-phase-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--silver); opacity: 0.7; display: block; margin-bottom: 6px; }
+    .moon-title-display { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text); }
+    .moon-date { font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; display: block; letter-spacing: 1px; }
+
+    /* SKY INFLUENCES */
+    .sky-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid rgba(200,212,232,0.08); }
+    .sky-item:last-child { border-bottom: none; }
+    .sky-symbol { font-size: 1.1rem; flex-shrink: 0; width: 32px; text-align: center; color: var(--gold-soft); margin-top: 2px; font-family: 'Playfair Display', serif; }
+    .sky-content { flex: 1; }
+    .sky-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--text); margin-bottom: 4px; }
+    .sky-body { font-size: 0.88rem; line-height: 1.75; color: var(--text-soft); }
+
+    /* QUESTIONS */
+    .question-list { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
+    .question-item { padding: 16px 20px; border: 1px solid rgba(200,212,232,0.13); border-radius: 14px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: var(--text); line-height: 1.65; background: rgba(200,212,232,0.03); }
+    .q-heart { color: var(--silver); margin-right: 10px; opacity: 0.6; }
+
+    /* RITUAL STEPS */
+    .ritual-step { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid rgba(200,212,232,0.08); }
+    .ritual-step:last-child { border-bottom: none; }
+    .ritual-num { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--gold-soft); flex-shrink: 0; width: 24px; margin-top: 3px; }
+    .ritual-text { font-size: 0.94rem; line-height: 1.8; color: var(--text-soft); }
+    .ritual-text strong { color: var(--text); font-weight: 400; }
+
+    /* BREATH */
+    .breath-wrap { text-align: center; padding: 16px 0; }
+    .breath-circle-outer { width: 110px; height: 110px; border-radius: 50%; background: rgba(200,212,232,0.07); border: 1px solid rgba(200,212,232,0.25); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; transition: transform 4s ease-in-out, background 4s ease; }
+    .breath-circle-outer.expand { transform: scale(1.3); background: rgba(200,212,232,0.15); }
+    .breath-circle-inner { width: 52px; height: 52px; border-radius: 50%; background: var(--silver); opacity: 0.15; }
+    .breath-word { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--text); min-height: 28px; }
+    .breath-count { font-size: 1.4rem; color: var(--gold-soft); font-family: 'Playfair Display', serif; margin-top: 4px; min-height: 30px; }
+    .breath-sub { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--silver); margin-top: 6px; opacity: 0.55; }
+    .breath-start { background: transparent; border: 1px solid rgba(200,212,232,0.3); color: var(--silver-soft); border-radius: 30px; padding: 12px 32px; font-family: 'Playfair Display', serif; font-size: 1rem; cursor: pointer; margin-top: 18px; transition: all 0.2s; }
+    .breath-start:hover { border-color: var(--silver); color: var(--text); }
+
+    /* JOURNAL PROMPTS */
+    .prompt-block { margin-bottom: 20px; }
+    .prompt-stem { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: var(--gold-soft); line-height: 1.6; margin-bottom: 4px; }
+    .prompt-hint { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.02em; }
+    textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(200,212,232,0.15); border-radius: 12px; padding: 14px 16px; font-size: 0.94rem; font-family: 'Lato', sans-serif; font-weight: 300; color: var(--text); resize: vertical; min-height: 80px; line-height: 1.75; outline: none; transition: border-color 0.2s; }
+    textarea:focus { border-color: rgba(200,212,232,0.45); }
+    textarea::placeholder { color: rgba(200,212,232,0.25); }
+
+    /* BUTTONS */
+    .btn { display: block; width: 100%; padding: 16px; background: var(--navy); color: var(--text); border: 1px solid rgba(200,212,232,0.2); border-radius: 12px; font-family: 'Playfair Display', serif; font-size: 1.05rem; cursor: pointer; margin-top: 24px; transition: all 0.2s; letter-spacing: 0.02em; }
+    .btn:hover { background: rgba(26,32,64,0.9); border-color: rgba(200,212,232,0.4); }
+    .btn.outline { background: transparent; border: 1px solid rgba(200,212,232,0.2); color: var(--silver-soft); margin-top: 12px; }
+    .btn.outline:hover { border-color: var(--silver); color: var(--text); }
+
+    /* NEXT CARDS */
+    .next-card { border-radius: 16px; padding: 22px 24px; border: 1px solid rgba(200,212,232,0.15); background: rgba(255,255,255,0.03); text-decoration: none; display: block; margin-bottom: 12px; transition: border-color 0.2s, background 0.2s; }
+    .next-card:hover { border-color: rgba(200,212,232,0.35); background: rgba(200,212,232,0.05); }
+    .next-card.featured { background: rgba(26,32,64,0.5); border-color: rgba(200,212,232,0.28); }
+    .next-card.featured:hover { background: rgba(26,32,64,0.75); }
+    .nc-tag { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--silver); display: block; margin-bottom: 6px; opacity: 0.7; }
+    .nc-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--text); margin-bottom: 6px; }
+    .nc-body { font-size: 0.87rem; line-height: 1.65; color: var(--text-soft); margin: 0; }
+
+    .footer { font-family: 'Playfair Display', serif; font-size: 0.8rem; color: var(--silver); text-align: center; margin-top: 40px; opacity: 0.3; letter-spacing: 0.05em; }
+
+    @media (max-width: 480px) {
+      .card { padding: 24px 18px; }
+      h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <span class="brand">Inner Compass · Melissa Melrose</span>
+
+  <div class="progress-wrap" id="progressWrap" style="display:none;">
+    <div class="progress-label">
+      <span id="progressLabel">Moon Ritual</span>
+      <span id="progressPct"></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- S0: OPENING -->
+  <div class="step on" id="s0">
+    <div class="moon-header">
+      <span class="moon-emoji" id="openMoonEmoji"></span>
+      <span class="moon-phase-label" id="openPhaseLabel"></span>
+      <div class="moon-title-display" id="openMoonTitle"></div>
+      <span class="moon-date" id="openMoonDate"></span>
+    </div>
+    <h1 id="openTagline"></h1>
+    <div class="divider"></div>
+    <p class="body" id="openBody"></p>
+    <div class="card lunar">
+      <span class="section-tag">This Month's Invitation</span>
+      <p class="body">Each full and new moon carries its own medicine. The sign, the season, the planets in motion — they all speak to something alive in you right now.</p>
+      <p class="body">This ritual will walk you through what the sky is asking, what it is activating in your life, and how to work with it through breath, reflection, and journalling.</p>
+      <p class="body">Find somewhere quiet. Light a candle if you have one. This is your time.</p>
+      <button class="btn" onclick="go(1)">Enter the Ritual</button>
+    </div>
+  </div>
+
+  <!-- S1: THE SKY RIGHT NOW -->
+  <div class="step" id="s1">
+    <h1>The Sky<br><em>Right Now</em></h1>
+    <div class="divider"></div>
+    <p class="body">Here is what is moving in the heavens this month, and what each energy is asking of you.</p>
+    <div class="card">
+      <span class="section-tag">Astrological Influences</span>
+      <div id="skyItems"></div>
+    </div>
+    <button class="btn" onclick="go(2)">I Feel This</button>
+  </div>
+
+  <!-- S2: WHAT THIS ACTIVATES -->
+  <div class="step" id="s2">
+    <h1>What This<br><em>Is Opening</em></h1>
+    <div class="divider"></div>
+    <div class="card lunar">
+      <span class="section-tag">What the Sky Is Asking</span>
+      <p class="body" id="activatesText"></p>
+      <div class="pull-quote" id="activatesQuote"></div>
+    </div>
+    <button class="btn" onclick="go(3)">Continue</button>
+  </div>
+
+  <!-- S3: REFLECTION QUESTIONS -->
+  <div class="step" id="s3">
+    <h1>Questions for<br><em>This Moon</em></h1>
+    <div class="divider"></div>
+    <p class="body" style="margin-bottom:8px;">Sit with these before you write. Let each one land in the body, not just the mind.</p>
+    <div class="card">
+      <span class="section-tag">Reflect</span>
+      <div class="question-list" id="questionList"></div>
+    </div>
+    <button class="btn" onclick="go(4)">I Have Sat With These</button>
+  </div>
+
+  <!-- S4: PREPARE YOUR SPACE -->
+  <div class="step" id="s4">
+    <h1>Prepare<br><em>Your Space</em></h1>
+    <div class="divider"></div>
+    <div class="card">
+      <span class="section-tag">The Ritual</span>
+      <div class="ritual-step">
+        <span class="ritual-num">I</span>
+        <p class="ritual-text" id="ritualInstruction"></p>
+      </div>
+      <div class="ritual-step">
+        <span class="ritual-num">II</span>
+        <p class="ritual-text"><strong>Close your eyes.</strong> Feel the weight of your body. Let yourself arrive here fully. You do not need to be anywhere else right now.</p>
+      </div>
+      <div class="ritual-step">
+        <span class="ritual-num">III</span>
+        <p class="ritual-text"><strong>Set your intention.</strong> Before we breathe, ask yourself: what do I want to release in this ritual? What do I want to call in? Hold both lightly.</p>
+      </div>
+      <div class="ritual-step">
+        <span class="ritual-num">IV</span>
+        <p class="ritual-text" id="ritualBreath"></p>
+      </div>
+    </div>
+    <button class="btn" onclick="go(5)">I Am Ready</button>
+  </div>
+
+  <!-- S5: BREATHWORK -->
+  <div class="step" id="s5">
+    <h1>Breathe With<br><em>the Moon</em></h1>
+    <div class="divider"></div>
+    <p class="body">The moon moves the tides. It moves the water in your body too. Let your breath attune to her rhythm.</p>
+    <div class="card lunar">
+      <span class="section-tag">Sacred Six Breath</span>
+      <div class="breath-wrap">
+        <div class="breath-circle-outer" id="breathRing"><div class="breath-circle-inner"></div></div>
+        <div class="breath-word" id="breathWord">Ready</div>
+        <div class="breath-count" id="breathCount"></div>
+        <div class="breath-sub" id="breathSub">4 rounds · 6 counts each phase</div>
+        <button class="breath-start" id="breathBtn" onclick="startBreath()">Begin</button>
+      </div>
+      <button class="btn" id="breathNextBtn" style="display:none;" onclick="go(6)">I Am Breathed. Continue.</button>
+    </div>
+  </div>
+
+  <!-- S6: JOURNAL -->
+  <div class="step" id="s6">
+    <h1>Journal With<br><em>the Moon</em></h1>
+    <div class="divider"></div>
+    <p class="body">Write freely. The moon does not judge. Complete each prompt with whatever comes first — the body knows before the mind does.</p>
+    <div class="card gold">
+      <span class="section-tag">Moon Journalling</span>
+      <div id="promptList"></div>
+    </div>
+    <button class="btn" onclick="go(7)" style="margin-top:8px;">I Have Written</button>
+  </div>
+
+  <!-- S7: CLOSING -->
+  <div class="step" id="s7">
+    <span class="moon-emoji" style="display:block; text-align:center; margin-bottom:16px;" id="closingMoonEmoji"></span>
+    <h1 style="text-align:center;">The Work<br><em>Is Done</em></h1>
+    <div class="divider" style="margin:18px auto;"></div>
+
+    <div class="card lunar" style="text-align:center;">
+      <span class="section-tag" style="display:block; text-align:center;">Carry This Forward</span>
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; color:var(--text); line-height:1.85; margin-bottom:20px;" id="closingText"></p>
+      <div class="pull-quote" style="text-align:left;">Return to what you wrote over the coming weeks. The moon plants seeds. Time and attention grow them. You do not need to rush.</div>
+      <p style="font-size:0.88rem; color:var(--text-soft); line-height:1.8; margin-top:16px;">The next moon ritual will be shared at the following new or full moon. Follow along each month to track what is shifting in you with the seasons and the sky.</p>
+    </div>
+
+    <div style="margin-top:28px;">
+      <p style="font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:var(--silver); text-align:center; margin-bottom:16px; opacity:0.6;">Continue Your Work</p>
+      <a href="/quiz" class="next-card featured">
+        <span class="nc-tag">Uncover Your Pattern</span>
+        <div class="nc-title">Identify Your Survival Pattern</div>
+        <p class="nc-body">The moon reveals what is alive in you. Your survival pattern shows you what is driving it. Discover which pattern is shaping your life and what it is protecting you from.</p>
+      </a>
+      <a href="/witch-wound" class="next-card">
+        <span class="nc-tag">Ancestral Healing</span>
+        <div class="nc-title">The Witch Wound Ritual</div>
+        <p class="nc-body">If this moon brought up themes of visibility, voice, or fear of being seen, the witch wound ritual goes deeper into that layer.</p>
+      </a>
+      <a href="/sisterhood-wound" class="next-card">
+        <span class="nc-tag">Feminine Healing</span>
+        <div class="nc-title">The Sisterhood Wound Pathway</div>
+        <p class="nc-body">If this moon surfaced anything around female connection, trust, or belonging, the sisterhood wound pathway holds that healing.</p>
+      </a>
+    </div>
+
+    <p style="text-align:center; font-family:'Playfair Display',serif; font-style:italic; font-size:0.95rem; color:var(--silver-soft); margin-top:28px; line-height:1.7;">You are in rhythm with something much larger than yourself.</p>
+    <p style="text-align:center; font-family:'Playfair Display',serif; font-size:0.95rem; color:var(--gold-soft); margin-top:8px;">Big love, Melissa x</p>
+  </div>
+
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+  /* ============================================================
+     MOON DATA — UPDATE THIS EACH NEW/FULL MOON
+     phase: 'Full Moon' or 'New Moon'
+     sign: astrological sign
+     emoji: 🌕 full / 🌑 new / 🌒 waxing / 🌘 waning
+     season: current season (Southern Hemisphere)
+     date: display date e.g. 'June 2026'
+     tagline: the opening line / threshold statement
+     opening: 1-2 sentence scene-setting paragraph
+     sky: array of astrological influences — symbol, title, body
+     activates: paragraph on what this combination is opening in people
+     activatesQuote: pull-quote version of the core insight
+     questions: array of reflection questions (4 is ideal)
+     ritual.instruction: step I of the ritual (candle, placement etc)
+     ritual.breath: step IV — breath guidance specific to this moon
+     prompts: array of journal stems — stem and hint
+     closing: closing paragraph / integration message
+  ============================================================ */
+  const MOON = {
+    phase: 'Full Moon',
+    sign: 'Capricorn',
+    emoji: '🌕',
+    season: 'Winter',
+    date: 'June 2026',
+    tagline: 'Today feels like a threshold.',
+    opening: 'We are in the heart of winter, where nature reminds us that growth begins beneath the surface. The sky is asking something profound of us this month.',
+    sky: [
+      {
+        symbol: '♑',
+        title: 'Full Moon in Capricorn',
+        body: 'An invitation to honest reflection. Full moons illuminate what has been building beneath the surface, and in Capricorn, that light falls on your foundations, your responsibilities, and the structures you have built your life upon. What is solid? What needs to be released?'
+      },
+      {
+        symbol: '☿℞',
+        title: 'Mercury Retrograde in Cancer',
+        body: 'Mercury moving backward through Cancer asks you to revisit your emotional landscape with compassion rather than judgement. Old feelings are surfacing not to punish you, but to be finally felt and released. Slow down in conversations. Choose feeling over deciding.'
+      },
+      {
+        symbol: '♃',
+        title: 'Jupiter Preparing for Leo',
+        body: 'Jupiter is preparing to move into Leo, the sign of the heart, the performer, the one who dares to be seen. After the inner work comes the courage to step forward. The stage is being prepared for you. What you are building now will make sense when the time comes to be seen.'
+      }
+    ],
+    activates: 'This combination of energies is asking you to slow down at exactly the moment you might feel pressure to push forward. The Capricorn Full Moon shines a light on where you have been carrying responsibility that is not yours. Mercury asks you to feel before you decide. And Jupiter is whispering that everything you are tending to in the quiet will bloom when the light returns.',
+    activatesQuote: 'Rather than rushing toward what is next, today is an invitation to pause. The seeds planted in winter become the blooms of spring.',
+    questions: [
+      'What has the first half of this year taught me about myself?',
+      'Where am I still carrying responsibility that no longer belongs to me?',
+      'What part of myself is asking to be nurtured before it is ready to shine?',
+      'What foundation am I building that my future self will thank me for?'
+    ],
+    ritual: {
+      instruction: 'Light a candle. Wrap yourself in something warm. Place one hand on your heart and one on your belly. Feel yourself held.',
+      breath: 'Take 10 slow breaths before we begin the Sacred Six. With each exhale, let the body soften a little more. You do not need to arrive anywhere. You are already here.'
+    },
+    prompts: [
+      { stem: 'I lovingly release…', hint: 'What have you been holding that is ready to go?' },
+      { stem: 'I am ready to take responsibility for…', hint: 'Where is your power waiting to be reclaimed?' },
+      { stem: 'I choose to nourish…', hint: 'What part of you has been waiting for your care?' },
+      { stem: 'My future self is built on…', hint: 'What foundation are you laying right now?' }
+    ],
+    closing: 'You do not need all the answers today. You simply need to honour where you are, trust what is unfolding, and take one grounded step forward. The seeds you plant in the dark become the gifts you offer the world in the light.'
+  };
+
+  /* ============================================================
+     RENDER — populates the page from MOON data
+  ============================================================ */
+  function render() {
+    document.getElementById('pageTitle').textContent = MOON.phase + ' in ' + MOON.sign + ' · Inner Compass';
+
+    // Opening
+    document.getElementById('openMoonEmoji').textContent = MOON.emoji;
+    document.getElementById('openPhaseLabel').textContent = MOON.phase;
+    document.getElementById('openMoonTitle').textContent = MOON.phase + ' in ' + MOON.sign;
+    document.getElementById('openMoonDate').textContent = MOON.season + ' · ' + MOON.date;
+    document.getElementById('openTagline').innerHTML = MOON.tagline.replace(/([^.!?]+[.!?])\s+/, '$1<br><em>').replace(/<em>$/, '') + (MOON.tagline.includes('<em>') ? '</em>' : '');
+    // Simpler tagline
+    const parts = MOON.tagline.split(' ');
+    const half = Math.floor(parts.length / 2);
+    document.getElementById('openTagline').innerHTML = parts.slice(0, half).join(' ') + '<br><em>' + parts.slice(half).join(' ') + '</em>';
+    document.getElementById('openBody').textContent = MOON.opening;
+
+    // Sky
+    const skyEl = document.getElementById('skyItems');
+    skyEl.innerHTML = MOON.sky.map(item => `
+      <div class="sky-item">
+        <div class="sky-symbol">${item.symbol}</div>
+        <div class="sky-content">
+          <div class="sky-title">${item.title}</div>
+          <div class="sky-body">${item.body}</div>
+        </div>
+      </div>
+    `).join('');
+
+    // Activates
+    document.getElementById('activatesText').textContent = MOON.activates;
+    document.getElementById('activatesQuote').textContent = MOON.activatesQuote;
+
+    // Questions
+    const qEl = document.getElementById('questionList');
+    qEl.innerHTML = MOON.questions.map(q => `
+      <div class="question-item"><span class="q-heart">🤍</span>${q}</div>
+    `).join('');
+
+    // Ritual
+    document.getElementById('ritualInstruction').innerHTML = '<strong>' + MOON.ritual.instruction.split('.')[0] + '.</strong> ' + MOON.ritual.instruction.split('.').slice(1).join('.').trim();
+    document.getElementById('ritualBreath').innerHTML = '<strong>Begin to breathe.</strong> ' + MOON.ritual.breath;
+
+    // Journal prompts
+    const pEl = document.getElementById('promptList');
+    pEl.innerHTML = MOON.prompts.map((p, i) => `
+      <div class="prompt-block" style="${i < MOON.prompts.length - 1 ? 'border-bottom:1px solid rgba(200,212,232,0.08); padding-bottom:20px;' : ''}">
+        <div class="prompt-stem">"${p.stem}"</div>
+        <div class="prompt-hint">${p.hint}</div>
+        <textarea placeholder="Write freely here…" rows="3"></textarea>
+      </div>
+    `).join('');
+
+    // Closing
+    document.getElementById('closingMoonEmoji').textContent = MOON.emoji;
+    document.getElementById('closingText').textContent = MOON.closing;
+  }
+
+  /* ============================================================
+     NAVIGATION
+  ============================================================ */
+  const stepPct  = { 0:0, 1:14, 2:28, 3:42, 4:56, 5:68, 6:82, 7:100 };
+  const stepNames = { 0:'', 1:'The Sky', 2:'What Opens', 3:'Questions', 4:'Ritual', 5:'Breath', 6:'Journal', 7:'Complete' };
+
+  function go(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+    document.getElementById('s' + n).classList.add('on');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const pw = document.getElementById('progressWrap');
+    if (n === 0) {
+      pw.style.display = 'none';
+    } else {
+      pw.style.display = 'block';
+      document.getElementById('progressFill').style.width = (stepPct[n] || 0) + '%';
+      document.getElementById('progressPct').textContent = (stepPct[n] || 0) + '%';
+      document.getElementById('progressLabel').textContent = stepNames[n] || 'Moon Ritual';
+    }
+  }
+
+  /* ============================================================
+     BREATHWORK
+  ============================================================ */
+  function startBreath() {
+    document.getElementById('breathBtn').style.display = 'none';
+    const phases = [{ word: 'Inhale', counts: 6 }, { word: 'Hold', counts: 6 }, { word: 'Exhale', counts: 6 }, { word: 'Hold', counts: 6 }];
+    const totalRounds = 4;
+    let round = 0, phase = 0, count = 0;
+    const ring = document.getElementById('breathRing');
+    const word = document.getElementById('breathWord');
+    const cnt  = document.getElementById('breathCount');
+    const sub  = document.getElementById('breathSub');
+    function tick() {
+      const p = phases[phase];
+      if (phase === 0) ring.classList.add('expand'); else ring.classList.remove('expand');
+      word.textContent = p.word;
+      cnt.textContent  = count + 1;
+      sub.textContent  = 'Round ' + (round + 1) + ' of ' + totalRounds;
+      count++;
+      if (count >= p.counts) {
+        count = 0; phase++;
+        if (phase >= phases.length) {
+          phase = 0; round++;
+          if (round >= totalRounds) {
+            word.textContent = 'Complete'; cnt.textContent = ''; sub.textContent = '';
+            ring.classList.remove('expand');
+            document.getElementById('breathNextBtn').style.display = 'block';
+            return;
+          }
+        }
+      }
+      setTimeout(tick, 1000);
+    }
+    tick();
+  }
+
+  render();
+</script>
+</body>
+</html>
