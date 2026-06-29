@@ -1,510 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Inner Compass</title>
-  <link rel="manifest" href="/manifest.json" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Inner Compass" />
-  <link rel="apple-touch-icon" href="/icon-192.png" />
-  <meta name="theme-color" content="#0f0e0c" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Melissa Melrose — Breathwork, Somatic Healing & Nervous System Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0f0e0c;
-      --surface: #1a1814;
-      --surface2: #221f1a;
-      --border: #2e2a24;
-      --gold: #c8a96e;
-      --gold-soft: #a8864e;
-      --text: #e8e0d4;
-      --text-muted: #7a7068;
-      --text-dim: #4a4540;
-      --user-bg: #1e2a1e;
-      --user-border: #2a3d2a;
-      --ai-bg: #1a1814;
+      --cream:      #FAF5EE;
+      --cream-mid:  #F2E8D9;
+      --gold:       #C4967A;
+      --gold-light: #DDB89A;
+      --dusty-pink: #B07A6A;
+      --pink-blush: #F5E8E4;
+      --brown:      #5C2318;
+      --brown-mid:  #7A5A4A;
+      --text:       #3A2218;
+      --white:      #FFFFFF;
     }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; font-weight: 300; color: var(--text); background: var(--cream); line-height: 1.85; font-size: 18px; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; line-height: 1.2; color: var(--brown); }
+    h1 { font-size: clamp(2.6rem, 6vw, 4.8rem); }
+    h2 { font-size: clamp(2.2rem, 4vw, 3.2rem); margin-bottom: 1rem; }
+    h3 { font-size: clamp(1.3rem, 2vw, 1.7rem); margin-bottom: 0.6rem; }
+    p  { margin-bottom: 1.2rem; }
+    p:last-child { margin-bottom: 0; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+    .divider { width: 48px; height: 1px; background: var(--gold); margin: 0 auto 2rem; }
+    .divider--left { margin-left: 0; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Georgia', serif;
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
+    /* STICKY NAV */
+    .sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--brown); padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; transform: translateY(-100%); transition: transform 0.3s ease; }
+    .sticky-nav.visible { transform: translateY(0); }
+    .sticky-nav__logo { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.05rem; font-style: italic; color: var(--gold-light); letter-spacing: 0.04em; }
+    .sticky-nav__links { display: flex; gap: 28px; align-items: center; }
+    .sticky-nav__links a { font-family: 'Lato', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-light); opacity: 0.85; transition: opacity 0.2s; }
+    .sticky-nav__links a:hover { opacity: 1; }
+    .sticky-nav__links a.nav-cta { background: var(--gold); color: var(--white); padding: 8px 20px; letter-spacing: 0.15em; opacity: 1; }
 
-    /* Header */
-    header {
-      padding: 20px 24px 16px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: var(--surface);
-      flex-shrink: 0;
-    }
+    /* BUTTONS */
+    .btn { display: inline-block; font-family: 'Lato', sans-serif; font-weight: 400; letter-spacing: 0.18em; font-size: 0.75rem; text-transform: uppercase; padding: 16px 36px; cursor: pointer; transition: opacity 0.2s; border: none; }
+    .btn--dark { background: var(--brown); color: var(--cream); }
+    .btn--dark:hover { opacity: 0.88; }
+    .btn--outline { background: transparent; color: var(--brown); border: 1px solid var(--brown); }
+    .btn--outline:hover { background: var(--brown); color: var(--cream); }
+    .btn--light { background: var(--cream); color: var(--brown); }
+    .btn--light:hover { opacity: 0.9; }
+    .btn--gold { background: var(--gold); color: var(--white); }
+    .btn--gold:hover { opacity: 0.88; }
 
-    .compass-icon {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-    }
+    /* HERO */
+    .hero { display: grid; grid-template-columns: 480px 1fr; min-height: 620px; background: var(--cream-mid); }
+    @media (max-width: 900px) { .hero { grid-template-columns: 360px 1fr; } }
+    @media (max-width: 700px) { .hero { grid-template-columns: 1fr; } }
+    .hero__photo { width: 100%; height: 100%; min-height: 580px; object-fit: cover; object-position: center 15%; display: block; }
+    @media (max-width: 700px) { .hero__photo { min-height: 420px; } }
+    .hero__content { display: flex; flex-direction: column; justify-content: center; padding: 72px 52px; }
+    @media (max-width: 700px) { .hero__content { padding: 52px 28px; } }
+    .hero__eyebrow { font-family: 'Lato', sans-serif; font-weight: 400; letter-spacing: 0.22em; font-size: 0.75rem; text-transform: uppercase; color: var(--dusty-pink); margin-bottom: 1.6rem; }
+    .hero h1 { color: var(--brown); font-weight: 400; font-style: italic; margin-bottom: 1.4rem; line-height: 1.1; }
+    .hero__buttons { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 2.4rem; }
 
-    .header-text h1 {
-      font-size: 18px;
-      font-weight: normal;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-    }
+    /* STRIP */
+    .strip { background: var(--brown); padding: 64px 28px; text-align: center; }
+    .strip p { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1.3rem, 2.5vw, 2rem); font-style: italic; color: var(--gold-light); max-width: 740px; margin: 0 auto; line-height: 1.65; }
 
-    .header-text p {
-      font-size: 11px;
-      color: var(--text-muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
+    /* FEEL UNDERSTOOD */
+    .understood { background: var(--cream); padding: 100px 28px; }
+    .understood__inner { max-width: 740px; margin: 0 auto; }
+    .understood__inner p { color: var(--brown-mid); line-height: 1.95; font-size: 1.05rem; }
+    .understood__inner p + p { margin-top: 1.4rem; }
 
-    /* Messages area */
-    #messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 24px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      scroll-behavior: smooth;
-    }
+    /* QUIZ CTA */
+    .quiz-cta { background: var(--pink-blush); padding: 92px 28px; text-align: center; }
+    .quiz-cta__inner { max-width: 640px; margin: 0 auto; }
+    .quiz-cta__eyebrow { font-family: 'Lato', sans-serif; font-weight: 400; letter-spacing: 0.22em; font-size: 0.75rem; text-transform: uppercase; color: var(--dusty-pink); margin-bottom: 1.4rem; }
+    .quiz-cta__inner p { color: var(--brown-mid); margin-bottom: 2.4rem; line-height: 1.8; }
 
-    #messages::-webkit-scrollbar { width: 4px; }
-    #messages::-webkit-scrollbar-track { background: transparent; }
-    #messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    /* WHO I AM MINI */
+    .who { background: var(--cream-mid); padding: 100px 28px; }
+    .who__grid { display: grid; grid-template-columns: 420px 1fr; gap: 64px; align-items: center; max-width: 1060px; margin: 0 auto; }
+    @media (max-width: 860px) { .who__grid { grid-template-columns: 1fr; } }
+    .who__img { width: 100%; height: auto; display: block; }
+    .who__text h2 { margin-bottom: 1.2rem; }
+    .who__text p { color: var(--brown-mid); line-height: 1.9; margin-bottom: 1.2rem; font-size: 1rem; }
+    .who__text .link-subtle { font-family: 'Lato', sans-serif; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 2px; display: inline-block; margin-top: 0.8rem; }
 
-    /* Welcome screen */
-    .welcome {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      text-align: center;
-      padding: 40px 24px;
-      gap: 20px;
-    }
+    /* PATHWAYS */
+    .pathways { background: var(--cream); padding: 100px 28px; }
+    .pathways__intro { text-align: center; max-width: 600px; margin: 0 auto 56px; }
+    .pathways__intro p { color: var(--brown-mid); }
+    .pathways__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1060px; margin: 0 auto; }
+    @media (max-width: 860px) { .pathways__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .pathways__grid { grid-template-columns: 1fr; } }
+    .pathway-card { background: var(--cream-mid); padding: 36px 32px; display: flex; flex-direction: column; }
+    .pathway-card__tag { font-family: 'Lato', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .pathway-card h3 { font-size: clamp(1.2rem, 1.8vw, 1.5rem); margin-bottom: 0.8rem; color: var(--brown); line-height: 1.3; }
+    .pathway-card p { font-size: 0.92rem; color: var(--brown-mid); line-height: 1.8; flex: 1; margin-bottom: 1.6rem; }
+    .pathway-card a { font-family: 'Lato', sans-serif; font-size: 0.7rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brown); border-bottom: 1px solid var(--gold); padding-bottom: 2px; align-self: flex-start; }
+    .pathway-card--highlight { background: var(--brown); }
+    .pathway-card--highlight .pathway-card__tag { color: var(--gold-light); }
+    .pathway-card--highlight h3 { color: var(--gold-light); }
+    .pathway-card--highlight p { color: rgba(255,255,255,0.7); }
+    .pathway-card--highlight a { color: var(--gold-light); border-color: var(--gold-light); }
 
-    .welcome-compass {
-      width: 72px;
-      height: 72px;
-      opacity: 0.6;
-    }
+    /* SUBSTACK */
+    .substack { background: var(--pink-blush); padding: 92px 28px; }
+    .substack__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; max-width: 1000px; margin: 0 auto; }
+    @media (max-width: 740px) { .substack__grid { grid-template-columns: 1fr; gap: 40px; } }
+    .substack__text h2 { margin-bottom: 1.2rem; }
+    .substack__text p { color: var(--brown-mid); line-height: 1.9; margin-bottom: 1.4rem; }
+    .substack__preview { background: var(--cream); padding: 36px; border-left: 3px solid var(--gold); }
+    .substack__preview__label { font-family: 'Lato', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+    .substack__preview h3 { font-size: clamp(1.2rem, 1.8vw, 1.5rem); margin-bottom: 0.6rem; line-height: 1.3; }
+    .substack__preview p { font-size: 0.9rem; color: var(--brown-mid); line-height: 1.75; margin-bottom: 0; }
 
-    .welcome h2 {
-      font-size: 22px;
-      font-weight: normal;
-      color: var(--gold);
-      letter-spacing: 0.04em;
-    }
+    /* TRANSFORMATION */
+    .transformation { background: var(--brown); padding: 100px 28px; }
+    .transformation__inner { max-width: 860px; margin: 0 auto; }
+    .transformation h2 { color: var(--gold-light); text-align: center; margin-bottom: 0.8rem; }
+    .transformation__list { list-style: none; padding: 0; margin: 3rem 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 40px; }
+    @media (max-width: 640px) { .transformation__list { grid-template-columns: 1fr; } }
+    .transformation__list li { color: rgba(255,255,255,0.82); font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1rem, 1.6vw, 1.25rem); font-style: italic; line-height: 1.5; padding-left: 20px; position: relative; }
+    .transformation__list li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 8px; height: 1px; background: var(--gold); }
 
-    .welcome p {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      max-width: 340px;
-    }
+    /* FINAL CTA */
+    .final-cta { background: var(--cream-mid); padding: 100px 28px; text-align: center; }
+    .final-cta__inner { max-width: 680px; margin: 0 auto; }
+    .final-cta__inner p { color: var(--brown-mid); margin-bottom: 2.4rem; line-height: 1.9; }
+    .final-cta__inner .btn { margin: 0 8px; }
 
-    .welcome-quote {
-      font-size: 13px;
-      color: var(--text-dim);
-      font-style: italic;
-      margin-top: 8px;
-    }
-
-    /* Message bubbles */
-    .message {
-      display: flex;
-      flex-direction: column;
-      max-width: 85%;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .message.user { align-self: flex-end; }
-    .message.assistant { align-self: flex-start; }
-
-    .bubble {
-      padding: 14px 18px;
-      border-radius: 18px;
-      font-size: 15px;
-      line-height: 1.65;
-    }
-
-    .message.user .bubble {
-      background: var(--user-bg);
-      border: 1px solid var(--user-border);
-      border-bottom-right-radius: 4px;
-      color: var(--text);
-    }
-
-    .message.assistant .bubble {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-bottom-left-radius: 4px;
-      color: var(--text);
-    }
-
-    .message-label {
-      font-size: 10px;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-      padding: 0 4px;
-    }
-
-    .message.user .message-label { text-align: right; }
-
-    .compass-label {
-      color: var(--gold-soft);
-    }
-
-    /* Typing indicator */
-    .typing {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 14px 18px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      border-bottom-left-radius: 4px;
-      width: fit-content;
-    }
-
-    .typing span {
-      width: 6px;
-      height: 6px;
-      background: var(--gold-soft);
-      border-radius: 50%;
-      animation: pulse 1.2s infinite;
-    }
-
-    .typing span:nth-child(2) { animation-delay: 0.2s; }
-    .typing span:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes pulse {
-      0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
-      40% { opacity: 1; transform: scale(1); }
-    }
-
-    /* Input area */
-    footer {
-      padding: 16px;
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-      flex-shrink: 0;
-    }
-
-    .input-row {
-      display: flex;
-      gap: 10px;
-      align-items: flex-end;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    textarea {
-      flex: 1;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 16px;
-      color: var(--text);
-      font-family: 'Georgia', serif;
-      font-size: 15px;
-      line-height: 1.5;
-      resize: none;
-      outline: none;
-      max-height: 140px;
-      min-height: 48px;
-      transition: border-color 0.2s;
-    }
-
-    textarea::placeholder { color: var(--text-dim); }
-    textarea:focus { border-color: var(--gold-soft); }
-
-    button {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--gold);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    button:hover { background: var(--gold-soft); }
-    button:active { transform: scale(0.95); }
-    button:disabled { background: var(--border); cursor: not-allowed; }
-
-    button svg { width: 18px; height: 18px; fill: var(--bg); }
-
-    .footer-note {
-      text-align: center;
-      font-size: 11px;
-      color: var(--text-dim);
-      margin-top: 10px;
-      letter-spacing: 0.05em;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .message { max-width: 92%; }
-      header { padding: 14px 16px; }
-    }
+    /* FOOTER */
+    .footer { background: var(--text); padding: 40px 28px; text-align: center; }
+    .footer p { color: rgba(255,255,255,0.45); font-size: 0.8rem; letter-spacing: 0.06em; margin: 0; }
+    .footer a { color: rgba(255,255,255,0.55); }
   </style>
 </head>
 <body>
 
-<header>
-  <svg class="compass-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="22" cy="22" r="20" stroke="#c8a96e" stroke-width="1.5" opacity="0.4"/>
-    <circle cx="22" cy="22" r="14" stroke="#c8a96e" stroke-width="1" opacity="0.25"/>
-    <circle cx="22" cy="22" r="2" fill="#c8a96e"/>
-    <!-- N -->
-    <polygon points="22,6 24.5,18 22,15 19.5,18" fill="#c8a96e"/>
-    <!-- S -->
-    <polygon points="22,38 19.5,26 22,29 24.5,26" fill="#4a4540"/>
-    <!-- E -->
-    <circle cx="38" cy="22" r="1.5" fill="#4a4540"/>
-    <!-- W -->
-    <circle cx="6" cy="22" r="1.5" fill="#4a4540"/>
-    <!-- tick marks -->
-    <line x1="22" y1="3" x2="22" y2="5" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
-    <line x1="22" y1="39" x2="22" y2="41" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
-    <line x1="3" y1="22" x2="5" y2="22" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
-    <line x1="39" y1="22" x2="41" y2="22" stroke="#c8a96e" stroke-width="1" opacity="0.5"/>
-  </svg>
-  <div class="header-text">
-    <h1>The Inner Compass</h1>
-    <p>Powered by Melissa Melrose</p>
+  <!-- STICKY NAV -->
+  <nav class="sticky-nav" id="stickyNav">
+    <span class="sticky-nav__logo">Melissa Melrose</span>
+    <div class="sticky-nav__links">
+      <a href="/about-me">About</a>
+      <a href="/foundations-of-self">Foundations</a>
+      <a href="/teacher-training">Teacher Training</a>
+      <a href="/work-with-me">Work With Me</a>
+      <a href="/survival-pattern-quiz" class="nav-cta">Free Quiz</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img class="hero__photo" src="https://inner-compass-production-7970.up.railway.app/melissa-orange.jpg" alt="Melissa Melrose" />
+    <div class="hero__content">
+      <p class="hero__eyebrow">Melissa Melrose</p>
+      <h1>You understand yourself. But something still isn't shifting.</h1>
+      <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.2rem,1.9vw,1.55rem);font-style:italic;color:var(--brown-mid);line-height:1.7;font-weight:300;">A somatic pathway home — through breathwork, nervous system healing, and inner work that goes to the root.</p>
+      <div class="hero__buttons">
+        <a href="/survival-pattern-quiz" class="btn btn--dark">Take the Free Quiz</a>
+        <a href="/foundations-of-self" class="btn btn--outline">Explore the Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip">
+    <p>Insight isn't integration. Real change happens when the body feels safe enough to let the old patterns go.</p>
   </div>
-</header>
 
-<div id="messages">
-  <div class="welcome" id="welcome">
-    <svg class="welcome-compass" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="36" cy="36" r="34" stroke="#c8a96e" stroke-width="1" opacity="0.3"/>
-      <circle cx="36" cy="36" r="22" stroke="#c8a96e" stroke-width="1" opacity="0.2"/>
-      <circle cx="36" cy="36" r="3" fill="#c8a96e" opacity="0.6"/>
-      <polygon points="36,8 39,28 36,24 33,28" fill="#c8a96e" opacity="0.8"/>
-      <polygon points="36,64 33,44 36,48 39,44" fill="#4a4540"/>
-    </svg>
-    <h2>Welcome back.</h2>
-    <p>This is your space to come back to yourself. No fixing. No rushing. Just presence.</p>
-    <p class="welcome-quote">"Insight isn't integration. Come back to yourself."</p>
+  <!-- FEEL UNDERSTOOD -->
+  <section class="understood">
+    <div class="understood__inner">
+      <div class="divider"></div>
+      <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.8rem,3vw,2.6rem);font-style:italic;font-weight:400;color:var(--brown);text-align:center;margin-bottom:2.4rem;">If you have found yourself here, something in you already knows.</h2>
+      <p>You have read the books. Sat in the therapy chair. Done the courses, the journaling, the meditations. You have developed more self-awareness than most people will ever reach. You can name your patterns, trace them back to where they started, explain exactly why you do what you do.</p>
+      <p>And still. At the end of a hard day, the same feelings surface. The same reactions. The same exhaustion. The same quiet sense that something beneath it all remains unfinished.</p>
+      <p>That is not a failure of your healing. It is an invitation to go deeper. Not into the mind — but into the body. Into the nervous system. Into the places where the patterns actually live, not as thoughts, but as held breath, tight shoulders, and a heart that learned to brace instead of open.</p>
+      <p>You are not broken. You are patterned. And those patterns have been protecting you the only way they knew how. The work is not to fight them. It is to finally feel safe enough to soften them.</p>
+      <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.3rem,2vw,1.7rem);font-style:italic;color:var(--brown-mid);line-height:1.6;margin-top:2rem;">That is exactly where this work lives. In the space between knowing and being.</p>
+    </div>
+  </section>
+
+  <!-- QUIZ CTA -->
+  <section class="quiz-cta">
+    <div class="quiz-cta__inner">
+      <div class="divider"></div>
+      <p class="quiz-cta__eyebrow">Free Quiz</p>
+      <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2rem,3.5vw,3rem);font-style:italic;font-weight:400;color:var(--brown);margin-bottom:1.4rem;">Identify Your Survival Pattern</h2>
+      <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.1rem,1.7vw,1.4rem);font-style:italic;color:var(--brown-mid);margin-bottom:1.2rem;">In just a few questions, discover which pattern is running your life from behind the scenes — and what it has been trying to protect you from all along.</p>
+      <p style="font-size:0.95rem;">Your survival pattern is not your personality. It is a strategy your nervous system created to keep you safe. Once you can see it clearly, everything changes.</p>
+      <a href="/survival-pattern-quiz" class="btn btn--dark">Take the Free Quiz</a>
+    </div>
+  </section>
+
+  <!-- WHO I AM MINI -->
+  <section class="who">
+    <div class="who__grid">
+      <img class="who__img" src="https://inner-compass-production-7970.up.railway.app/melissa-inside.jpg" alt="Melissa Melrose" />
+      <div class="who__text">
+        <div class="divider--left divider"></div>
+        <h2>I Have Lived This Work. Not Just Learned It.</h2>
+        <p>I am Melissa Melrose — breathwork facilitator, somatic practitioner, clairsentient guide, and the founder of the Foundations of Self method. For over 30 years I have walked this path, first on myself, then alongside thousands of people worldwide.</p>
+        <p>I wasn't broken. I was patterned. And those patterns were protecting me the only way they knew how. That understanding changed everything — for me, and for every person I have had the honour of guiding since.</p>
+        <p>I work at the intersection of nervous system science, somatic embodiment, and intuitive guidance. I will see straight through you — not to expose you, but to free you.</p>
+        <a href="/about-me" class="link-subtle">Read My Full Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP 2 -->
+  <div class="strip">
+    <p>Your wounds hold your wisdom. And within that wisdom lies the key to finally being free to be you.</p>
   </div>
-</div>
 
-<footer>
-  <div class="input-row">
-    <textarea
-      id="input"
-      placeholder="How are you feeling right now, in your body?"
-      rows="1"
-      autofocus
-    ></textarea>
-    <button id="send" title="Send">
-      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
-    </button>
-  </div>
-  <p class="footer-note">The Inner Compass — Powered by Melissa Melrose &nbsp;·&nbsp; Foundations of Self</p>
-</footer>
+  <!-- PATHWAYS -->
+  <section class="pathways">
+    <div class="pathways__intro">
+      <div class="divider"></div>
+      <h2>Where would you like to begin?</h2>
+      <p>Every pathway leads to the same place — home to yourself. Choose what feels right for where you are right now.</p>
+    </div>
+    <div class="pathways__grid">
 
-<script>
-  const messagesEl = document.getElementById('messages');
-  const welcomeEl = document.getElementById('welcome');
-  const inputEl = document.getElementById('input');
-  const sendBtn = document.getElementById('send');
+      <div class="pathway-card">
+        <span class="pathway-card__tag">Free</span>
+        <h3>From Exhaustion to Embodied</h3>
+        <p>A free training for the ones who are tired in a way that sleep does not touch. Discover what is really keeping you stuck and what to do about it.</p>
+        <a href="https://inner-compass-production-7970.up.railway.app/webinar">Start here &rarr;</a>
+      </div>
 
-  let history = [];
-  let isStreaming = false;
+      <div class="pathway-card">
+        <span class="pathway-card__tag">From $17 AUD / month</span>
+        <h3>Inner Compass — Daily AI Companion</h3>
+        <p>An AI companion trained entirely in my voice, my frameworks, and my body of work. Available to you any time, any hour, wherever you are in the world.</p>
+        <a href="https://inner-compass-production-7970.up.railway.app">Explore Inner Compass &rarr;</a>
+      </div>
 
-  // Load saved birth chart
-  let savedChart = null;
-  try {
-    const raw = localStorage.getItem('innerCompassChart');
-    if (raw) savedChart = JSON.parse(raw);
-  } catch {}
+      <div class="pathway-card pathway-card--highlight">
+        <span class="pathway-card__tag">$497 AUD &mdash; Signature Program</span>
+        <h3>Foundations of Self</h3>
+        <p>A sacred pathway within. Six modules that take you beneath the surface of who you have learned to be, and return you to the truth of who you actually are.</p>
+        <a href="/foundations-of-self">Explore the Program &rarr;</a>
+      </div>
 
-  // Show chart indicator if chart is loaded
-  if (savedChart && savedChart.sun) {
-    const indicator = document.createElement('div');
-    indicator.style.cssText = 'text-align:center;padding:8px 16px;font-size:0.78rem;letter-spacing:1.5px;text-transform:uppercase;color:#c4967a;border-bottom:1px solid #f2e8d9;';
-    indicator.innerHTML = '✦ Your chart is connected &nbsp;·&nbsp; <a href="/birth-chart" style="color:#c4967a;text-decoration:underline;">update</a>';
-    messagesEl.insertAdjacentElement('beforebegin', indicator);
-  }
+      <div class="pathway-card">
+        <span class="pathway-card__tag">From $33 AUD / month</span>
+        <h3>Becoming Whole — Community</h3>
+        <p>Monthly live group coaching, weekly Mel's Musings, breathwork practices, and a community of people on the same path. You are not doing this alone.</p>
+        <a href="https://www.skool.com/becoming-whole-5804">Join the Community &rarr;</a>
+      </div>
 
-  // Auto-resize textarea
-  inputEl.addEventListener('input', () => {
-    inputEl.style.height = 'auto';
-    inputEl.style.height = Math.min(inputEl.scrollHeight, 140) + 'px';
-  });
+      <div class="pathway-card">
+        <span class="pathway-card__tag">1:1 Deep Dive</span>
+        <h3>Soul Coaching</h3>
+        <p>Private, personalised work with me. For the ones who are ready to go all the way. Three or six months of transformation at the deepest level of who you are.</p>
+        <a href="/soul-coaching">Learn More &rarr;</a>
+      </div>
 
-  // Send on Enter (Shift+Enter for new line)
-  inputEl.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      send();
-    }
-  });
+      <div class="pathway-card">
+        <span class="pathway-card__tag">Certification — September 2026</span>
+        <h3>Teacher Training — Become a Facilitator</h3>
+        <p>An 18-week dual certification in breathwork facilitation and soul connection coaching. For those called to guide others through this work.</p>
+        <a href="/teacher-training">Explore Training &rarr;</a>
+      </div>
 
-  sendBtn.addEventListener('click', send);
+      <div class="pathway-card">
+        <span class="pathway-card__tag">Events &amp; Retreats</span>
+        <h3>Live Events and Immersive Retreats</h3>
+        <p>Breathwork ceremonies, immersive retreats, and transformational events. Embodied healing in community, in sacred spaces, with Melissa present.</p>
+        <a href="/work-with-me">See What's Coming &rarr;</a>
+      </div>
 
-  function removeWelcome() {
-    if (welcomeEl && welcomeEl.parentNode) {
-      welcomeEl.remove();
-    }
-  }
+    </div>
+  </section>
 
-  function addMessage(role, content) {
-    removeWelcome();
-    const wrapper = document.createElement('div');
-    wrapper.className = `message ${role}`;
+  <!-- SUBSTACK -->
+  <section class="substack">
+    <div class="substack__grid">
+      <div class="substack__text">
+        <div class="divider--left divider"></div>
+        <h2>Mel's Musings</h2>
+        <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.1rem,1.7vw,1.4rem);font-style:italic;color:var(--brown);line-height:1.6;margin-bottom:1.4rem;">Words from inside the work. Written for the ones who are ready to go deeper than the surface.</p>
+        <p>Every week I share honest, personal teachings drawn from 30 years of living this work — and from the conversations, the sessions, and the questions that keep showing up. No performance. No polish. Just truth.</p>
+        <p>If you have ever wanted to sit with me between sessions, this is it.</p>
+        <a href="#" class="btn btn--dark">Read on Substack</a>
+      </div>
+      <div class="substack__preview">
+        <p class="substack__preview__label">Recent Musings</p>
+        <h3>The Part of You That Already Knows</h3>
+        <p>There is a version of you that is not confused. Not stuck. Not waiting for someone to give her permission. She already knows. She has always known. The question is not what to do next — it is why you keep overriding her...</p>
+      </div>
+    </div>
+  </section>
 
-    const label = document.createElement('div');
-    label.className = 'message-label' + (role === 'assistant' ? ' compass-label' : '');
-    label.textContent = role === 'assistant' ? 'The Inner Compass' : 'You';
-    wrapper.appendChild(label);
+  <!-- TRANSFORMATION -->
+  <section class="transformation">
+    <div class="transformation__inner">
+      <div class="divider"></div>
+      <h2>What becomes possible when you come home to yourself.</h2>
+      <ul class="transformation__list">
+        <li>Freedom from the thoughts and patterns that have run your life from behind the scenes</li>
+        <li>A nervous system that knows how to find calm instead of staying in constant protection</li>
+        <li>A deeper relationship with your body and the wisdom it has been trying to share</li>
+        <li>The ability to feel your emotions without being overwhelmed or shut down by them</li>
+        <li>Clarity about who you are beneath the roles, the masks, and the conditioning</li>
+        <li>Relationships that reflect wholeness, not wounds</li>
+        <li>A sense of safety within yourself that does not depend on anything outside you</li>
+        <li>The quiet, steady knowing that you can trust yourself</li>
+        <li>A foundation that holds you through any challenge life brings</li>
+        <li>The life you have always felt was possible, finally beginning to feel real</li>
+      </ul>
+    </div>
+  </section>
 
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble';
-    bubble.textContent = content;
-    wrapper.appendChild(bubble);
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="final-cta__inner">
+      <div class="divider"></div>
+      <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.9rem,3.2vw,2.8rem);font-style:italic;font-weight:400;color:var(--brown);margin-bottom:1.4rem;">If something in my story recognises something in yours, you are already in the right place.</h2>
+      <p>The only question is where you would like to begin. If you are not sure, start with the quiz. It will meet you exactly where you are.</p>
+      <div>
+        <a href="/survival-pattern-quiz" class="btn btn--dark">Take the Free Quiz</a>
+        <a href="/foundations-of-self" class="btn btn--outline" style="margin-left:12px;">Explore Foundations</a>
+      </div>
+    </div>
+  </section>
 
-    messagesEl.appendChild(wrapper);
-    scrollToBottom();
-    return bubble;
-  }
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2026 Melissa Melrose &nbsp;&middot;&nbsp; <a href="mailto:breathe@melissamelrose.com">breathe@melissamelrose.com</a> &nbsp;&middot;&nbsp; <a href="#">Substack</a></p>
+  </footer>
 
-  function addTyping() {
-    removeWelcome();
-    const wrapper = document.createElement('div');
-    wrapper.className = 'message assistant';
-    wrapper.id = 'typing-wrapper';
+  <script>
+    const nav = document.getElementById('stickyNav');
+    const hero = document.querySelector('.hero');
+    const observer = new IntersectionObserver(([entry]) => {
+      nav.classList.toggle('visible', !entry.isIntersecting);
+    }, { threshold: 0 });
+    observer.observe(hero);
+  </script>
 
-    const label = document.createElement('div');
-    label.className = 'message-label compass-label';
-    label.textContent = 'The Inner Compass';
-    wrapper.appendChild(label);
-
-    const typing = document.createElement('div');
-    typing.className = 'typing';
-    typing.innerHTML = '<span></span><span></span><span></span>';
-    wrapper.appendChild(typing);
-
-    messagesEl.appendChild(wrapper);
-    scrollToBottom();
-    return wrapper;
-  }
-
-  function removeTyping() {
-    const t = document.getElementById('typing-wrapper');
-    if (t) t.remove();
-  }
-
-  function scrollToBottom() {
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-  }
-
-  async function send() {
-    const text = inputEl.value.trim();
-    if (!text || isStreaming) return;
-
-    isStreaming = true;
-    sendBtn.disabled = true;
-    inputEl.value = '';
-    inputEl.style.height = 'auto';
-
-    addMessage('user', text);
-    history.push({ role: 'user', content: text });
-
-    const typingWrapper = addTyping();
-
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history, chart: savedChart }),
-      });
-
-      if (!response.ok) throw new Error('Server error');
-
-      removeTyping();
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'message assistant';
-
-      const label = document.createElement('div');
-      label.className = 'message-label compass-label';
-      label.textContent = 'The Inner Compass';
-      wrapper.appendChild(label);
-
-      const bubble = document.createElement('div');
-      bubble.className = 'bubble';
-      wrapper.appendChild(bubble);
-      messagesEl.appendChild(wrapper);
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let fullText = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value);
-        const lines = chunk.split('\n');
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = line.slice(6);
-            if (data === '[DONE]') break;
-            try {
-              const parsed = JSON.parse(data);
-              if (parsed.text) {
-                fullText += parsed.text;
-                bubble.textContent = fullText;
-                scrollToBottom();
-              }
-            } catch {}
-          }
-        }
-      }
-
-      history.push({ role: 'assistant', content: fullText });
-
-    } catch (err) {
-      removeTyping();
-      addMessage('assistant', "Something interrupted us. Take a breath — and try again when you're ready.");
-    }
-
-    isStreaming = false;
-    sendBtn.disabled = false;
-    inputEl.focus();
-  }
-</script>
 </body>
 </html>

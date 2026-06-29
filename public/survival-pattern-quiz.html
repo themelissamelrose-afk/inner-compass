@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identify Your Survival Pattern — Free Quiz by Melissa Melrose</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:      #FAF5EE;
+      --cream-mid:  #F2E8D9;
+      --gold:       #C4967A;
+      --gold-light: #DDB89A;
+      --dusty-pink: #B07A6A;
+      --pink-blush: #F5E8E4;
+      --brown:      #5C2318;
+      --brown-mid:  #7A5A4A;
+      --text:       #3A2218;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; font-weight: 300; color: var(--text); background: var(--cream); line-height: 1.85; font-size: 18px; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; line-height: 1.2; color: var(--brown); }
+    p { margin-bottom: 1.2rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* NAV */
+    .top-nav { background: var(--brown); padding: 16px 32px; text-align: center; }
+    .top-nav a { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.1rem; font-style: italic; color: var(--gold-light); letter-spacing: 0.04em; }
+
+    /* INTRO */
+    .intro { background: var(--cream-mid); padding: 80px 28px; text-align: center; }
+    .intro__inner { max-width: 640px; margin: 0 auto; }
+    .intro__eyebrow { font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusty-pink); margin-bottom: 1.4rem; }
+    .intro h1 { font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-style: italic; margin-bottom: 1.2rem; line-height: 1.1; }
+    .intro p { color: var(--brown-mid); line-height: 1.9; }
+    .divider { width: 48px; height: 1px; background: var(--gold); margin: 0 auto 2rem; }
+
+    /* QUIZ */
+    .quiz-section { background: var(--cream); padding: 72px 28px 100px; }
+    .quiz-inner { max-width: 680px; margin: 0 auto; }
+
+    /* PROGRESS */
+    .progress-bar { background: var(--cream-mid); height: 4px; border-radius: 2px; margin-bottom: 48px; }
+    .progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.4s ease; }
+    .progress-label { font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brown-mid); margin-bottom: 10px; }
+
+    /* QUESTION */
+    .question { display: none; }
+    .question.active { display: block; }
+    .question h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-style: italic; font-weight: 400; margin-bottom: 2rem; line-height: 1.35; color: var(--brown); }
+    .options { display: flex; flex-direction: column; gap: 14px; }
+    .option { background: var(--cream-mid); border: 1px solid transparent; padding: 20px 24px; cursor: pointer; text-align: left; font-family: 'Lato', sans-serif; font-size: 0.95rem; font-weight: 300; color: var(--text); line-height: 1.65; transition: all 0.2s; width: 100%; }
+    .option:hover { border-color: var(--gold); background: var(--pink-blush); }
+    .option.selected { border-color: var(--brown); background: var(--pink-blush); }
+
+    /* NEXT BTN */
+    .quiz-nav { margin-top: 2rem; display: flex; justify-content: flex-end; }
+    .btn-next { font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; background: var(--brown); color: var(--cream); border: none; padding: 14px 32px; cursor: pointer; opacity: 0.4; pointer-events: none; transition: opacity 0.2s; }
+    .btn-next.ready { opacity: 1; pointer-events: all; }
+    .btn-next.ready:hover { opacity: 0.88; }
+
+    /* RESULTS */
+    .result { display: none; }
+    .result.active { display: block; }
+    .result__header { background: var(--brown); padding: 56px 40px; margin-bottom: 48px; }
+    .result__header .tag { font-family: 'Lato', sans-serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1rem; display: block; }
+    .result__header h2 { color: var(--gold-light); font-size: clamp(2rem, 4vw, 3rem); font-style: italic; margin-bottom: 0; line-height: 1.15; }
+    .result__body p { color: var(--brown-mid); line-height: 1.95; margin-bottom: 1.4rem; }
+    .result__shift { background: var(--pink-blush); padding: 32px 36px; margin: 2rem 0; border-left: 3px solid var(--gold); }
+    .result__shift strong { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.1rem; font-weight: 400; font-style: italic; color: var(--brown); display: block; margin-bottom: 0.6rem; }
+    .result__shift p { font-size: 0.95rem; margin: 0; color: var(--brown-mid); }
+    .result__cta { text-align: center; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--cream-mid); }
+    .result__cta h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-style: italic; margin-bottom: 1rem; }
+    .result__cta p { font-size: 0.95rem; color: var(--brown-mid); margin-bottom: 2rem; }
+    .btn { display: inline-block; font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 16px 36px; text-decoration: none; }
+    .btn--dark { background: var(--brown); color: var(--cream); }
+    .btn--dark:hover { opacity: 0.88; }
+    .btn--outline { background: transparent; color: var(--brown); border: 1px solid var(--brown); margin-left: 12px; }
+    .btn--outline:hover { background: var(--brown); color: var(--cream); }
+    .retake { font-family: 'Lato', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brown-mid); cursor: pointer; display: block; text-align: center; margin-top: 1.6rem; text-decoration: underline; }
+
+    /* FOOTER */
+    .footer { background: var(--text); padding: 36px 28px; text-align: center; }
+    .footer p { color: rgba(255,255,255,0.4); font-size: 0.78rem; margin: 0; }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="/">Melissa Melrose</a>
+  </nav>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="intro__inner">
+      <div class="divider"></div>
+      <p class="intro__eyebrow">Free Quiz by Melissa Melrose</p>
+      <h1>Identify Your Survival Pattern</h1>
+      <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.1rem,1.7vw,1.4rem);font-style:italic;color:var(--brown);line-height:1.65;margin-bottom:1.2rem;">Your survival pattern is not your personality. It is a strategy your nervous system created to keep you safe.</p>
+      <p>Answer honestly, not as you think you should be — but as you actually are. There are no wrong answers here. Only the truth that sets you free.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-section">
+    <div class="quiz-inner" id="quizContainer">
+
+      <p class="progress-label" id="progressLabel">Question 1 of 6</p>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:16.6%"></div></div>
+
+      <!-- Q1 -->
+      <div class="question active" data-q="0">
+        <h2>When something upsets you, your first instinct is...</h2>
+        <div class="options">
+          <button class="option" data-val="A">Check that everyone around you is okay before letting yourself feel anything</button>
+          <button class="option" data-val="B">Stay busy, fill the diary, keep moving forward</button>
+          <button class="option" data-val="C">Take charge of the situation and make sure things are handled</button>
+          <button class="option" data-val="D">Go quiet, pull back, and process in private — or not at all</button>
+        </div>
+        <div class="quiz-nav"><button class="btn-next" onclick="nextQuestion()">Next &rarr;</button></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question" data-q="1">
+        <h2>The thing that exhausts you most is...</h2>
+        <div class="options">
+          <button class="option" data-val="A">How much you give, and how rarely anyone seems to notice</button>
+          <button class="option" data-val="B">Never feeling like enough, no matter how much you achieve</button>
+          <button class="option" data-val="C">Holding everything together when nobody else will</button>
+          <button class="option" data-val="D">Feeling disconnected from your own life — watching it from a quiet distance</button>
+        </div>
+        <div class="quiz-nav"><button class="btn-next" onclick="nextQuestion()">Next &rarr;</button></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question" data-q="2">
+        <h2>When you think about saying no to someone you care about...</h2>
+        <div class="options">
+          <button class="option" data-val="A">You feel anxious. What if they need you? What if they're disappointed?</button>
+          <button class="option" data-val="B">You feel guilty, then immediately start thinking of something else you can offer instead</button>
+          <button class="option" data-val="C">You feel frustrated that this is always your responsibility</button>
+          <button class="option" data-val="D">You feel blank. You usually just say yes without really deciding.</button>
+        </div>
+        <div class="quiz-nav"><button class="btn-next" onclick="nextQuestion()">Next &rarr;</button></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question" data-q="3">
+        <h2>The version of you that most people see...</h2>
+        <div class="options">
+          <button class="option" data-val="A">Is warm, supportive, always available — and secretly running on empty</button>
+          <button class="option" data-val="B">Is capable, together, always achieving — while quietly wondering when you will finally feel it</button>
+          <button class="option" data-val="C">Is strong, reliable, in control — and deeply tired of never getting to let go</button>
+          <button class="option" data-val="D">Is fine. Always fine. Even when something inside is very much not fine.</button>
+        </div>
+        <div class="quiz-nav"><button class="btn-next" onclick="nextQuestion()">Next &rarr;</button></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question" data-q="4">
+        <h2>Which of these feels most true right now?</h2>
+        <div class="options">
+          <button class="option" data-val="A">I know I matter — I just struggle to make myself the priority</button>
+          <button class="option" data-val="B">I know what I should do — I just can't seem to stop doing and simply be</button>
+          <button class="option" data-val="C">I know I need to trust more — I just can't fully let go of control</button>
+          <button class="option" data-val="D">I know something is there — I just can't quite access what I'm actually feeling</button>
+        </div>
+        <div class="quiz-nav"><button class="btn-next" onclick="nextQuestion()">Next &rarr;</button></div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question" data-q="5">
+        <h2>The fear underneath most of your patterns...</h2>
+        <div class="options">
+          <button class="option" data-val="A">That you are too much, or not enough, for the people you love</button>
+          <button class="option" data-val="B">That if you stop, you will have to feel everything you have been moving away from</button>
+          <button class="option" data-val="C">That if you let go of control, something will happen that you cannot come back from</button>
+          <button class="option" data-val="D">That if you actually let yourself feel, you will not be able to hold it all together</button>
+        </div>
+        <div class="quiz-nav"><button class="btn-next" id="submitBtn" onclick="showResult()">See My Result &rarr;</button></div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="result" id="result-A">
+        <div class="result__header">
+          <span class="tag">Your Survival Pattern</span>
+          <h2>The Nurturer</h2>
+        </div>
+        <div class="result__body">
+          <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.1rem,1.7vw,1.4rem);font-style:italic;color:var(--brown);line-height:1.65;">Your heart is your greatest gift. And it is also what they counted on to keep you small.</p>
+          <p>You learned early that love came with conditions. That being needed was safer than being seen. That if you kept giving, kept showing up, kept making everyone comfortable, you would be okay.</p>
+          <p>So you became indispensable. The one who remembers everyone's needs, soothes everyone's pain, holds everyone's world together — while quietly wondering who was going to hold yours.</p>
+          <p>This is not a character flaw. It is a survival pattern. One of the most exhausting ways to move through the world, because it asks you to disappear in order to belong.</p>
+          <div class="result__shift">
+            <strong>What wants to shift</strong>
+            <p>Learning that your needs are not a burden. That you can be loved for who you are, not just what you give. That saying no is not abandonment — it is the most honest thing you can offer.</p>
+          </div>
+          <p>The Nurturer's healing lives in the body — in learning to feel your own needs before you reach for someone else's. In discovering that the love you have given so freely to others is available to you too.</p>
+        </div>
+        <div class="result__cta">
+          <h3>Ready to go deeper?</h3>
+          <p>Foundations of Self was built for this exact pattern. Six modules that take you from understanding your survival self to actually feeling safe without it.</p>
+          <a href="/foundations-of-self" class="btn btn--dark">Explore Foundations of Self</a>
+          <a href="/" class="btn btn--outline">Explore All Pathways</a>
+          <span class="retake" onclick="retakeQuiz()">Retake the Quiz</span>
+        </div>
+      </div>
+
+      <div class="result" id="result-B">
+        <div class="result__header">
+          <span class="tag">Your Survival Pattern</span>
+          <h2>The Achiever</h2>
+        </div>
+        <div class="result__body">
+          <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.1rem,1.7vw,1.4rem);font-style:italic;color:var(--brown);line-height:1.65;">You have built a beautiful life. And somewhere inside all of it, you are still waiting to feel it.</p>
+          <p>You learned that moving forward was safer than stopping. That doing was safer than feeling. That if you kept achieving, kept progressing, kept proving your worth through output, you would eventually arrive at enough.</p>
+          <p>And here you are. Capable. Accomplished. Exhausted. Not because you have failed — because you have succeeded at everything except coming home to yourself.</p>
+          <p>The busyness is not laziness. It is armour. And underneath it is a person who learned very early that stillness was dangerous, and feelings were something to outrun.</p>
+          <div class="result__shift">
+            <strong>What wants to shift</strong>
+            <p>Learning to be, not just do. To discover that stillness is not emptiness. That you are enough even in the quiet moments when you are not producing, achieving, or proving anything at all.</p>
+          </div>
+          <p>The Achiever's healing lives in the pause — in learning that the life you have been building at full speed is also the one you have been rushing past. That you do not have to earn rest. That you are worthy of being, not only doing.</p>
+        </div>
+        <div class="result__cta">
+          <h3>Ready to go deeper?</h3>
+          <p>Foundations of Self was built for this exact pattern. Six modules that guide you from the safety of constant motion into genuine, embodied presence.</p>
+          <a href="/foundations-of-self" class="btn btn--dark">Explore Foundations of Self</a>
+          <a href="/" class="btn btn--outline">Explore All Pathways</a>
+          <span class="retake" onclick="retakeQuiz()">Retake the Quiz</span>
+        </div>
+      </div>
+
+      <div class="result" id="result-C">
+        <div class="result__header">
+          <span class="tag">Your Survival Pattern</span>
+          <h2>The Protector</h2>
+        </div>
+        <div class="result__body">
+          <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.1rem,1.7vw,1.4rem);font-style:italic;color:var(--brown);line-height:1.65;">You are the one everyone counts on. The question is: who do you count on?</p>
+          <p>You learned that being in control was the only safe place to be. That anticipating every outcome, holding every thread, managing every risk was how you kept the people and things you loved from falling apart.</p>
+          <p>So you became the one who holds it all. The capable one. The reliable one. The one who never drops the ball — because dropping the ball once felt like a catastrophe you were never going to let happen again.</p>
+          <p>Underneath all of that capability is a nervous system that has never truly rested. That is still scanning. Still preparing. Still making sure everything is okay so you never have to feel the fear of it not being.</p>
+          <div class="result__shift">
+            <strong>What wants to shift</strong>
+            <p>Learning that you are safe even when you are not in control. That rest is not failure. That the life you are protecting so fiercely is also the one you are preventing yourself from fully living.</p>
+          </div>
+          <p>The Protector's healing lives in safety — in the nervous system finally learning that it does not have to brace. In discovering that letting go does not mean losing. That you can be held, too.</p>
+        </div>
+        <div class="result__cta">
+          <h3>Ready to go deeper?</h3>
+          <p>Foundations of Self was built for this exact pattern. Six modules that teach your nervous system a new definition of safe — one that does not require you to hold everything together alone.</p>
+          <a href="/foundations-of-self" class="btn btn--dark">Explore Foundations of Self</a>
+          <a href="/" class="btn btn--outline">Explore All Pathways</a>
+          <span class="retake" onclick="retakeQuiz()">Retake the Quiz</span>
+        </div>
+      </div>
+
+      <div class="result" id="result-D">
+        <div class="result__header">
+          <span class="tag">Your Survival Pattern</span>
+          <h2>The Disconnector</h2>
+        </div>
+        <div class="result__body">
+          <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.1rem,1.7vw,1.4rem);font-style:italic;color:var(--brown);line-height:1.65;">You are not numb. You are protecting yourself from something that once felt too big to survive.</p>
+          <p>You learned that feelings were dangerous. Overwhelming. Unwelcome. Or perhaps simply that there was no one there to receive them. So your brilliant nervous system found a way to manage — by turning the volume down. By keeping things at a comfortable distance.</p>
+          <p>You live a lot in your head. You can observe your emotions, analyse them, explain exactly where they came from. But feeling them in your body — that is a different thing entirely.</p>
+          <p>And there is a quiet knowing, underneath all of it, that something important is just slightly out of reach. That the connection you are searching for — to yourself, to others, to life — is there. You just haven't found the door yet.</p>
+          <div class="result__shift">
+            <strong>What wants to shift</strong>
+            <p>Learning that your body is not the enemy. That feelings will not swallow you. That the doorway home is not through understanding yourself — it is through finally feeling safe enough to feel yourself.</p>
+          </div>
+          <p>The Disconnector's healing lives in the breath — the single most direct pathway from the thinking mind back into the body. Into the places where the real you has been quietly waiting to be found.</p>
+        </div>
+        <div class="result__cta">
+          <h3>Ready to go deeper?</h3>
+          <p>Foundations of Self was built for this exact pattern. Six modules that create a safe pathway from the head back into the body — and back to the self you have been searching for.</p>
+          <a href="/foundations-of-self" class="btn btn--dark">Explore Foundations of Self</a>
+          <a href="/" class="btn btn--outline">Explore All Pathways</a>
+          <span class="retake" onclick="retakeQuiz()">Retake the Quiz</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 Melissa Melrose &nbsp;&middot;&nbsp; melissamelrose.com</p>
+  </footer>
+
+  <script>
+    let current = 0;
+    const totalQ = 6;
+    const answers = [];
+    const questions = document.querySelectorAll('.question');
+
+    // Option selection
+    document.querySelectorAll('.options').forEach(opts => {
+      opts.querySelectorAll('.option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          opts.querySelectorAll('.option').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          const nav = opts.closest('.question').querySelector('.btn-next');
+          nav.classList.add('ready');
+          answers[current] = btn.dataset.val;
+        });
+      });
+    });
+
+    function nextQuestion() {
+      if (answers[current] === undefined) return;
+      questions[current].classList.remove('active');
+      current++;
+      if (current < totalQ) {
+        questions[current].classList.add('active');
+        updateProgress();
+      }
+    }
+
+    function updateProgress() {
+      const pct = ((current + 1) / totalQ) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressLabel').textContent = 'Question ' + (current + 1) + ' of ' + totalQ;
+    }
+
+    function showResult() {
+      if (answers[current] === undefined) return;
+      // Count answers
+      const counts = { A: 0, B: 0, C: 0, D: 0 };
+      answers.forEach(a => { if (a) counts[a]++; });
+      // Find winner
+      const winner = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+      // Hide quiz chrome
+      document.getElementById('progressLabel').style.display = 'none';
+      document.querySelector('.progress-bar').style.display = 'none';
+      questions[current].classList.remove('active');
+      // Show result
+      document.getElementById('result-' + winner).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function retakeQuiz() {
+      current = 0;
+      answers.length = 0;
+      document.querySelectorAll('.result').forEach(r => r.classList.remove('active'));
+      document.querySelectorAll('.question').forEach(q => {
+        q.classList.remove('active');
+        q.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        q.querySelector('.btn-next').classList.remove('ready');
+      });
+      document.getElementById('progressLabel').style.display = 'block';
+      document.querySelector('.progress-bar').style.display = 'block';
+      questions[0].classList.add('active');
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>

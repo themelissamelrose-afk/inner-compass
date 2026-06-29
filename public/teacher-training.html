@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breathwork Facilitator &amp; Soul Connection Coach Training | Melissa Melrose</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #FAF5EE;
+      --cream-mid:  #F2E8D9;
+      --gold:       #C4967A;
+      --gold-light: #DDB89A;
+      --dusty-pink: #B07A6A;
+      --pink-blush: #F5E8E4;
+      --brown:      #5C2318;
+      --brown-mid:  #7A5A4A;
+      --text:       #3A2218;
+      --white:      #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.75;
+      font-size: 17px;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--brown);
+    }
+    h1 { font-size: clamp(2.8rem, 6vw, 5rem); }
+    h2 { font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 1rem; }
+    h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); margin-bottom: 0.75rem; }
+    h4 { font-size: 1.1rem; color: var(--brown-mid); margin-bottom: 0.4rem; font-family: 'Lato', sans-serif; font-weight: 700; }
+
+    p { margin-bottom: 1.2rem; }
+    p:last-child { margin-bottom: 0; }
+
+    .gold   { color: var(--gold); }
+    .serif  { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.2rem; }
+
+    /* ── STICKY NAV ── */
+    .sticky-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--brown);
+      border-bottom: 1px solid rgba(196,149,106,0.3);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+    .sticky-nav.visible { transform: translateY(0); }
+    .sticky-nav__label {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--gold-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sticky-nav .btn--nav {
+      display: inline-block;
+      padding: 10px 24px;
+      background: var(--gold);
+      color: var(--white);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .sticky-nav .btn--nav:hover { background: #B8845A; }
+
+    /* ── LAYOUT ── */
+    .section { padding: 80px 24px; }
+    .section--dark { background: var(--brown); color: var(--gold-light); }
+    .section--dark h2, .section--dark h3, .section--dark h4 { color: var(--gold-light); }
+    .section--mid  { background: var(--cream-mid); }
+    .section--sage  { background: #EEF1EE; }
+    .section--blush { background: var(--pink-blush); }
+
+    .container      { max-width: 860px;  margin: 0 auto; }
+    .container--wide{ max-width: 1100px; margin: 0 auto; }
+    .container--sm  { max-width: 680px;  margin: 0 auto; }
+
+    .divider {
+      width: 60px; height: 2px;
+      background: var(--gold);
+      margin: 1.5rem auto;
+    }
+    .divider--left { margin: 1.5rem 0; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--brown);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(196,149,106,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero__eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      color: var(--cream);
+      font-weight: 300;
+      font-style: italic;
+      max-width: 780px;
+      margin: 0 auto 0.5rem;
+    }
+    .hero__sub {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      color: var(--gold);
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+    .hero__body {
+      color: var(--gold-light);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.05rem;
+      opacity: 0.9;
+    }
+    .hero__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .badge {
+      border: 1px solid rgba(196,149,106,0.5);
+      color: var(--gold);
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 18px 40px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 0.88rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn--gold    { background: var(--gold); color: var(--white); }
+    .btn--gold:hover { background: #B8845A; }
+    .btn--outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+    .btn--outline:hover { background: var(--gold); color: var(--white); }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+    }
+    .cta-note {
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-top: 1rem;
+      font-family: 'Lato', sans-serif;
+    }
+
+    /* ── STRIP ── */
+    .strip {
+      background: var(--gold);
+      padding: 22px 24px;
+      text-align: center;
+    }
+    .strip p {
+      color: var(--white);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      margin: 0;
+    }
+
+    /* ── PILLARS ── */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      margin-top: 3rem;
+    }
+    .pillar {
+      background: var(--white);
+      padding: 36px 28px;
+      border-top: 3px solid var(--dusty-pink);
+    }
+    .pillar__number {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 3rem;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── OUTCOMES ── */
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 2.5rem;
+    }
+    .outcome-card {
+      background: rgba(176,122,106,0.07);
+      border: 1px solid rgba(176,122,106,0.3);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .outcome-card__icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .outcome-card h4 {
+      color: var(--brown);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .outcome-card p {
+      font-size: 0.9rem;
+      opacity: 0.75;
+    }
+
+    /* ── WHO LIST ── */
+    .who-list {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .who-list li {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.22rem;
+      font-style: italic;
+    }
+    .who-list li::before {
+      content: '✦';
+      color: var(--dusty-pink);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* ── PATHWAY ── */
+    .pathway {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .pathway__step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--cream-mid);
+    }
+    .pathway__step:last-child { border-bottom: none; }
+    .pathway__dot {
+      width: 40px; height: 40px;
+      min-width: 40px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    /* ── INCLUSIONS ── */
+    .inclusions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 2.5rem;
+    }
+    .inclusion-item {
+      background: var(--white);
+      padding: 22px 24px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .inclusion-check {
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .inclusion-item h4 { margin-bottom: 0.2rem; font-size: 0.95rem; color: var(--brown); }
+    .inclusion-item p  { font-size: 0.88rem; opacity: 0.75; margin: 0; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin-top: 3rem;
+    }
+    .testimonial {
+      background: var(--white);
+      padding: 44px 36px 36px;
+      position: relative;
+    }
+    .testimonial::before {
+      content: '\201C';
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 6rem;
+      color: var(--dusty-pink);
+      opacity: 0.35;
+      position: absolute;
+      top: 4px; left: 24px;
+      line-height: 1;
+    }
+    .testimonial__body {
+      font-style: italic;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      padding-top: 1.5rem;
+    }
+    .testimonial__name  { font-weight: 700; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+    .testimonial__title { font-size: 0.82rem; opacity: 0.6; }
+
+    /* ── MENTOR ── */
+    .mentor {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+      align-items: start;
+      margin-top: 2.5rem;
+    }
+    .mentor__image {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    @media (max-width: 700px) { .mentor { grid-template-columns: 1fr; } }
+
+    /* ── PHOTO STRIP ── */
+    .photo-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .photo-strip__item {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      position: relative;
+    }
+    .photo-strip__item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-strip__placeholder {
+      width: 100%; height: 100%;
+      background: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.8rem;
+      color: var(--brown-mid);
+      font-style: italic;
+      text-align: center;
+      padding: 12px;
+    }
+    @media (max-width: 600px) {
+      .photo-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── HERO IMAGE OPTION ── */
+    .hero--with-image {
+      background-size: cover;
+      background-position: center 20%;
+      background-repeat: no-repeat;
+    }
+    .hero--with-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(44,24,16,0.88) 0%,
+        rgba(44,24,16,0.75) 50%,
+        rgba(44,24,16,0.55) 100%
+      );
+      pointer-events: none;
+    }
+    .hero--with-image > * { position: relative; z-index: 1; }
+
+    /* ── PRICING ── */
+    .pricing-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 2.5rem;
+    }
+    .price-card {
+      border: 1px solid rgba(196,149,106,0.3);
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+    }
+    .price-card--featured {
+      border-color: var(--gold);
+      background: rgba(196,149,106,0.06);
+    }
+    .price-card__tag {
+      position: absolute;
+      top: -14px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      font-family: 'Lato', sans-serif;
+      white-space: nowrap;
+    }
+    .price-card__label {
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .price-card__amount {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 3.2rem;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .price-card__per {
+      font-size: 0.85rem;
+      color: rgba(232,213,183,0.6);
+      margin-bottom: 1.5rem;
+    }
+    .price-card__detail {
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      opacity: 0.75;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .price-deadline {
+      font-size: 0.82rem;
+      color: var(--gold);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── FAQ ── */
+    .faq { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 2px; }
+    details {
+      background: var(--white);
+      border-left: 3px solid transparent;
+      transition: border-color 0.2s;
+    }
+    details[open] { border-left-color: var(--gold); }
+    summary {
+      padding: 20px 24px;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 1rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--brown);
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '+';
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+      margin-left: 12px;
+      transition: transform 0.2s;
+    }
+    details[open] summary::after {
+      content: '×';
+    }
+    .faq__body {
+      padding: 0 24px 20px;
+      font-size: 0.95rem;
+      color: var(--brown-mid);
+      line-height: 1.7;
+    }
+    .faq__body p { margin-bottom: 0; }
+
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; margin-top: 2rem; }
+    .timeline__item {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0 20px 28px;
+      border-left: 2px solid var(--gold-light);
+      margin-left: 8px;
+      position: relative;
+    }
+    .timeline__item::before {
+      content: '';
+      width: 14px; height: 14px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: absolute;
+      left: -8px; top: 26px;
+    }
+    .timeline__date {
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      min-width: 140px;
+    }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      background: var(--brown);
+      padding: 100px 24px;
+      text-align: center;
+    }
+    .final-cta h2 {
+      color: var(--cream);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-style: italic;
+      max-width: 700px;
+      margin: 0 auto 0.75rem;
+    }
+    .final-cta p {
+      color: var(--gold-light);
+      max-width: 580px;
+      margin: 0 auto 2rem;
+      opacity: 0.85;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1A0F08;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    footer p { color: rgba(232,213,183,0.4); font-size: 0.82rem; margin: 0; }
+    footer a  { color: rgba(232,213,183,0.55); text-decoration: none; }
+
+    /* ── UTILS ── */
+    .text-center { text-align: center; }
+    .mt-sm  { margin-top: 1rem; }
+    .mt-md  { margin-top: 2rem; }
+    .mt-lg  { margin-top: 3rem; }
+    .mb-sm  { margin-bottom: 1rem; }
+
+    @media (max-width: 700px) {
+      [style*="grid-template-columns: repeat(3, 1fr)"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .section        { padding: 60px 20px; }
+      .price-card     { padding: 32px 20px; }
+      .inclusion-item { padding: 18px; }
+      .sticky-nav__label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════
+       STICKY NAV (appears on scroll)
+  ═══════════════════════════════════ -->
+  <nav class="sticky-nav" id="stickyNav" aria-label="Quick action bar">
+    <span class="sticky-nav__label">Breathwork Facilitator Training 2026 &nbsp;·&nbsp; Limited Places</span>
+    <a href="https://melissamelrose.com/shop" class="btn--nav">Secure Your Place</a>
+  </nav>
+
+  <script>
+    (function () {
+      var nav    = document.getElementById('stickyNav');
+      var hero   = document.querySelector('.hero');
+      var obs    = new IntersectionObserver(function (entries) {
+        nav.classList.toggle('visible', !entries[0].isIntersecting);
+      }, { threshold: 0.1 });
+      obs.observe(hero);
+    })();
+  </script>
+
+  <!-- ═══════════════════════════════════
+       HERO
+  ═══════════════════════════════════ -->
+  <section class="hero hero--with-image" style="background-image: url('https://inner-compass-production-7970.up.railway.app/melissa-heart.jpg')">
+    <div class="container">
+      <p class="hero__eyebrow">Melissa Melrose &nbsp;·&nbsp; Facilitator Training 2026</p>
+
+      <h1>Reveal the Facilitator Within</h1>
+      <p class="hero__sub">Become a Breathwork Experience Facilitator &amp; Soul Connection Coach</p>
+
+      <p class="hero__body">
+        More than a certification, this training is an embodied journey of remembrance, leadership, and transformation. Designed for those called to guide others, this pathway empowers you to hold safe, heart-centred spaces for healing while deepening your own.
+      </p>
+
+      <div class="hero__badges">
+        <span class="badge">18 Weeks Total</span>
+        <span class="badge">2-in-1 Certification</span>
+        <span class="badge">Starts September 2026</span>
+        <span class="badge">Limited Places</span>
+      </div>
+
+      <div class="cta-group">
+        <a href="https://melissamelrose.com/shop" class="btn btn--gold">Secure Your Place</a>
+        <a href="#learn-more" class="btn btn--outline">Learn More</a>
+      </div>
+      <p class="cta-note" style="color: var(--gold-light);">$4,500 AUD &nbsp;·&nbsp; Payment plan available &nbsp;·&nbsp; Limited places</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       STRIP QUOTE
+  ═══════════════════════════════════ -->
+  <div class="strip">
+    <p>This is not simply about learning techniques. It is about revealing the facilitator within.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       WHY COMBINE
+  ═══════════════════════════════════ -->
+  <section class="section" id="learn-more">
+    <div class="container">
+      <div class="divider"></div>
+      <h2 class="text-center">Why Combine Breathwork Facilitation<br>and Soul Connection Coaching?</h2>
+      <div class="divider"></div>
+
+      <p style="max-width:680px; margin: 0 auto 1rem; text-align:center;">
+        Breathwork reveals the depths of the subconscious, uncovering limiting beliefs, suppressed emotions, and inner truths. But transformation does not stop at revelation. It requires integration.
+      </p>
+      <p style="max-width:680px; margin: 0 auto; text-align:center;">
+        That is where Soul Connection Coaching comes in. This unique method gives clients the tools to embody their breakthroughs, so the healing is holistic, sustainable, and deeply integrated into daily life.
+      </p>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar__number">01</div>
+          <h3>Breathwork Experience Method</h3>
+          <p>Master Melissa's signature techniques for deep emotional and energetic release, reconnection to the authentic self, and holistic well-being. Learn trauma-aware facilitation from the ground up.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar__number">02</div>
+          <h3>Soul Connection Coaching</h3>
+          <p>The six-step Foundations of Self framework, taught so you can guide others through the same transformational process you have lived yourself. Addresses the mind-body connection, nervous system regulation, and emotional resilience.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar__number">03</div>
+          <h3>Integration and Embodiment</h3>
+          <p>Healing is not just about discovering what is holding you back. It is about integrating those discoveries into life. Together, these two certifications create a holistic, sustainable approach to lasting transformation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       YOUR LIFE AS A FACILITATOR
+  ═══════════════════════════════════ -->
+  <section class="section section--dark">
+    <div class="container">
+      <p class="text-center serif" style="color: var(--gold); font-style:italic; margin-bottom:0.5rem;">After This Training</p>
+      <h2 class="text-center">Your Life as a Certified Facilitator</h2>
+      <div class="divider"></div>
+      <p class="text-center" style="max-width:620px; margin: 0 auto 0.5rem; color: var(--gold-light); opacity:0.85;">
+        This is not just a course. It is the foundation of a practice, a business, and a way of being in the world.
+      </p>
+
+      <div class="outcomes-grid" style="margin-top:2.5rem;">
+        <div class="outcome-card" style="background: rgba(176,122,106,0.15); border-color: rgba(176,122,106,0.4);">
+          <span class="outcome-card__icon">🌬️</span>
+          <h4 style="color: var(--gold-light);">Facilitate Breathwork Sessions</h4>
+          <p style="color: rgba(232,213,183,0.7);">Run your own one-on-one and group breathwork experiences with confidence and certification.</p>
+        </div>
+        <div class="outcome-card" style="background: rgba(92,35,24,0.4); border-color: rgba(196,150,122,0.3);">
+          <span class="outcome-card__icon">🤝</span>
+          <h4 style="color: var(--gold-light);">Coach With a Complete Framework</h4>
+          <p style="color: rgba(232,213,183,0.7);">Guide clients through the Foundations of Self process as a qualified Soul Connection Coach.</p>
+        </div>
+        <div class="outcome-card" style="background: rgba(196,150,122,0.12); border-color: rgba(221,184,154,0.5);">
+          <span class="outcome-card__icon">💼</span>
+          <h4 style="color: var(--gold-light);">Build a Heart-Led Business</h4>
+          <p style="color: rgba(232,213,183,0.7);">Launch and grow your own practice with business foundations training included in the program.</p>
+        </div>
+        <div class="outcome-card" style="background: rgba(92,35,24,0.4); border-color: rgba(196,150,122,0.3);">
+          <span class="outcome-card__icon">🔁</span>
+          <h4 style="color: var(--gold-light);">Resell Foundations of Self</h4>
+          <p style="color: rgba(232,213,183,0.7);">Offer the Foundations of Self program to your own clients and earn through the affiliate program.</p>
+        </div>
+        <div class="outcome-card" style="background: rgba(176,122,106,0.15); border-color: rgba(176,122,106,0.4);">
+          <span class="outcome-card__icon">✨</span>
+          <h4 style="color: var(--gold-light);">Co-Facilitate with Melissa</h4>
+          <p style="color: rgba(232,213,183,0.7);">Build real-world experience by supporting live events and sessions alongside Melissa herself.</p>
+        </div>
+        <div class="outcome-card" style="background: rgba(196,150,122,0.12); border-color: rgba(221,184,154,0.5);">
+          <span class="outcome-card__icon">🌿</span>
+          <h4 style="color: var(--gold-light);">Lead From Lived Embodiment</h4>
+          <p style="color: rgba(232,213,183,0.7);">Guide others through the same transformation you have moved through yourself, with integrity and presence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       IS THIS FOR YOU
+  ═══════════════════════════════════ -->
+  <section class="section section--blush">
+    <div class="container--sm">
+      <p class="gold serif text-center">Is This Training for You?</p>
+      <h2 class="text-center">You May Be Called If You Are...</h2>
+      <div class="divider"></div>
+
+      <ul class="who-list mt-md">
+        <li>A coach or healer looking to expand your offerings with a certified breathwork and coaching method</li>
+        <li>Someone ready to embark on your own deep healing journey as the foundation of facilitation</li>
+        <li>An aspiring facilitator who feels passionate about holding safe, heart-centred spaces for others</li>
+        <li>Ready to lead from lived embodiment, not just information</li>
+        <li>Called to build a heart-led practice that creates genuine, lasting change for your clients</li>
+      </ul>
+
+      <div class="text-center mt-lg">
+        <p class="serif" style="font-size: 1.2rem; font-style:italic; color: var(--brown-mid);">
+          If you feel called to lead, to hold space, and to guide others through healing and transformation, this path begins with you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       PATHWAY
+  ═══════════════════════════════════ -->
+  <section class="section section--mid">
+    <div class="container">
+      <p class="gold serif text-center">Your Journey</p>
+      <h2 class="text-center">A Pathway of Embodied Leadership</h2>
+      <div class="divider"></div>
+
+      <p class="text-center" style="max-width:640px; margin: 0 auto 2rem;">
+        Every facilitator begins by meeting themselves. Your certification pathway is structured to prioritise integration before facilitation, so you lead from lived embodiment, not just information.
+      </p>
+
+      <div class="pathway">
+        <div class="pathway__step">
+          <div class="pathway__dot">1</div>
+          <div>
+            <h4>Foundations of Self (6 Weeks, Self-Guided)</h4>
+            <p>Your personal expansion phase. A sacred opportunity to move through your own healing, reconnect to your truth, and embody the teachings at a deep level before ever guiding another person through them. Available from the moment you enrol.</p>
+            <p><em>The next live guided round is October 2026, with a revision round available in April 2027 for those who want to deepen their embodiment before facilitating.</em></p>
+          </div>
+        </div>
+        <div class="pathway__step">
+          <div class="pathway__dot">2</div>
+          <div>
+            <h4>Breathwork Experience Facilitator Training (12 Weeks, Starting September 2026)</h4>
+            <p>With your own transformation as the foundation, you will learn to coach and guide others through the Foundations of Self, as well as facilitate powerful breathwork and cacao experiences that create deep and lasting change. 12 live weekly calls, 4 full-day in-person workshops, and 1:1 mentorship with Melissa.</p>
+          </div>
+        </div>
+        <div class="pathway__step">
+          <div class="pathway__dot">3</div>
+          <div>
+            <h4>Dual Certification</h4>
+            <p>Upon completion, you receive your certification as a Breathwork Experience Facilitator and as a Soul Connection Coach. Two qualifications that work together to create a complete, holistic healing practice.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       CURRICULUM
+  ═══════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <p class="gold serif text-center">The Curriculum</p>
+      <h2 class="text-center">Core Elements of the Training</h2>
+      <div class="divider"></div>
+
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:40px; margin-top:2.5rem;">
+        <div>
+          <h3>Breathwork Fundamentals</h3>
+          <div class="divider--left"></div>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:10px;">
+            <li style="display:flex; gap:10px;"><span class="gold">✦</span> History and Theory of Rebirthing</li>
+            <li style="display:flex; gap:10px;"><span class="gold">✦</span> Anatomy and Physiology of Breathwork</li>
+            <li style="display:flex; gap:10px;"><span class="gold">✦</span> Contraindications and Indications</li>
+            <li style="display:flex; gap:10px;"><span class="gold">✦</span> The Nervous System and the Breath</li>
+            <li style="display:flex; gap:10px;"><span class="gold">✦</span> Body-Breath Connection</li>
+            <li style="display:flex; gap:10px;"><span class="gold">✦</span> Multiple Breathwork Techniques</li>
+            <li style="display:flex; gap:10px;"><span class="gold">✦</span> Breathing for Healing</li>
+            <li style="display:flex; gap:10px;"><span class="gold">✦</span> Trauma-Aware Facilitation</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Signature Methods</h3>
+          <div class="divider--left"></div>
+          <p><strong>The Breathwork Experience</strong><br>A deep healing modality designed to release emotional and energetic blockages, reconnect to the authentic self, and promote holistic well-being.</p>
+          <p><strong>The Flow Experience</strong><br>A gentle practice focused on relaxation, grounding, and cultivating presence in daily life.</p>
+          <p><strong>Soul Connection Coaching</strong><br>The six-step Foundations of Self framework, taught so you can guide others through the same transformational process you have lived yourself.</p>
+        </div>
+        <div>
+          <h3>Practical Application</h3>
+          <div class="divider--left"></div>
+          <p>Facilitate both one-on-one and group sessions with confidence. Design transformational breathwork sessions using intentional frameworks and curated music.</p>
+          <p>Learn practical strategies to help clients connect the insights gained during sessions with actionable steps for long-term growth.</p>
+          <p>Explore integration practices that help clients sustain their breakthroughs beyond the session.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       WHAT'S INCLUDED
+  ═══════════════════════════════════ -->
+  <section class="section section--mid">
+    <div class="container--wide">
+      <p class="gold serif text-center">Everything Inside Your Training</p>
+      <h2 class="text-center">What Is Included in Your Certification Journey</h2>
+      <div class="divider"></div>
+
+      <div class="inclusions">
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>Aligned Living Portal</h4><p>Your online hub for all training materials, replays, resources, and module content.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>6-Week Self-Guided Foundations of Self Program</h4><p>Experience the full program for your personal transformation before you begin coaching it.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>Foundations of Self Coaching Training</h4><p>Learn to facilitate and integrate this transformational framework with your clients.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>12 x Weekly Live Training Calls</h4><p>In-depth sessions with Melissa to develop your breathwork and coaching skills, with direct feedback.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>3 x Live Q&amp;A Support Calls</h4><p>Bring your questions and receive personalised guidance and clarity as you progress.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>1:1 Mentorship with Melissa</h4><p>One private session plus 12 weeks of Voxer voice messaging support throughout the training.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>4 x Full-Day In-Person Workshops</h4><p>Hands-on training to deepen your facilitation skills in a safe, nurturing environment.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>60+ Hours of Live and In-Person Training</h4><p>A combination of online and in-person sessions to fully prepare you for professional facilitation.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>Lifetime Access to the Breathworks Tribe</h4><p>A supportive Skool community for continued learning, collaboration, and connection after graduation.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>Opportunity to Co-Facilitate with Melissa</h4><p>Build real experience by supporting live events and sessions alongside Melissa.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>Exclusive Resources</h4><p>Guided meditations, business templates, client tools, and recorded sessions.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>Business Foundations Training</h4><p>Practical guidance on launching, marketing, and growing your heart-led practice.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>Affiliate and Resell Opportunities</h4><p>Earn commission by sharing Melissa's programs and offer Foundations of Self to your own clients.</p></div>
+        </div>
+        <div class="inclusion-item">
+          <span class="inclusion-check">✅</span>
+          <div><h4>Printed Training Manual</h4><p>A comprehensive reference manual for your ongoing practice beyond graduation.</p></div>
+        </div>
+        <div class="inclusion-item" style="border: 2px solid var(--gold); background: rgba(196,149,106,0.06);">
+          <span class="inclusion-check">✅</span>
+          <div><h4>Personal Coaching and Support Throughout the Training</h4><p>Melissa is with you every step of the way. Through live weekly calls, 1:1 sessions, Voxer voice messaging, Q&amp;A support, and the Breathworks Tribe community, you are never navigating this journey alone.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       TESTIMONIALS
+  ═══════════════════════════════════ -->
+  <section class="section">
+    <div class="container--wide">
+      <p class="gold serif text-center">What Participants Are Saying</p>
+      <h2 class="text-center">Real Experiences, Real Transformation</h2>
+      <div class="divider"></div>
+
+      <div class="testimonials">
+        <div class="testimonial">
+          <p class="testimonial__body">
+            Mel held a beautiful healing space for me, but more importantly, she taught me how to better hold it for myself. Her breathwork and coaching sessions gave me divine tools, an honest bouncing board, and structured spiritual guidance that helped me piece the trickier parts of my puzzle together into a clearer and more certain picture of who I am and how I am showing up for myself and in the world.
+            <br><br>
+            A gentle reminder of things known but unpractised. An insight into things unknown yet eager to be uncovered, learned, and enjoyed. A release and shedding of heavy trapped emotions and old traumas, making way for a lighter, fully felt presence in the present.
+          </p>
+          <p class="testimonial__name">Racheal Ahrens</p>
+          <p class="testimonial__title">Massage Therapist and Energy Healer</p>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__body">
+            A truly amazing experience was to work with Melissa. Through her kindness, authenticity, and practical application of her skills, she helped me turn a major corner in my own personal healing and identify and release experiences in my life that have held me back from my fullest potential.
+            <br><br>
+            The places in my spirit that I refused to acknowledge became illuminated with her patience and commitment to empower me, and I am so very grateful to her for the love and respect she has shown me from the beginning.
+            <br><br>
+            I recommend Melissa to anyone on the path of life, looking to make changes that will empower them moving forward. She will help and guide you to a new way of being.
+          </p>
+          <p class="testimonial__name">Matthew Titmus</p>
+          <p class="testimonial__title">Shamanic Energy Medicine, Tasmania</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       PHOTO STRIP — Inside the Training
+       NOTE FOR DAVE: Replace each inner div below with an <img> tag like this:
+       <img src="photo-name.jpg" alt="description" style="width:100%;height:100%;object-fit:cover;display:block;">
+       Suggested photos from Melissa:
+       1. Melissa holding space during a breathwork session
+       2. Participants in an in-person workshop (circle, connection, emotion)
+       3. Candid group moment — joy, community, transformation
+       4. Melissa one-on-one with a trainee
+  ═══════════════════════════════════ -->
+  <div class="photo-strip">
+    <div class="photo-strip__item">
+      <img src="https://inner-compass-production-7970.up.railway.app/melissa-meditation.jpg" alt="Melissa breathing" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    </div>
+    <div class="photo-strip__item">
+      <img src="https://inner-compass-production-7970.up.railway.app/clients-breathe.png" alt="Clients in breathwork" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    </div>
+    <div class="photo-strip__item">
+      <img src="https://inner-compass-production-7970.up.railway.app/clients-breathe-two.png" alt="Clients breathwork two" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    </div>
+    <div class="photo-strip__item">
+      <img src="https://inner-compass-production-7970.up.railway.app/clients-melissa.png" alt="Melissa facilitating" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       MEET MELISSA
+  ═══════════════════════════════════ -->
+  <section class="section section--mid">
+    <div class="container">
+      <p class="gold serif text-center">Meet Your Mentor</p>
+      <h2 class="text-center">Melissa Melrose</h2>
+      <div class="divider"></div>
+
+      <div class="mentor">
+        <img class="mentor__image" src="https://inner-compass-production-7970.up.railway.app/melissa-beach.jpg" alt="Melissa Melrose" />
+        <div>
+          <p>Melissa Melrose is a speaker, breathwork facilitator, and embodied leadership mentor with over 30 years of lived and professional experience in nervous system healing, emotional integration, and transformational space holding.</p>
+          <p>Her work blends trauma-aware breathwork, somatic integration, and intuitive guidance to support deep personal and professional embodiment. She specialises in helping high-functioning leaders dismantle survival patterns and build the internal capacity required to live and lead from grounded truth.</p>
+          <p>Melissa's own journey through anxiety, burnout, chronic illness, and profound emotional healing forms the backbone of her methodology. She does not teach theory from the outside. She teaches from lived integration.</p>
+          <p>Known for her ability to hold depth without collapse, compassion without rescuing, and truth without judgement, Melissa guides her clients and trainees to meet themselves fully so they can hold others with integrity, presence, and embodied leadership.</p>
+          <p class="serif" style="font-size: 1.15rem; font-style:italic; color: var(--brown-mid);">
+            "This is not about becoming someone new. It is about revealing who you already are beneath survival."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       INVESTMENT
+  ═══════════════════════════════════ -->
+  <section class="section section--dark" id="payment">
+    <div class="container">
+      <p class="text-center serif" style="color:var(--gold); font-style:italic; margin-bottom:0.5rem;">Your Investment</p>
+      <h2 class="text-center">Secure Your Place</h2>
+      <div class="divider"></div>
+
+      <div class="pricing-wrap" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: 680px; margin: 2.5rem auto 0;">
+
+        <!-- PAY IN FULL -->
+        <div class="price-card price-card--featured">
+          <p class="price-card__label">Pay in Full</p>
+          <p class="price-card__amount">$4,500</p>
+          <p class="price-card__per">AUD &nbsp;·&nbsp; Immediate full access</p>
+          <a href="https://melissamelrose.com/shop" class="btn btn--gold" style="width:100%; text-align:center; margin-top:1rem;">Secure Your Place</a>
+        </div>
+
+        <!-- PAYMENT PLAN -->
+        <div class="price-card">
+          <p class="price-card__label">Payment Plan</p>
+          <p class="price-card__amount">3 × $1,500</p>
+          <p class="price-card__per">AUD monthly &nbsp;·&nbsp; Total $4,500</p>
+          <p class="price-card__detail">Spread across 3 months.<br>First payment due on enrolment.</p>
+          <a href="https://melissamelrose.com/shop" class="btn btn--outline" style="width:100%; text-align:center; color:var(--gold-light); border-color:var(--gold-light); margin-top:1rem;">Choose Payment Plan</a>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-lg">
+        <p style="color:var(--gold-light); opacity:0.75; font-style:italic;">
+          Not sure if this is the right step for you? I would love to connect before you decide.
+        </p>
+        <a href="mailto:melissa@melissamelrose.com" class="btn btn--outline mt-sm" style="color:var(--gold); border-color:var(--gold);">Email Melissa to Connect</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       FAQ
+  ═══════════════════════════════════ -->
+  <section class="section">
+    <div class="container--sm">
+      <p class="gold serif text-center">Common Questions</p>
+      <h2 class="text-center">Frequently Asked Questions</h2>
+      <div class="divider"></div>
+
+      <div class="faq">
+
+        <details>
+          <summary>Do I need prior experience in breathwork or coaching?</summary>
+          <div class="faq__body">
+            <p>No prior experience is required. This training is designed to take you from the very beginning. The program starts with your own personal healing through Foundations of Self, so by the time you begin facilitating others, you will have lived the process yourself.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>When can I start?</summary>
+          <div class="faq__body">
+            <p>You can begin immediately upon enrolment. You will receive instant access to the Aligned Living Portal, the self-guided Foundations of Self program, and all theory modules. The live Facilitator Training commences September 1, 2026.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What if I cannot make a live call?</summary>
+          <div class="faq__body">
+            <p>All live training calls are recorded and made available in the Aligned Living Portal, so you can catch up at a time that works for you. You will also have access to Voxer support throughout the 12 weeks to ask questions between sessions.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Where are the in-person workshops held?</summary>
+          <div class="faq__body">
+            <p>Workshop locations will be confirmed closer to the start date. Please reach out to Melissa directly at melissa@melissamelrose.com for the latest details on location.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Can I complete this training alongside other work or commitments?</summary>
+          <div class="faq__body">
+            <p>Yes. The program is designed with working practitioners in mind. The combination of self-paced online modules, live calls, and scheduled in-person days allows you to build your knowledge and practice without stepping away from your existing life.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What do I receive at the end of the training?</summary>
+          <div class="faq__body">
+            <p>You will receive dual certification as a Breathwork Experience Facilitator and a Soul Connection Coach, lifetime access to the Breathworks Tribe community, the ability to resell the Foundations of Self program, and the opportunity to continue co-facilitating with Melissa.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>How is the payment plan structured?</summary>
+          <div class="faq__body">
+            <p>The payment plan is 3 x $1,500 AUD, billed monthly. The total investment is $4,500, the same as paying in full. The first payment is due on the day you enrol.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Still have a question?</summary>
+          <div class="faq__body">
+            <p>Reach out to Melissa directly at <a href="mailto:melissa@melissamelrose.com" style="color: var(--gold);">melissa@melissamelrose.com</a> and she will get back to you personally.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       TIMELINE
+  ═══════════════════════════════════ -->
+  <section class="section section--sage">
+    <div class="container--sm">
+      <p class="gold serif text-center">Your Certification Timeline</p>
+      <h2 class="text-center">What to Expect and When</h2>
+      <div class="divider"></div>
+      <p class="text-center mb-sm">You may begin your journey at any time. Enrol now and start immediately.</p>
+
+      <div class="timeline">
+        <div class="timeline__item">
+          <div>
+            <p class="timeline__date">Upon Enrolment</p>
+            <p>Immediate access to the Aligned Living Portal, the 6-week self-guided Foundations of Self program, and all core theory modules. You begin your personal healing journey straight away.</p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div>
+            <p class="timeline__date">October 2026</p>
+            <p>Live guided Foundations of Self round. The next available live cohort, offering group coaching, deeper integration, and personal support as you move through the foundational work.</p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div>
+            <p class="timeline__date">September 1, 2026</p>
+            <p>Live Facilitator Immersion begins. 12 weeks of mentorship, embodied practice, in-person workshops, and certification assessment with Melissa.</p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div>
+            <p class="timeline__date">April 2027</p>
+            <p>Live Foundations of Self revision round available for those who wish to deepen their embodiment of the framework before completing certification.</p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div>
+            <p class="timeline__date">Completion</p>
+            <p>Dual certification as a Breathwork Experience Facilitator and Soul Connection Coach, plus lifetime access to the Breathworks Tribe.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="border: 1px solid var(--gold-light); padding: 22px; margin-top: 2rem;">
+        <p style="text-align:center; margin:0; font-size:0.92rem;">
+          <strong>Duration:</strong> 18 Weeks Total &nbsp;&nbsp;|&nbsp;&nbsp;
+          <strong>Format:</strong> Online + In-Person Workshops &nbsp;&nbsp;|&nbsp;&nbsp;
+          <strong>Investment:</strong> $4,500 AUD
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       FINAL CTA
+  ═══════════════════════════════════ -->
+  <section class="final-cta">
+    <p style="color:var(--gold); font-family:'Cormorant Garamond',Georgia,serif; font-size:1.1rem; font-style:italic; margin-bottom:0.75rem;">Are You Ready?</p>
+    <h2>Reveal the Facilitator<br>Already Within You</h2>
+    <div class="divider" style="background: rgba(196,149,106,0.4); margin: 1.5rem auto;"></div>
+    <p>If you feel called to lead, this is your next step. Limited places available for the September 2026 cohort.</p>
+    <div class="cta-group">
+      <a href="https://melissamelrose.com/shop" class="btn btn--gold">Secure Your Place &nbsp; $4,500</a>
+      <a href="mailto:melissa@melissamelrose.com" class="btn btn--outline" style="color:var(--gold); border-color:var(--gold);">Ask a Question</a>
+    </div>
+    <p style="color:rgba(232,213,183,0.35); font-size:0.8rem; margin-top:1.5rem; letter-spacing:0.08em; text-transform:uppercase;">
+      Commences September 1, 2026 &nbsp;·&nbsp; melissamelrose.com
+    </p>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════ -->
+  <footer>
+    <p>
+      &copy; 2026 Melissa Melrose &nbsp;·&nbsp;
+      <a href="mailto:melissa@melissamelrose.com">melissa@melissamelrose.com</a> &nbsp;·&nbsp;
+      <a href="https://melissamelrose.com">melissamelrose.com</a>
+    </p>
+  </footer>
+
+</body>
+</html>

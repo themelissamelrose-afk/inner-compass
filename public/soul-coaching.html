@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soul Coaching & Integration Journey | Melissa Melrose</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream:      #FAF5EE;
+      --cream-mid:  #F2E8D9;
+      --gold:       #C4967A;
+      --gold-light: #DDB89A;
+      --dusty-pink: #B07A6A;
+      --pink-blush: #F5E8E4;
+      --brown:      #5C2318;
+      --brown-mid:  #7A5A4A;
+      --text:       #3A2218;
+      --white:      #FFFFFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; font-weight: 300; color: var(--text); background: var(--cream); line-height: 1.8; font-size: 17px; }
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; line-height: 1.2; color: var(--brown); }
+    h1 { font-size: clamp(2.6rem, 6vw, 4.8rem); }
+    h2 { font-size: clamp(1.9rem, 4vw, 3rem); margin-bottom: 1rem; }
+    h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); margin-bottom: 0.6rem; }
+    p  { margin-bottom: 1.2rem; }
+    p:last-child { margin-bottom: 0; }
+    .container        { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow { max-width: 700px; margin: 0 auto; padding: 0 24px; }
+    .text-center { text-align: center; }
+    .divider { width: 48px; height: 1px; background: var(--gold); margin: 0 auto 2rem; }
+    .divider--left { margin-left: 0; }
+
+    /* STICKY NAV */
+    .sticky-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--brown); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; transform: translateY(-100%); transition: transform 0.3s ease; }
+    .sticky-nav.visible { transform: translateY(0); }
+    .sticky-nav__label { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1rem; font-style: italic; color: var(--gold-light); }
+
+    /* BUTTONS */
+    .btn { display: inline-block; padding: 16px 36px; font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: all 0.25s ease; }
+    .btn--gold { background: var(--gold); color: var(--white); }
+    .btn--gold:hover { background: var(--dusty-pink); }
+    .btn--outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+    .btn--outline:hover { background: var(--gold); color: var(--white); }
+    .btn--cream { background: transparent; border: 1px solid rgba(232,213,183,0.55); color: var(--cream); }
+    .btn--cream:hover { background: rgba(232,213,183,0.12); }
+
+    /* HERO */
+    .hero { background: var(--cream); display: grid; grid-template-columns: 420px 1fr; }
+    @media (max-width: 900px) { .hero { grid-template-columns: 360px 1fr; } }
+    @media (max-width: 750px) { .hero { grid-template-columns: 1fr; } }
+    .hero__photo { width: 100%; height: 100%; min-height: 480px; object-fit: cover; object-position: center 12%; display: block; }
+    .hero__content { display: flex; flex-direction: column; justify-content: center; padding: 60px 48px; }
+    .hero__eyebrow { font-family: 'Lato', sans-serif; font-weight: 400; letter-spacing: 0.22em; font-size: 0.8rem; text-transform: uppercase; color: var(--dusty-pink); margin-bottom: 1.5rem; }
+    .hero h1 { color: var(--brown); font-weight: 500; font-style: normal; margin-bottom: 1.2rem; font-size: clamp(2.4rem, 4vw, 4rem); line-height: 1.1; }
+    .hero__sub { font-family: 'Lato', sans-serif; font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: var(--brown-mid); font-weight: 300; margin-bottom: 2.5rem; line-height: 1.75; }
+    .hero__badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 2.5rem; }
+    .badge { border: 1px solid rgba(176,122,106,0.4); color: var(--dusty-pink); padding: 6px 14px; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; font-family: 'Lato', sans-serif; font-weight: 300; }
+
+    /* PERSONAL INTRO — MELISSA SPEAKING */
+    .personal-intro { padding: 80px 24px; background: var(--pink-blush); }
+    .personal-intro__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1000px; margin: 0 auto; }
+    @media (max-width: 750px) { .personal-intro__grid { grid-template-columns: 1fr; } }
+    .personal-intro__img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; display: block; }
+    .personal-intro__text h2 { margin-bottom: 1.2rem; }
+    .personal-intro__text p { color: var(--brown-mid); }
+    .personal-intro__text .signature { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-style: italic; color: var(--gold); margin-top: 1.5rem; }
+
+    /* HOOK */
+    .hook { padding: 70px 24px; background: var(--pink-blush); }
+    .hook__inner { max-width: 740px; margin: 0 auto; }
+    .hook h2 { margin-bottom: 1.5rem; }
+    .hook__line { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--brown-mid); font-style: italic; line-height: 1.7; margin-bottom: 0.6rem; }
+    .hook__body { color: var(--brown-mid); font-size: 1rem; line-height: 1.85; margin-top: 1.5rem; }
+
+    /* DARK STRIP */
+    .strip { background: var(--brown); padding: 56px 24px; text-align: center; }
+    .strip p { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1.25rem, 2.5vw, 2rem); font-style: italic; color: var(--gold-light); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+    /* TRUTH */
+    .truth { padding: 80px 24px; background: var(--cream-mid); }
+    .truth__inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    @media (max-width: 700px) { .truth__inner { grid-template-columns: 1fr; } }
+    .truth__img { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: center top; }
+    .truth h3 { color: var(--brown); font-style: italic; font-weight: 300; font-size: clamp(1.4rem, 2.5vw, 2.1rem); margin-bottom: 1.5rem; }
+    .truth__list { list-style: none; }
+    .truth__list li { font-family: 'Lato', sans-serif; font-size: 0.97rem; color: var(--brown-mid); padding: 10px 0; border-bottom: 1px solid rgba(176,122,106,0.2); }
+    .truth__list li:last-child { border-bottom: none; }
+
+    /* WHAT'S INCLUDED */
+    .includes { padding: 80px 24px; background: var(--cream-mid); }
+    .includes__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 3rem; }
+    @media (max-width: 700px) { .includes__grid { grid-template-columns: 1fr; } }
+    .include-card { background: var(--white); padding: 36px 32px; border-top: 2px solid var(--gold); }
+    .include-card__num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.5rem; color: var(--gold); opacity: 0.35; line-height: 1; margin-bottom: 12px; }
+    .include-card h3 { margin-bottom: 10px; font-size: 1.15rem; }
+    .include-card p { font-size: 0.95rem; color: var(--text); }
+    .include-card__value { display: inline-block; margin-top: 12px; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-family: 'Lato', sans-serif; }
+
+    /* PHOTO STRIP */
+    .photo-strip { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .photo-strip__item { aspect-ratio: 1/1; overflow: hidden; }
+    .photo-strip__item img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+
+    /* TRANSFORMATION */
+    .transform { padding: 80px 24px; background: var(--cream); }
+    .transform__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 3rem; }
+    @media (max-width: 700px) { .transform__grid { grid-template-columns: 1fr; } }
+    .transform__item { padding: 28px 24px; border-left: 2px solid var(--gold); }
+    .transform__item p { font-size: 0.97rem; color: var(--brown-mid); margin: 0; }
+
+    /* IS THIS FOR YOU */
+    .for-you { padding: 80px 24px; background: var(--pink-blush); }
+    .for-you__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1000px; margin: 0 auto; }
+    @media (max-width: 750px) { .for-you__inner { grid-template-columns: 1fr; } }
+    .for-you__img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; }
+    .for-you__list { list-style: none; margin-top: 1.5rem; }
+    .for-you__list li { padding: 12px 0 12px 26px; border-bottom: 1px solid rgba(176,122,106,0.2); color: var(--brown-mid); font-size: 1rem; position: relative; }
+    .for-you__list li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 0.7rem; top: 16px; }
+    .for-you__list li:last-child { border-bottom: none; }
+
+    /* INVESTMENT */
+    .investment { padding: 80px 24px; background: var(--brown); text-align: center; }
+    .investment h2 { color: var(--cream); font-style: italic; font-weight: 300; margin-bottom: 0.5rem; }
+    .investment__sub { color: var(--gold-light); margin-bottom: 3rem; font-size: 1rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 680px; margin: 0 auto 2rem; }
+    @media (max-width: 580px) { .pricing-grid { grid-template-columns: 1fr; } }
+    .pricing-card { border: 1px solid rgba(196,149,106,0.35); padding: 40px 32px; }
+    .pricing-card__duration { font-family: 'Lato', sans-serif; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .pricing-card__price { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 3.2rem; color: var(--cream); font-weight: 300; line-height: 1; margin-bottom: 8px; }
+    .pricing-card__note { font-size: 0.85rem; color: rgba(232,213,183,0.5); }
+    .investment__note { font-size: 0.85rem; color: rgba(232,213,183,0.45); margin-bottom: 2.5rem; }
+
+    /* MENTOR */
+    .mentor-section { padding: 80px 24px; background: var(--cream-mid); }
+    .mentor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
+    @media (max-width: 700px) { .mentor-grid { grid-template-columns: 1fr; } }
+    .mentor-grid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; display: block; }
+    .mentor-grid__text h2 { margin-bottom: 1rem; }
+    .mentor-grid__text p { color: var(--brown-mid); }
+
+    /* FINAL CTA */
+    .final-cta { padding: 80px 24px; background: var(--brown); text-align: center; }
+    .final-cta h2 { color: var(--cream); font-style: italic; font-weight: 300; max-width: 680px; margin: 0 auto 1rem; }
+    .final-cta p { color: var(--gold-light); max-width: 560px; margin: 0 auto 2rem; }
+    .final-cta__note { font-size: 0.85rem; color: rgba(232,213,183,0.4); margin-top: 1.2rem; }
+  </style>
+</head>
+<body>
+
+  <nav class="sticky-nav" id="stickyNav">
+    <span class="sticky-nav__label">Soul Coaching & Integration Journey</span>
+    <a href="mailto:melissa@melissamelrose.com" class="btn btn--gold" style="padding:10px 24px;font-size:0.75rem;">Apply Now</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <img class="hero__photo" src="https://inner-compass-production-7970.up.railway.app/melissa-chair.jpg" alt="Melissa Melrose" />
+    <div class="hero__content">
+      <p class="hero__eyebrow">Melissa Melrose &nbsp;·&nbsp; 1:1 Deep Work</p>
+      <h1>Feeling Your Truth</h1>
+      <p class="hero__sub">A sacred 1:1 journey to heal your inner wounds, transform deep emotional pain, and reveal the real you.</p>
+      <p class="hero__sub" style="font-size:clamp(0.95rem,1.4vw,1.05rem); font-family:'Lato',sans-serif; margin-top:-1rem; margin-bottom:2rem;">This is deeply personal, tailored entirely to you. We go within together through breathwork, inner child healing, somatic work, and energy healing to release what has been holding you back and reconnect you with the truth of who you are.</p>
+      <div class="hero__badges">
+        <span class="badge">3 or 6 Months</span>
+        <span class="badge">Fortnightly 2-Hour Sessions</span>
+        <span class="badge">Online or In-Person</span>
+        <span class="badge">By Application Only</span>
+      </div>
+      <a href="mailto:melissa@melissamelrose.com" class="btn btn--gold" style="background:var(--brown);">Apply for Your Journey</a>
+    </div>
+  </section>
+
+  <!-- PERSONAL INTRO — MELISSA SPEAKING DIRECTLY -->
+  <section class="personal-intro">
+    <div class="personal-intro__grid">
+      <img class="personal-intro__img" src="https://inner-compass-production-7970.up.railway.app/melissa-heart.jpg" alt="Melissa Melrose" />
+      <div class="personal-intro__text">
+        <div class="divider--left divider"></div>
+        <h2>This is just you and me.</h2>
+        <p>When we work together, I bring my full self to every session. My intuition, my training, my lived experience and my heart. There is no script and no one-size-fits-all approach. Every session is shaped entirely around what you are experiencing right now.</p>
+        <p>I will intuitively see beneath the surface to what is really holding you back, and gently guide you there at a pace that feels safe for your body and your nervous system. Nothing is forced. Everything unfolds exactly as it needs to.</p>
+        <p>Between sessions I am with you through Voxer, real-time support as life happens, not just in the hour we share together. Because healing does not wait for your next appointment.</p>
+        <p>This is the most personal, held and tailored work I offer. It is an honour to walk this path with you.</p>
+        <p class="signature">Big love, Melissa x</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOOK -->
+  <section class="hook">
+    <div class="hook__inner">
+      <div class="divider"></div>
+      <h2 class="text-center">You have done the work.<br>But your body still remembers.</h2>
+      <div style="margin-top:2rem;">
+        <p class="hook__line">You have read the books, attended the workshops, maybe even sat on the therapy couch.</p>
+        <p class="hook__line">You understand your patterns, yet they keep playing out.</p>
+        <p class="hook__line">You know what to do, but your body still reacts.</p>
+        <p class="hook__line">You meditate, but you cannot seem to find peace.</p>
+        <p class="hook__line">You have healed so much, but something deeper still feels unfinished.</p>
+      </div>
+      <p class="hook__body">That is because healing does not happen in the mind alone. It happens in the body, the breath, and the nervous system. Until those deeper layers feel safe, your system keeps looping in survival, even when your consciousness has evolved.</p>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip">
+    <p>You cannot talk your body out of protection. You have to teach it how to feel safe again.</p>
+  </div>
+
+  <!-- TRUTH WITH PHOTO -->
+  <section class="truth">
+    <div class="truth__inner">
+      <img class="truth__img" src="https://inner-compass-production-7970.up.railway.app/melissa-meditation.jpg" alt="Melissa Melrose" />
+      <div>
+        <h3>When the nervous system is still wired for protection, the body stays stuck in old patterns.</h3>
+        <ul class="truth__list">
+          <li>Overthinking and emotional overwhelm</li>
+          <li>Disconnection or numbness</li>
+          <li>People-pleasing and burnout</li>
+          <li>Anxiety, fatigue, or physical tension</li>
+          <li>Repeating patterns in relationships and life</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED -->
+  <section class="includes">
+    <div class="container">
+      <div class="text-center">
+        <div class="divider"></div>
+        <h2>What We Do Together</h2>
+        <p style="color:var(--brown-mid); max-width:600px; margin:0 auto;">This is not about fixing what is wrong. It is about remembering what is whole. Everything in this journey is tailored to you and where you are right now.</p>
+      </div>
+      <div class="includes__grid">
+
+        <div class="include-card">
+          <div class="include-card__num">01</div>
+          <h3>Your Private Sessions with Melissa</h3>
+          <p>We meet fortnightly for 2-hour sessions, just you and me. Each session is intuitively shaped to what is alive for you that day. We weave together somatic guidance, conscious connected breathwork, intuitive coaching, and emotional integration. Nothing is scripted. Everything is exactly what you need.</p>
+        </div>
+
+        <div class="include-card">
+          <div class="include-card__num">02</div>
+          <h3>Voxer Support Between Sessions</h3>
+          <p>Life does not pause between appointments. You have my private voice and text support through Voxer so that when something shifts, surfaces, or feels hard in your daily life, I am right there with you. This real-time holding is one of the most powerful parts of our work together.</p>
+        </div>
+
+        <div class="include-card">
+          <div class="include-card__num">03</div>
+          <h3>Monthly Group Breathwork Journeys</h3>
+          <p>Once a month you join me and a small collective for a live group breathwork session. There is something profound about breathing together in community. It deepens your individual work and opens parts of you that 1:1 sessions cannot always reach.</p>
+        </div>
+
+        <div class="include-card">
+          <div class="include-card__num">04</div>
+          <h3>Foundations of Self Online Program</h3>
+          <p>You receive full access to this 6-module self-paced program, which includes two live group coaching rounds per year with Melissa. It is the perfect companion to your private journey, giving you a framework to return to again and again as you integrate.</p>
+          <span class="include-card__value">Valued at $497</span>
+        </div>
+
+        <div class="include-card">
+          <div class="include-card__num">✦</div>
+          <h3>Simple Breaths Daily Practice Package</h3>
+          <p>A collection of guided breath practices you can use every day, between sessions and beyond your journey with me. For emotional calm, energy reset, and daily nervous system care.</p>
+          <span class="include-card__value">Bonus, Valued at $19.95</span>
+        </div>
+
+        <div class="include-card">
+          <div class="include-card__num">✦</div>
+          <h3>Inner Compass AI Companion Access</h3>
+          <p>You receive full access to Inner Compass, Melissa's private AI companion trained entirely in her voice, frameworks, and body of work. Available to you 24/7 between sessions for reflection, support, and guidance in Melissa's own words. Like having Melissa in your pocket.</p>
+          <span class="include-card__value">Bonus, Valued at $17/month</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSFORMATION -->
+  <section class="transform">
+    <div class="container">
+      <div class="text-center">
+        <div class="divider"></div>
+        <h2>What Becomes Possible</h2>
+        <p style="color:var(--brown-mid); max-width:580px; margin:0 auto;">As your nervous system learns to feel safe, everything begins to shift.</p>
+      </div>
+      <div class="transform__grid">
+        <div class="transform__item"><p>Emotional release without overwhelm or shame</p></div>
+        <div class="transform__item"><p>A calmer, more regulated nervous system</p></div>
+        <div class="transform__item"><p>Improved physical wellbeing and energy</p></div>
+        <div class="transform__item"><p>Deeper connection to your body, intuition, and truth</p></div>
+        <div class="transform__item"><p>Freedom from patterns of overgiving or emotional shutdown</p></div>
+        <div class="transform__item"><p>A renewed sense of safety, vitality, and self-trust</p></div>
+        <div class="transform__item"><p>Recognition of your soul self and a deepening connection to your higher guidance and intuition</p></div>
+        <div class="transform__item"><p>Understanding of your higher purpose and the unique gifts you are here to share</p></div>
+        <div class="transform__item"><p>Mastery of your energy and the capacity to hold presence through any challenge life brings</p></div>
+        <div class="transform__item"><p>A profound shift in perspective as you realise life is happening for you, not to you</p></div>
+        <div class="transform__item"><p>Healing that ripples beyond you, breaking generational patterns and shifting the lineage you pass on to those who come after you</p></div>
+        <div class="transform__item"><p>Transformed relationships with yourself, your family, and the people you love, as you show up from a place of wholeness rather than wounds</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IS THIS FOR YOU — WITH PHOTO -->
+  <section class="for-you">
+    <div class="for-you__inner">
+      <div>
+        <div class="divider--left divider"></div>
+        <h2>Is This Journey for You?</h2>
+        <p style="color:var(--brown-mid);">You might be ready if you:</p>
+        <ul class="for-you__list">
+          <li>Have done personal or spiritual work but still feel something is missing</li>
+          <li>Sense your body is holding the weight of old emotions or exhaustion</li>
+          <li>Feel stuck in repeating patterns despite your self-awareness</li>
+          <li>Are ready to go deeper, beyond the mind, into the body and breath</li>
+          <li>Long for a deeper sense of safety, peace, and connection to yourself</li>
+          <li>Are ready to commit to your healing with consistency and heart</li>
+        </ul>
+      </div>
+      <img class="for-you__img" src="https://inner-compass-production-7970.up.railway.app/melissa-portrait.jpg" alt="Melissa Melrose" />
+    </div>
+  </section>
+
+  <!-- INVESTMENT -->
+  <section class="investment">
+    <div class="container">
+      <div class="divider"></div>
+      <h2>Your Investment</h2>
+      <p class="investment__sub">Each journey is by application only, to ensure we are the right fit for this deeply personal work. I only take a small number of 1:1 clients at a time so I can give each person my full presence.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <p class="pricing-card__duration">3 Months</p>
+          <p class="pricing-card__price">$2,997</p>
+          <p class="pricing-card__note">AUD &nbsp;·&nbsp; 6 sessions</p>
+        </div>
+        <div class="pricing-card">
+          <p class="pricing-card__duration">6 Months</p>
+          <p class="pricing-card__price">$4,997</p>
+          <p class="pricing-card__note">AUD &nbsp;·&nbsp; 12 sessions</p>
+        </div>
+      </div>
+      <p class="investment__note">Payment plans available. Secure your place with a deposit and I will activate your payment plan during our onboarding call.</p>
+      <a href="mailto:melissa@melissamelrose.com" class="btn btn--cream">Apply for Your Soul Coaching Journey</a>
+    </div>
+  </section>
+
+  <!-- MEET MELISSA -->
+  <section class="mentor-section">
+    <div class="container">
+      <div class="mentor-grid">
+        <img src="https://inner-compass-production-7970.up.railway.app/melissa-beach.jpg" alt="Melissa Melrose" />
+        <div class="mentor-grid__text">
+          <div class="divider--left divider"></div>
+          <h2>A little about me</h2>
+          <p>I am a speaker, breathwork facilitator, and embodied leadership mentor with over 30 years of lived and professional experience in nervous system healing, emotional integration, and transformational space holding.</p>
+          <p>My gift lies in my ability to intuitively see beyond the surface to the root of what is holding you back. I bring together breathwork, psycho-spiritual insight, and energy healing to create a safe, nurturing space where real transformation becomes possible.</p>
+          <p>I have walked this path myself. Everything I guide you through, I have lived. That is what makes this work different.</p>
+          <a href="https://melissamelrose.com/about" class="btn btn--outline" style="margin-top:1.5rem;">More About Melissa</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="divider"></div>
+    <h2>If your soul feels the call, trust it.</h2>
+    <p>Your body already knows the way home. I am here to walk beside you.</p>
+    <a href="mailto:melissa@melissamelrose.com" class="btn btn--cream">Apply for Your Soul Coaching Journey</a>
+    <p class="final-cta__note">By application only &nbsp;·&nbsp; melissa@melissamelrose.com</p>
+  </section>
+
+  <script>
+    var nav  = document.getElementById('stickyNav');
+    var hero = document.getElementById('hero');
+    new IntersectionObserver(function(e) {
+      nav.classList.toggle('visible', !e[0].isIntersecting);
+    }, { threshold: 0.1 }).observe(hero);
+  </script>
+
+</body>
+</html>
