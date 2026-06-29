@@ -116,9 +116,16 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const _corePrompt = fs.readFileSync(path.join(__dirname, 'system-prompt.md'), 'utf8');
 const _contentPath = path.join(__dirname, 'content-library.md');
 const _contentLibrary = fs.existsSync(_contentPath) ? fs.readFileSync(_contentPath, 'utf8') : '';
-const SYSTEM_PROMPT = _contentLibrary.trim()
-  ? _corePrompt + "\n\n---\n\n## MELISSA'S PUBLISHED CONTENT & TEACHINGS\n\nThe following are Melissa's own words. Draw on these naturally in conversation.\n\n" + _contentLibrary
-  : _corePrompt;
+const _moonPath = path.join(__dirname, 'moon-current.md');
+const _moonContent = fs.existsSync(_moonPath) ? fs.readFileSync(_moonPath, 'utf8') : '';
+
+let SYSTEM_PROMPT = _corePrompt;
+if (_contentLibrary.trim()) {
+  SYSTEM_PROMPT += "\n\n---\n\n## MELISSA'S PUBLISHED CONTENT & TEACHINGS\n\nThe following are Melissa's own words. Draw on these naturally in conversation.\n\n" + _contentLibrary;
+}
+if (_moonContent.trim()) {
+  SYSTEM_PROMPT += "\n\n---\n\n## CURRENT MOON ENERGY\n\nThe following describes what is active in the sky right now. Weave this into conversation naturally when relevant — not in every message, but when it genuinely serves the person.\n\n" + _moonContent;
+}
 
 
 // ─── ASTROLOGY CHART CALCULATIONS ───────────────────────────────────────────
