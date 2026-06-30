@@ -97,7 +97,17 @@ app.get('/welcome', requireAuth, (req, res) => {
 });
 
 // Protect all member content — anything not in the public allowlist requires a valid session
-const PUBLIC_ROUTES = new Set(['/', '/login', '/subscribe', '/webinar', '/admin', '/becoming-whole', '/quiz', '/witch-wound', '/sisterhood-wound', '/moon-ritual']);
+const PUBLIC_ROUTES = new Set([
+  '/', '/login', '/subscribe', '/webinar', '/admin', '/becoming-whole',
+  // Open tools — accessible outside Inner Compass app (no login required)
+  '/quiz', '/pattern-quiz', '/pattern-identifier', '/survival-patterns', '/survival-patterns-guide',
+  '/witch-wound', '/sisterhood-wound', '/moon-ritual',
+  '/daily-checkin', '/personal-lie-session',
+  '/future-self-journal', '/gratitude-activation', '/rewiring-22x11',
+  '/inner-teen',
+  '/week1-observer', '/week2-personal-lie', '/week3-body-map',
+  '/week4-nervous-system', '/week5-flip-it', '/week6-shame',
+]);
 const PUBLIC_API_PREFIXES = ['/api/login', '/api/register', '/api/webinar-register', '/api/subscribe', '/api/webhook', '/api/activate', '/api/admin', '/api/quiz-register'];
 
 function protectMemberContent(req, res, next) {
