@@ -92,7 +92,7 @@ app.post('/api/webinar-register', async (req, res) => {
   if (!firstName || !email) return res.status(400).json({ error: 'Missing fields' });
 
   try {
-    await addToMailerLite(firstName, email);
+    await addToMailerLite(firstName, email, 'MAILERLITE_WEBINAR_GROUP_ID');
     res.json({ ok: true });
   } catch (e) {
     console.error('Webinar register error:', e.message);
@@ -439,7 +439,7 @@ app.post('/api/activate', async (req, res) => {
     if (subscription.status === 'active' || subscription.status === 'trialing') {
       users[email].status = 'active';
       saveUsers(users);
-      addToMailerLite(users[email].name, email);
+      addToMailerLite(users[email].name, email, 'MAILERLITE_MEMBERS_GROUP_ID');
       notifyMelissa(users[email].name, email);
       const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '30d' });
       res.cookie('token', token, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
@@ -475,9 +475,11 @@ app.get('/api/logout', (req, res) => {
 });
 
 // Add subscriber to MailerLite
-async function addToMailerLite(name, email) {
+async function addToMailerLite(name, email, groupEnvKey) {
   try {
     const firstName = name.split(' ')[0];
+    const groupId = process.env[groupEnvKey] || process.env.MAILERLITE_GROUP_ID;
+    const groups = groupId ? [groupId] : [];
     await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
       headers: {
@@ -487,7 +489,7 @@ async function addToMailerLite(name, email) {
       body: JSON.stringify({
         email,
         fields: { name: firstName },
-        groups: [process.env.MAILERLITE_GROUP_ID],
+        groups,
       }),
     });
   } catch (err) {
@@ -538,7 +540,7 @@ app.post('/api/admin/grant', requireAdmin, async (req, res) => {
     createdAt: new Date().toISOString(),
   };
   saveUsers(users);
-  addToMailerLite(name, email);
+  addToMailerLite(name, email, 'MAILERLITE_MEMBERS_GROUP_ID');
   res.json({ success: true, tempPassword });
 });
 
@@ -761,7 +763,7 @@ app.post('/api/quiz-register', async (req, res) => {
   const { firstName, email, pattern } = req.body;
   if (!firstName || !email) return res.status(400).json({ error: 'Missing fields' });
   try {
-    await addToMailerLite(firstName, email);
+    await addToMailerLite(firstName, email, 'MAILERLITE_QUIZ_GROUP_ID');
     console.log(`Quiz lead: ${firstName} (${email}) — pattern: ${pattern}`);
     res.json({ ok: true });
   } catch(e) {
