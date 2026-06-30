@@ -18,6 +18,25 @@ try {
 } catch(e) {
   console.error('Stripe init error:', e.message);
 }
+
+const nodemailer = require('nodemailer');
+async function notifyMelissa(memberName, memberEmail) {
+  if (!process.env.GMAIL_APP_PASSWORD) return;
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: 'themelissamelrose@gmail.com', pass: process.env.GMAIL_APP_PASSWORD }
+    });
+    await transporter.sendMail({
+      from: '"Inner Compass" <themelissamelrose@gmail.com>',
+      to: 'themelissamelrose@gmail.com',
+      subject: `New Inner Compass member: ${memberName}`,
+      text: `Someone just joined Inner Compass!\n\nName: ${memberName}\nEmail: ${memberEmail}\n\nThey now have full access to the app.`
+    });
+  } catch(e) {
+    console.error('Notification email failed:', e.message);
+  }
+}
 const JWT_SECRET = process.env.JWT_SECRET || 'inner-compass-secret-2024';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'melissa2024compass';
 const ADMIN_SECRET = 'admin-' + JWT_SECRET;
@@ -391,6 +410,7 @@ app.post('/api/webhook', express.raw({ type: 'application/json' }), (req, res) =
     if (user) {
       user.status = 'active';
       saveUsers(users);
+      notifyMelissa(user.name, user.email);
     }
   }
 
@@ -420,6 +440,7 @@ app.post('/api/activate', async (req, res) => {
       users[email].status = 'active';
       saveUsers(users);
       addToMailerLite(users[email].name, email);
+      notifyMelissa(users[email].name, email);
       const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '30d' });
       res.cookie('token', token, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
       res.json({ success: true });
