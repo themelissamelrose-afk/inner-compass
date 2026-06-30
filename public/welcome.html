@@ -29,6 +29,29 @@
       transition: background 0.2s;
     }
     .cta:hover { background: var(--gold-soft); }
+    .app-tip {
+      margin-top: 40px; border-top: 1px solid var(--border);
+      padding-top: 32px; text-align: left;
+    }
+    .app-tip h2 {
+      font-size: 15px; font-weight: normal; color: var(--gold);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px;
+      text-align: center;
+    }
+    .device-block { margin-bottom: 20px; }
+    .device-label {
+      font-size: 13px; color: var(--gold); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .steps { list-style: none; padding: 0; }
+    .steps li {
+      font-size: 14px; color: var(--text-muted); line-height: 1.7;
+      padding: 4px 0; padding-left: 20px; position: relative;
+    }
+    .steps li::before {
+      content: attr(data-n); position: absolute; left: 0;
+      color: var(--gold); font-size: 12px;
+    }
   </style>
 </head>
 <body>
@@ -44,6 +67,37 @@
   <p>Come here whenever you need to come back to yourself — morning check-ins, moments of activation, or simply when you need presence.</p>
   <p style="color: #c8a96e; font-style: italic;">"Insight isn't integration. Come back to yourself."</p>
   <a href="/app" class="cta">Open The Inner Compass</a>
+
+  <div class="app-tip">
+    <h2>Save it to your phone</h2>
+    <p style="font-size:14px; color: var(--text-muted); margin-bottom:20px; text-align:center;">
+      Add Inner Compass to your home screen so it opens like an app — no browser, no searching for the link.
+    </p>
+
+    <div class="device-block">
+      <div class="device-label">iPhone / iPad</div>
+      <ol class="steps">
+        <li data-n="1.">Open this page in Safari (not Chrome)</li>
+        <li data-n="2.">Tap the share icon at the bottom of the screen — it looks like a box with an arrow pointing up</li>
+        <li data-n="3.">Scroll down and tap <strong style="color:var(--text)">Add to Home Screen</strong></li>
+        <li data-n="4.">Tap <strong style="color:var(--text)">Add</strong> in the top right corner</li>
+      </ol>
+    </div>
+
+    <div class="device-block">
+      <div class="device-label">Android</div>
+      <ol class="steps">
+        <li data-n="1.">Open this page in Chrome</li>
+        <li data-n="2.">Tap the three dots in the top right corner</li>
+        <li data-n="3.">Tap <strong style="color:var(--text)">Add to Home Screen</strong> or <strong style="color:var(--text)">Install App</strong></li>
+        <li data-n="4.">Tap <strong style="color:var(--text)">Add</strong></li>
+      </ol>
+    </div>
+
+    <p style="font-size:13px; color: var(--text-muted); text-align:center; margin-top:8px; font-style:italic;">
+      The Inner Compass icon will appear on your home screen, ready whenever you need it.
+    </p>
+  </div>
 </div>
 </body>
 </html>
