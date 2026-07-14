@@ -49,7 +49,7 @@
   .step {
     display: none;
     min-height: 100vh;
-    padding: 64px 24px 120px;
+    padding: 56px 20px 60px;
     max-width: 560px;
     margin: 0 auto;
     flex-direction: column;
@@ -392,28 +392,12 @@
   }
   .btn-begin:hover { opacity: 0.83; }
 
-  /* NAV */
-  #nav {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    padding: 16px 28px 22px;
-    display: none;
-    align-items: center; justify-content: space-between;
-    background: linear-gradient(to top, var(--bg) 68%, transparent);
-    z-index: 100;
+  /* INLINE NAV */
+  .step-nav {
+    width: 100%; margin-top: 40px;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    padding-top: 24px; border-top: 1px solid var(--border);
   }
-  #nav.visible { display: flex; }
-  .nav-btn {
-    background: transparent;
-    border: 1px solid var(--border); color: var(--muted);
-    font-family: inherit; font-size: 0.7rem;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 10px 22px; border-radius: 50px;
-    cursor: pointer; transition: all 0.2s;
-  }
-  .nav-btn.fwd { border-color: rgba(200,165,116,0.45); color: var(--gold); }
-  .nav-btn:not(:disabled):hover { border-color: var(--gold); color: var(--gold); }
-  .nav-btn:disabled { opacity: 0.15; cursor: default; }
-
   .dots { display: flex; gap: 7px; align-items: center; }
   .dot {
     width: 5px; height: 5px; border-radius: 50%;
@@ -421,6 +405,22 @@
   }
   .dot.active { background: var(--gold); width: 18px; border-radius: 3px; }
   .dot.done   { background: rgba(200,165,116,0.3); }
+  .btn-continue {
+    width: 100%; background: var(--gold); color: var(--bg);
+    font-family: inherit; font-size: 0.95rem; letter-spacing: 0.06em;
+    padding: 17px; border-radius: 50px; border: none;
+    cursor: pointer; transition: opacity 0.2s;
+  }
+  .btn-continue:hover { opacity: 0.85; }
+  .btn-continue:disabled { opacity: 0.3; cursor: default; }
+  .btn-back {
+    background: transparent; border: none;
+    color: var(--muted); font-family: inherit;
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; cursor: pointer;
+    padding: 4px 0; transition: color 0.2s;
+  }
+  .btn-back:hover { color: var(--gold); }
 </style>
 
 <div class="wrap">
@@ -596,11 +596,6 @@
 
 </div>
 
-<nav id="nav">
-  <button class="nav-btn" id="prevBtn" onclick="prevStep()" disabled>Back</button>
-  <div class="dots" id="dots"></div>
-  <button class="nav-btn fwd" id="nextBtn" onclick="nextStep()">Continue</button>
-</nav>
 
 <script>
   let cur = 0;
@@ -630,14 +625,26 @@
   ];
   let mIdx = 0;
 
-  function buildDots() {
-    const el = document.getElementById('dots');
-    el.innerHTML = '';
+  function dotsHTML() {
+    let h = '<div class="dots">';
     for (let i = 1; i < TOTAL; i++) {
-      const d = document.createElement('div');
-      d.className = 'dot' + (i === cur ? ' active' : i < cur ? ' done' : '');
-      el.appendChild(d);
+      h += `<div class="dot${i === cur ? ' active' : i < cur ? ' done' : ''}"></div>`;
     }
+    return h + '</div>';
+  }
+
+  function renderNav() {
+    document.querySelectorAll('.step-nav').forEach(el => el.remove());
+    if (cur === 0) return;
+    const isLast = cur === TOTAL - 1;
+    const nav = document.createElement('div');
+    nav.className = 'step-nav';
+    nav.innerHTML = `
+      ${dotsHTML()}
+      <button class="btn-continue" onclick="nextStep()" ${isLast ? 'disabled' : ''}>${isLast ? 'Complete' : 'Continue →'}</button>
+      ${cur > 1 ? '<button class="btn-back" onclick="prevStep()">← Back</button>' : ''}
+    `;
+    document.getElementById('s' + cur).appendChild(nav);
   }
 
   function go(n) {
@@ -645,19 +652,8 @@
     if (cur === 5 && breathActive) stopBreath();
     cur = n;
     document.getElementById('s' + cur).classList.add('active');
-
-    const nav = document.getElementById('nav');
-    if (cur === 0) { nav.classList.remove('visible'); }
-    else           { nav.classList.add('visible'); }
-
-    document.getElementById('prevBtn').disabled = cur <= 1;
-    const nb = document.getElementById('nextBtn');
-    nb.textContent = cur === TOTAL - 1 ? 'Complete' : 'Continue';
-    nb.disabled    = cur === TOTAL - 1;
-
-    buildDots();
+    renderNav();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
     if (cur === 3) revealQuestions();
   }
 
@@ -733,5 +729,5 @@
     }, 4000);
   }
 
-  buildDots();
+  renderNav();
 </script>
