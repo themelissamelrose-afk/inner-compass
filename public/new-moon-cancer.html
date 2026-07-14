@@ -1,0 +1,695 @@
+<title>New Moon in Cancer — A Sacred Ceremony</title>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0c0a12;
+    --surface: #131020;
+    --border: #251e35;
+    --gold: #c8a574;
+    --rose: #c49a8a;
+    --text: #e8ddd0;
+    --muted: #78706e;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Didot", "Bodoni MT", "Book Antiqua", Palatino, Georgia, serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -10vh; left: 50%;
+    transform: translateX(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(200,165,116,0.07) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* LAYOUT */
+  .wrap {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+  }
+
+  .step {
+    display: none;
+    min-height: 100vh;
+    padding: 64px 24px 120px;
+    max-width: 560px;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .step.active {
+    display: flex;
+    animation: stepIn 0.75s ease both;
+  }
+  @keyframes stepIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MOON */
+  .moon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 36% 30%, #f0e8d8 5%, #c8a574 52%, #8a6030);
+    box-shadow: 0 0 32px rgba(200,165,116,0.5), 0 0 80px rgba(200,165,116,0.15);
+    animation: moonGlow 4s ease-in-out infinite;
+    flex-shrink: 0;
+    margin-bottom: 28px;
+  }
+  @keyframes moonGlow {
+    0%,100% { box-shadow: 0 0 32px rgba(200,165,116,0.5), 0 0 80px rgba(200,165,116,0.15); }
+    50%      { box-shadow: 0 0 56px rgba(200,165,116,0.7), 0 0 120px rgba(200,165,116,0.28); }
+  }
+
+  /* CANDLE */
+  .candle-wrap {
+    display: flex; flex-direction: column; align-items: center;
+    margin-bottom: 36px;
+  }
+  .flame {
+    width: 13px; height: 22px;
+    background: radial-gradient(ellipse at 50% 88%, #fffaf0 0%, #f8d060 22%, #e07820 62%, transparent 100%);
+    border-radius: 50% 50% 30% 30%;
+    animation: flicker 1.9s ease-in-out infinite alternate;
+    filter: blur(0.3px);
+  }
+  @keyframes flicker {
+    0%   { transform: scaleY(1) rotate(-1.5deg); opacity: 0.9; }
+    33%  { transform: scaleY(1.08) rotate(1deg); opacity: 1; }
+    66%  { transform: scaleY(0.92) rotate(-2deg); opacity: 0.88; }
+    100% { transform: scaleY(1.05) rotate(0.5deg); opacity: 0.96; }
+  }
+  .candle-body {
+    width: 10px; height: 46px;
+    background: linear-gradient(to bottom, #e8ddd0, #c8a574 65%, #7a5020);
+    border-radius: 3px 3px 2px 2px;
+    margin-top: 1px;
+  }
+  .candle-base {
+    width: 18px; height: 4px;
+    background: rgba(37,30,53,0.8);
+    border-radius: 2px;
+  }
+
+  /* TYPOGRAPHY */
+  .eyebrow {
+    font-family: Georgia, serif;
+    font-size: 0.63rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    display: block;
+    opacity: 0.85;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5.5vw, 2.8rem);
+    font-weight: normal;
+    line-height: 1.2;
+    color: var(--text);
+    text-wrap: balance;
+    margin-bottom: 12px;
+  }
+  h1 em { color: var(--gold); font-style: normal; }
+
+  .tagline {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 44px;
+  }
+
+  h2 {
+    font-size: clamp(1.3rem, 3.8vw, 1.8rem);
+    font-weight: normal;
+    color: var(--gold);
+    margin-bottom: 22px;
+    text-wrap: balance;
+    line-height: 1.3;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--text);
+    margin-bottom: 16px;
+    text-align: left;
+    width: 100%;
+  }
+  p.c { text-align: center; }
+  p.muted { color: var(--muted); font-style: italic; font-size: 0.93rem; }
+
+  .italic-line {
+    font-style: italic;
+    color: var(--rose);
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin: 20px 0;
+    width: 100%;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 36px; height: 1px;
+    background: rgba(200,165,116,0.3);
+    margin: 26px auto;
+    flex-shrink: 0;
+  }
+
+  /* NEEDS LIST */
+  .needs {
+    list-style: none; width: 100%;
+    display: flex; flex-direction: column; gap: 9px;
+    margin: 18px 0;
+  }
+  .needs li {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 0.95rem; color: var(--text);
+    padding: 12px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-align: left; line-height: 1.45;
+  }
+  .needs li::before {
+    content: '✦';
+    color: var(--gold); font-size: 0.55rem;
+    flex-shrink: 0; opacity: 0.65;
+  }
+
+  /* SPOKEN WORDS */
+  .spoken {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    padding: 22px 24px;
+    margin: 20px 0; width: 100%;
+    text-align: left;
+  }
+  .spoken .label {
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 0.6rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 14px; opacity: 0.8;
+  }
+  .spoken p {
+    font-style: italic; color: var(--rose);
+    font-size: 0.97rem; line-height: 1.8;
+    margin-bottom: 8px;
+  }
+  .spoken p:last-child { margin-bottom: 0; }
+
+  /* REFLECTION QUESTIONS */
+  .questions {
+    width: 100%;
+    display: flex; flex-direction: column; gap: 14px;
+    margin: 22px 0;
+  }
+  .question {
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-style: italic; color: var(--rose);
+    font-size: 0.97rem; line-height: 1.65;
+    text-align: left;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .question.visible { opacity: 1; transform: translateY(0); }
+
+  /* RELEASE ITEMS */
+  .release-items {
+    width: 100%;
+    display: flex; flex-direction: column; gap: 9px;
+    margin: 16px 0;
+  }
+  .release-item {
+    padding: 12px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-style: italic; color: var(--rose);
+    font-size: 0.93rem; text-align: left;
+  }
+
+  /* BREATH */
+  .breath-wrap {
+    display: flex; flex-direction: column; align-items: center;
+    margin: 28px 0; width: 100%;
+  }
+  .breath-ring {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,165,116,0.2);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .breath-circle {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,165,116,0.5), rgba(196,154,138,0.2) 70%);
+    transition: width 4s ease-in-out, height 4s ease-in-out;
+  }
+  .breath-circle.inhale { width: 156px; height: 156px; }
+  .breath-circle.exhale { width: 52px; height: 52px; }
+
+  .breath-label {
+    font-family: Georgia, serif;
+    font-size: 0.63rem; letter-spacing: 0.26em;
+    text-transform: uppercase; color: var(--gold);
+    min-height: 18px; margin-bottom: 12px;
+  }
+  .breath-mantra {
+    font-style: italic; color: var(--rose);
+    font-size: 1rem; text-align: center;
+    min-height: 28px; line-height: 1.6;
+    transition: opacity 0.5s ease;
+  }
+  .breath-mantra.hidden { opacity: 0; }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(200,165,116,0.35);
+    color: var(--gold);
+    font-family: inherit; font-size: 0.74rem;
+    letter-spacing: 0.17em; text-transform: uppercase;
+    padding: 11px 30px; border-radius: 50px;
+    cursor: pointer; margin-top: 20px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(200,165,116,0.08); border-color: var(--gold); }
+
+  /* JOURNAL PROMPTS */
+  .prompts {
+    width: 100%;
+    display: flex; flex-direction: column; gap: 11px;
+    margin: 18px 0;
+  }
+  .prompt {
+    padding: 15px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.95rem; color: var(--text);
+    line-height: 1.6; text-align: left;
+  }
+  .prompt em { color: var(--rose); font-style: normal; }
+
+  /* INTENTIONS */
+  .intention-cards {
+    width: 100%;
+    display: flex; flex-direction: column; gap: 10px;
+    margin: 18px 0;
+  }
+  .intention-card {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 15px 18px;
+    background: rgba(200,165,116,0.06);
+    border: 1px solid rgba(200,165,116,0.2);
+    border-radius: 10px; text-align: left;
+  }
+  .intention-card .ic-tag {
+    font-family: Georgia, serif;
+    font-size: 0.6rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold);
+    flex-shrink: 0; margin-top: 2px;
+    opacity: 0.7;
+  }
+  .intention-card span {
+    font-style: italic; color: var(--rose);
+    font-size: 0.95rem; line-height: 1.6;
+  }
+
+  /* BLESSING */
+  .blessing {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    margin: 18px 0; width: 100%;
+  }
+  .blessing p {
+    font-style: italic; color: var(--rose);
+    text-align: center; font-size: 1rem;
+    line-height: 1.9; margin-bottom: 12px;
+  }
+  .blessing p:last-child { margin-bottom: 0; }
+
+  .final-line {
+    font-size: 1.05rem; font-style: italic;
+    color: var(--muted); text-align: center;
+    line-height: 1.85; margin-top: 14px; width: 100%;
+  }
+  .byline {
+    font-size: 0.75rem; letter-spacing: 0.12em;
+    color: var(--muted); margin-top: 32px;
+    opacity: 0.45; text-align: center;
+  }
+
+  /* BEGIN BUTTON */
+  .btn-begin {
+    background: var(--gold); color: var(--bg);
+    font-family: inherit; font-size: 0.93rem;
+    letter-spacing: 0.08em;
+    padding: 17px 46px; border-radius: 50px;
+    border: none; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-begin:hover { opacity: 0.83; }
+
+  /* NAV */
+  #nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    padding: 16px 28px 22px;
+    display: none;
+    align-items: center; justify-content: space-between;
+    background: linear-gradient(to top, var(--bg) 68%, transparent);
+    z-index: 100;
+  }
+  #nav.visible { display: flex; }
+  .nav-btn {
+    background: transparent;
+    border: 1px solid var(--border); color: var(--muted);
+    font-family: inherit; font-size: 0.7rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 10px 22px; border-radius: 50px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .nav-btn.fwd { border-color: rgba(200,165,116,0.45); color: var(--gold); }
+  .nav-btn:not(:disabled):hover { border-color: var(--gold); color: var(--gold); }
+  .nav-btn:disabled { opacity: 0.15; cursor: default; }
+
+  .dots { display: flex; gap: 7px; align-items: center; }
+  .dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--border); transition: all 0.3s;
+  }
+  .dot.active { background: var(--gold); width: 18px; border-radius: 3px; }
+  .dot.done   { background: rgba(200,165,116,0.3); }
+</style>
+
+<div class="wrap">
+
+  <!-- S0: TITLE -->
+  <div class="step active" id="s0">
+    <div class="candle-wrap">
+      <div class="flame"></div>
+      <div class="candle-body"></div>
+      <div class="candle-base"></div>
+    </div>
+    <span class="eyebrow">New Moon in Cancer</span>
+    <h1>Returning Home<br>to <em>Yourself</em></h1>
+    <p class="tagline">"Every new beginning begins with a sacred return."</p>
+    <button class="btn-begin" onclick="go(1)">Begin the Ceremony</button>
+    <p style="font-size:0.78rem; color:var(--muted); text-align:center; margin-top:22px; line-height:1.7;">
+      Find a quiet space. Light a candle. Settle in.
+    </p>
+  </div>
+
+  <!-- S1: WHAT YOU'LL NEED -->
+  <div class="step" id="s1">
+    <div class="moon"></div>
+    <span class="eyebrow">Before You Begin</span>
+    <h2>What You'll Need</h2>
+    <p class="c muted">Gather these before you settle in. There is no rush.</p>
+    <ul class="needs">
+      <li>A candle</li>
+      <li>A journal and pen</li>
+      <li>A bowl of water</li>
+      <li>A crystal (optional)</li>
+      <li>A cup of ceremonial cacao or herbal tea</li>
+      <li>A blanket and comfortable space</li>
+      <li>Gentle music or silence</li>
+    </ul>
+    <p class="c muted" style="margin-top:8px;">When you are ready, continue.</p>
+  </div>
+
+  <!-- S2: OPENING THE SPACE -->
+  <div class="step" id="s2">
+    <span class="eyebrow">Opening</span>
+    <h2>Opening the Space</h2>
+    <p>Light your candle.</p>
+    <p>Take three slow breaths.</p>
+    <p>Place one hand on your heart and one on your womb or lower belly.</p>
+    <p>Close your eyes and simply arrive.</p>
+    <p>Feel the support of the Earth beneath you. Feel the rhythm of your own breath.</p>
+    <div class="divider"></div>
+    <div class="spoken">
+      <span class="label">Say Aloud</span>
+      <p>"I open this sacred space with love.</p>
+      <p>I call myself fully home.</p>
+      <p>May only that which serves my highest good enter this space.</p>
+      <p>May I have the courage to see clearly, release lovingly, and receive deeply."</p>
+    </div>
+    <p>Take a few more breaths. There is nowhere to be but here.</p>
+  </div>
+
+  <!-- S3: REFLECTION -->
+  <div class="step" id="s3">
+    <span class="eyebrow">Cancer Season</span>
+    <h2>Reflection</h2>
+    <p>Cancer is the keeper of the heart.</p>
+    <p class="muted c">She asks us not what we have achieved, but what we have been carrying.</p>
+    <p>Sit with each question. Allow whatever arises. There is nothing to fix. Only something to witness.</p>
+    <div class="questions">
+      <div class="question" id="q1">Where have you abandoned yourself to belong?</div>
+      <div class="question" id="q2">Where have you protected yourself instead of trusting life?</div>
+      <div class="question" id="q3">Where have you continued to mother everyone else while forgetting the woman within?</div>
+    </div>
+  </div>
+
+  <!-- S4: WATER RITUAL -->
+  <div class="step" id="s4">
+    <span class="eyebrow">Release</span>
+    <h2>The Water Ritual</h2>
+    <p>Place your fingertips into the bowl of water.</p>
+    <div class="italic-line">Water remembers.<br>Just as your body remembers.</div>
+    <p>Whisper into the water everything you are ready to release.</p>
+    <div class="release-items">
+      <div class="release-item">Old fears</div>
+      <div class="release-item">Old identities</div>
+      <div class="release-item">Old responsibilities</div>
+      <div class="release-item">Old stories</div>
+      <div class="release-item">Old versions of yourself that have completed their purpose</div>
+    </div>
+    <p>When you are ready, gently pour the water onto the earth or into your garden as an offering of release.</p>
+  </div>
+
+  <!-- S5: BREATH -->
+  <div class="step" id="s5">
+    <span class="eyebrow">Breath Practice</span>
+    <h2>Sacred Breath</h2>
+    <p class="c muted">Inhale for four. Exhale for six. Follow the circle.</p>
+    <div class="breath-wrap">
+      <div class="breath-ring">
+        <div class="breath-circle" id="breathCircle"></div>
+      </div>
+      <div class="breath-label" id="breathLabel"></div>
+      <div class="breath-mantra hidden" id="breathMantra"></div>
+      <button class="btn-ghost" id="breathBtn" onclick="toggleBreath()">Begin Breath</button>
+    </div>
+  </div>
+
+  <!-- S6: JOURNAL -->
+  <div class="step" id="s6">
+    <span class="eyebrow">Soul Writing</span>
+    <h2>Journal Prompts</h2>
+    <p class="c muted">Complete these sentences. Write without editing yourself. Let your soul speak.</p>
+    <div class="prompts">
+      <div class="prompt">I am ready to stop carrying <em>…</em></div>
+      <div class="prompt">The part of me that is asking for love today is <em>…</em></div>
+      <div class="prompt">My heart longs for <em>…</em></div>
+      <div class="prompt">Home feels like <em>…</em></div>
+      <div class="prompt">The woman I am becoming chooses <em>…</em></div>
+      <div class="prompt">This moon I lovingly release <em>…</em></div>
+      <div class="prompt">This moon I joyfully welcome <em>…</em></div>
+    </div>
+  </div>
+
+  <!-- S7: INTENTIONS -->
+  <div class="step" id="s7">
+    <span class="eyebrow">New Moon Intentions</span>
+    <h2>Planting Intentions</h2>
+    <p>Cancer doesn't ask us to chase. She asks us to nurture.</p>
+    <p>Write three intentions beginning with <span style="color:var(--rose); font-style:italic;">I am nurturing</span>, rather than <span style="color:var(--muted); font-style:italic;">I want.</span></p>
+    <p>Feel the difference.</p>
+    <div class="divider"></div>
+    <div class="intention-cards">
+      <div class="intention-card">
+        <span class="ic-tag">Try</span>
+        <span>"I am nurturing deep trust in myself."</span>
+      </div>
+      <div class="intention-card">
+        <span class="ic-tag">Try</span>
+        <span>"I am nurturing relationships that nourish my nervous system."</span>
+      </div>
+      <div class="intention-card">
+        <span class="ic-tag">Try</span>
+        <span>"I am nurturing a life that feels like home."</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S8: CLOSING -->
+  <div class="step" id="s8">
+    <div class="moon"></div>
+    <span class="eyebrow">Closing</span>
+    <h2>Closing Blessing</h2>
+    <p>Place both hands over your heart. Take one final deep breath.</p>
+    <p>Say aloud:</p>
+    <div class="blessing">
+      <p>"I honour every version of myself that brought me here.</p>
+      <p>I release what no longer belongs to my future.</p>
+      <p>I welcome what my soul is ready to receive.</p>
+      <p>May my life become a reflection of the love I hold within.</p>
+      <p>May I remember that home has never been a place outside of me.</p>
+      <p>Home has always been me.</p>
+      <p>And so it is."</p>
+    </div>
+    <p class="c">Blow out your candle slowly.</p>
+    <p class="c muted">Carry this softness into the days ahead.</p>
+    <div class="divider"></div>
+    <p class="final-line">The New Moon has been planted.<br>Now trust what wishes to grow.</p>
+    <p class="byline">Melissa Melrose &nbsp;·&nbsp; New Moon in Cancer</p>
+  </div>
+
+</div>
+
+<nav id="nav">
+  <button class="nav-btn" id="prevBtn" onclick="prevStep()" disabled>Back</button>
+  <div class="dots" id="dots"></div>
+  <button class="nav-btn fwd" id="nextBtn" onclick="nextStep()">Continue</button>
+</nav>
+
+<script>
+  let cur = 0;
+  const TOTAL = 9;
+  let breathActive = false;
+  let breathTimer = null;
+  const mantras = [
+    "I am safe to soften.",
+    "I am safe to receive.",
+    "I am safe to belong to myself."
+  ];
+  let mIdx = 0;
+
+  function buildDots() {
+    const el = document.getElementById('dots');
+    el.innerHTML = '';
+    for (let i = 1; i < TOTAL; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === cur ? ' active' : i < cur ? ' done' : '');
+      el.appendChild(d);
+    }
+  }
+
+  function go(n) {
+    document.getElementById('s' + cur).classList.remove('active');
+    if (cur === 5 && breathActive) stopBreath();
+    cur = n;
+    document.getElementById('s' + cur).classList.add('active');
+
+    const nav = document.getElementById('nav');
+    if (cur === 0) { nav.classList.remove('visible'); }
+    else           { nav.classList.add('visible'); }
+
+    document.getElementById('prevBtn').disabled = cur <= 1;
+    const nb = document.getElementById('nextBtn');
+    nb.textContent = cur === TOTAL - 1 ? 'Complete' : 'Continue';
+    nb.disabled    = cur === TOTAL - 1;
+
+    buildDots();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (cur === 3) revealQuestions();
+  }
+
+  function nextStep() { if (cur < TOTAL - 1) go(cur + 1); }
+  function prevStep() { if (cur > 1) go(cur - 1); }
+
+  function revealQuestions() {
+    ['q1','q2','q3'].forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove('visible');
+      setTimeout(() => el.classList.add('visible'), 200 + i * 450);
+    });
+  }
+
+  function toggleBreath() {
+    if (breathActive) stopBreath(); else startBreath();
+  }
+
+  function startBreath() {
+    breathActive = true;
+    mIdx = 0;
+    document.getElementById('breathBtn').textContent = 'Stop';
+    runCycle();
+  }
+
+  function stopBreath() {
+    breathActive = false;
+    clearTimeout(breathTimer);
+    document.getElementById('breathCircle').className = 'breath-circle';
+    document.getElementById('breathLabel').textContent = '';
+    document.getElementById('breathMantra').className = 'breath-mantra hidden';
+    document.getElementById('breathBtn').textContent = 'Begin Breath';
+  }
+
+  function runCycle() {
+    if (!breathActive) return;
+    const circle = document.getElementById('breathCircle');
+    const label  = document.getElementById('breathLabel');
+    const mantra = document.getElementById('breathMantra');
+
+    // INHALE — 4 seconds
+    circle.className = 'breath-circle inhale';
+    label.textContent = 'Inhale';
+    mantra.className = 'breath-mantra hidden';
+
+    breathTimer = setTimeout(() => {
+      if (!breathActive) return;
+      // EXHALE — 6 seconds
+      circle.className = 'breath-circle exhale';
+      label.textContent = 'Exhale';
+      setTimeout(() => {
+        if (!breathActive) return;
+        mantra.textContent = mantras[mIdx % mantras.length];
+        mantra.className = 'breath-mantra';
+      }, 600);
+
+      breathTimer = setTimeout(() => {
+        if (!breathActive) return;
+        mIdx++;
+        runCycle();
+      }, 6000);
+    }, 4000);
+  }
+
+  buildDots();
+</script>

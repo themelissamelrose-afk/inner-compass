@@ -121,7 +121,7 @@ const PUBLIC_ROUTES = new Set([
   // Open tools — accessible outside Inner Compass app (no login required)
   '/quiz', '/pattern-quiz', '/pattern-identifier', '/survival-patterns', '/survival-patterns-guide',
   '/witch-wound', '/sisterhood-wound', '/moon-ritual',
-  '/daily-checkin', '/personal-lie-session',
+  '/daily-checkin', '/personal-lie-session', '/new-moon-cancer',
   '/future-self-journal', '/gratitude-activation', '/rewiring-22x11',
   '/inner-teen',
   '/week1-observer', '/week2-personal-lie', '/week3-body-map',
