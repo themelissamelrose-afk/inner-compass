@@ -303,6 +303,16 @@
     transition: background 0.2s, border-color 0.2s;
   }
   .btn-ghost:hover { background: rgba(200,165,116,0.08); border-color: var(--gold); }
+  .music-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 14px; }
+  .music-btn {
+    background: transparent; border: none;
+    color: var(--muted); font-family: inherit;
+    font-size: 0.68rem; letter-spacing: 0.16em;
+    text-transform: uppercase; cursor: pointer;
+    padding: 4px 0; transition: color 0.2s;
+  }
+  .music-btn:hover { color: var(--gold); }
+  .music-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); }
 
   /* JOURNAL PROMPTS */
   .prompts {
@@ -512,7 +522,13 @@
       <div class="breath-label" id="breathLabel"></div>
       <div class="breath-mantra hidden" id="breathMantra"></div>
       <button class="btn-ghost" id="breathBtn" onclick="toggleBreath()">Begin Breath</button>
+      <div class="music-row">
+        <span class="music-dot"></span>
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">Music Off</button>
+        <span class="music-dot"></span>
+      </div>
     </div>
+    <audio id="ceremonyAudio" src="/music-ambient.mp3" loop preload="auto"></audio>
   </div>
 
   <!-- S6: JOURNAL -->
@@ -591,6 +607,22 @@
   const TOTAL = 9;
   let breathActive = false;
   let breathTimer = null;
+  let musicOn = true;
+
+  function getAudio() { return document.getElementById('ceremonyAudio'); }
+
+  function toggleMusic() {
+    musicOn = !musicOn;
+    const audio = getAudio();
+    const btn = document.getElementById('musicBtn');
+    if (musicOn) {
+      btn.textContent = 'Music Off';
+      if (breathActive) { audio.volume = 0.7; audio.play().catch(() => {}); }
+    } else {
+      btn.textContent = 'Music On';
+      audio.pause();
+    }
+  }
   const mantras = [
     "I am safe to soften.",
     "I am safe to receive.",
@@ -649,6 +681,11 @@
     breathActive = true;
     mIdx = 0;
     document.getElementById('breathBtn').textContent = 'Stop';
+    if (musicOn) {
+      const audio = getAudio();
+      audio.volume = 0.7;
+      audio.play().catch(() => {});
+    }
     runCycle();
   }
 
@@ -659,6 +696,11 @@
     document.getElementById('breathLabel').textContent = '';
     document.getElementById('breathMantra').className = 'breath-mantra hidden';
     document.getElementById('breathBtn').textContent = 'Begin Breath';
+    const audio = getAudio();
+    const fade = setInterval(() => {
+      if (audio.volume > 0.06) { audio.volume = Math.max(0, audio.volume - 0.06); }
+      else { audio.pause(); audio.volume = 0.7; clearInterval(fade); }
+    }, 150);
   }
 
   function runCycle() {
