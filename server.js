@@ -840,6 +840,46 @@ app.get('/becoming-whole', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'becoming-whole.html'));
 });
 
+app.get('/pattern-quiz', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pattern-quiz.html'));
+});
+
+app.get('/survival-patterns-guide', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'survival-patterns-guide.html'));
+});
+
+app.get('/personal-lie-session', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'personal-lie-session.html'));
+});
+
+app.get('/future-self-journal', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'future-self-journal.html'));
+});
+
+app.get('/gratitude-activation', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'gratitude-activation.html'));
+});
+
+app.get('/rewiring-22x11', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'rewiring-22x11.html'));
+});
+
+app.get('/week1-observer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'week1-observer.html'));
+});
+
+app.get('/week3-body-map', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'week3-body-map.html'));
+});
+
+app.get('/week5-flip-it', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'week5-flip-it.html'));
+});
+
+app.get('/week6-shame', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'week6-shame.html'));
+});
+
 app.get('*', (req, res) => {
   res.redirect('/');
 });
