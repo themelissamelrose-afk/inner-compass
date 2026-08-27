@@ -142,6 +142,7 @@
   .breath-ring.exhale { transform: scale(1.0); }
   .breath-msg { font-size: 20px; color: var(--burg); font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 6px; min-height: 28px; }
   .breath-sub { font-size: 14px; color: var(--muted); text-align: center; min-height: 20px; }
+  .breath-count { font-size: 52px; font-weight: 700; color: var(--burg); font-family: 'Playfair Display', serif; text-align: center; min-height: 64px; line-height: 1; margin-bottom: 4px; }
 
   /* Close */
   .close-card {
@@ -398,6 +399,7 @@
     <p class="step-hint">Your body feels everything. Give it three calm breaths.</p>
     <div style="text-align:center; margin-bottom:20px;">
       <div class="breath-ring" id="bRing" onclick="beginBreath()">Tap to<br>begin</div>
+      <p class="breath-count" id="bCountNum"></p>
       <p class="breath-msg" id="bMsg"></p>
       <p class="breath-sub" id="bSub"></p>
     </div>
@@ -631,12 +633,14 @@
       osc.start(ctx.currentTime); osc.stop(ctx.currentTime + duration);
     } catch(e) {}
   }
+  function showCount(n) { const el = document.getElementById('bCountNum'); if (el) el.textContent = n; }
+  function clearCount() { const el = document.getElementById('bCountNum'); if (el) el.textContent = ''; }
   function clearToneTimers() { bToneTimers.forEach(t => clearTimeout(t)); bToneTimers = []; }
   function scheduleInhaleTones() {
-    [523,587,659,784].forEach((f, i) => { bToneTimers.push(setTimeout(() => playTone(f), i * 1000)); });
+    [523,587,659,784].forEach((f, i) => { bToneTimers.push(setTimeout(() => { playTone(f); showCount(i+1); }, i * 1000)); });
   }
   function scheduleExhaleTones() {
-    [740,659,587,523,440].forEach((f, i) => { bToneTimers.push(setTimeout(() => playTone(f, 0.12), i * 1000)); });
+    [740,659,587,523,440].forEach((f, i) => { bToneTimers.push(setTimeout(() => { playTone(f, 0.12); showCount(i+1); }, i * 1000)); });
   }
 
   function resetBreath() {
@@ -672,14 +676,14 @@
     document.getElementById('bSub').textContent = 'Breath ' + (bCount + 1) + ' of ' + MAX_B;
     scheduleInhaleTones();
     bTimer = setTimeout(() => {
-      clearToneTimers(); r.innerHTML = '⏸️<br>Hold';
+      clearToneTimers(); clearCount(); r.innerHTML = '⏸️<br>Hold';
       document.getElementById('bMsg').textContent = 'Hold...';
       playTone(523, 0.1, 0.8);
       bTimer = setTimeout(() => {
         r.className = 'breath-ring exhale'; r.innerHTML = '🌬️<br>Breathe out';
         document.getElementById('bMsg').textContent = 'Breathe all the way out...';
         scheduleExhaleTones();
-        bTimer = setTimeout(() => { clearToneTimers(); bCount++; doCycle(); }, 5000);
+        bTimer = setTimeout(() => { clearToneTimers(); clearCount(); bCount++; doCycle(); }, 5000);
       }, 1000);
     }, 4000);
   }

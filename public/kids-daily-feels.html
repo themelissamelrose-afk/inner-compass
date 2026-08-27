@@ -469,6 +469,7 @@
 
   .breath-msg { font-size: 20px; color: var(--burg); font-family: 'Playfair Display', serif; margin-bottom: 6px; min-height: 28px; }
   .breath-sub { font-size: 14px; color: var(--muted); min-height: 20px; }
+  .breath-count { font-size: 52px; font-weight: 700; color: var(--burg); font-family: 'Playfair Display', serif; text-align: center; min-height: 64px; line-height: 1; margin-bottom: 4px; }
 
   /* ── CLOSE ── */
   .close-card {
@@ -704,6 +705,7 @@
     <p class="step-hint" style="text-align:center;">Three slow breaths. Tap the circle to begin.</p>
     <div class="breath-wrap">
       <div class="breath-ring" id="bRing" onclick="beginBreath()">Tap to<br>begin</div>
+      <p class="breath-count" id="bCountNum"></p>
       <p class="breath-msg" id="bMsg"></p>
       <p class="breath-sub" id="bSub"></p>
     </div>
@@ -977,17 +979,26 @@
     } catch(e) {}
   }
 
+  function showCount(n) {
+    const el = document.getElementById('bCountNum');
+    if (el) el.textContent = n;
+  }
+  function clearCount() {
+    const el = document.getElementById('bCountNum');
+    if (el) el.textContent = '';
+  }
+
   function scheduleInhaleTones() {
     const freqs = [523, 587, 659, 784];
     freqs.forEach((f, i) => {
-      bToneTimers.push(setTimeout(() => playTone(f), i * 1000));
+      bToneTimers.push(setTimeout(() => { playTone(f); showCount(i + 1); }, i * 1000));
     });
   }
 
   function scheduleExhaleTones() {
     const freqs = [740, 659, 587, 523, 440];
     freqs.forEach((f, i) => {
-      bToneTimers.push(setTimeout(() => playTone(f, 0.12), i * 1000));
+      bToneTimers.push(setTimeout(() => { playTone(f, 0.12); showCount(i + 1); }, i * 1000));
     });
   }
 
@@ -1043,7 +1054,7 @@
     scheduleInhaleTones();
 
     bTimer = setTimeout(() => {
-      clearToneTimers();
+      clearToneTimers(); clearCount();
       ring.innerHTML = '⏸️<br>Hold it';
       msg.textContent = 'Hold...';
       playTone(523, 0.1, 0.8);
@@ -1055,7 +1066,7 @@
         scheduleExhaleTones();
 
         bTimer = setTimeout(() => {
-          clearToneTimers();
+          clearToneTimers(); clearCount();
           bCount++;
           doCycle();
         }, 5000);
