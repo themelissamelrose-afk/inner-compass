@@ -640,7 +640,10 @@
       <button class="need-btn" data-need="write" onclick="pickNeed(this)">✏️ To write or draw how I'm feeling</button>
     </div>
     <div class="need-suggestion" id="needSugg"></div>
-    <button class="btn-main btn-disabled" id="n5" onclick="goTo(6)">Next →</button>
+    <div id="breathInvite" style="display:none; text-align:center; margin-bottom:12px;">
+      <p style="font-size:15px; color:var(--muted); font-style:italic; margin-bottom:16px;">Take a moment to do that. When you're ready...</p>
+    </div>
+    <button class="btn-main btn-disabled" id="n5" onclick="goTo(6)">I've done that — let's breathe 🌬️</button>
     <button class="btn-back" onclick="goTo(4)">← Back</button>
   </div>
 </div>
@@ -770,10 +773,12 @@
     document.querySelectorAll('.need-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
     const sugg = document.getElementById('needSugg');
+    const invite = document.getElementById('breathInvite');
     const key = btn.dataset.need;
     if (needSuggestions[key]) {
       sugg.textContent = needSuggestions[key];
       sugg.classList.add('visible');
+      invite.style.display = 'block';
     }
     enable('n5');
   }
@@ -846,6 +851,8 @@
     const sugg = document.getElementById('needSugg');
     sugg.textContent = '';
     sugg.classList.remove('visible');
+    const invite = document.getElementById('breathInvite');
+    if (invite) invite.style.display = 'none';
     const rt = document.getElementById('reflectText');
     if (rt) rt.value = '';
     if (bTimer) clearTimeout(bTimer);
