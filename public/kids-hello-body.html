@@ -239,16 +239,38 @@
     margin-bottom: 18px;
   }
 
-  .msg-text {
+  .msg-mantra {
+    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
+    border-radius: 20px;
+    padding: 22px 20px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .msg-mantra .mantra-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 10px;
+  }
+
+  .msg-mantra .mantra-words {
     font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    line-height: 1.65;
-    color: var(--burg);
-    margin-bottom: 28px;
-    padding: 20px;
+    font-size: 19px;
+    line-height: 1.6;
+    color: white;
+    font-style: italic;
+  }
+
+  .msg-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 24px;
+    padding: 16px 18px;
     background: var(--soft-pink);
-    border-radius: 16px;
-    border-left: 4px solid var(--rose);
+    border-radius: 14px;
   }
 
   .msg-btn-send {
@@ -539,6 +561,10 @@
   <div class="msg-sheet">
     <div class="msg-body-part" id="msgPart"></div>
     <div class="msg-action" id="msgAction"></div>
+    <div class="msg-mantra">
+      <div class="mantra-label">Say this — out loud or in your heart</div>
+      <div class="mantra-words" id="msgMantra"></div>
+    </div>
     <div class="msg-text" id="msgText"></div>
     <button class="msg-btn-send" onclick="closeMsg()">I felt that 💜</button>
     <button class="msg-btn-back" onclick="closeMsg()">← Tap another part</button>
@@ -591,41 +617,52 @@
 </div>
 
 <script>
+  function buildMantra(partName) {
+    return `Every single cell in my ${partName} is happy and well.\nEvery single cell in my body is happy and well.\nI'm so glad every single cell.`;
+  }
+
   const bodyMessages = {
     mind: {
       part: "Your mind 🧠",
       action: "Place one hand gently on the top of your head.",
-      text: "Hello, busy mind. I know you work so hard — thinking, worrying, wondering. You don't have to figure everything out today. It's okay to rest. I'm going to take care of you."
+      mantraName: "mind",
+      text: "Hello, busy mind. You don't have to figure everything out today. It's okay to rest. I'm going to take care of you."
     },
     voice: {
       part: "Your voice 🗣️",
       action: "Place one hand softly on your throat.",
-      text: "You are allowed to speak. Your voice matters and your words have value. Even when it feels scary to say how you feel — you deserve to be heard. I will keep speaking up for you."
+      mantraName: "voice",
+      text: "You are allowed to speak. Your voice matters. Even when it feels scary — you deserve to be heard."
     },
     heart: {
       part: "Your heart 💜",
       action: "Place both hands over your heart.",
-      text: "Hello, heart. I can feel you beating. You love so deeply, and that is one of the most beautiful things about you. You're allowed to feel everything — all of it is welcome here."
+      mantraName: "heart",
+      text: "Hello, heart. You love so deeply, and that is one of the most beautiful things about you. You're allowed to feel everything."
     },
     belly: {
       part: "Your belly 🫁",
       action: "Place one hand gently on your belly.",
-      text: "I hear you. You hold so much — the butterflies, the worry, the excitement. You're always trying to tell me something. I'm going to listen more. I'm going to breathe slowly for you."
+      mantraName: "belly",
+      text: "I hear you. You hold so much — the butterflies, the worry, the excitement. I'm going to listen more and breathe slowly for you."
     },
     hands: {
       part: "Your hands 🤲",
       action: "Look at your hands and hold them gently together.",
-      text: "These hands are capable and kind. Everything you've held, everything you've made, every hug you've given — I see you. You do so much. Thank you for everything you carry for me."
+      mantraName: "hands",
+      text: "These hands are capable and kind. Everything you've held, everything you've made, every hug you've given — thank you."
     },
     legs: {
       part: "Your legs 🦵",
       action: "Give your legs a gentle pat or squeeze.",
-      text: "You carry me through every single day. You run and jump and take me to all the places I need to go. Even when you feel heavy or tired — you keep going. I'm so grateful for you."
+      mantraName: "legs",
+      text: "You carry me through every single day. Even when you feel tired — you keep going. I'm so grateful for you."
     },
     feet: {
       part: "Your feet 🦶",
       action: "Wiggle your toes and feel the ground beneath you.",
-      text: "You connect me to the earth. You hold me up even on the hardest days. Feel the ground under you right now — you are steady, you are grounded, you are safe right here."
+      mantraName: "feet",
+      text: "You hold me up even on the hardest days. Feel the ground under you right now — you are steady, you are safe."
     }
   };
 
@@ -634,7 +671,7 @@
     "I am allowed to be kind to myself.",
     "My feelings live in my body and that is okay.",
     "I am safe in my own skin.",
-    "I listen to my body and my body listens to me."
+    "Every single cell in my body is happy and well."
   ];
 
   let visitedParts = new Set();
@@ -653,6 +690,8 @@
     if (!m) return;
     document.getElementById('msgPart').textContent = m.part;
     document.getElementById('msgAction').textContent = m.action;
+    document.getElementById('msgMantra').style.whiteSpace = 'pre-line';
+    document.getElementById('msgMantra').textContent = buildMantra(m.mantraName);
     document.getElementById('msgText').textContent = m.text;
     document.getElementById('msgOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
