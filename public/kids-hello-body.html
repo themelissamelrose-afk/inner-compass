@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Hello Body — Talk to Your Body</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --linen: #F6EFE4;
+    --sand: #EAD9C2;
+    --rose: #C4786A;
+    --terra: #B5614E;
+    --pink: #E8B4A8;
+    --soft-pink: #F9E8E4;
+    --burg: #7A3B3B;
+    --text: #3D2B2B;
+    --muted: #9A7070;
+    --white: #FFFFFF;
+  }
+
+  body {
+    background: linear-gradient(160deg, #F9F3EC 0%, #F0E6D8 50%, #EAD9C2 100%);
+    background-attachment: fixed;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
+    padding: 36px 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top right, rgba(255,255,255,0.15) 0%, transparent 70%);
+  }
+
+  .series-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 8px;
+  }
+
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: white;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+
+  .page-header .tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* ── STEPS ── */
+  .step {
+    display: none;
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 28px 20px;
+    animation: fadeUp 0.45s ease;
+  }
+
+  .step.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    background: rgba(255,255,255,0.88);
+    border-radius: 24px;
+    padding: 32px 28px;
+    box-shadow: 0 4px 24px rgba(122,59,59,0.08);
+    margin-bottom: 20px;
+  }
+
+  .step-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--burg);
+    margin-bottom: 8px;
+    line-height: 1.35;
+  }
+
+  .step-hint {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  /* ── OPENING ── */
+  .opening-icon {
+    font-size: 68px;
+    text-align: center;
+    display: block;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+
+  /* ── BODY MAP ── */
+  .body-map-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .body-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Hotspot dots */
+  .hspot {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7), var(--rose));
+    box-shadow: 0 0 0 0 rgba(196,120,106,0.5);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  .hspot:nth-child(2) { animation-delay: 0.3s; }
+  .hspot:nth-child(3) { animation-delay: 0.6s; }
+  .hspot:nth-child(4) { animation-delay: 0.9s; }
+  .hspot:nth-child(5) { animation-delay: 1.2s; }
+  .hspot:nth-child(6) { animation-delay: 1.5s; }
+  .hspot:nth-child(7) { animation-delay: 1.8s; }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(196,120,106,0.5); }
+    50%       { box-shadow: 0 0 0 10px rgba(196,120,106,0); }
+  }
+
+  .hspot:active, .hspot.visited {
+    animation: none;
+    background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.8), var(--terra));
+    box-shadow: 0 0 0 6px rgba(181,97,78,0.25);
+  }
+
+  .hspot .hico { font-size: 18px; pointer-events: none; }
+  .hspot .hlabel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--burg);
+    background: rgba(255,255,255,0.92);
+    border-radius: 8px;
+    padding: 3px 7px;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .hspot.left .hlabel  { right: calc(100% + 8px); }
+  .hspot.right .hlabel { left: calc(100% + 8px); }
+  .hspot.center .hlabel { left: 50%; transform: translate(-50%, calc(-100% - 8px)); }
+
+  /* ── MESSAGE OVERLAY ── */
+  .msg-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(61,43,43,0.5);
+    z-index: 100;
+    align-items: flex-end;
+    padding: 0;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .msg-overlay.open { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .msg-sheet {
+    background: white;
+    border-radius: 28px 28px 0 0;
+    padding: 32px 28px 48px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  .msg-body-part {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .msg-action {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--rose);
+    font-style: italic;
+    margin-bottom: 18px;
+  }
+
+  .msg-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    line-height: 1.65;
+    color: var(--burg);
+    margin-bottom: 28px;
+    padding: 20px;
+    background: var(--soft-pink);
+    border-radius: 16px;
+    border-left: 4px solid var(--rose);
+  }
+
+  .msg-btn-send {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 18px 28px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    margin-bottom: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .msg-btn-back {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'Nunito', sans-serif;
+    padding: 8px 0;
+    width: 100%;
+  }
+
+  /* ── BODY DONE CARD ── */
+  .body-done-hint {
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 12px 0 20px;
+  }
+
+  /* ── BREATH ── */
+  .breath-ring {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: radial-gradient(circle at 35% 35%, var(--pink), var(--terra));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 4s ease-in-out, box-shadow 0.3s;
+    box-shadow: 0 8px 32px rgba(139,74,107,0.3);
+    line-height: 1.4;
+  }
+
+  .breath-ring.inhale { transform: scale(1.3); }
+  .breath-ring.exhale { transform: scale(1.0); }
+
+  .breath-msg { font-size: 20px; color: var(--burg); font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 6px; min-height: 28px; }
+  .breath-sub { font-size: 14px; color: var(--muted); text-align: center; min-height: 20px; }
+
+  /* ── AFFIRMATIONS ── */
+  .affirm-card {
+    background: linear-gradient(135deg, var(--soft-pink), white);
+    border: 2px solid var(--pink);
+    border-radius: 18px;
+    padding: 20px 22px;
+    margin-bottom: 12px;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--burg);
+    line-height: 1.5;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  /* ── CLOSE ── */
+  .close-card {
+    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
+    border-radius: 24px;
+    padding: 40px 28px;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(139,74,107,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .close-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top, rgba(255,255,255,0.08) 0%, transparent 70%);
+  }
+
+  /* ── BUTTONS ── */
+  .btn-main {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 20px 32px;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(139,74,107,0.3);
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    margin-bottom: 12px;
+  }
+
+  .btn-main:active { transform: scale(0.98); }
+  .btn-disabled { opacity: 0.35; pointer-events: none; }
+
+  .btn-ghost {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: var(--burg);
+    border: 2px solid var(--burg);
+    border-radius: 50px;
+    padding: 18px 32px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    margin-bottom: 12px;
+  }
+
+  .btn-back {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'Nunito', sans-serif;
+    padding: 8px 0;
+    width: 100%;
+  }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .visited-count {
+    text-align: center;
+    font-size: 14px;
+    color: var(--rose);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="series-tag">Inner Compass · Kids Series</div>
+  <h1>Hello Body 💜</h1>
+  <div class="tagline">Your body always listens when you talk to it</div>
+</div>
+
+<!-- S0: Welcome -->
+<div class="step active" id="s0">
+  <div class="card" style="text-align:center;">
+    <span class="opening-icon">💜</span>
+    <h2 class="step-q" style="text-align:center;">Your body is always talking to you.</h2>
+    <p style="font-size:17px; line-height:1.75; color:var(--muted); margin-bottom:28px;">
+      But it works the other way too. When you talk <em>to</em> your body — with kindness and love — something shifts.<br><br>
+      Today we're going to say hello to different parts of you.
+    </p>
+    <button class="btn-main" onclick="goTo(1)">Let's begin 💜</button>
+  </div>
+</div>
+
+<!-- S1: Body map -->
+<div class="step" id="s1">
+  <div class="card" style="padding: 24px 16px;">
+    <h2 class="step-q" style="text-align:center; margin-bottom:6px;">Tap a part of your body</h2>
+    <p class="step-hint" style="text-align:center; margin-bottom:20px;">Each one has a message waiting for you. You can visit as many as you like.</p>
+
+    <div class="body-map-wrap">
+      <!-- Simple SVG body silhouette -->
+      <svg class="body-svg" viewBox="0 0 200 480" xmlns="http://www.w3.org/2000/svg">
+        <!-- Head -->
+        <ellipse cx="100" cy="48" rx="36" ry="42" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Neck -->
+        <rect x="88" y="86" width="24" height="20" rx="4" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Body -->
+        <path d="M55 106 Q100 100 145 106 L155 240 Q100 250 45 240 Z" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Left arm -->
+        <path d="M55 110 Q30 140 25 200 Q30 210 40 205 Q48 150 65 125 Z" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Right arm -->
+        <path d="M145 110 Q170 140 175 200 Q170 210 160 205 Q152 150 135 125 Z" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Left hand -->
+        <ellipse cx="32" cy="213" rx="14" ry="10" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Right hand -->
+        <ellipse cx="168" cy="213" rx="14" ry="10" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Left leg -->
+        <path d="M68 238 Q60 320 58 380 Q65 385 78 380 Q82 320 88 238 Z" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Right leg -->
+        <path d="M132 238 Q140 320 142 380 Q135 385 122 380 Q118 320 112 238 Z" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Left foot -->
+        <ellipse cx="64" cy="388" rx="16" ry="10" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Right foot -->
+        <ellipse cx="136" cy="388" rx="16" ry="10" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
+        <!-- Heart symbol on chest -->
+        <path d="M91 148 Q91 142 97 142 Q103 142 103 148 Q109 142 115 142 Q121 148 103 162 Q85 148 91 148 Z" fill="rgba(196,120,106,0.4)"/>
+      </svg>
+
+      <!-- Hotspot dots, positioned over SVG -->
+      <!-- Head ~top 8% -->
+      <button class="hspot center" data-part="mind"
+        style="width:44px;height:44px;top:6%;left:50%;transform:translateX(-50%);"
+        onclick="openMsg('mind')">
+        <span class="hico">🧠</span>
+        <span class="hlabel">Mind</span>
+      </button>
+      <!-- Throat ~15% -->
+      <button class="hspot center" data-part="voice"
+        style="width:40px;height:40px;top:18%;left:50%;transform:translateX(-50%);"
+        onclick="openMsg('voice')">
+        <span class="hico">🗣️</span>
+        <span class="hlabel">Voice</span>
+      </button>
+      <!-- Heart ~31% -->
+      <button class="hspot left" data-part="heart"
+        style="width:44px;height:44px;top:29%;left:30%;"
+        onclick="openMsg('heart')">
+        <span class="hico">💜</span>
+        <span class="hlabel">Heart</span>
+      </button>
+      <!-- Belly ~45% -->
+      <button class="hspot right" data-part="belly"
+        style="width:44px;height:44px;top:43%;left:55%;"
+        onclick="openMsg('belly')">
+        <span class="hico">🫁</span>
+        <span class="hlabel">Belly</span>
+      </button>
+      <!-- Left hand ~43% -->
+      <button class="hspot right" data-part="hands"
+        style="width:40px;height:40px;top:41%;left:4%;"
+        onclick="openMsg('hands')">
+        <span class="hico">🤲</span>
+        <span class="hlabel">Hands</span>
+      </button>
+      <!-- Legs ~68% -->
+      <button class="hspot center" data-part="legs"
+        style="width:42px;height:42px;top:66%;left:50%;transform:translateX(-50%);"
+        onclick="openMsg('legs')">
+        <span class="hico">🦵</span>
+        <span class="hlabel">Legs</span>
+      </button>
+      <!-- Feet ~84% -->
+      <button class="hspot center" data-part="feet"
+        style="width:40px;height:40px;top:83%;left:50%;transform:translateX(-50%);"
+        onclick="openMsg('feet')">
+        <span class="hico">🦶</span>
+        <span class="hlabel">Feet</span>
+      </button>
+    </div>
+
+    <p class="visited-count" id="visitedCount" style="display:none;margin-top:16px;"></p>
+    <p class="body-done-hint">Tap as many parts as you like</p>
+    <button class="btn-main btn-disabled" id="nBody" onclick="goTo(2)">I've said hello to my body →</button>
+    <button class="btn-back" onclick="goTo(0)">← Back</button>
+  </div>
+</div>
+
+<!-- Message overlay (slides up from bottom) -->
+<div class="msg-overlay" id="msgOverlay">
+  <div class="msg-sheet">
+    <div class="msg-body-part" id="msgPart"></div>
+    <div class="msg-action" id="msgAction"></div>
+    <div class="msg-text" id="msgText"></div>
+    <button class="msg-btn-send" onclick="closeMsg()">I felt that 💜</button>
+    <button class="msg-btn-back" onclick="closeMsg()">← Tap another part</button>
+  </div>
+</div>
+
+<!-- S2: Breath -->
+<div class="step" id="s2">
+  <div class="card">
+    <h2 class="step-q" style="text-align:center;">Now let's breathe together 🌬️</h2>
+    <p class="step-hint" style="text-align:center;">Your body feels everything. Give it three calm breaths.</p>
+    <div style="text-align:center; margin-bottom:20px;">
+      <div class="breath-ring" id="bRing" onclick="beginBreath()">Tap to<br>begin</div>
+      <p class="breath-msg" id="bMsg"></p>
+      <p class="breath-sub" id="bSub"></p>
+    </div>
+    <button class="btn-main btn-disabled" id="nBreath" onclick="goTo(3)">My body feels calmer →</button>
+    <button class="btn-back" onclick="goTo(1)">← Back</button>
+  </div>
+</div>
+
+<!-- S3: Affirmations -->
+<div class="step" id="s3">
+  <div class="card" style="text-align:center;">
+    <h2 class="step-q" style="text-align:center; margin-bottom:6px;">Things your body wants you to know 💜</h2>
+    <p class="step-hint" style="text-align:center; margin-bottom:24px;">Read each one slowly. Let it land.</p>
+    <div id="affirmCards"></div>
+    <button class="btn-main" style="margin-top:24px;" onclick="goTo(4)">I'm taking these with me →</button>
+    <button class="btn-back" onclick="goTo(2)">← Back</button>
+  </div>
+</div>
+
+<!-- S4: Close -->
+<div class="step" id="s4">
+  <div class="close-card">
+    <div style="font-size:52px; margin-bottom:18px;">💜</div>
+    <h2 style="font-family:'Playfair Display',serif; font-size:26px; font-weight:400; margin-bottom:14px; color:white;">Your body heard you.</h2>
+    <p style="font-size:16px; line-height:1.75; color:rgba(255,255,255,0.88); max-width:360px; margin:0 auto;">
+      Every time you talk kindly to yourself, something changes — even if you can't feel it yet. Keep going. Your body is always listening.
+    </p>
+  </div>
+  <div class="card" style="text-align:center;">
+    <p style="font-size:16px; line-height:1.8; color:var(--muted); margin-bottom:20px;">
+      Come back whenever your body needs some love.<br><br>
+      <span style="color:#8B4A6B; font-family:'Playfair Display',serif; font-size:18px; font-style:italic;">Big love 🌸</span>
+    </p>
+    <button class="btn-ghost" onclick="restart()">Say hello again 💜</button>
+    <a class="back-link" href="/app">← Back to Inner Compass</a>
+  </div>
+</div>
+
+<script>
+  const bodyMessages = {
+    mind: {
+      part: "Your mind 🧠",
+      action: "Place one hand gently on the top of your head.",
+      text: "Hello, busy mind. I know you work so hard — thinking, worrying, wondering. You don't have to figure everything out today. It's okay to rest. I'm going to take care of you."
+    },
+    voice: {
+      part: "Your voice 🗣️",
+      action: "Place one hand softly on your throat.",
+      text: "You are allowed to speak. Your voice matters and your words have value. Even when it feels scary to say how you feel — you deserve to be heard. I will keep speaking up for you."
+    },
+    heart: {
+      part: "Your heart 💜",
+      action: "Place both hands over your heart.",
+      text: "Hello, heart. I can feel you beating. You love so deeply, and that is one of the most beautiful things about you. You're allowed to feel everything — all of it is welcome here."
+    },
+    belly: {
+      part: "Your belly 🫁",
+      action: "Place one hand gently on your belly.",
+      text: "I hear you. You hold so much — the butterflies, the worry, the excitement. You're always trying to tell me something. I'm going to listen more. I'm going to breathe slowly for you."
+    },
+    hands: {
+      part: "Your hands 🤲",
+      action: "Look at your hands and hold them gently together.",
+      text: "These hands are capable and kind. Everything you've held, everything you've made, every hug you've given — I see you. You do so much. Thank you for everything you carry for me."
+    },
+    legs: {
+      part: "Your legs 🦵",
+      action: "Give your legs a gentle pat or squeeze.",
+      text: "You carry me through every single day. You run and jump and take me to all the places I need to go. Even when you feel heavy or tired — you keep going. I'm so grateful for you."
+    },
+    feet: {
+      part: "Your feet 🦶",
+      action: "Wiggle your toes and feel the ground beneath you.",
+      text: "You connect me to the earth. You hold me up even on the hardest days. Feel the ground under you right now — you are steady, you are grounded, you are safe right here."
+    }
+  };
+
+  const affirmations = [
+    "My body is always on my side.",
+    "I am allowed to be kind to myself.",
+    "My feelings live in my body and that is okay.",
+    "I am safe in my own skin.",
+    "I listen to my body and my body listens to me."
+  ];
+
+  let visitedParts = new Set();
+  let bActive = false, bTimer = null, bCount = 0;
+  const MAX_B = 3;
+
+  function goTo(step) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('s' + step).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (step === 3) renderAffirmations();
+  }
+
+  function openMsg(part) {
+    const m = bodyMessages[part];
+    if (!m) return;
+    document.getElementById('msgPart').textContent = m.part;
+    document.getElementById('msgAction').textContent = m.action;
+    document.getElementById('msgText').textContent = m.text;
+    document.getElementById('msgOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Mark as visited
+    visitedParts.add(part);
+    const btn = document.querySelector(`[data-part="${part}"]`);
+    if (btn) btn.classList.add('visited');
+
+    // Update visited count and enable next button
+    const count = visitedParts.size;
+    const countEl = document.getElementById('visitedCount');
+    countEl.style.display = 'block';
+    countEl.textContent = `You've said hello to ${count} part${count > 1 ? 's' : ''} ✨`;
+
+    const nb = document.getElementById('nBody');
+    nb.classList.remove('btn-disabled');
+  }
+
+  function closeMsg() {
+    document.getElementById('msgOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function renderAffirmations() {
+    document.getElementById('affirmCards').innerHTML = affirmations
+      .map((a, i) => `<div class="affirm-card" style="animation-delay:${i * 0.18}s;">"${a}"</div>`)
+      .join('');
+  }
+
+  // Breath
+  function resetBreath() {
+    bActive = false; bCount = 0;
+    if (bTimer) clearTimeout(bTimer);
+    const r = document.getElementById('bRing');
+    r.className = 'breath-ring';
+    r.innerHTML = 'Tap to<br>begin';
+    r.onclick = beginBreath;
+    document.getElementById('bMsg').textContent = '';
+    document.getElementById('bSub').textContent = '';
+    document.getElementById('nBreath').classList.add('btn-disabled');
+  }
+
+  function beginBreath() {
+    if (bActive) return;
+    bActive = true; bCount = 0;
+    doCycle();
+  }
+
+  function doCycle() {
+    if (bCount >= MAX_B) {
+      const r = document.getElementById('bRing');
+      r.className = 'breath-ring exhale';
+      r.innerHTML = '💜<br>Beautiful';
+      r.onclick = null;
+      document.getElementById('bMsg').textContent = 'Your body thanks you.';
+      document.getElementById('bSub').textContent = '';
+      document.getElementById('nBreath').classList.remove('btn-disabled');
+      bActive = false;
+      return;
+    }
+    const r = document.getElementById('bRing');
+    const msg = document.getElementById('bMsg');
+    const sub = document.getElementById('bSub');
+    r.className = 'breath-ring inhale';
+    r.innerHTML = '😮‍💨<br>Breathe in';
+    msg.textContent = 'Breathe in slowly...';
+    sub.textContent = `Breath ${bCount + 1} of ${MAX_B}`;
+    bTimer = setTimeout(() => {
+      r.innerHTML = '⏸️<br>Hold';
+      msg.textContent = 'Hold...';
+      bTimer = setTimeout(() => {
+        r.className = 'breath-ring exhale';
+        r.innerHTML = '🌬️<br>Breathe out';
+        msg.textContent = 'Breathe all the way out...';
+        bTimer = setTimeout(() => { bCount++; doCycle(); }, 5000);
+      }, 1000);
+    }, 4000);
+  }
+
+  function restart() {
+    visitedParts.clear();
+    document.querySelectorAll('.hspot').forEach(b => b.classList.remove('visited'));
+    document.getElementById('visitedCount').style.display = 'none';
+    document.getElementById('nBody').classList.add('btn-disabled');
+    if (bTimer) clearTimeout(bTimer);
+    bActive = false;
+    resetBreath();
+    goTo(0);
+  }
+
+  resetBreath();
+</script>
+</body>
+</html>
