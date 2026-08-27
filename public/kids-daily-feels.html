@@ -664,27 +664,36 @@
 
 <!-- S5: What does it need? -->
 <div class="step" id="s5">
-  <div class="card">
-    <h2 class="step-q">What does your feeling want?</h2>
-    <p class="step-hint">There are no wrong answers. Pick whatever feels most true right now.</p>
-    <div class="needs-list">
-      <button class="need-btn" data-need="hug" onclick="pickNeed(this)">🤗 A hug or some kindness</button>
-      <button class="need-btn" data-need="talk" onclick="pickNeed(this)">🗣️ To talk to someone I trust</button>
-      <button class="need-btn" data-need="breath" onclick="pickNeed(this)">😮‍💨 To breathe and calm my body</button>
-      <button class="need-btn" data-need="move" onclick="pickNeed(this)">🏃 To move — run, jump, shake it out</button>
-      <button class="need-btn" data-need="quiet" onclick="pickNeed(this)">🤫 Some quiet time by myself</button>
-      <button class="need-btn" data-need="rest" onclick="pickNeed(this)">💤 Rest — I'm really tired</button>
-      <button class="need-btn" data-need="write" onclick="pickNeed(this)">✏️ To write or draw how I'm feeling</button>
+  <!-- View A: Picker -->
+  <div id="needsList">
+    <div class="card">
+      <h2 class="step-q">What does your feeling want?</h2>
+      <p class="step-hint">There are no wrong answers. Pick whatever feels most true right now.</p>
+      <div class="needs-list">
+        <button class="need-btn" data-need="hug" onclick="pickNeed(this)">🤗 A hug or some kindness</button>
+        <button class="need-btn" data-need="talk" onclick="pickNeed(this)">🗣️ To talk to someone I trust</button>
+        <button class="need-btn" data-need="breath" onclick="pickNeed(this)">😮‍💨 To breathe and calm my body</button>
+        <button class="need-btn" data-need="move" onclick="pickNeed(this)">🏃 To move — run, jump, shake it out</button>
+        <button class="need-btn" data-need="quiet" onclick="pickNeed(this)">🤫 Some quiet time by myself</button>
+        <button class="need-btn" data-need="rest" onclick="pickNeed(this)">💤 Rest — I'm really tired</button>
+        <button class="need-btn" data-need="write" onclick="pickNeed(this)">✏️ To write how I'm feeling</button>
+      </div>
+      <button class="btn-back" onclick="goTo(4)">← Back</button>
     </div>
-    <div class="need-guide" id="needGuide">
-      <div class="guide-title" id="guideTitle"></div>
-      <div class="guide-steps" id="guideSteps"></div>
+  </div>
+
+  <!-- View B: Guide (shown after selection) -->
+  <div id="guideView" style="display:none;">
+    <div class="card">
+      <button class="btn-back" style="margin-bottom:16px;" onclick="showNeedsList()">← Change my mind</button>
+      <div class="need-guide visible" id="needGuide">
+        <div class="guide-title" id="guideTitle"></div>
+        <div class="guide-steps" id="guideSteps"></div>
+        <textarea class="reflect-area" id="writeArea" placeholder="I'm feeling... I noticed... I want myself to know..." style="display:none; margin-top:16px;"></textarea>
+      </div>
+      <p style="font-size:15px; color:var(--muted); font-style:italic; text-align:center; margin:20px 0 16px;">Take a moment with that. When you're ready...</p>
+      <button class="btn-main" id="n5" onclick="goTo(6)">I've done that — let's breathe 🌬️</button>
     </div>
-    <div id="breathInvite" style="display:none; text-align:center; margin-bottom:12px;">
-      <p style="font-size:15px; color:var(--muted); font-style:italic; margin-bottom:16px;">Take a moment with that. When you're ready...</p>
-    </div>
-    <button class="btn-main btn-disabled" id="n5" onclick="goTo(6)">I've done that — let's breathe 🌬️</button>
-    <button class="btn-back" onclick="goTo(4)">← Back</button>
   </div>
 </div>
 
@@ -698,33 +707,31 @@
       <p class="breath-msg" id="bMsg"></p>
       <p class="breath-sub" id="bSub"></p>
     </div>
-    <button class="btn-main btn-disabled" id="n6" onclick="goTo(7)">I'm ready to write something →</button>
+    <button class="btn-main btn-disabled" id="n6" onclick="goTo(7)">I feel better — what's next? →</button>
     <button class="btn-back" onclick="goTo(5)">← Back</button>
   </div>
 </div>
 
-<!-- S7: Reflect -->
+<!-- S7: Affirmations -->
 <div class="step" id="s7">
-  <div class="card">
-    <h2 class="step-q">A little space just for you ✏️</h2>
-    <p class="step-hint">Is there anything you want to say to yourself right now? You can write anything — feelings, thoughts, drawings in words. No one else sees this.</p>
-    <textarea class="reflect-area" id="reflectText" placeholder="I'm feeling... I noticed... I want myself to know..."></textarea>
-    <button class="btn-main" onclick="goTo(8)">I'm done writing →</button>
-    <button class="skip-link" onclick="goTo(8)">Skip this step</button>
+  <div class="card" style="text-align:center;">
+    <p class="step-hint" style="text-align:center; margin-bottom:24px;">A few things that are true about you right now ✨</p>
+    <div id="affirmCards"></div>
+    <button class="btn-main" style="margin-top:28px;" onclick="goTo(8)">I'm taking these with me →</button>
     <button class="btn-back" onclick="goTo(6)">← Back</button>
   </div>
 </div>
 
 <!-- S8: Close -->
-<div class="step" id="s8" data-back="7">
+<div class="step" id="s8">
   <div class="close-card">
     <span class="close-star">⭐</span>
     <h2>You did something brave today.</h2>
     <p>Checking in with your feelings is one of the most important things you can do. A lot of people go their whole lives without learning this. You're doing it now.</p>
   </div>
   <div class="card" style="text-align:center;">
-    <p style="font-size:16px;line-height:1.75;color:var(--muted);margin-bottom:20px;">
-      Come back tomorrow and check in again. The more you notice your feelings, the easier they become to handle.<br><br>
+    <p style="font-size:16px;line-height:1.8;color:var(--muted);margin-bottom:20px;">
+      Come back tomorrow and do this again. The more you notice your feelings, the easier they are to handle.<br><br>
       <span style="color:var(--rose);font-family:'Playfair Display',serif;font-size:18px;font-style:italic;">Big love 🌸</span>
     </p>
     <button class="btn-ghost" onclick="restart()">Check in again 🔄</button>
@@ -737,6 +744,33 @@
   let feelings = [];
   let bActive = false, bTimer = null, bCount = 0;
   const MAX_B = 3;
+
+  const affirmations = [
+    "My feelings are not wrong. They are messengers.",
+    "I am allowed to take up space.",
+    "I can feel big feelings and still be okay.",
+    "I am brave for checking in with how I feel.",
+    "I deserve kindness — especially from myself."
+  ];
+
+  function renderAffirmations() {
+    const el = document.getElementById('affirmCards');
+    el.innerHTML = affirmations.map((a, i) => `
+      <div style="
+        background: linear-gradient(135deg, var(--soft-pink), #fff);
+        border: 2px solid var(--pink);
+        border-radius: 18px;
+        padding: 20px 22px;
+        margin-bottom: 12px;
+        font-family: 'Playfair Display', serif;
+        font-size: 17px;
+        color: var(--burg);
+        line-height: 1.5;
+        opacity: 0;
+        animation: fadeUp 0.5s ease ${i * 0.18}s forwards;
+      ">"${a}"</div>
+    `).join('');
+  }
 
   const needGuides = {
     hug: {
@@ -790,10 +824,11 @@
     write: {
       title: "Let the words come out ✏️",
       steps: [
-        "There's a writing space coming up in a moment — just for you. No one else sees it.",
-        "You can write anything: feelings, thoughts, random words. You can even draw with words.",
-        "There's no spelling check, no right or wrong. Just start with: <em>'Right now I feel...'</em>"
-      ]
+        "Here's a space just for you. No one else sees this — ever.",
+        "Write anything at all: feelings, thoughts, random words. You can even draw with words.",
+        "There's no spelling check, no right or wrong. Just let it come out."
+      ],
+      hasTextarea: true
     }
   };
 
@@ -823,6 +858,7 @@
       document.getElementById('vText').textContent = msgs[f] || msgs.happy;
     }
     if (step === 6) resetBreath();
+    if (step === 7) renderAffirmations();
   }
 
   function enable(id) {
@@ -859,21 +895,23 @@
   }
 
   function pickNeed(btn) {
-    document.querySelectorAll('.need-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
     const guide = needGuides[btn.dataset.need];
-    const guideEl = document.getElementById('needGuide');
-    const invite = document.getElementById('breathInvite');
-    if (guide) {
-      document.getElementById('guideTitle').textContent = guide.title;
-      document.getElementById('guideSteps').innerHTML = guide.steps
-        .map((s, i) => `<div class="guide-step"><div class="gnum">${i + 1}</div><div class="gtxt">${s}</div></div>`)
-        .join('');
-      guideEl.classList.add('visible');
-      invite.style.display = 'block';
-      setTimeout(() => guideEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
-    }
-    enable('n5');
+    if (!guide) return;
+    document.getElementById('guideTitle').textContent = guide.title;
+    document.getElementById('guideSteps').innerHTML = guide.steps
+      .map((s, i) => `<div class="guide-step"><div class="gnum">${i + 1}</div><div class="gtxt">${s}</div></div>`)
+      .join('');
+    const wa = document.getElementById('writeArea');
+    wa.style.display = guide.hasTextarea ? 'block' : 'none';
+    document.getElementById('needsList').style.display = 'none';
+    document.getElementById('guideView').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showNeedsList() {
+    document.getElementById('guideView').style.display = 'none';
+    document.getElementById('needsList').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function resetBreath() {
@@ -938,14 +976,14 @@
   function restart() {
     feelings = [];
     document.querySelectorAll('.emo-btn, .body-btn, .size-btn, .need-btn').forEach(b => b.classList.remove('selected'));
-    ['n1','n2','n3','n5','n6'].forEach(id => {
+    ['n1','n2','n3','n6'].forEach(id => {
       document.getElementById(id).classList.add('btn-disabled');
     });
-    const guideEl = document.getElementById('needGuide');
-    guideEl.classList.remove('visible');
     document.getElementById('guideSteps').innerHTML = '';
-    const invite = document.getElementById('breathInvite');
-    if (invite) invite.style.display = 'none';
+    document.getElementById('guideView').style.display = 'none';
+    document.getElementById('needsList').style.display = 'block';
+    const wa = document.getElementById('writeArea');
+    if (wa) wa.value = '';
     const rt = document.getElementById('reflectText');
     if (rt) rt.value = '';
     if (bTimer) clearTimeout(bTimer);
