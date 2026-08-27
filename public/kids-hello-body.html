@@ -439,6 +439,11 @@
     font-weight: 700;
     margin-bottom: 12px;
   }
+
+  @keyframes tapPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(139,74,107,0.5); transform: scale(1); }
+    50%       { box-shadow: 0 0 0 18px rgba(139,74,107,0); transform: scale(1.05); }
+  }
 </style>
 </head>
 <body>
@@ -571,8 +576,56 @@
   </div>
 </div>
 
-<!-- S2: Breath -->
+<!-- S2: Tapping Song -->
 <div class="step" id="s2">
+  <div class="card" style="text-align:center;">
+    <h2 class="step-q" style="text-align:center; margin-bottom:6px;">Our tapping song 🎵</h2>
+    <p class="step-hint" style="text-align:center; margin-bottom:20px;">Follow the guide — tap gently where it shows. Sing along out loud or in your heart.</p>
+
+    <!-- Tap target display -->
+    <div id="tapTarget" style="
+      width:120px; height:120px; border-radius:50%;
+      background: linear-gradient(135deg, #8B4A6B, var(--burg));
+      margin: 0 auto 12px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      box-shadow: 0 0 0 0 rgba(139,74,107,0.5);
+      animation: tapPulse 1.5s ease-in-out infinite;
+      font-size:42px; line-height:1;
+    ">🧠</div>
+    <p id="tapInstruction" style="font-size:15px; font-weight:700; color:var(--burg); letter-spacing:1px; text-transform:uppercase; margin-bottom:20px;">Tap your forehead</p>
+
+    <!-- Lyrics display -->
+    <div id="lyricsBox" style="
+      background: var(--soft-pink); border-radius:18px; padding:20px;
+      font-family:'Playfair Display',serif; font-size:19px; line-height:1.8;
+      color:var(--burg); min-height:100px; margin-bottom:20px;
+      display:flex; align-items:center; justify-content:center; text-align:center;
+    ">Press play to begin</div>
+
+    <!-- Music toggle + play -->
+    <div style="display:flex; gap:12px; justify-content:center; margin-bottom:20px;">
+      <button id="playBtn" onclick="startSong()" style="
+        background: linear-gradient(135deg, #8B4A6B, var(--burg));
+        color:white; border:none; border-radius:50px; padding:14px 28px;
+        font-size:16px; font-weight:700; font-family:'Nunito',sans-serif; cursor:pointer;
+      ">▶ Play song</button>
+      <button id="muteBtn" onclick="toggleMute()" style="
+        background:var(--sand); color:var(--burg); border:none; border-radius:50px;
+        padding:14px 18px; font-size:16px; cursor:pointer; font-family:'Nunito',sans-serif;
+      ">🔊</button>
+    </div>
+
+    <audio id="songAudio" loop preload="auto">
+      <source src="/every%20single%20cell.m4a" type="audio/mp4">
+    </audio>
+
+    <button class="btn-main btn-disabled" id="nSong" onclick="goTo(3)" style="margin-top:8px;">I sang my song → let's breathe</button>
+    <button class="btn-back" onclick="goTo(1)">← Back</button>
+  </div>
+</div>
+
+<!-- S3: Breath -->
+<div class="step" id="s3">
   <div class="card">
     <h2 class="step-q" style="text-align:center;">Now let's breathe together 🌬️</h2>
     <p class="step-hint" style="text-align:center;">Your body feels everything. Give it three calm breaths.</p>
@@ -581,24 +634,24 @@
       <p class="breath-msg" id="bMsg"></p>
       <p class="breath-sub" id="bSub"></p>
     </div>
-    <button class="btn-main btn-disabled" id="nBreath" onclick="goTo(3)">My body feels calmer →</button>
-    <button class="btn-back" onclick="goTo(1)">← Back</button>
-  </div>
-</div>
-
-<!-- S3: Affirmations -->
-<div class="step" id="s3">
-  <div class="card" style="text-align:center;">
-    <h2 class="step-q" style="text-align:center; margin-bottom:6px;">Things your body wants you to know 💜</h2>
-    <p class="step-hint" style="text-align:center; margin-bottom:24px;">Read each one slowly. Let it land.</p>
-    <div id="affirmCards"></div>
-    <button class="btn-main" style="margin-top:24px;" onclick="goTo(4)">I'm taking these with me →</button>
+    <button class="btn-main btn-disabled" id="nBreath" onclick="goTo(4)">My body feels calmer →</button>
     <button class="btn-back" onclick="goTo(2)">← Back</button>
   </div>
 </div>
 
-<!-- S4: Close -->
+<!-- S4: Affirmations -->
 <div class="step" id="s4">
+  <div class="card" style="text-align:center;">
+    <h2 class="step-q" style="text-align:center; margin-bottom:6px;">Things your body wants you to know 💜</h2>
+    <p class="step-hint" style="text-align:center; margin-bottom:24px;">Read each one slowly. Let it land.</p>
+    <div id="affirmCards"></div>
+    <button class="btn-main" style="margin-top:24px;" onclick="goTo(5)">I'm taking these with me →</button>
+    <button class="btn-back" onclick="goTo(3)">← Back</button>
+  </div>
+</div>
+
+<!-- S5: Close -->
+<div class="step" id="s5" >
   <div class="close-card">
     <div style="font-size:52px; margin-bottom:18px;">💜</div>
     <h2 style="font-family:'Playfair Display',serif; font-size:26px; font-weight:400; margin-bottom:14px; color:white;">Your body heard you.</h2>
@@ -678,11 +731,66 @@
   let bActive = false, bTimer = null, bCount = 0;
   const MAX_B = 3;
 
+  // ── SONG ──
+  const songSections = [
+    { icon: '🧠', tap: 'Tap your forehead — gently', lyric: 'Every single cell inside my body\nEvery single cell is happy and well.' },
+    { icon: '💜', tap: 'Now tap your heart',          lyric: 'Every single cell inside my body\nEvery single cell is happy and well.' },
+    { icon: '🧠', tap: 'Tap your forehead again',     lyric: 'I\'m so glad every single cell\ninside my body\nis happy and well.' },
+    { icon: '💜', tap: 'And back to your heart',      lyric: 'I\'m so glad every single cell\ninside my body\nis happy and well.' },
+  ];
+  let songTimer = null, songMuted = false, songIdx = 0;
+
+  function startSong() {
+    const audio = document.getElementById('songAudio');
+    audio.volume = 0.55;
+    if (!songMuted) audio.play().catch(() => {});
+    document.getElementById('playBtn').disabled = true;
+    document.getElementById('playBtn').textContent = '🎵 Playing...';
+    songIdx = 0;
+    showSongSection();
+  }
+
+  function showSongSection() {
+    if (songIdx >= songSections.length) {
+      // Song done
+      document.getElementById('lyricsBox').textContent = 'Beautiful. Your cells are listening. 💜';
+      document.getElementById('tapTarget').style.animation = 'none';
+      document.getElementById('tapInstruction').textContent = '';
+      const audio = document.getElementById('songAudio');
+      const fade = setInterval(() => {
+        if (audio.volume > 0.05) audio.volume = Math.max(0, audio.volume - 0.05);
+        else { audio.pause(); audio.volume = 0.55; clearInterval(fade); }
+      }, 200);
+      document.getElementById('nSong').classList.remove('btn-disabled');
+      return;
+    }
+    const s = songSections[songIdx];
+    document.getElementById('tapTarget').textContent = s.icon;
+    document.getElementById('tapInstruction').textContent = s.tap;
+    document.getElementById('lyricsBox').style.whiteSpace = 'pre-line';
+    document.getElementById('lyricsBox').textContent = s.lyric;
+    const duration = songIdx < 2 ? 8000 : 8000;
+    songTimer = setTimeout(() => { songIdx++; showSongSection(); }, duration);
+  }
+
+  function toggleMute() {
+    const audio = document.getElementById('songAudio');
+    songMuted = !songMuted;
+    audio.muted = songMuted;
+    document.getElementById('muteBtn').textContent = songMuted ? '🔇' : '🔊';
+  }
+
   function goTo(step) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('s' + step).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (step === 3) renderAffirmations();
+    if (step !== 2) {
+      // Stop song audio when leaving song step
+      const audio = document.getElementById('songAudio');
+      if (audio) { audio.pause(); audio.currentTime = 0; }
+      if (songTimer) clearTimeout(songTimer);
+    }
+    if (step === 4) renderAffirmations();
   }
 
   function openMsg(part) {
@@ -777,6 +885,19 @@
     document.querySelectorAll('.hspot').forEach(b => b.classList.remove('visited'));
     document.getElementById('visitedCount').style.display = 'none';
     document.getElementById('nBody').classList.add('btn-disabled');
+    // Reset song
+    if (songTimer) clearTimeout(songTimer);
+    songIdx = 0;
+    const audio = document.getElementById('songAudio');
+    if (audio) { audio.pause(); audio.currentTime = 0; }
+    document.getElementById('playBtn').disabled = false;
+    document.getElementById('playBtn').textContent = '▶ Play song';
+    document.getElementById('lyricsBox').textContent = 'Press play to begin';
+    document.getElementById('tapTarget').textContent = '🧠';
+    document.getElementById('tapTarget').style.animation = 'tapPulse 1.5s ease-in-out infinite';
+    document.getElementById('tapInstruction').textContent = 'Tap your forehead';
+    document.getElementById('nSong').classList.add('btn-disabled');
+    // Reset breath
     if (bTimer) clearTimeout(bTimer);
     bActive = false;
     resetBreath();
