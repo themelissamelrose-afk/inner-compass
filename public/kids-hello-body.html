@@ -7,20 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --linen: #F6EFE4;
-    --sand: #EAD9C2;
-    --rose: #C4786A;
-    --terra: #B5614E;
-    --pink: #E8B4A8;
-    --soft-pink: #F9E8E4;
-    --burg: #7A3B3B;
-    --text: #3D2B2B;
-    --muted: #9A7070;
-    --white: #FFFFFF;
+    --linen: #F6EFE4; --sand: #EAD9C2; --rose: #C4786A; --terra: #B5614E;
+    --pink: #E8B4A8; --soft-pink: #F9E8E4; --burg: #7A3B3B;
+    --text: #3D2B2B; --muted: #9A7070; --white: #FFFFFF;
   }
-
   body {
     background: linear-gradient(160deg, #F9F3EC 0%, #F0E6D8 50%, #EAD9C2 100%);
     background-attachment: fixed;
@@ -29,8 +20,6 @@
     min-height: 100vh;
     padding-bottom: 80px;
   }
-
-  /* ── HEADER ── */
   .page-header {
     background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
     padding: 36px 24px 32px;
@@ -38,412 +27,154 @@
     position: relative;
     overflow: hidden;
   }
-
   .page-header::before {
     content: '';
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse at top right, rgba(255,255,255,0.15) 0%, transparent 70%);
   }
+  .series-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.8); margin-bottom: 8px; }
+  .page-header h1 { font-family: 'Playfair Display', serif; font-size: 32px; color: white; font-weight: 400; margin-bottom: 6px; }
+  .page-header .tagline { font-size: 14px; color: rgba(255,255,255,0.85); font-style: italic; font-family: 'Playfair Display', serif; }
 
-  .series-tag {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 8px;
-  }
-
-  .page-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    color: white;
-    font-weight: 400;
-    margin-bottom: 6px;
-  }
-
-  .page-header .tagline {
-    font-size: 14px;
-    color: rgba(255,255,255,0.85);
-    font-style: italic;
-    font-family: 'Playfair Display', serif;
-  }
-
-  /* ── STEPS ── */
-  .step {
-    display: none;
-    max-width: 580px;
-    margin: 0 auto;
-    padding: 28px 20px;
-    animation: fadeUp 0.45s ease;
-  }
-
+  .step { display: none; max-width: 580px; margin: 0 auto; padding: 28px 20px; animation: fadeUp 0.45s ease; }
   .step.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  .card { background: rgba(255,255,255,0.88); border-radius: 24px; padding: 32px 28px; box-shadow: 0 4px 24px rgba(122,59,59,0.08); margin-bottom: 20px; }
+  .step-q { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--burg); margin-bottom: 8px; line-height: 1.35; text-align: center; }
+  .step-hint { font-size: 15px; color: var(--muted); font-style: italic; margin-bottom: 20px; line-height: 1.6; text-align: center; }
 
-  .card {
-    background: rgba(255,255,255,0.88);
-    border-radius: 24px;
-    padding: 32px 28px;
-    box-shadow: 0 4px 24px rgba(122,59,59,0.08);
-    margin-bottom: 20px;
-  }
+  .opening-icon { font-size: 68px; text-align: center; display: block; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-  .step-q {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    color: var(--burg);
-    margin-bottom: 8px;
-    line-height: 1.35;
-  }
-
-  .step-hint {
-    font-size: 15px;
-    color: var(--muted);
-    font-style: italic;
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
-
-  /* ── OPENING ── */
-  .opening-icon {
-    font-size: 68px;
-    text-align: center;
-    display: block;
-    margin-bottom: 20px;
-    animation: float 3s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-8px); }
-  }
-
-  /* ── BODY MAP ── */
-  .body-map-wrap {
-    position: relative;
-    width: 100%;
-    max-width: 340px;
-    margin: 0 auto;
-  }
-
-  .body-svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  /* Hotspot dots */
+  /* Body map */
+  .body-map-wrap { position: relative; width: 100%; max-width: 280px; margin: 0 auto; }
+  .body-svg { width: 100%; height: auto; display: block; }
   .hspot {
-    position: absolute;
-    border-radius: 50%;
+    position: absolute; border-radius: 50%;
     background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7), var(--rose));
     box-shadow: 0 0 0 0 rgba(196,120,106,0.5);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s;
-    -webkit-tap-highlight-color: transparent;
-    animation: pulse 2.5s ease-in-out infinite;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s; -webkit-tap-highlight-color: transparent;
+    animation: pulse 2.5s ease-in-out infinite; border: none;
   }
-
   .hspot:nth-child(2) { animation-delay: 0.3s; }
   .hspot:nth-child(3) { animation-delay: 0.6s; }
   .hspot:nth-child(4) { animation-delay: 0.9s; }
   .hspot:nth-child(5) { animation-delay: 1.2s; }
   .hspot:nth-child(6) { animation-delay: 1.5s; }
   .hspot:nth-child(7) { animation-delay: 1.8s; }
-
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(196,120,106,0.5); }
-    50%       { box-shadow: 0 0 0 10px rgba(196,120,106,0); }
-  }
-
-  .hspot:active, .hspot.visited {
-    animation: none;
-    background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.8), var(--terra));
-    box-shadow: 0 0 0 6px rgba(181,97,78,0.25);
-  }
-
-  .hspot .hico { font-size: 18px; pointer-events: none; }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(196,120,106,0.5); } 50% { box-shadow: 0 0 0 12px rgba(196,120,106,0); } }
+  .hspot.chosen { animation: none; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9), #8B4A6B); box-shadow: 0 0 0 8px rgba(139,74,107,0.25); transform: scale(1.15); }
+  .hspot .hico { font-size: 20px; pointer-events: none; }
   .hspot .hlabel {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--burg);
-    background: rgba(255,255,255,0.92);
-    border-radius: 8px;
-    padding: 3px 7px;
-    white-space: nowrap;
-    pointer-events: none;
+    position: absolute; top: 50%; font-size: 11px; font-weight: 700; color: var(--burg);
+    background: rgba(255,255,255,0.92); border-radius: 8px; padding: 3px 7px;
+    white-space: nowrap; pointer-events: none;
   }
-
-  .hspot.left .hlabel  { right: calc(100% + 8px); }
-  .hspot.right .hlabel { left: calc(100% + 8px); }
+  .hspot.left  .hlabel { right: calc(100% + 8px); transform: translateY(-50%); }
+  .hspot.right .hlabel { left: calc(100% + 8px); transform: translateY(-50%); }
   .hspot.center .hlabel { left: 50%; transform: translate(-50%, calc(-100% - 8px)); }
 
-  /* ── MESSAGE OVERLAY ── */
-  .msg-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(61,43,43,0.5);
-    z-index: 100;
-    align-items: flex-end;
-    padding: 0;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .msg-overlay.open { display: flex; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-
-  .msg-sheet {
-    background: white;
-    border-radius: 28px 28px 0 0;
-    padding: 32px 28px 48px;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to   { transform: translateY(0); }
-  }
-
-  .msg-body-part {
-    font-size: 13px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-
-  .msg-action {
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
-    color: var(--rose);
-    font-style: italic;
-    margin-bottom: 18px;
-  }
-
-  .msg-mantra {
-    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
-    border-radius: 20px;
-    padding: 22px 20px;
-    margin-bottom: 16px;
-    text-align: center;
-  }
-
-  .msg-mantra .mantra-label {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 10px;
-  }
-
-  .msg-mantra .mantra-words {
-    font-family: 'Playfair Display', serif;
-    font-size: 19px;
-    line-height: 1.6;
-    color: white;
-    font-style: italic;
-  }
-
-  .msg-text {
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--muted);
-    margin-bottom: 24px;
-    padding: 16px 18px;
-    background: var(--soft-pink);
-    border-radius: 14px;
-  }
-
-  .msg-btn-send {
-    display: block;
-    width: 100%;
-    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 18px 28px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: 'Nunito', sans-serif;
-    cursor: pointer;
-    margin-bottom: 12px;
+  /* Colour swatches */
+  .colour-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
+  .colour-swatch {
+    aspect-ratio: 1; border-radius: 50%; cursor: pointer;
+    border: 3px solid transparent; transition: transform 0.15s, border-color 0.15s;
     -webkit-tap-highlight-color: transparent;
   }
+  .colour-swatch.chosen { transform: scale(1.18); border-color: var(--burg); box-shadow: 0 0 0 4px rgba(122,59,59,0.2); }
 
-  .msg-btn-back {
-    display: block;
-    text-align: center;
-    font-size: 14px;
-    color: var(--muted);
-    cursor: pointer;
-    background: none;
-    border: none;
+  /* Shape grid */
+  .shape-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+  .shape-btn {
+    background: var(--soft-pink); border: 2.5px solid var(--pink); border-radius: 16px;
+    padding: 14px 6px; font-size: 24px; cursor: pointer; text-align: center;
+    transition: all 0.15s; -webkit-tap-highlight-color: transparent; font-family: 'Nunito', sans-serif;
+  }
+  .shape-btn.chosen { background: var(--pink); border-color: var(--rose); transform: scale(1.08); }
+  .shape-name { display: block; font-size: 11px; font-weight: 700; color: var(--burg); margin-top: 4px; }
+
+  /* Word grid */
+  .word-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 24px; }
+  .word-btn {
+    background: white; border: 2px solid var(--sand); border-radius: 30px;
+    padding: 10px 18px; font-size: 15px; font-weight: 700; color: var(--burg);
+    cursor: pointer; transition: all 0.15s; -webkit-tap-highlight-color: transparent;
     font-family: 'Nunito', sans-serif;
-    padding: 8px 0;
-    width: 100%;
   }
+  .word-btn.chosen { background: var(--soft-pink); border-color: var(--rose); transform: scale(1.05); }
 
-  /* ── BODY DONE CARD ── */
-  .body-done-hint {
-    text-align: center;
-    font-size: 14px;
-    color: var(--muted);
-    font-style: italic;
-    margin: 12px 0 20px;
+  /* Emotions */
+  .emo-tag {
+    display: inline-block; background: var(--soft-pink); border: 2px solid var(--pink);
+    border-radius: 30px; padding: 8px 16px; font-size: 14px; font-weight: 700;
+    color: var(--burg); margin: 4px; cursor: pointer; transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent; font-family: 'Nunito', sans-serif;
   }
+  .emo-tag.felt { background: var(--pink); border-color: var(--rose); }
 
-  /* ── BREATH ── */
-  .breath-ring {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    background: radial-gradient(circle at 35% 35%, var(--pink), var(--terra));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    font-weight: 700;
-    color: white;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 4s ease-in-out, box-shadow 0.3s;
-    box-shadow: 0 8px 32px rgba(139,74,107,0.3);
-    line-height: 1.4;
-  }
-
-  .breath-ring.inhale { transform: scale(1.3); }
-  .breath-ring.exhale { transform: scale(1.0); }
-
-  .breath-msg { font-size: 20px; color: var(--burg); font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 6px; min-height: 28px; }
-  .breath-sub { font-size: 14px; color: var(--muted); text-align: center; min-height: 20px; }
-
-  /* ── AFFIRMATIONS ── */
-  .affirm-card {
+  .summary-banner {
     background: linear-gradient(135deg, var(--soft-pink), white);
-    border: 2px solid var(--pink);
-    border-radius: 18px;
-    padding: 20px 22px;
-    margin-bottom: 12px;
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
-    color: var(--burg);
-    line-height: 1.5;
-    opacity: 0;
-    animation: fadeUp 0.5s ease forwards;
+    border: 2px solid var(--pink); border-radius: 18px;
+    padding: 16px 20px; margin-bottom: 20px; text-align: center;
+    font-family: 'Playfair Display', serif; font-size: 15px;
+    color: var(--burg); line-height: 1.6; font-style: italic;
   }
 
-  /* ── CLOSE ── */
-  .close-card {
-    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
-    border-radius: 24px;
-    padding: 40px 28px;
-    text-align: center;
-    color: white;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 32px rgba(139,74,107,0.3);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .close-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at top, rgba(255,255,255,0.08) 0%, transparent 70%);
-  }
-
-  /* ── BUTTONS ── */
-  .btn-main {
-    display: block;
-    width: 100%;
-    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 20px 32px;
-    font-size: 17px;
-    font-weight: 700;
-    font-family: 'Nunito', sans-serif;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(139,74,107,0.3);
-    transition: all 0.2s;
-    -webkit-tap-highlight-color: transparent;
-    margin-bottom: 12px;
-  }
-
-  .btn-main:active { transform: scale(0.98); }
-  .btn-disabled { opacity: 0.35; pointer-events: none; }
-
-  .btn-ghost {
-    display: block;
-    width: 100%;
-    background: transparent;
-    color: var(--burg);
-    border: 2px solid var(--burg);
-    border-radius: 50px;
-    padding: 18px 32px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: 'Nunito', sans-serif;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    margin-bottom: 12px;
-  }
-
-  .btn-back {
-    display: block;
-    text-align: center;
-    font-size: 13px;
-    color: var(--muted);
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-family: 'Nunito', sans-serif;
-    padding: 8px 0;
-    width: 100%;
-  }
-
-  .back-link {
-    display: block;
-    text-align: center;
-    margin-top: 8px;
-    font-size: 13px;
-    color: var(--muted);
-    text-decoration: none;
-  }
-
-  .visited-count {
-    text-align: center;
-    font-size: 14px;
-    color: var(--rose);
-    font-weight: 700;
-    margin-bottom: 12px;
-  }
-
+  /* Song */
   @keyframes tapPulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(139,74,107,0.5); transform: scale(1); }
     50%       { box-shadow: 0 0 0 18px rgba(139,74,107,0); transform: scale(1.05); }
   }
+
+  /* Breath */
+  .breath-ring {
+    width: 160px; height: 160px; border-radius: 50%; margin: 0 auto 48px;
+    background: radial-gradient(circle at 35% 35%, var(--pink), var(--terra));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700; color: white; text-align: center;
+    cursor: pointer; transition: transform 4s ease-in-out, box-shadow 0.3s;
+    box-shadow: 0 8px 32px rgba(139,74,107,0.3); line-height: 1.4;
+  }
+  .breath-ring.inhale { transform: scale(1.3); }
+  .breath-ring.exhale { transform: scale(1.0); }
+  .breath-msg { font-size: 20px; color: var(--burg); font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 6px; min-height: 28px; }
+  .breath-sub { font-size: 14px; color: var(--muted); text-align: center; min-height: 20px; }
+
+  /* Close */
+  .close-card {
+    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
+    border-radius: 24px; padding: 40px 28px; text-align: center; color: white;
+    margin-bottom: 20px; box-shadow: 0 8px 32px rgba(139,74,107,0.3);
+    position: relative; overflow: hidden;
+  }
+  .close-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top, rgba(255,255,255,0.08) 0%, transparent 70%); }
+
+  /* Buttons */
+  .btn-main {
+    display: block; width: 100%;
+    background: linear-gradient(135deg, #8B4A6B 0%, var(--burg) 100%);
+    color: white; border: none; border-radius: 50px; padding: 20px 32px;
+    font-size: 17px; font-weight: 700; font-family: 'Nunito', sans-serif;
+    cursor: pointer; box-shadow: 0 6px 20px rgba(139,74,107,0.3);
+    transition: all 0.2s; -webkit-tap-highlight-color: transparent; margin-bottom: 12px;
+  }
+  .btn-main:active { transform: scale(0.98); }
+  .btn-disabled { opacity: 0.35; pointer-events: none; }
+  .btn-ghost {
+    display: block; width: 100%; background: transparent; color: var(--burg);
+    border: 2px solid var(--burg); border-radius: 50px; padding: 18px 32px;
+    font-size: 16px; font-weight: 700; font-family: 'Nunito', sans-serif;
+    cursor: pointer; -webkit-tap-highlight-color: transparent; margin-bottom: 12px;
+  }
+  .btn-back {
+    display: block; text-align: center; font-size: 13px; color: var(--muted);
+    cursor: pointer; background: none; border: none; font-family: 'Nunito', sans-serif;
+    padding: 8px 0; width: 100%;
+  }
+  .back-link { display: block; text-align: center; margin-top: 8px; font-size: 13px; color: var(--muted); text-decoration: none; }
 </style>
 </head>
 <body>
@@ -458,10 +189,10 @@
 <div class="step active" id="s0">
   <div class="card" style="text-align:center;">
     <span class="opening-icon">💜</span>
-    <h2 class="step-q" style="text-align:center;">Your body is always talking to you.</h2>
+    <h2 class="step-q">Your body is always talking to you.</h2>
     <p style="font-size:17px; line-height:1.75; color:var(--muted); margin-bottom:28px;">
       But it works the other way too. When you talk <em>to</em> your body, with kindness and love, something shifts.<br><br>
-      Today we're going to say hello to different parts of you.
+      Today we're going to choose one part of your body and send it some love.
     </p>
     <button class="btn-main" onclick="goTo(1)">Let's begin 💜</button>
   </div>
@@ -470,131 +201,168 @@
 <!-- S1: Body map -->
 <div class="step" id="s1">
   <div class="card" style="padding: 24px 16px;">
-    <h2 class="step-q" style="text-align:center; margin-bottom:6px;">Tap a part of your body</h2>
-    <p class="step-hint" style="text-align:center; margin-bottom:20px;">Each one has a message waiting for you. You can visit as many as you like.</p>
+    <h2 class="step-q" style="margin-bottom:6px;">Which part of your body wants attention today?</h2>
+    <p class="step-hint" style="margin-bottom:20px;">Tap the one that feels right. Trust your first feeling.</p>
 
     <div class="body-map-wrap">
-      <!-- Simple SVG body silhouette -->
       <svg class="body-svg" viewBox="0 0 200 480" xmlns="http://www.w3.org/2000/svg">
-        <!-- Head -->
         <ellipse cx="100" cy="48" rx="36" ry="42" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Neck -->
         <rect x="88" y="86" width="24" height="20" rx="4" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Body -->
         <path d="M55 106 Q100 100 145 106 L155 240 Q100 250 45 240 Z" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Left arm -->
         <path d="M55 110 Q30 140 25 200 Q30 210 40 205 Q48 150 65 125 Z" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Right arm -->
         <path d="M145 110 Q170 140 175 200 Q170 210 160 205 Q152 150 135 125 Z" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Left hand -->
         <ellipse cx="32" cy="213" rx="14" ry="10" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Right hand -->
         <ellipse cx="168" cy="213" rx="14" ry="10" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Left leg -->
         <path d="M68 238 Q60 320 58 380 Q65 385 78 380 Q82 320 88 238 Z" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Right leg -->
         <path d="M132 238 Q140 320 142 380 Q135 385 122 380 Q118 320 112 238 Z" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Left foot -->
         <ellipse cx="64" cy="388" rx="16" ry="10" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Right foot -->
         <ellipse cx="136" cy="388" rx="16" ry="10" fill="#EAD9C2" stroke="#C4786A" stroke-width="2"/>
-        <!-- Heart symbol on chest -->
         <path d="M91 148 Q91 142 97 142 Q103 142 103 148 Q109 142 115 142 Q121 148 103 162 Q85 148 91 148 Z" fill="rgba(196,120,106,0.4)"/>
       </svg>
 
-      <!-- Hotspot dots, positioned over SVG -->
-      <!-- Head ~top 8% -->
-      <button class="hspot center" data-part="mind"
-        style="width:44px;height:44px;top:6%;left:50%;transform:translateX(-50%);"
-        onclick="openMsg('mind')">
+      <!-- Head -->
+      <button class="hspot center" data-part="head"
+        style="width:46px;height:46px;top:5%;left:50%;transform:translateX(-50%);"
+        onclick="choosePart('head')">
         <span class="hico">🧠</span>
-        <span class="hlabel">Mind</span>
+        <span class="hlabel">Head</span>
       </button>
-      <!-- Throat ~15% -->
-      <button class="hspot center" data-part="voice"
-        style="width:40px;height:40px;top:18%;left:50%;transform:translateX(-50%);"
-        onclick="openMsg('voice')">
+      <!-- Throat -->
+      <button class="hspot center" data-part="throat"
+        style="width:38px;height:38px;top:18%;left:50%;transform:translateX(-50%);"
+        onclick="choosePart('throat')">
         <span class="hico">🗣️</span>
-        <span class="hlabel">Voice</span>
+        <span class="hlabel">Throat</span>
       </button>
-      <!-- Heart ~31% -->
+      <!-- Shoulders left -->
+      <button class="hspot right" data-part="shoulders"
+        style="width:40px;height:40px;top:23%;left:4%;"
+        onclick="choosePart('shoulders')">
+        <span class="hico">🏋️</span>
+        <span class="hlabel">Shoulders</span>
+      </button>
+      <!-- Heart -->
       <button class="hspot left" data-part="heart"
-        style="width:44px;height:44px;top:29%;left:30%;"
-        onclick="openMsg('heart')">
+        style="width:46px;height:46px;top:30%;left:28%;"
+        onclick="choosePart('heart')">
         <span class="hico">💜</span>
         <span class="hlabel">Heart</span>
       </button>
-      <!-- Belly ~45% -->
-      <button class="hspot right" data-part="belly"
-        style="width:44px;height:44px;top:43%;left:55%;"
-        onclick="openMsg('belly')">
-        <span class="hico">🫁</span>
-        <span class="hlabel">Belly</span>
+      <!-- Tummy -->
+      <button class="hspot right" data-part="tummy"
+        style="width:44px;height:44px;top:43%;left:56%;"
+        onclick="choosePart('tummy')">
+        <span class="hico">🦋</span>
+        <span class="hlabel">Tummy</span>
       </button>
-      <!-- Left hand ~43% -->
-      <button class="hspot right" data-part="hands"
-        style="width:40px;height:40px;top:41%;left:4%;"
-        onclick="openMsg('hands')">
-        <span class="hico">🤲</span>
-        <span class="hlabel">Hands</span>
-      </button>
-      <!-- Legs ~68% -->
+      <!-- Legs -->
       <button class="hspot center" data-part="legs"
-        style="width:42px;height:42px;top:66%;left:50%;transform:translateX(-50%);"
-        onclick="openMsg('legs')">
-        <span class="hico">🦵</span>
+        style="width:44px;height:44px;top:67%;left:50%;transform:translateX(-50%);"
+        onclick="choosePart('legs')">
+        <span class="hico">🌿</span>
         <span class="hlabel">Legs</span>
       </button>
-      <!-- Feet ~84% -->
-      <button class="hspot center" data-part="feet"
-        style="width:40px;height:40px;top:83%;left:50%;transform:translateX(-50%);"
-        onclick="openMsg('feet')">
-        <span class="hico">🦶</span>
-        <span class="hlabel">Feet</span>
-      </button>
     </div>
 
-    <p class="visited-count" id="visitedCount" style="display:none;margin-top:16px;"></p>
-    <p class="body-done-hint">Tap as many parts as you like</p>
-    <button class="btn-main btn-disabled" id="nBody" onclick="goTo(2)">I've said hello to my body →</button>
-    <button class="btn-back" onclick="goTo(0)">← Back</button>
+    <button class="btn-back" style="margin-top:20px;" onclick="goTo(0)">← Back</button>
   </div>
 </div>
 
-<!-- Message overlay (slides up from bottom) -->
-<div class="msg-overlay" id="msgOverlay">
-  <div class="msg-sheet">
-    <div class="msg-body-part" id="msgPart"></div>
-    <div class="msg-action" id="msgAction"></div>
-    <div class="msg-mantra">
-      <div class="mantra-label">Say this, out loud or in your heart</div>
-      <div class="mantra-words" id="msgMantra"></div>
-    </div>
-    <div class="msg-text" id="msgText"></div>
-    <button class="msg-btn-send" onclick="closeMsg()">I felt that 💜</button>
-    <button class="msg-btn-back" onclick="closeMsg()">← Tap another part</button>
-  </div>
-</div>
-
-<!-- S2: Tapping Song -->
+<!-- S2: Colour -->
 <div class="step" id="s2">
-  <div class="card" style="text-align:center;">
-    <h2 class="step-q" style="text-align:center; margin-bottom:6px;">Our tapping song 🎵</h2>
-    <p class="step-hint" style="text-align:center; margin-bottom:20px;">Follow the guide, tap gently where it shows. Sing along out loud or in your heart.</p>
+  <div class="card">
+    <h2 class="step-q" id="colourQ">If it had a colour, what would it be?</h2>
+    <p class="step-hint">Tap the one that feels right. Don't overthink it.</p>
+    <div class="colour-grid">
+      <button class="colour-swatch" style="background:#E05C5C;" onclick="pickColour(this,'Red')"></button>
+      <button class="colour-swatch" style="background:#E8945A;" onclick="pickColour(this,'Orange')"></button>
+      <button class="colour-swatch" style="background:#F4C842;" onclick="pickColour(this,'Yellow')"></button>
+      <button class="colour-swatch" style="background:#6DBE82;" onclick="pickColour(this,'Green')"></button>
+      <button class="colour-swatch" style="background:#5B9BD5;" onclick="pickColour(this,'Blue')"></button>
+      <button class="colour-swatch" style="background:#9B73C4;" onclick="pickColour(this,'Purple')"></button>
+      <button class="colour-swatch" style="background:#E8A0B4;" onclick="pickColour(this,'Pink')"></button>
+      <button class="colour-swatch" style="background:#D4A846;" onclick="pickColour(this,'Gold')"></button>
+      <button class="colour-swatch" style="background:#A8A8A8;" onclick="pickColour(this,'Grey')"></button>
+      <button class="colour-swatch" style="background:#4A3B4A;border:2px solid #888;" onclick="pickColour(this,'Dark')"></button>
+    </div>
+    <p id="colourLabel" style="text-align:center; font-size:15px; color:var(--rose); font-family:'Playfair Display',serif; font-style:italic; min-height:22px;"></p>
+    <button class="btn-back" style="margin-top:12px;" onclick="goTo(1)">← Choose a different part</button>
+  </div>
+</div>
 
-    <!-- Tap target display -->
+<!-- S3: Shape -->
+<div class="step" id="s3">
+  <div class="card">
+    <h2 class="step-q">Does it have a shape or symbol?</h2>
+    <p class="step-hint">What does it look like in your imagination?</p>
+    <div class="shape-grid">
+      <button class="shape-btn" onclick="pickShape(this,'Circle')">○<span class="shape-name">Circle</span></button>
+      <button class="shape-btn" onclick="pickShape(this,'Triangle')">△<span class="shape-name">Triangle</span></button>
+      <button class="shape-btn" onclick="pickShape(this,'Star')">⭐<span class="shape-name">Star</span></button>
+      <button class="shape-btn" onclick="pickShape(this,'Cloud')">☁️<span class="shape-name">Cloud</span></button>
+      <button class="shape-btn" onclick="pickShape(this,'Heart')">💜<span class="shape-name">Heart</span></button>
+      <button class="shape-btn" onclick="pickShape(this,'Wave')">🌊<span class="shape-name">Wave</span></button>
+      <button class="shape-btn" onclick="pickShape(this,'Spiral')">🌀<span class="shape-name">Spiral</span></button>
+      <button class="shape-btn" onclick="pickShape(this,'Flame')">🔥<span class="shape-name">Flame</span></button>
+    </div>
+    <button class="btn-back" onclick="goTo(2)">← Back</button>
+  </div>
+</div>
+
+<!-- S4: Word -->
+<div class="step" id="s4">
+  <div class="card">
+    <h2 class="step-q">What word describes how it feels?</h2>
+    <p class="step-hint">Tap the one that fits best.</p>
+    <div class="word-grid">
+      <button class="word-btn" onclick="pickWord(this,'Heavy')">Heavy</button>
+      <button class="word-btn" onclick="pickWord(this,'Light')">Light</button>
+      <button class="word-btn" onclick="pickWord(this,'Warm')">Warm</button>
+      <button class="word-btn" onclick="pickWord(this,'Cold')">Cold</button>
+      <button class="word-btn" onclick="pickWord(this,'Tight')">Tight</button>
+      <button class="word-btn" onclick="pickWord(this,'Soft')">Soft</button>
+      <button class="word-btn" onclick="pickWord(this,'Fizzy')">Fizzy</button>
+      <button class="word-btn" onclick="pickWord(this,'Still')">Still</button>
+      <button class="word-btn" onclick="pickWord(this,'Bright')">Bright</button>
+      <button class="word-btn" onclick="pickWord(this,'Dark')">Dark</button>
+      <button class="word-btn" onclick="pickWord(this,'Fuzzy')">Fuzzy</button>
+      <button class="word-btn" onclick="pickWord(this,'Loud')">Loud</button>
+    </div>
+    <button class="btn-back" onclick="goTo(3)">← Back</button>
+  </div>
+</div>
+
+<!-- S5: Emotions -->
+<div class="step" id="s5">
+  <div class="card">
+    <div id="summaryBanner" class="summary-banner"></div>
+    <h2 class="step-q" id="emotionTitle" style="margin-bottom:12px;"></h2>
+    <p id="emotionHolds" style="font-size:15px; line-height:1.75; color:var(--muted); margin-bottom:20px;"></p>
+    <p style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--rose); margin-bottom:12px; text-align:center;">This part might be feeling...</p>
+    <div id="emoTags" style="text-align:center; margin-bottom:16px;"></div>
+    <p style="font-size:14px; color:var(--muted); font-style:italic; text-align:center; margin-bottom:24px;">Tap any that feel true for you right now.</p>
+    <button class="btn-main" onclick="goTo(6)">Now let's send it some love 💜</button>
+    <button class="btn-back" onclick="goTo(4)">← Back</button>
+  </div>
+</div>
+
+<!-- S6: Tapping song -->
+<div class="step" id="s6">
+  <div class="card" style="text-align:center;">
+    <h2 class="step-q" style="margin-bottom:6px;">Our tapping song 🎵</h2>
+    <p class="step-hint" style="margin-bottom:20px;" id="songSubtitle"></p>
+
     <div id="tapTarget" style="
       width:120px; height:120px; border-radius:50%;
       background: linear-gradient(135deg, #8B4A6B, var(--burg));
       margin: 0 auto 12px;
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      display:flex; align-items:center; justify-content:center;
       box-shadow: 0 0 0 0 rgba(139,74,107,0.5);
       animation: tapPulse 1.5s ease-in-out infinite;
-      font-size:42px; line-height:1;
-    ">🧠</div>
-    <p id="tapInstruction" style="font-size:15px; font-weight:700; color:var(--burg); letter-spacing:1px; text-transform:uppercase; margin-bottom:20px;">Tap your forehead</p>
+      font-size:46px; line-height:1;
+    "></div>
+    <p id="tapInstruction" style="font-size:15px; font-weight:700; color:var(--burg); letter-spacing:1px; text-transform:uppercase; margin-bottom:20px; min-height:22px;"></p>
 
-    <!-- Lyrics display -->
     <div id="lyricsBox" style="
       background: var(--soft-pink); border-radius:18px; padding:20px;
       font-family:'Playfair Display',serif; font-size:19px; line-height:1.8;
@@ -602,7 +370,6 @@
       display:flex; align-items:center; justify-content:center; text-align:center;
     ">Press play to begin</div>
 
-    <!-- Music toggle + play -->
     <div style="display:flex; gap:12px; justify-content:center; margin-bottom:20px;">
       <button id="playBtn" onclick="startSong()" style="
         background: linear-gradient(135deg, #8B4A6B, var(--burg));
@@ -619,49 +386,57 @@
       <source src="/every%20single%20cell.m4a" type="audio/mp4">
     </audio>
 
-    <button class="btn-main btn-disabled" id="nSong" onclick="goTo(3)" style="margin-top:8px;">I sang my song → let's breathe</button>
-    <button class="btn-back" onclick="goTo(1)">← Back</button>
+    <button class="btn-main btn-disabled" id="nSong" onclick="goTo(7)">I sang my song. Let's breathe 🌬️</button>
+    <button class="btn-back" onclick="goTo(5)">← Back</button>
   </div>
 </div>
 
-<!-- S3: Breath -->
-<div class="step" id="s3">
+<!-- S7: Breath -->
+<div class="step" id="s7">
   <div class="card">
-    <h2 class="step-q" style="text-align:center;">Now let's breathe together 🌬️</h2>
-    <p class="step-hint" style="text-align:center;">Your body feels everything. Give it three calm breaths.</p>
+    <h2 class="step-q">Now let's breathe together 🌬️</h2>
+    <p class="step-hint">Your body feels everything. Give it three calm breaths.</p>
     <div style="text-align:center; margin-bottom:20px;">
       <div class="breath-ring" id="bRing" onclick="beginBreath()">Tap to<br>begin</div>
       <p class="breath-msg" id="bMsg"></p>
       <p class="breath-sub" id="bSub"></p>
     </div>
-    <button class="btn-main btn-disabled" id="nBreath" onclick="goTo(4)">My body feels calmer →</button>
-    <button class="btn-back" onclick="goTo(2)">← Back</button>
+    <button class="btn-main btn-disabled" id="nBreath" onclick="goTo(8)">My body feels calmer →</button>
+    <button class="btn-back" onclick="goTo(6)">← Back</button>
   </div>
 </div>
 
-<!-- S4: Affirmations -->
-<div class="step" id="s4">
+<!-- S8: Affirmation pick -->
+<div class="step" id="s8">
   <div class="card" style="text-align:center;">
-    <h2 class="step-q" style="text-align:center; margin-bottom:6px;">Things your body wants you to know 💜</h2>
-    <p class="step-hint" style="text-align:center; margin-bottom:24px;">Read each one slowly. Let it land.</p>
+    <p style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--rose); margin-bottom:6px;">Choose one</p>
+    <h2 class="step-q" style="margin-bottom:6px;">Which feels true for you right now?</h2>
+    <p class="step-hint" style="margin-bottom:24px;">Tap it to take it with you ✨</p>
     <div id="affirmCards"></div>
-    <button class="btn-main" style="margin-top:24px;" onclick="goTo(5)">I'm taking these with me →</button>
-    <button class="btn-back" onclick="goTo(3)">← Back</button>
+    <button class="btn-back" onclick="goTo(7)">← Back</button>
   </div>
 </div>
 
-<!-- S5: Close -->
-<div class="step" id="s5" >
+<!-- S9: Close -->
+<div class="step" id="s9">
   <div class="close-card">
-    <div style="font-size:52px; margin-bottom:18px;">💜</div>
-    <h2 style="font-family:'Playfair Display',serif; font-size:26px; font-weight:400; margin-bottom:14px; color:white;">Your body heard you.</h2>
-    <p style="font-size:16px; line-height:1.75; color:rgba(255,255,255,0.88); max-width:360px; margin:0 auto;">
-      Every time you talk kindly to yourself, something changes, even if you can't feel it yet. Keep going. Your body is always listening.
-    </p>
+    <div style="font-size:48px; margin-bottom:16px; position:relative; z-index:1;">💜</div>
+    <h2 style="font-family:'Playfair Display',serif; font-size:26px; font-weight:400; margin-bottom:14px; color:white; position:relative; z-index:1;">Your body heard you.</h2>
+    <div id="chosenAffirmClose" style="
+      font-family:'Playfair Display',serif; font-size:20px; font-style:italic;
+      color:rgba(255,255,255,0.95); background:rgba(255,255,255,0.12);
+      border-radius:16px; padding:18px 22px; margin:18px 0; line-height:1.5;
+      position:relative; z-index:1;
+    "></div>
+    <button onclick="pulseClose()" style="
+      background:rgba(255,255,255,0.15); border:2px solid rgba(255,255,255,0.4);
+      color:white; border-radius:30px; padding:10px 28px; font-size:15px;
+      cursor:pointer; font-family:'Nunito',sans-serif; position:relative; z-index:1;
+    ">Say it again 🔁</button>
   </div>
   <div class="card" style="text-align:center;">
     <p style="font-size:16px; line-height:1.8; color:var(--muted); margin-bottom:20px;">
-      Come back whenever your body needs some love.<br><br>
+      Every time you talk kindly to yourself, something shifts. Come back whenever your body needs some love.<br><br>
       <span style="color:#8B4A6B; font-family:'Playfair Display',serif; font-size:18px; font-style:italic;">Big love 🌸</span>
     </p>
     <button class="btn-ghost" onclick="restart()">Say hello again 💜</button>
@@ -670,75 +445,127 @@
 </div>
 
 <script>
-  function buildMantra(partName) {
-    return `Every single cell in my ${partName} is happy and well.\nEvery single cell in my body is happy and well.\nI'm so glad every single cell.`;
-  }
-
-  const bodyMessages = {
-    mind: {
-      part: "Your mind 🧠",
-      action: "Place one hand gently on the top of your head.",
-      mantraName: "mind",
-      text: "Hello, busy mind. You don't have to figure everything out today. It's okay to rest. I'm going to take care of you."
+  const bodyData = {
+    head: {
+      name: 'Head', emoji: '🧠',
+      holds: "Your head holds all your thoughts. The busy ones, the worried ones, the ones that just won't stop. When it feels full and noisy, your body is asking you to put something down.",
+      emotions: ['Worried', 'Overwhelmed', 'Confused', 'Too many thoughts', "Can't switch off"]
     },
-    voice: {
-      part: "Your voice 🗣️",
-      action: "Place one hand softly on your throat.",
-      mantraName: "voice",
-      text: "You are allowed to speak. Your voice matters. Even when it feels scary, you deserve to be heard."
+    throat: {
+      name: 'Throat', emoji: '🗣️',
+      holds: "Your throat holds the words you haven't said yet. When it feels tight, there's usually something inside you that wants to come out.",
+      emotions: ['Nervous to speak', 'Words held in', 'Afraid', 'Wanting to be heard', 'Scared']
+    },
+    shoulders: {
+      name: 'Shoulders', emoji: '🏋️',
+      holds: "Your shoulders carry everything you feel responsible for. Sometimes we hold other people's feelings there without even knowing it. That's a lot to carry.",
+      emotions: ['Heavy', 'Tired', 'Carrying too much', 'Stressed', 'Responsible for everyone']
     },
     heart: {
-      part: "Your heart 💜",
-      action: "Place both hands over your heart.",
-      mantraName: "heart",
-      text: "Hello, heart. You love so deeply, and that is one of the most beautiful things about you. You're allowed to feel everything."
+      name: 'Heart', emoji: '💜',
+      holds: "Your heart holds all your feelings about people. The love, the missing, the hurt. It's one of the bravest parts of you.",
+      emotions: ['Sad', 'Missing someone', 'Love', 'Hurt', 'Lonely', 'Happy']
     },
-    belly: {
-      part: "Your belly 🫁",
-      action: "Place one hand gently on your belly.",
-      mantraName: "belly",
-      text: "I hear you. You hold so much, the butterflies, the worry, the excitement. I'm going to listen more and breathe slowly for you."
-    },
-    hands: {
-      part: "Your hands 🤲",
-      action: "Look at your hands and hold them gently together.",
-      mantraName: "hands",
-      text: "These hands are capable and kind. Everything you've held, everything you've made, every hug you've given. Thank you."
+    tummy: {
+      name: 'Tummy', emoji: '🦋',
+      holds: "Your tummy is really clever. It feels things before you even think them. Those butterflies? That's your body trying to tell you something important.",
+      emotions: ['Butterflies', 'Anxious', 'Excited', 'Nervous', 'Unsure']
     },
     legs: {
-      part: "Your legs 🦵",
-      action: "Give your legs a gentle pat or squeeze.",
-      mantraName: "legs",
-      text: "You carry me through every single day. Even when you feel tired, you keep going. I'm so grateful for you."
-    },
-    feet: {
-      part: "Your feet 🦶",
-      action: "Wiggle your toes and feel the ground beneath you.",
-      mantraName: "feet",
-      text: "You hold me up even on the hardest days. Feel the ground under you right now, you are steady, you are safe."
+      name: 'Legs', emoji: '🌿',
+      holds: "Your legs carry you through everything. When they feel heavy or restless, your body is asking for some movement or some stillness.",
+      emotions: ['Restless', 'Wanting to run', 'Feeling stuck', 'Ready to move', 'Heavy']
     }
   };
 
   const affirmations = [
     "My body is always on my side.",
-    "I am allowed to be kind to myself.",
-    "My feelings live in my body and that is okay.",
     "I am safe in my own skin.",
+    "I am allowed to be kind to myself.",
+    "I deserve love, especially from myself.",
     "Every single cell in my body is happy and well."
   ];
 
-  let visitedParts = new Set();
+  let chosenPart = null, chosenColour = null, chosenShape = null, chosenWord = null;
   let bActive = false, bTimer = null, bCount = 0;
   const MAX_B = 3;
+  let bToneTimers = [], audioCtx = null;
+  let songTimer = null, songMuted = false, songIdx = 0, songSections = [];
 
-  // ── SONG ──
-  const songSections = [
-    { icon: '🧠', tap: 'Tap your forehead, gently', lyric: 'Every single cell inside my body\nEvery single cell is happy and well.' },
-    { icon: '💜', tap: 'Now tap your heart',          lyric: 'Every single cell inside my body\nEvery single cell is happy and well.' },
-    { icon: '🧠', tap: 'Tap your forehead again',     lyric: 'I\'m so glad every single cell\ninside my body\nis happy and well.' },
-    { icon: '💜', tap: 'And back to your heart',      lyric: 'I\'m so glad every single cell\ninside my body\nis happy and well.' },
-  ];
-  let songTimer = null, songMuted = false, songIdx = 0;
+  function goTo(step) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('s' + step).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (step !== 6) {
+      const audio = document.getElementById('songAudio');
+      if (audio) { audio.pause(); audio.currentTime = 0; }
+      if (songTimer) clearTimeout(songTimer);
+    }
+    if (step === 8) renderAffirmations();
+  }
+
+  function choosePart(part) {
+    chosenPart = part;
+    chosenColour = null; chosenShape = null; chosenWord = null;
+    document.querySelectorAll('.colour-swatch, .shape-btn, .word-btn').forEach(b => b.classList.remove('chosen'));
+    document.getElementById('colourLabel').textContent = '';
+    document.querySelectorAll('.hspot').forEach(b => b.classList.remove('chosen'));
+    document.querySelector('[data-part="' + part + '"]').classList.add('chosen');
+    const d = bodyData[part];
+    document.getElementById('colourQ').textContent = 'If your ' + d.name.toLowerCase() + ' had a colour, what would it be?';
+    setTimeout(() => goTo(2), 300);
+  }
+
+  function pickColour(btn, colour) {
+    chosenColour = colour;
+    document.querySelectorAll('.colour-swatch').forEach(b => b.classList.remove('chosen'));
+    btn.classList.add('chosen');
+    document.getElementById('colourLabel').textContent = colour;
+    setTimeout(() => goTo(3), 450);
+  }
+
+  function pickShape(btn, shape) {
+    chosenShape = shape;
+    document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('chosen'));
+    btn.classList.add('chosen');
+    setTimeout(() => goTo(4), 450);
+  }
+
+  function pickWord(btn, word) {
+    chosenWord = word;
+    document.querySelectorAll('.word-btn').forEach(b => b.classList.remove('chosen'));
+    btn.classList.add('chosen');
+    setTimeout(() => showEmotions(), 450);
+  }
+
+  function showEmotions() {
+    const d = bodyData[chosenPart];
+    document.getElementById('summaryBanner').innerHTML =
+      'Your ' + d.name.toLowerCase() + ' feels <strong>' + chosenColour + '</strong>, shaped like a <strong>' + chosenShape + '</strong>, and <strong>' + chosenWord + '</strong>.';
+    document.getElementById('emotionTitle').textContent = 'What your ' + d.name.toLowerCase() + ' carries';
+    document.getElementById('emotionHolds').textContent = d.holds;
+    document.getElementById('emoTags').innerHTML = d.emotions
+      .map(e => '<button class="emo-tag" onclick="this.classList.toggle(\'felt\')">' + e + '</button>')
+      .join('');
+
+    songSections = [
+      { icon: d.emoji, tap: 'Tap your ' + d.name.toLowerCase() + ', gently', lyric: 'Every single cell inside my body\nEvery single cell is happy and well.' },
+      { icon: '💜', tap: 'Now tap your heart', lyric: 'Every single cell inside my body\nEvery single cell is happy and well.' },
+      { icon: d.emoji, tap: 'Tap your ' + d.name.toLowerCase() + ' again', lyric: "I'm so glad every single cell\ninside my body\nis happy and well." },
+      { icon: '💜', tap: 'And back to your heart', lyric: "I'm so glad every single cell\ninside my body\nis happy and well." }
+    ];
+
+    document.getElementById('songSubtitle').textContent = 'Follow the guide, tap gently where it shows. Sing along out loud or in your heart.';
+    document.getElementById('tapTarget').textContent = d.emoji;
+    document.getElementById('tapInstruction').textContent = 'Tap your ' + d.name.toLowerCase() + ', gently';
+    document.getElementById('lyricsBox').textContent = 'Press play to begin';
+    document.getElementById('playBtn').disabled = false;
+    document.getElementById('playBtn').textContent = '▶ Play song';
+    document.getElementById('nSong').classList.add('btn-disabled');
+    document.getElementById('tapTarget').style.animation = 'tapPulse 1.5s ease-in-out infinite';
+
+    goTo(5);
+  }
 
   function startSong() {
     const audio = document.getElementById('songAudio');
@@ -752,7 +579,6 @@
 
   function showSongSection() {
     if (songIdx >= songSections.length) {
-      // Song done
       document.getElementById('lyricsBox').textContent = 'Beautiful. Your cells are listening. 💜';
       document.getElementById('tapTarget').style.animation = 'none';
       document.getElementById('tapInstruction').textContent = '';
@@ -769,8 +595,7 @@
     document.getElementById('tapInstruction').textContent = s.tap;
     document.getElementById('lyricsBox').style.whiteSpace = 'pre-line';
     document.getElementById('lyricsBox').textContent = s.lyric;
-    const duration = songIdx < 2 ? 8000 : 8000;
-    songTimer = setTimeout(() => { songIdx++; showSongSection(); }, duration);
+    songTimer = setTimeout(() => { songIdx++; showSongSection(); }, 8000);
   }
 
   function toggleMute() {
@@ -780,64 +605,38 @@
     document.getElementById('muteBtn').textContent = songMuted ? '🔇' : '🔊';
   }
 
-  function goTo(step) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById('s' + step).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (step !== 2) {
-      // Stop song audio when leaving song step
-      const audio = document.getElementById('songAudio');
-      if (audio) { audio.pause(); audio.currentTime = 0; }
-      if (songTimer) clearTimeout(songTimer);
-    }
-    if (step === 4) renderAffirmations();
+  // Breath tones
+  function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+  }
+  function playTone(freq, volume, duration) {
+    volume = volume || 0.18; duration = duration || 0.6;
+    try {
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(volume, ctx.currentTime + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + duration);
+    } catch(e) {}
+  }
+  function clearToneTimers() { bToneTimers.forEach(t => clearTimeout(t)); bToneTimers = []; }
+  function scheduleInhaleTones() {
+    [523,587,659,784].forEach((f, i) => { bToneTimers.push(setTimeout(() => playTone(f), i * 1000)); });
+  }
+  function scheduleExhaleTones() {
+    [740,659,587,523,440].forEach((f, i) => { bToneTimers.push(setTimeout(() => playTone(f, 0.12), i * 1000)); });
   }
 
-  function openMsg(part) {
-    const m = bodyMessages[part];
-    if (!m) return;
-    document.getElementById('msgPart').textContent = m.part;
-    document.getElementById('msgAction').textContent = m.action;
-    document.getElementById('msgMantra').style.whiteSpace = 'pre-line';
-    document.getElementById('msgMantra').textContent = buildMantra(m.mantraName);
-    document.getElementById('msgText').textContent = m.text;
-    document.getElementById('msgOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-
-    // Mark as visited
-    visitedParts.add(part);
-    const btn = document.querySelector(`[data-part="${part}"]`);
-    if (btn) btn.classList.add('visited');
-
-    // Update visited count and enable next button
-    const count = visitedParts.size;
-    const countEl = document.getElementById('visitedCount');
-    countEl.style.display = 'block';
-    countEl.textContent = `You've said hello to ${count} part${count > 1 ? 's' : ''} ✨`;
-
-    const nb = document.getElementById('nBody');
-    nb.classList.remove('btn-disabled');
-  }
-
-  function closeMsg() {
-    document.getElementById('msgOverlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function renderAffirmations() {
-    document.getElementById('affirmCards').innerHTML = affirmations
-      .map((a, i) => `<div class="affirm-card" style="animation-delay:${i * 0.18}s;">"${a}"</div>`)
-      .join('');
-  }
-
-  // Breath
   function resetBreath() {
     bActive = false; bCount = 0;
     if (bTimer) clearTimeout(bTimer);
+    clearToneTimers();
     const r = document.getElementById('bRing');
-    r.className = 'breath-ring';
-    r.innerHTML = 'Tap to<br>begin';
-    r.onclick = beginBreath;
+    r.className = 'breath-ring'; r.innerHTML = 'Tap to<br>begin'; r.onclick = beginBreath;
     document.getElementById('bMsg').textContent = '';
     document.getElementById('bSub').textContent = '';
     document.getElementById('nBreath').classList.add('btn-disabled');
@@ -845,59 +644,63 @@
 
   function beginBreath() {
     if (bActive) return;
-    bActive = true; bCount = 0;
-    doCycle();
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    bActive = true; bCount = 0; doCycle();
   }
 
   function doCycle() {
     if (bCount >= MAX_B) {
       const r = document.getElementById('bRing');
-      r.className = 'breath-ring exhale';
-      r.innerHTML = '💜<br>Beautiful';
-      r.onclick = null;
+      r.className = 'breath-ring exhale'; r.innerHTML = '💜<br>Beautiful'; r.onclick = null;
       document.getElementById('bMsg').textContent = 'Your body thanks you.';
       document.getElementById('bSub').textContent = '';
+      playTone(784, 0.22, 1.2);
       document.getElementById('nBreath').classList.remove('btn-disabled');
-      bActive = false;
-      return;
+      bActive = false; return;
     }
     const r = document.getElementById('bRing');
-    const msg = document.getElementById('bMsg');
-    const sub = document.getElementById('bSub');
-    r.className = 'breath-ring inhale';
-    r.innerHTML = '😮‍💨<br>Breathe in';
-    msg.textContent = 'Breathe in slowly...';
-    sub.textContent = `Breath ${bCount + 1} of ${MAX_B}`;
+    r.className = 'breath-ring inhale'; r.innerHTML = '😮‍💨<br>Breathe in';
+    document.getElementById('bMsg').textContent = 'Breathe in slowly...';
+    document.getElementById('bSub').textContent = 'Breath ' + (bCount + 1) + ' of ' + MAX_B;
+    scheduleInhaleTones();
     bTimer = setTimeout(() => {
-      r.innerHTML = '⏸️<br>Hold';
-      msg.textContent = 'Hold...';
+      clearToneTimers(); r.innerHTML = '⏸️<br>Hold';
+      document.getElementById('bMsg').textContent = 'Hold...';
+      playTone(523, 0.1, 0.8);
       bTimer = setTimeout(() => {
-        r.className = 'breath-ring exhale';
-        r.innerHTML = '🌬️<br>Breathe out';
-        msg.textContent = 'Breathe all the way out...';
-        bTimer = setTimeout(() => { bCount++; doCycle(); }, 5000);
+        r.className = 'breath-ring exhale'; r.innerHTML = '🌬️<br>Breathe out';
+        document.getElementById('bMsg').textContent = 'Breathe all the way out...';
+        scheduleExhaleTones();
+        bTimer = setTimeout(() => { clearToneTimers(); bCount++; doCycle(); }, 5000);
       }, 1000);
     }, 4000);
   }
 
+  function renderAffirmations() {
+    document.getElementById('affirmCards').innerHTML = affirmations.map((a, i) =>
+      '<button onclick="pickAffirm(this)" data-affirm="' + a + '" style="display:block;width:100%;background:linear-gradient(135deg,var(--soft-pink),#fff);border:2px solid var(--pink);border-radius:18px;padding:20px 22px;margin-bottom:12px;font-family:\'Playfair Display\',serif;font-size:18px;color:var(--burg);line-height:1.5;opacity:0;animation:fadeUp 0.5s ease ' + (i * 0.18) + 's forwards;cursor:pointer;text-align:center;">"' + a + '"</button>'
+    ).join('');
+  }
+
+  function pickAffirm(btn) {
+    document.getElementById('chosenAffirmClose').textContent = '"' + btn.dataset.affirm + '"';
+    goTo(9);
+  }
+
+  function pulseClose() {
+    const el = document.getElementById('chosenAffirmClose');
+    el.style.transition = 'transform 0.15s, opacity 0.15s';
+    el.style.transform = 'scale(1.04)'; el.style.opacity = '0.7';
+    setTimeout(() => { el.style.transform = 'scale(1)'; el.style.opacity = '1'; }, 200);
+  }
+
   function restart() {
-    visitedParts.clear();
-    document.querySelectorAll('.hspot').forEach(b => b.classList.remove('visited'));
-    document.getElementById('visitedCount').style.display = 'none';
-    document.getElementById('nBody').classList.add('btn-disabled');
-    // Reset song
+    chosenPart = null; chosenColour = null; chosenShape = null; chosenWord = null;
+    document.querySelectorAll('.hspot, .colour-swatch, .shape-btn, .word-btn').forEach(b => b.classList.remove('chosen'));
+    document.getElementById('colourLabel').textContent = '';
     if (songTimer) clearTimeout(songTimer);
-    songIdx = 0;
     const audio = document.getElementById('songAudio');
     if (audio) { audio.pause(); audio.currentTime = 0; }
-    document.getElementById('playBtn').disabled = false;
-    document.getElementById('playBtn').textContent = '▶ Play song';
-    document.getElementById('lyricsBox').textContent = 'Press play to begin';
-    document.getElementById('tapTarget').textContent = '🧠';
-    document.getElementById('tapTarget').style.animation = 'tapPulse 1.5s ease-in-out infinite';
-    document.getElementById('tapInstruction').textContent = 'Tap your forehead';
-    document.getElementById('nSong').classList.add('btn-disabled');
-    // Reset breath
     if (bTimer) clearTimeout(bTimer);
     bActive = false;
     resetBreath();
