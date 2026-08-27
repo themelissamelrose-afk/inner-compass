@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Sturgeon Moon · Pisces Eclipse Ceremony</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --deep: #0d1b2a;
+    --midnight: #1a2a3f;
+    --ocean: #1e3a5f;
+    --silver: #c8d6e5;
+    --lilac: #b8a9d4;
+    --rose: #C4786A;
+    --pink: #E8B4A8;
+    --linen: #F6EFE4;
+    --gold: #d4a843;
+    --muted: rgba(200,214,229,0.7);
+    --white: #ffffff;
+  }
+
+  body {
+    background: var(--deep);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(30,58,95,0.8) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(184,169,212,0.15) 0%, transparent 50%);
+    font-family: 'Lato', sans-serif;
+    color: var(--silver);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 52px 24px 40px;
+    position: relative;
+  }
+  .moon-badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0.9;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .header .sub {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  /* MOON ANIMATION */
+  .moon-wrap {
+    text-align: center;
+    margin: 8px 0 32px;
+  }
+  .moon {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #f5f0e8, #c8c0a8 60%, #8a7e6a);
+    box-shadow:
+      0 0 40px 12px rgba(212,168,67,0.25),
+      0 0 80px 30px rgba(184,169,212,0.12),
+      inset -12px -8px 20px rgba(0,0,0,0.3);
+    animation: moonGlow 4s ease-in-out infinite;
+    position: relative;
+  }
+  .moon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 65% 60%, rgba(0,0,0,0.45) 0%, transparent 55%);
+  }
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 40px 12px rgba(212,168,67,0.25), 0 0 80px 30px rgba(184,169,212,0.12), inset -12px -8px 20px rgba(0,0,0,0.3); }
+    50%       { box-shadow: 0 0 60px 20px rgba(212,168,67,0.35), 0 0 110px 45px rgba(184,169,212,0.18), inset -12px -8px 20px rgba(0,0,0,0.3); }
+  }
+
+  /* STEPS */
+  .step { display: none; max-width: 640px; margin: 0 auto; padding: 0 20px 60px; animation: fadeUp 0.5s ease; }
+  .step.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,214,229,0.12);
+    border-radius: 24px;
+    padding: 36px 32px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
+  }
+
+  .step-num {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    opacity: 0.8;
+  }
+
+  .step-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--white);
+    font-weight: 400;
+    margin-bottom: 16px;
+    line-height: 1.35;
+  }
+
+  .step-body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .highlight {
+    background: rgba(212,168,67,0.1);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--silver);
+    margin: 20px 0;
+    line-height: 1.65;
+  }
+
+  .prompt-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--lilac);
+    margin-bottom: 10px;
+    opacity: 0.85;
+  }
+
+  textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,214,229,0.18);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    color: var(--silver);
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.65;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 20px;
+  }
+  textarea:focus { border-color: rgba(212,168,67,0.5); }
+  textarea::placeholder { color: rgba(200,214,229,0.35); }
+
+  /* CANDLE */
+  .candle-wrap { text-align: center; margin: 24px 0; }
+  .candle { display: inline-block; position: relative; width: 24px; }
+  .candle-body { width: 24px; height: 80px; background: linear-gradient(to bottom, #f0e6d0, #d4c4a0); border-radius: 4px 4px 2px 2px; margin: 0 auto; position: relative; }
+  .candle-wick { width: 2px; height: 12px; background: #6b5040; margin: 0 auto; border-radius: 1px; position: relative; top: 0; }
+  .flame { width: 14px; height: 22px; margin: 0 auto; position: relative; top: -2px; }
+  .flame::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 14px; height: 22px;
+    background: radial-gradient(ellipse at 50% 80%, #fff5a0 0%, #ffb830 40%, #ff7b1c 70%, transparent 100%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: flicker 1.8s ease-in-out infinite alternate;
+    filter: blur(1px);
+  }
+  @keyframes flicker {
+    0%   { transform: translateX(-50%) scaleX(1) scaleY(1) rotate(-1deg); opacity: 1; }
+    25%  { transform: translateX(-50%) scaleX(0.92) scaleY(1.05) rotate(1deg); opacity: 0.95; }
+    50%  { transform: translateX(-50%) scaleX(1.05) scaleY(0.95) rotate(-2deg); opacity: 1; }
+    75%  { transform: translateX(-50%) scaleX(0.95) scaleY(1.08) rotate(1deg); opacity: 0.97; }
+    100% { transform: translateX(-50%) scaleX(1) scaleY(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* BREATH */
+  .breath-ring {
+    width: 150px; height: 150px; border-radius: 50%;
+    margin: 8px auto 48px;
+    background: radial-gradient(circle at 35% 35%, var(--lilac), var(--ocean));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: white; text-align: center;
+    cursor: pointer; transition: transform 5s ease-in-out, box-shadow 0.3s;
+    box-shadow: 0 0 40px rgba(184,169,212,0.25); line-height: 1.4;
+  }
+  .breath-ring.inhale { transform: scale(1.3); box-shadow: 0 0 60px rgba(184,169,212,0.4); }
+  .breath-ring.exhale { transform: scale(1.0); box-shadow: 0 0 40px rgba(184,169,212,0.2); }
+  .breath-count { font-size: 48px; font-weight: 700; color: var(--lilac); font-family: 'Playfair Display', serif; text-align: center; min-height: 60px; line-height: 1; margin-bottom: 4px; }
+  .breath-msg { font-size: 18px; color: var(--silver); font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 6px; min-height: 26px; font-style: italic; }
+  .breath-sub { font-size: 13px; color: var(--muted); text-align: center; min-height: 18px; }
+
+  /* SIGNS */
+  .signs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+  @media (min-width: 480px) { .signs-grid { grid-template-columns: repeat(4, 1fr); } }
+  .sign-btn {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(200,214,229,0.15);
+    border-radius: 14px; padding: 12px 8px; text-align: center; cursor: pointer;
+    transition: all 0.2s; font-family: 'Lato', sans-serif; color: var(--silver);
+    font-size: 13px; font-weight: 700;
+  }
+  .sign-btn .sign-glyph { font-size: 22px; display: block; margin-bottom: 4px; }
+  .sign-btn:hover, .sign-btn.chosen { background: rgba(212,168,67,0.12); border-color: rgba(212,168,67,0.4); color: var(--white); }
+  .sign-message {
+    display: none;
+    background: rgba(184,169,212,0.08);
+    border: 1px solid rgba(184,169,212,0.2);
+    border-radius: 18px; padding: 24px 24px; margin-top: 20px;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 16px; color: var(--silver); line-height: 1.75;
+    animation: fadeUp 0.4s ease;
+  }
+  .sign-message.open { display: block; }
+  .sign-message-name { font-style: normal; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 10px; opacity: 0.85; }
+
+  /* BLESSING */
+  .blessing {
+    background: linear-gradient(135deg, rgba(26,42,63,0.8), rgba(13,27,42,0.9));
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 24px; padding: 36px 32px;
+    text-align: center; margin-bottom: 20px;
+  }
+  .blessing-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--gold); margin-bottom: 20px; font-weight: 400; }
+  .blessing-text { font-family: 'Playfair Display', serif; font-size: 17px; line-height: 2; color: var(--silver); font-style: italic; }
+
+  /* BUTTONS */
+  .btn-main {
+    display: block; width: 100%;
+    background: linear-gradient(135deg, rgba(184,169,212,0.25), rgba(30,58,95,0.6));
+    border: 1px solid rgba(200,214,229,0.3);
+    color: white; border-radius: 50px; padding: 20px 32px;
+    font-size: 16px; font-weight: 700; font-family: 'Lato', sans-serif;
+    cursor: pointer; transition: all 0.2s; margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  .btn-main:hover { background: linear-gradient(135deg, rgba(184,169,212,0.35), rgba(30,58,95,0.7)); }
+  .btn-disabled { opacity: 0.3; pointer-events: none; }
+  .btn-back {
+    display: block; text-align: center; font-size: 13px;
+    color: var(--muted); cursor: pointer; background: none;
+    border: none; font-family: 'Lato', sans-serif; padding: 8px 0; width: 100%;
+  }
+  .back-link { display: block; text-align: center; margin-top: 16px; font-size: 13px; color: var(--muted); text-decoration: none; }
+
+  .divider { width: 40px; height: 1px; background: var(--gold); margin: 20px auto; opacity: 0.4; }
+
+  /* Stars */
+  .stars { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .star { position: absolute; border-radius: 50%; background: white; animation: twinkle var(--d) ease-in-out infinite; }
+  @keyframes twinkle { 0%, 100% { opacity: var(--lo); } 50% { opacity: var(--hi); } }
+
+  .header, .step { position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="header">
+  <div class="moon-badge">28 August 2026 · Full Moon · Pisces</div>
+  <div class="moon-wrap">
+    <div class="moon"></div>
+  </div>
+  <h1>Full Sturgeon Moon<br>Pisces Eclipse Ceremony</h1>
+  <p class="sub">A moment to release, surrender, and let the eclipse illuminate what is ready to go.</p>
+</div>
+
+<!-- S0: Welcome -->
+<div class="step active" id="s0">
+  <div class="card">
+    <div class="step-num">Opening</div>
+    <h2 class="step-q">Tonight the sky is doing something rare.</h2>
+    <p class="step-body">
+      A full Sturgeon Moon in Pisces. A partial lunar eclipse so deep, up to 96% of the Moon will pass through Earth's shadow — creating an almost blood moon visible across the world.<br><br>
+      Even here in Australia, where we cannot see the eclipse shadow, we feel it. The Moon still rises. The energy still moves through us.<br><br>
+      Pisces is the final sign. The dreamer. The healer. The one who knows that some things cannot be fixed — only released.<br><br>
+      This is a ceremony for endings. For what you are finally ready to let go of.
+    </p>
+    <div class="highlight">"You cannot begin what is next until you have truly released what is done."</div>
+    <button class="btn-main" onclick="goTo(1)">Begin the ceremony →</button>
+  </div>
+</div>
+
+<!-- S1: Set your space -->
+<div class="step" id="s1">
+  <div class="card">
+    <div class="step-num">Step 1 of 7</div>
+    <h2 class="step-q">Create your space.</h2>
+    <p class="step-body">
+      This does not need to be elaborate. It just needs to feel intentional.<br><br>
+      If you can, light a candle. Place your feet on the ground. Let your shoulders drop. Close the apps. You are here now.
+    </p>
+    <div class="candle-wrap">
+      <div class="candle">
+        <div class="flame"></div>
+        <div class="candle-wick"></div>
+        <div class="candle-body"></div>
+      </div>
+    </div>
+    <p class="step-body" style="text-align:center; font-family:'Playfair Display',serif; font-style:italic; font-size:17px; color:var(--silver);">
+      Take one slow breath in.<br>Let it out completely.<br>You have arrived.
+    </p>
+    <button class="btn-main" onclick="goTo(2)">I am here →</button>
+    <button class="btn-back" onclick="goTo(0)">← Back</button>
+  </div>
+</div>
+
+<!-- S2: What are you releasing -->
+<div class="step" id="s2">
+  <div class="card">
+    <div class="step-num">Step 2 of 7</div>
+    <h2 class="step-q">What are you ready to release?</h2>
+    <p class="step-body">
+      Full moon eclipses are portals for endings. They accelerate what is already moving. They illuminate what you have been avoiding looking at directly.<br><br>
+      Sit with these questions. You do not need to answer all of them. Let your body tell you which one pulls.
+    </p>
+    <div class="highlight">What have I been carrying that was never mine to carry?</div>
+    <div class="highlight">What story about myself am I finally tired of believing?</div>
+    <div class="highlight">What relationship, habit, or pattern has run its course?</div>
+    <div class="divider"></div>
+    <div class="prompt-label">Write what is ready to go</div>
+    <textarea placeholder="Let it come. No filter. No editing. Just truth."></textarea>
+    <button class="btn-main" onclick="goTo(3)">I have named it →</button>
+    <button class="btn-back" onclick="goTo(1)">← Back</button>
+  </div>
+</div>
+
+<!-- S3: The water element -->
+<div class="step" id="s3">
+  <div class="card">
+    <div class="step-num">Step 3 of 7</div>
+    <h2 class="step-q">The water ritual.</h2>
+    <p class="step-body">
+      Pisces is a water sign. Water holds memory. Water also cleanses.<br><br>
+      If you have a glass of water nearby, hold it in both hands. If not, simply place both hands on your heart.
+    </p>
+    <div class="highlight">
+      Breathe into your hands.<br><br>
+      Speak aloud, or whisper, or simply think:<br><br>
+      <em>"I release what no longer belongs to me. I return it to the water. I return it to the earth. I am cleansed. I am clear. I am free."</em>
+    </div>
+    <p class="step-body">
+      If you have water, take a slow sip when you are ready. Feel it move through you, carrying the old energy with it.
+    </p>
+    <button class="btn-main" onclick="goTo(4)">I have released it →</button>
+    <button class="btn-back" onclick="goTo(2)">← Back</button>
+  </div>
+</div>
+
+<!-- S4: Breath -->
+<div class="step" id="s4">
+  <div class="card">
+    <div class="step-num">Step 4 of 7</div>
+    <h2 class="step-q">Release breath.</h2>
+    <p class="step-body" style="text-align:center;">
+      Three rounds. Breathe in to receive. Breathe out to let go.<br>
+      Tap the circle to begin.
+    </p>
+    <div style="text-align:center; margin: 8px 0 12px;">
+      <div class="breath-ring" id="bRing" onclick="beginBreath()">Tap to<br>begin</div>
+      <p class="breath-count" id="bCountNum"></p>
+      <p class="breath-msg" id="bMsg"></p>
+      <p class="breath-sub" id="bSub"></p>
+    </div>
+    <button class="btn-main btn-disabled" id="nBreath" onclick="goTo(5)">I have breathed →</button>
+    <button class="btn-back" onclick="goTo(3)">← Back</button>
+  </div>
+</div>
+
+<!-- S5: Your sign -->
+<div class="step" id="s5">
+  <div class="card">
+    <div class="step-num">Step 5 of 7</div>
+    <h2 class="step-q">How this eclipse is affecting you personally.</h2>
+    <p class="step-body">
+      Tap your <strong style="color:var(--gold);">Sun sign</strong> (the sign most people know — your birthday month) or your <strong style="color:var(--lilac);">Rising sign</strong> (the sign on the horizon when you were born — if you know your birth time, this one tends to be even more accurate).<br><br>
+      Your message will tell you which part of your life this eclipse is activating, what is completing, and what is opening.
+    </p>
+    <div class="signs-grid" id="signsGrid"></div>
+    <div class="sign-message" id="signMessage">
+      <span class="sign-message-name" id="signName"></span>
+      <div id="signText"></div>
+    </div>
+    <button class="btn-main btn-disabled" id="nSign" onclick="goTo(6)" style="margin-top:20px;">Continue →</button>
+    <button class="btn-back" onclick="goTo(4)">← Back</button>
+  </div>
+</div>
+
+<!-- S6: What is being revealed -->
+<div class="step" id="s6">
+  <div class="card">
+    <div class="step-num">Step 6 of 7</div>
+    <h2 class="step-q">What is the eclipse revealing to you?</h2>
+    <p class="step-body">
+      Eclipses bring things into the light that have been hidden. Not to hurt us — to free us. The shadow passing across the Moon is a reminder that some truths only become visible in the dark.<br><br>
+      Something has shifted in you tonight, even subtly. Something you now see that you could not see before.
+    </p>
+    <div class="highlight">What is clearer to you now than it was before tonight?</div>
+    <div class="prompt-label">Write what is being revealed</div>
+    <textarea placeholder="Trust what arises. Your intuition is heightened right now."></textarea>
+    <div class="prompt-label" style="margin-top:4px;">What is your next step, no matter how small?</div>
+    <textarea placeholder="One honest step forward..."></textarea>
+    <button class="btn-main" onclick="goTo(7)">I am ready to close →</button>
+    <button class="btn-back" onclick="goTo(5)">← Back</button>
+  </div>
+</div>
+
+<!-- S7: Closing blessing -->
+<div class="step" id="s7">
+  <div class="blessing">
+    <div class="blessing-title">✦ Closing Blessing ✦</div>
+    <p class="blessing-text">
+      I have shown up for myself tonight.<br><br>
+      I have named what I am releasing.<br>
+      I have felt it in my body.<br>
+      I have breathed it through.<br><br>
+      The eclipse has done its work.<br>
+      The Moon has witnessed me.<br>
+      The water has carried what I no longer need.<br><br>
+      I am not who I was at the start of this cycle.<br>
+      I am lighter. I am clearer. I am more myself.<br><br>
+      What is mine stays.<br>
+      What is not mine, I release with love.<br><br>
+      And so it is. ✦
+    </p>
+  </div>
+  <div class="card" style="text-align:center;">
+    <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:16px; color:var(--muted); line-height:1.8; margin-bottom:20px;">
+      Sit with the blessing as long as you need.<br>
+      You have done the work tonight.<br><br>
+      <span style="color:var(--gold);">Big love, Melissa x</span>
+    </p>
+    <button class="btn-main" onclick="goTo(0)">Begin again 🌕</button>
+    <a class="back-link" href="/app">← Back to Inner Compass</a>
+  </div>
+</div>
+
+<script>
+  // Sign data
+  const SIGNS = [
+    {
+      name: 'Aries', glyph: '♈',
+      area: 'Your inner world, rest, and what is hidden beneath the surface.',
+      message: `This eclipse is illuminating the part of you that runs quietly beneath everything — old fears, buried feelings, and beliefs you absorbed long ago are surfacing to be cleared. You might feel more tired than usual, more emotional, more drawn toward silence and solitude. This is not something going wrong. This is your psyche doing a deep clean.\n\nRest more than feels comfortable. Slow down even when every instinct says push through. Something that has been running hidden in you — a grief, a fear, a truth you have been circling — is finally ready to be acknowledged. You do not need to fix it. You only need to see it.\n\nWhat is opening: A lighter, cleaner version of yourself. Space where old anxiety used to live.`,
+      reflection: 'What have you been pretending you are fine about?'
+    },
+    {
+      name: 'Taurus', glyph: '♉',
+      area: 'Your friendships, community, and sense of belonging.',
+      message: `Your social world is being reorganised. A friendship, a group, a community, or a shared goal that has run its full course is releasing. You may feel a pulling away from certain people, or a quiet knowing that you no longer belong somewhere you once did. Trust this feeling. It is not failure or disconnection — it is discernment.\n\nThe people who are meant to walk the next chapter of your life with you are already appearing, or will be soon. This eclipse is clearing the connections that were built around the old version of you, to make space for the truer ones.\n\nWhat is opening: Friendships rooted in who you actually are, not who you were.`,
+      reflection: 'Which relationships nourish the person you are becoming — and which ones hold the old you in place?'
+    },
+    {
+      name: 'Gemini', glyph: '♊',
+      area: 'Your career, public life, and sense of direction.',
+      message: `Something in your career, your public role, or your sense of professional purpose is completing. A title, a direction, a way of showing up in the world — it has run its full course. This might feel destabilising. It is not. It is completion, and completion is the doorway.\n\nThe world is beginning to see you differently, and more importantly, you are beginning to see yourself differently. The next version of your work in the world will be more aligned, more honest, and more unmistakably you. Trust the pivot even before you can see the destination.\n\nWhat is opening: A more authentic professional identity. Work that feels like an expression of who you truly are.`,
+      reflection: 'If you stepped fully into the most honest version of your work — what would look different?'
+    },
+    {
+      name: 'Cancer', glyph: '♋',
+      area: 'Your beliefs, your understanding of the world, and what gives you meaning.',
+      message: `The way you understand the world is shifting. A belief you have held — about what is possible for you, about how life works, about your spiritual path — is being upgraded. Something that once gave you certainty or meaning has run its course, and the new understanding has not fully arrived yet.\n\nThis in-between space is the point. Pisces and Cancer are both water signs — you are being asked to surrender to the not-knowing, and trust that wisdom rises from the current rather than from forcing an answer. What you believed before was right for then. What is forming now will be even truer.\n\nWhat is opening: A more expansive, lived-in understanding of who you are and what is possible.`,
+      reflection: 'What did you used to believe about yourself or the world that you now know is not the full truth?'
+    },
+    {
+      name: 'Leo', glyph: '♌',
+      area: 'Deep intimacy, shared resources, and emotional trust.',
+      message: `Something involving deep trust is at a turning point — money shared with another person, emotional vulnerability in an intimate relationship, or a dynamic that has gone unspoken for too long. The old way of handling shared resources or emotional closeness is completing. The eclipse is bringing what has been beneath the surface into the light.\n\nDo not be afraid of the conversation this brings. The honesty this eclipse is asking for is not cruel — it is clarifying. A more truthful, more boundaried, more genuinely nourishing way of connecting is available to you on the other side of this.\n\nWhat is opening: Intimacy built on truth. Exchanges that feel fair, whole, and clean.`,
+      reflection: 'Where have you been giving more than you are receiving — and not naming it?'
+    },
+    {
+      name: 'Virgo', glyph: '♍',
+      area: 'Your most significant partnerships, one-to-one.',
+      message: `Your closest relationship — romantic, business, or a deep friendship — is under the eclipse light. A truth that has been circling beneath the surface for some time is now asking to be named. This is not necessarily the end of the relationship. But it is the end of a particular dynamic within it.\n\nSomething needs to be said, seen, or renegotiated. The eclipse is not creating this moment — it is accelerating what was already moving toward it. The only path through is honesty: about what you need, what is no longer working, and what you are no longer willing to carry quietly.\n\nWhat is opening: A partnership built on clearer seeing. Relating from a more honest and whole version of yourself.`,
+      reflection: 'What have you known about this relationship that you have not yet said aloud?'
+    },
+    {
+      name: 'Libra', glyph: '♎',
+      area: 'Your daily life, your body, your routines and energy.',
+      message: `The way you move through your days — your rhythms, your relationship with your body, your habits around work and rest — is completing a cycle. A pattern that has been draining you, a routine that no longer fits, a way of caring for yourself that belongs to a chapter that is ending — it is ready to release.\n\nYour body especially is speaking loudly right now. Are you listening? This eclipse is asking you to redesign your daily life around what truly sustains you — not what is expected of you, not what has always been done. Small changes made this week will compound into a very different life by the next eclipse.\n\nWhat is opening: A daily rhythm that actually nourishes you. A more honest relationship with your own body.`,
+      reflection: 'If your body could ask one thing of you — rest, movement, space, nourishment — what would it ask for?'
+    },
+    {
+      name: 'Scorpio', glyph: '♏',
+      area: 'Your creativity, joy, love, and self-expression.',
+      message: `Your joy is returning. Something creative, playful, or loving — a part of you that was set aside, minimised, or buried — is ready to surface. This eclipse is asking a pointed question: when did you stop giving yourself permission to do the things that light you up?\n\nA creative project, a romantic possibility, or a connection with your own sense of play and aliveness is being illuminated. For Scorpio this can be a profound moment — the return of the part of you that creates, loves, and expresses freely, without needing it to be productive first.\n\nWhat is opening: Creative energy that has been waiting. Permission to enjoy being alive.`,
+      reflection: 'What do you love doing that you have convinced yourself is not important or practical enough?'
+    },
+    {
+      name: 'Sagittarius', glyph: '♐',
+      area: 'Your home, family, roots, and where you feel safe.',
+      message: `Something in your home life, your family system, or your sense of belonging is completing. This might be physical — a move, a change in living situation, a shift in who you live with. Or it might be emotional — releasing a story from your family of origin, redefining what home and safety mean to you now.\n\nThe eclipse is asking a foundational question: where do you truly feel at peace? Where do you truly belong? The answer you have been living may no longer be the whole truth. A new foundation is wanting to be built — one that holds the person you are now, not the person you were told to be.\n\nWhat is opening: A home life that matches who you actually are inside.`,
+      reflection: 'What does home feel like in your body — and are you living that?'
+    },
+    {
+      name: 'Capricorn', glyph: '♑',
+      area: 'Your voice, your mind, and your immediate world.',
+      message: `Your voice, your thinking, and the way you communicate are being upgraded. An old thought pattern, a habitual way of speaking about yourself, or a communication dynamic with someone close to you is completing. This is the moment to say what needs to be said — not the softened version, not the qualified version, but the honest one.\n\nA conversation, a written message, a contract, or a local connection may also be reaching a significant turning point. Do not delay. Your words carry unusual power right now, and the truth, spoken clearly, will move things in the right direction.\n\nWhat is opening: A more direct, confident, and truthful voice. Conversations that clear old stuck energy.`,
+      reflection: 'What have you been meaning to say — and why have you not said it yet?'
+    },
+    {
+      name: 'Aquarius', glyph: '♒',
+      area: 'Your money, your self-worth, and what you truly value.',
+      message: `Your relationship with money and with your own worth is transforming. An old belief about what you deserve — financially, materially, or energetically — is completing. Patterns around earning, receiving, charging, and spending that were built around a smaller version of yourself are surfacing to be examined and released.\n\nThis eclipse is shining a light on the gap between what you know you are worth and what you have been accepting. You are allowed to earn more, charge more, receive more, and expect more. The old self-worth story ends here — if you are willing to let it.\n\nWhat is opening: A more honest, self-honouring relationship with money and your own value.`,
+      reflection: 'What is one belief you carry about money or your worth that you inherited rather than chose?'
+    },
+    {
+      name: 'Pisces', glyph: '♓',
+      area: 'Your identity, your self, and the life you are claiming.',
+      message: `This eclipse is deeply personal — it is happening in your sign, in the part of the sky that governs who you are at your core. A profound rebirth of identity is underway. Who you are, how you present yourself to the world, and what you are willing to claim for your life is shifting at the deepest level.\n\nOld identities, roles, and labels that you have outgrown are completing. The person you are becoming may not yet have a name — and that is exactly right. Pisces knows how to move through the formless. Trust the dissolution. You are not falling apart. You are coming together in a truer, freer form.\n\nWhat is opening: The most authentic version of you. The life that was always meant to be yours.`,
+      reflection: 'Who were you before the world told you who to be — and how much of that is still in you, waiting?'
+    }
+  ];
+
+  // Build sign buttons
+  (function buildSigns() {
+    const grid = document.getElementById('signsGrid');
+    SIGNS.forEach(sign => {
+      const btn = document.createElement('button');
+      btn.className = 'sign-btn';
+      btn.innerHTML = '<span class="sign-glyph">' + sign.glyph + '</span>' + sign.name;
+      btn.onclick = function() { pickSign(btn, sign); };
+      grid.appendChild(btn);
+    });
+  })();
+
+  function pickSign(btn, sign) {
+    document.querySelectorAll('.sign-btn').forEach(b => b.classList.remove('chosen'));
+    btn.classList.add('chosen');
+    document.getElementById('signName').textContent = sign.glyph + ' ' + sign.name;
+    const textEl = document.getElementById('signText');
+    const paragraphs = sign.message.split('\n\n').map(p => '<p style="margin-bottom:14px;">' + p.replace(/\n/g, '<br>') + '</p>').join('');
+    textEl.innerHTML = paragraphs +
+      '<p style="margin-top:16px; padding:14px 16px; background:rgba(212,168,67,0.1); border-radius:10px; font-style:normal; font-size:15px;">' +
+      '<span style="display:block; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:6px;">Reflection</span>' +
+      sign.reflection + '</p>';
+    document.getElementById('signMessage').classList.add('open');
+    document.getElementById('nSign').classList.remove('btn-disabled');
+  }
+
+  // Stars
+  (function() {
+    const wrap = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 2.5 + 0.5;
+      const lo = (Math.random() * 0.2 + 0.05).toFixed(2);
+      const hi = (Math.random() * 0.5 + 0.3).toFixed(2);
+      s.style.cssText = 'width:' + size + 'px;height:' + size + 'px;top:' + (Math.random()*100) + '%;left:' + (Math.random()*100) + '%;--d:' + (Math.random()*4+2).toFixed(1) + 's;--lo:' + lo + ';--hi:' + hi + ';animation-delay:' + (Math.random()*5).toFixed(1) + 's;';
+      wrap.appendChild(s);
+    }
+  })();
+
+  function goTo(step) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('s' + step).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (step !== 4) resetBreath();
+  }
+
+  // Breath
+  let bActive = false, bTimer = null, bCount = 0;
+  const MAX_B = 3;
+  let bToneTimers = [], audioCtx = null;
+
+  function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+  }
+  function playTone(freq, volume, duration) {
+    volume = volume || 0.15; duration = duration || 0.7;
+    try {
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(volume, ctx.currentTime + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + duration);
+    } catch(e) {}
+  }
+  function showCount(n) { const el = document.getElementById('bCountNum'); if (el) el.textContent = n; }
+  function clearCount() { const el = document.getElementById('bCountNum'); if (el) el.textContent = ''; }
+  function clearToneTimers() { bToneTimers.forEach(t => clearTimeout(t)); bToneTimers = []; }
+
+  function scheduleInhaleTones() {
+    [432, 486, 540, 648].forEach((f, i) => {
+      bToneTimers.push(setTimeout(() => { playTone(f); showCount(i+1); }, i * 1000));
+    });
+  }
+  function scheduleExhaleTones() {
+    [594, 540, 486, 432, 378].forEach((f, i) => {
+      bToneTimers.push(setTimeout(() => { playTone(f, 0.1); showCount(i+1); }, i * 1000));
+    });
+  }
+
+  function resetBreath() {
+    bActive = false; bCount = 0;
+    if (bTimer) clearTimeout(bTimer);
+    clearToneTimers(); clearCount();
+    const r = document.getElementById('bRing');
+    if (!r) return;
+    r.className = 'breath-ring'; r.innerHTML = 'Tap to<br>begin'; r.onclick = beginBreath;
+    document.getElementById('bMsg').textContent = '';
+    document.getElementById('bSub').textContent = '';
+    document.getElementById('nBreath').classList.add('btn-disabled');
+  }
+
+  function beginBreath() {
+    if (bActive) return;
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    bActive = true; bCount = 0; doCycle();
+  }
+
+  function doCycle() {
+    if (bCount >= MAX_B) {
+      const r = document.getElementById('bRing');
+      r.className = 'breath-ring exhale'; r.innerHTML = '✦<br>Released'; r.onclick = null;
+      document.getElementById('bMsg').textContent = 'You have released.';
+      document.getElementById('bSub').textContent = '';
+      clearCount(); playTone(432, 0.2, 1.5);
+      document.getElementById('nBreath').classList.remove('btn-disabled');
+      bActive = false; return;
+    }
+    const r = document.getElementById('bRing');
+    r.className = 'breath-ring inhale'; r.innerHTML = '😮‍💨<br>Breathe in';
+    document.getElementById('bMsg').textContent = 'Breathe in...';
+    document.getElementById('bSub').textContent = 'Round ' + (bCount + 1) + ' of ' + MAX_B;
+    scheduleInhaleTones();
+    bTimer = setTimeout(() => {
+      clearToneTimers(); clearCount();
+      r.innerHTML = '⏸️<br>Hold';
+      document.getElementById('bMsg').textContent = 'Hold...';
+      playTone(432, 0.08, 1);
+      bTimer = setTimeout(() => {
+        r.className = 'breath-ring exhale'; r.innerHTML = '🌬️<br>Breathe out';
+        document.getElementById('bMsg').textContent = 'Let it all go...';
+        scheduleExhaleTones();
+        bTimer = setTimeout(() => {
+          clearToneTimers(); clearCount(); bCount++; doCycle();
+        }, 5000);
+      }, 1000);
+    }, 4000);
+  }
+
+  resetBreath();
+</script>
+</body>
+</html>
