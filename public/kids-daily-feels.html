@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Daily Feels — How Are You Today?</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --linen: #F6EFE4;
+    --sand: #EAD9C2;
+    --rose: #C4786A;
+    --terra: #B5614E;
+    --pink: #E8B4A8;
+    --soft-pink: #F9E8E4;
+    --burg: #7A3B3B;
+    --text: #3D2B2B;
+    --muted: #9A7070;
+    --white: #FFFFFF;
+    --card: rgba(255,255,255,0.85);
+  }
+
+  body {
+    background: linear-gradient(160deg, #F9F3EC 0%, #F0E6D8 50%, #EAD9C2 100%);
+    background-attachment: fixed;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 100px;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, var(--rose) 0%, var(--terra) 100%);
+    padding: 36px 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top right, rgba(255,255,255,0.15) 0%, transparent 70%);
+  }
+
+  .series-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 8px;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: white;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+
+  .page-header .tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-bar-wrap {
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 20px 28px 0;
+  }
+
+  .progress-bar-track {
+    background: var(--sand);
+    height: 6px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--rose));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  /* ── STEPS ── */
+  .step {
+    display: none;
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 32px 20px;
+    animation: fadeUp 0.45s ease;
+  }
+
+  .step.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 32px 28px;
+    box-shadow: 0 4px 24px rgba(122,59,59,0.08);
+    margin-bottom: 20px;
+  }
+
+  .step-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--burg);
+    margin-bottom: 6px;
+    line-height: 1.35;
+  }
+
+  .step-hint {
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* ── OPENING ── */
+  .opening-flower {
+    font-size: 72px;
+    text-align: center;
+    margin-bottom: 24px;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+
+  .opening-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    color: var(--burg);
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
+  .opening-body {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--muted);
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto 32px;
+  }
+
+  /* ── EMOTION GRID ── */
+  .emotion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  @media (min-width: 480px) {
+    .emotion-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .emo-btn {
+    background: var(--white);
+    border: 2.5px solid var(--sand);
+    border-radius: 20px;
+    padding: 18px 8px 14px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 8px rgba(122,59,59,0.06);
+  }
+
+  .emo-btn .emo { font-size: 40px; display: block; margin-bottom: 6px; }
+  .emo-btn .emo-label { font-size: 14px; font-weight: 700; color: var(--burg); }
+
+  .emo-btn.selected {
+    border-color: var(--rose);
+    background: var(--soft-pink);
+    transform: scale(0.96);
+    box-shadow: 0 4px 16px rgba(196,120,106,0.2);
+  }
+
+  /* ── BODY OPTIONS ── */
+  .body-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .body-btn {
+    background: var(--white);
+    border: 2.5px solid var(--sand);
+    border-radius: 16px;
+    padding: 16px 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--burg);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .body-btn .bi { font-size: 22px; }
+
+  .body-btn.selected {
+    border-color: var(--rose);
+    background: var(--soft-pink);
+  }
+
+  /* ── SIZE SCALE ── */
+  .size-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .size-btn {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    border: 2.5px solid var(--sand);
+    background: var(--white);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 8px rgba(122,59,59,0.06);
+  }
+
+  .size-btn .snum { font-size: 20px; font-weight: 700; color: var(--burg); }
+
+  .size-btn .sblob {
+    border-radius: 50%;
+    background: var(--pink);
+  }
+
+  .size-btn[data-s="1"] .sblob { width:7px;height:7px; }
+  .size-btn[data-s="2"] .sblob { width:11px;height:11px; }
+  .size-btn[data-s="3"] .sblob { width:15px;height:15px; }
+  .size-btn[data-s="4"] .sblob { width:19px;height:19px; }
+  .size-btn[data-s="5"] .sblob { width:23px;height:23px; }
+
+  .size-btn.selected {
+    border-color: var(--rose);
+    background: var(--soft-pink);
+    transform: scale(1.08);
+  }
+
+  /* ── VALIDATION ── */
+  .v-card {
+    background: linear-gradient(135deg, var(--rose) 0%, var(--terra) 100%);
+    border-radius: 24px;
+    padding: 32px 28px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(181,97,78,0.25);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .v-card::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .v-card .v-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 14px;
+  }
+
+  .v-card .v-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    line-height: 1.6;
+    color: white;
+  }
+
+  .v-follow {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    padding: 0 4px;
+  }
+
+  /* ── NEEDS ── */
+  .needs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .need-btn {
+    background: var(--white);
+    border: 2.5px solid var(--sand);
+    border-radius: 16px;
+    padding: 16px 20px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    text-align: left;
+    line-height: 1.4;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 8px rgba(122,59,59,0.05);
+  }
+
+  .need-btn.selected {
+    border-color: var(--rose);
+    background: var(--soft-pink);
+  }
+
+  /* ── BREATH ── */
+  .breath-wrap { text-align: center; margin-bottom: 28px; }
+
+  .breath-ring {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: radial-gradient(circle at 35% 35%, var(--pink), var(--terra));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 4s ease-in-out, box-shadow 0.3s;
+    box-shadow: 0 8px 32px rgba(181,97,78,0.3);
+    line-height: 1.4;
+  }
+
+  .breath-ring.inhale {
+    transform: scale(1.3);
+    box-shadow: 0 16px 48px rgba(181,97,78,0.4);
+  }
+
+  .breath-ring.exhale {
+    transform: scale(1.0);
+    box-shadow: 0 8px 32px rgba(181,97,78,0.25);
+  }
+
+  .breath-msg { font-size: 20px; color: var(--burg); font-family: 'Playfair Display', serif; margin-bottom: 6px; min-height: 28px; }
+  .breath-sub { font-size: 14px; color: var(--muted); min-height: 20px; }
+
+  /* ── CLOSE ── */
+  .close-card {
+    background: linear-gradient(135deg, var(--burg) 0%, #4d1f1f 100%);
+    border-radius: 24px;
+    padding: 40px 28px;
+    text-align: center;
+    color: white;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px rgba(122,59,59,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .close-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top, rgba(255,255,255,0.08) 0%, transparent 70%);
+  }
+
+  .close-star { font-size: 52px; margin-bottom: 18px; display: block; }
+
+  .close-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 14px;
+  }
+
+  .close-card p { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.88); max-width: 380px; margin: 0 auto; }
+
+  /* ── BUTTONS ── */
+  .btn-main {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, var(--rose) 0%, var(--terra) 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 20px 32px;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(181,97,78,0.3);
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    margin-bottom: 12px;
+  }
+
+  .btn-main:active { transform: scale(0.98); box-shadow: 0 3px 12px rgba(181,97,78,0.25); }
+
+  .btn-ghost {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: var(--rose);
+    border: 2px solid var(--rose);
+    border-radius: 50px;
+    padding: 18px 32px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    margin-bottom: 12px;
+  }
+
+  .btn-back {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'Nunito', sans-serif;
+    padding: 8px 0;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-disabled { opacity: 0.35; pointer-events: none; }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="series-tag">Inner Compass · Kids Series</div>
+  <h1>Daily Feels 🌸</h1>
+  <div class="tagline">A safe space for your feelings</div>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" id="progFill"></div>
+  </div>
+</div>
+
+<!-- S0: Welcome -->
+<div class="step active" id="s0">
+  <div class="card">
+    <span class="opening-flower">🌸</span>
+    <h2 class="opening-title">Hey, lovely one.</h2>
+    <p class="opening-body">
+      This is a safe place to check in with how you're really feeling right now.<br><br>
+      Whatever is here — it's welcome. There are no wrong feelings.
+    </p>
+    <button class="btn-main" onclick="goTo(1)">I'm ready ✨</button>
+  </div>
+</div>
+
+<!-- S1: Emotion picker -->
+<div class="step" id="s1">
+  <div class="card">
+    <h2 class="step-q">How are you feeling right now?</h2>
+    <p class="step-hint">Pick the feeling that feels most true — you can choose more than one.</p>
+    <div class="emotion-grid">
+      <button class="emo-btn" data-f="happy" onclick="pickEmo(this)"><span class="emo">😊</span><span class="emo-label">Happy</span></button>
+      <button class="emo-btn" data-f="sad" onclick="pickEmo(this)"><span class="emo">😢</span><span class="emo-label">Sad</span></button>
+      <button class="emo-btn" data-f="angry" onclick="pickEmo(this)"><span class="emo">😠</span><span class="emo-label">Angry</span></button>
+      <button class="emo-btn" data-f="scared" onclick="pickEmo(this)"><span class="emo">😨</span><span class="emo-label">Scared</span></button>
+      <button class="emo-btn" data-f="frustrated" onclick="pickEmo(this)"><span class="emo">😤</span><span class="emo-label">Frustrated</span></button>
+      <button class="emo-btn" data-f="confused" onclick="pickEmo(this)"><span class="emo">😕</span><span class="emo-label">Unsure</span></button>
+      <button class="emo-btn" data-f="tired" onclick="pickEmo(this)"><span class="emo">😴</span><span class="emo-label">Tired</span></button>
+      <button class="emo-btn" data-f="overwhelmed" onclick="pickEmo(this)"><span class="emo">🌊</span><span class="emo-label">Too Much</span></button>
+    </div>
+    <button class="btn-main btn-disabled" id="n1" onclick="goTo(2)">Next →</button>
+    <button class="btn-back" onclick="goTo(0)">← Back</button>
+  </div>
+</div>
+
+<!-- S2: Body location -->
+<div class="step" id="s2">
+  <div class="card">
+    <h2 class="step-q">Where do you feel it in your body?</h2>
+    <p class="step-hint">Your body always knows. Where does this feeling live?</p>
+    <div class="body-grid">
+      <button class="body-btn" onclick="pickBody(this)"><span class="bi">🧠</span> Head or mind</button>
+      <button class="body-btn" onclick="pickBody(this)"><span class="bi">👁️</span> Eyes or face</button>
+      <button class="body-btn" onclick="pickBody(this)"><span class="bi">🫀</span> Chest or heart</button>
+      <button class="body-btn" onclick="pickBody(this)"><span class="bi">🫁</span> Belly or tummy</button>
+      <button class="body-btn" onclick="pickBody(this)"><span class="bi">💪</span> Shoulders or arms</button>
+      <button class="body-btn" onclick="pickBody(this)"><span class="bi">🦵</span> Legs or feet</button>
+      <button class="body-btn" onclick="pickBody(this)"><span class="bi">🌀</span> All over</button>
+      <button class="body-btn" onclick="pickBody(this)"><span class="bi">❓</span> Not sure</button>
+    </div>
+    <button class="btn-main btn-disabled" id="n2" onclick="goTo(3)">Next →</button>
+    <button class="btn-back" onclick="goTo(1)">← Back</button>
+  </div>
+</div>
+
+<!-- S3: Size -->
+<div class="step" id="s3">
+  <div class="card">
+    <h2 class="step-q">How big does it feel?</h2>
+    <p class="step-hint">1 is a tiny bit, 5 is really really big.</p>
+    <div class="size-row">
+      <button class="size-btn" data-s="1" onclick="pickSize(this)"><div class="sblob"></div><span class="snum">1</span></button>
+      <button class="size-btn" data-s="2" onclick="pickSize(this)"><div class="sblob"></div><span class="snum">2</span></button>
+      <button class="size-btn" data-s="3" onclick="pickSize(this)"><div class="sblob"></div><span class="snum">3</span></button>
+      <button class="size-btn" data-s="4" onclick="pickSize(this)"><div class="sblob"></div><span class="snum">4</span></button>
+      <button class="size-btn" data-s="5" onclick="pickSize(this)"><div class="sblob"></div><span class="snum">5</span></button>
+    </div>
+    <button class="btn-main btn-disabled" id="n3" onclick="goTo(4)">Next →</button>
+    <button class="btn-back" onclick="goTo(2)">← Back</button>
+  </div>
+</div>
+
+<!-- S4: Validation -->
+<div class="step" id="s4">
+  <div class="v-card">
+    <div class="v-label">Just for you 💛</div>
+    <div class="v-text" id="vText">Your feelings are always welcome here.</div>
+  </div>
+  <div class="card">
+    <p class="v-follow">Your feelings are not there to make your life difficult. They have a reason for being here — and that reason always makes sense when you look a little closer.</p>
+  </div>
+  <button class="btn-main" onclick="goTo(5)">I hear that →</button>
+  <button class="btn-back" onclick="goTo(3)">← Back</button>
+</div>
+
+<!-- S5: What does it need? -->
+<div class="step" id="s5">
+  <div class="card">
+    <h2 class="step-q">What does your feeling want?</h2>
+    <p class="step-hint">There are no wrong answers. Pick whatever feels most true right now.</p>
+    <div class="needs-list">
+      <button class="need-btn" onclick="pickNeed(this)">🤗 A hug or some kindness</button>
+      <button class="need-btn" onclick="pickNeed(this)">🗣️ To talk to someone I trust</button>
+      <button class="need-btn" onclick="pickNeed(this)">😮‍💨 To breathe and calm my body</button>
+      <button class="need-btn" onclick="pickNeed(this)">🏃 To move — run, jump, shake it out</button>
+      <button class="need-btn" onclick="pickNeed(this)">🤫 Some quiet time by myself</button>
+      <button class="need-btn" onclick="pickNeed(this)">💤 Rest — I'm really tired</button>
+      <button class="need-btn" onclick="pickNeed(this)">✏️ To write or draw how I'm feeling</button>
+    </div>
+    <button class="btn-main btn-disabled" id="n5" onclick="goTo(6)">Next →</button>
+    <button class="btn-back" onclick="goTo(4)">← Back</button>
+  </div>
+</div>
+
+<!-- S6: Breath -->
+<div class="step" id="s6">
+  <div class="card">
+    <h2 class="step-q" style="text-align:center;">Let's breathe together 🌬️</h2>
+    <p class="step-hint" style="text-align:center;">Three slow breaths. Tap the circle to begin.</p>
+    <div class="breath-wrap">
+      <div class="breath-ring" id="bRing" onclick="beginBreath()">Tap to<br>begin</div>
+      <p class="breath-msg" id="bMsg"></p>
+      <p class="breath-sub" id="bSub"></p>
+    </div>
+    <button class="btn-main btn-disabled" id="n6" onclick="goTo(7)">I feel a little better →</button>
+    <button class="btn-back" onclick="goTo(5)">← Back</button>
+  </div>
+</div>
+
+<!-- S7: Close -->
+<div class="step" id="s7">
+  <div class="close-card">
+    <span class="close-star">⭐</span>
+    <h2>You did something brave today.</h2>
+    <p>Checking in with your feelings is one of the most important things you can do. A lot of people go their whole lives without learning this. You're doing it now.</p>
+  </div>
+  <div class="card" style="text-align:center;">
+    <p style="font-size:16px;line-height:1.75;color:var(--muted);margin-bottom:20px;">
+      Come back tomorrow and check in again. The more you notice your feelings, the easier they become to handle.<br><br>
+      <span style="color:var(--rose);font-family:'Playfair Display',serif;font-size:18px;font-style:italic;">Big love 🌸</span>
+    </p>
+    <button class="btn-ghost" onclick="restart()">Check in again 🔄</button>
+    <a class="back-link" href="/app">← Back to Inner Compass</a>
+  </div>
+</div>
+
+<script>
+  const STEPS = 8;
+  let feelings = [];
+  let bActive = false, bTimer = null, bCount = 0;
+  const MAX_B = 3;
+
+  const msgs = {
+    happy:       "Happiness is real and it belongs to you. Take a moment to feel it fully — let it fill you up.",
+    sad:         "Feeling sad means your heart cares deeply about something. Sadness is not weakness. It's love that has nowhere to go right now. It's okay.",
+    angry:       "Anger always has a reason. It usually shows up when something feels unfair or when a line has been crossed. Your anger makes complete sense.",
+    scared:      "Feeling scared means your body is working hard to look after you. You are safe right now. It's okay to feel scared.",
+    frustrated:  "Frustration shows up when things feel hard or unfair. That's a very normal, very human feeling. You're not being difficult — you're just feeling something real.",
+    confused:    "Not knowing how you feel is a feeling all on its own. You don't have to have everything figured out. It's okay to sit with 'I'm not sure right now.'",
+    tired:       "Your body and your mind are asking for rest. That's not laziness — that's wisdom. You are allowed to slow down and breathe.",
+    overwhelmed: "When everything feels like too much, it usually means you care deeply about a lot of things. That's real, and it makes sense. You don't have to hold it all alone."
+  };
+
+  function updateProgress(step) {
+    document.getElementById('progFill').style.width = (step / (STEPS - 1) * 100) + '%';
+  }
+
+  function goTo(step) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('s' + step).classList.add('active');
+    updateProgress(step);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (step === 4) {
+      const f = feelings[0] || 'happy';
+      document.getElementById('vText').textContent = msgs[f] || msgs.happy;
+    }
+    if (step === 6) resetBreath();
+  }
+
+  function enable(id) {
+    const el = document.getElementById(id);
+    el.classList.remove('btn-disabled');
+  }
+
+  function pickEmo(btn) {
+    const f = btn.dataset.f;
+    if (btn.classList.contains('selected')) {
+      btn.classList.remove('selected');
+      feelings = feelings.filter(x => x !== f);
+    } else {
+      btn.classList.add('selected');
+      feelings.push(f);
+    }
+    if (feelings.length > 0) enable('n1');
+    else {
+      const el = document.getElementById('n1');
+      el.classList.add('btn-disabled');
+    }
+  }
+
+  function pickBody(btn) {
+    document.querySelectorAll('.body-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    enable('n2');
+  }
+
+  function pickSize(btn) {
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    enable('n3');
+  }
+
+  function pickNeed(btn) {
+    document.querySelectorAll('.need-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    enable('n5');
+  }
+
+  function resetBreath() {
+    bActive = false; bCount = 0;
+    if (bTimer) clearTimeout(bTimer);
+    const ring = document.getElementById('bRing');
+    ring.className = 'breath-ring';
+    ring.innerHTML = 'Tap to<br>begin';
+    ring.onclick = beginBreath;
+    document.getElementById('bMsg').textContent = '';
+    document.getElementById('bSub').textContent = '';
+    const n = document.getElementById('n6');
+    n.classList.add('btn-disabled');
+  }
+
+  function beginBreath() {
+    if (bActive) return;
+    bActive = true;
+    bCount = 0;
+    doCycle();
+  }
+
+  function doCycle() {
+    if (bCount >= MAX_B) {
+      const ring = document.getElementById('bRing');
+      ring.className = 'breath-ring exhale';
+      ring.innerHTML = '🌸<br>Beautiful';
+      ring.onclick = null;
+      document.getElementById('bMsg').textContent = 'Well done.';
+      document.getElementById('bSub').textContent = '';
+      enable('n6');
+      bActive = false;
+      return;
+    }
+
+    const ring = document.getElementById('bRing');
+    const msg = document.getElementById('bMsg');
+    const sub = document.getElementById('bSub');
+
+    ring.className = 'breath-ring inhale';
+    ring.innerHTML = '😮‍💨<br>Breathe in';
+    msg.textContent = 'Breathe in slowly...';
+    sub.textContent = `Breath ${bCount + 1} of ${MAX_B}`;
+
+    bTimer = setTimeout(() => {
+      ring.innerHTML = '⏸️<br>Hold it';
+      msg.textContent = 'Hold...';
+
+      bTimer = setTimeout(() => {
+        ring.className = 'breath-ring exhale';
+        ring.innerHTML = '🌬️<br>Breathe out';
+        msg.textContent = 'Breathe all the way out...';
+
+        bTimer = setTimeout(() => {
+          bCount++;
+          doCycle();
+        }, 5000);
+      }, 1000);
+    }, 4000);
+  }
+
+  function restart() {
+    feelings = [];
+    document.querySelectorAll('.emo-btn, .body-btn, .size-btn, .need-btn').forEach(b => b.classList.remove('selected'));
+    ['n1','n2','n3','n5','n6'].forEach(id => {
+      document.getElementById(id).classList.add('btn-disabled');
+    });
+    if (bTimer) clearTimeout(bTimer);
+    bActive = false;
+    goTo(0);
+  }
+
+  updateProgress(0);
+</script>
+</body>
+</html>

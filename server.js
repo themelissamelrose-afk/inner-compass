@@ -126,6 +126,7 @@ const PUBLIC_ROUTES = new Set([
   '/inner-teen',
   '/week1-observer', '/week2-personal-lie', '/week3-body-map',
   '/week4-nervous-system', '/week5-flip-it', '/week6-shame',
+  '/kids-daily-feels',
 ]);
 const PUBLIC_API_PREFIXES = ['/api/login', '/api/register', '/api/webinar-register', '/api/subscribe', '/api/webhook', '/api/activate', '/api/admin', '/api/quiz-register'];
 
@@ -842,6 +843,10 @@ app.get('/becoming-whole', (req, res) => {
 
 app.get('/pattern-quiz', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pattern-quiz.html'));
+});
+
+app.get('/kids-daily-feels', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'kids-daily-feels.html'));
 });
 
 app.get('/survival-patterns-guide', (req, res) => {
