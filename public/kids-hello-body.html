@@ -382,7 +382,7 @@
       ">🔊</button>
     </div>
 
-    <audio id="songAudio" loop preload="auto">
+    <audio id="songAudio" preload="auto">
       <source src="/every%20single%20cell.m4a" type="audio/mp4">
     </audio>
 
@@ -490,7 +490,9 @@
   let bActive = false, bTimer = null, bCount = 0;
   const MAX_B = 3;
   let bToneTimers = [], audioCtx = null;
-  let songTimer = null, songMuted = false, songIdx = 0, songSections = [];
+  let songTick = null, songMuted = false, songIdx = -1, songSections = [];
+  // Song is 24s — each of 4 sections starts at these timestamps
+  const SONG_MARKS = [0, 6, 12, 18];
 
   function goTo(step) {
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
@@ -498,8 +500,9 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (step !== 6) {
       const audio = document.getElementById('songAudio');
-      if (audio) { audio.pause(); audio.currentTime = 0; }
-      if (songTimer) clearTimeout(songTimer);
+      if (audio) { audio.pause(); audio.currentTime = 0; audio.onended = null; }
+      if (songTick) { clearInterval(songTick); songTick = null; }
+      songIdx = -1;
     }
     if (step === 8) renderAffirmations();
   }
@@ -570,32 +573,37 @@
   function startSong() {
     const audio = document.getElementById('songAudio');
     audio.volume = 0.55;
+    songIdx = -1;
+    audio.onended = onSongEnd;
     if (!songMuted) audio.play().catch(() => {});
     document.getElementById('playBtn').disabled = true;
     document.getElementById('playBtn').textContent = '🎵 Playing...';
-    songIdx = 0;
-    showSongSection();
+    songTick = setInterval(tickSong, 250);
   }
 
-  function showSongSection() {
-    if (songIdx >= songSections.length) {
-      document.getElementById('lyricsBox').textContent = 'Beautiful. Your cells are listening. 💜';
-      document.getElementById('tapTarget').style.animation = 'none';
-      document.getElementById('tapInstruction').textContent = '';
-      const audio = document.getElementById('songAudio');
-      const fade = setInterval(() => {
-        if (audio.volume > 0.05) audio.volume = Math.max(0, audio.volume - 0.05);
-        else { audio.pause(); audio.volume = 0.55; clearInterval(fade); }
-      }, 200);
-      document.getElementById('nSong').classList.remove('btn-disabled');
-      return;
+  function tickSong() {
+    const audio = document.getElementById('songAudio');
+    const t = audio.currentTime;
+    let newIdx = -1;
+    for (let i = SONG_MARKS.length - 1; i >= 0; i--) {
+      if (t >= SONG_MARKS[i]) { newIdx = i; break; }
     }
-    const s = songSections[songIdx];
-    document.getElementById('tapTarget').textContent = s.icon;
-    document.getElementById('tapInstruction').textContent = s.tap;
-    document.getElementById('lyricsBox').style.whiteSpace = 'pre-line';
-    document.getElementById('lyricsBox').textContent = s.lyric;
-    songTimer = setTimeout(() => { songIdx++; showSongSection(); }, 8000);
+    if (newIdx !== songIdx && newIdx >= 0 && newIdx < songSections.length) {
+      songIdx = newIdx;
+      const s = songSections[songIdx];
+      document.getElementById('tapTarget').textContent = s.icon;
+      document.getElementById('tapInstruction').textContent = s.tap;
+      document.getElementById('lyricsBox').style.whiteSpace = 'pre-line';
+      document.getElementById('lyricsBox').textContent = s.lyric;
+    }
+  }
+
+  function onSongEnd() {
+    if (songTick) { clearInterval(songTick); songTick = null; }
+    document.getElementById('lyricsBox').textContent = 'Beautiful. Your cells are listening. 💜';
+    document.getElementById('tapTarget').style.animation = 'none';
+    document.getElementById('tapInstruction').textContent = '';
+    document.getElementById('nSong').classList.remove('btn-disabled');
   }
 
   function toggleMute() {
@@ -698,9 +706,9 @@
     chosenPart = null; chosenColour = null; chosenShape = null; chosenWord = null;
     document.querySelectorAll('.hspot, .colour-swatch, .shape-btn, .word-btn').forEach(b => b.classList.remove('chosen'));
     document.getElementById('colourLabel').textContent = '';
-    if (songTimer) clearTimeout(songTimer);
+    if (songTick) { clearInterval(songTick); songTick = null; }
     const audio = document.getElementById('songAudio');
-    if (audio) { audio.pause(); audio.currentTime = 0; }
+    if (audio) { audio.pause(); audio.currentTime = 0; audio.onended = null; }
     if (bTimer) clearTimeout(bTimer);
     bActive = false;
     resetBreath();
