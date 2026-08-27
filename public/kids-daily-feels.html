@@ -327,20 +327,57 @@
     margin-bottom: 16px;
   }
 
-  .need-suggestion {
+  .need-guide {
     display: none;
     background: var(--soft-pink);
-    border-left: 4px solid var(--rose);
-    border-radius: 14px;
-    padding: 16px 18px;
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--burg);
+    border-radius: 20px;
+    padding: 24px 22px;
     margin-bottom: 20px;
-    animation: fadeUp 0.35s ease;
+    animation: fadeUp 0.4s ease;
+    border: 2px solid var(--pink);
   }
 
-  .need-suggestion.visible { display: block; }
+  .need-guide.visible { display: block; }
+
+  .need-guide .guide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--burg);
+    margin-bottom: 16px;
+  }
+
+  .guide-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .guide-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .guide-step .gnum {
+    min-width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--rose);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .guide-step .gtxt {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--burg);
+  }
 
   .need-btn {
     background: var(--white);
@@ -639,9 +676,12 @@
       <button class="need-btn" data-need="rest" onclick="pickNeed(this)">💤 Rest — I'm really tired</button>
       <button class="need-btn" data-need="write" onclick="pickNeed(this)">✏️ To write or draw how I'm feeling</button>
     </div>
-    <div class="need-suggestion" id="needSugg"></div>
+    <div class="need-guide" id="needGuide">
+      <div class="guide-title" id="guideTitle"></div>
+      <div class="guide-steps" id="guideSteps"></div>
+    </div>
     <div id="breathInvite" style="display:none; text-align:center; margin-bottom:12px;">
-      <p style="font-size:15px; color:var(--muted); font-style:italic; margin-bottom:16px;">Take a moment to do that. When you're ready...</p>
+      <p style="font-size:15px; color:var(--muted); font-style:italic; margin-bottom:16px;">Take a moment with that. When you're ready...</p>
     </div>
     <button class="btn-main btn-disabled" id="n5" onclick="goTo(6)">I've done that — let's breathe 🌬️</button>
     <button class="btn-back" onclick="goTo(4)">← Back</button>
@@ -698,14 +738,63 @@
   let bActive = false, bTimer = null, bCount = 0;
   const MAX_B = 3;
 
-  const needSuggestions = {
-    hug:    "If there's no one around right now, try wrapping your own arms around yourself. A self-hug is real — and it helps more than you think.",
-    talk:   "You don't have to say everything. Even just telling someone 'I'm having a hard time today' is enough to start. Think of one person who makes you feel safe.",
-    breath: "Your breath is the most powerful tool you have. It's always with you. We'll do three slow breaths together in the next step.",
-    move:   "Shake your hands, wiggle your whole body, or jump up and down 10 times. Feelings are energy — moving your body helps them move through you.",
-    quiet:  "Find a cosy spot where you feel safe. You are allowed to take space. It's not selfish — it's caring for yourself, and that matters.",
-    rest:   "Your body and mind are asking you to slow down. Even just lying down and closing your eyes for five minutes can help reset everything.",
-    write:  "There's a space for you to write anything in the next step. It doesn't have to make sense. Just let the words come out."
+  const needGuides = {
+    hug: {
+      title: "Let's give you a hug right now 🤗",
+      steps: [
+        "Cross both arms over your chest and hold onto your own shoulders or arms.",
+        "Give yourself a gentle squeeze — as tight as feels good.",
+        "Close your eyes and take one slow breath. Stay here for a moment. You deserve this kindness."
+      ]
+    },
+    talk: {
+      title: "Let's help you figure out what to say 🗣️",
+      steps: [
+        "Think of one person who makes you feel safe — a parent, a friend, a teacher. Picture their face.",
+        "You don't need to explain everything. You could just say: <em>'I'm having a hard time. Can we talk?'</em>",
+        "When you see them, those words are enough to start. You're brave for reaching out."
+      ]
+    },
+    breath: {
+      title: "Your breath is always with you 😮‍💨",
+      steps: [
+        "Place one hand on your belly and feel it rise and fall.",
+        "Take one slow breath in through your nose... and let it out through your mouth.",
+        "Good. We're going to do three more of those together in the next step. You're already doing it."
+      ]
+    },
+    move: {
+      title: "Let's shake it out together 🏃",
+      steps: [
+        "Stand up if you can. Shake your hands fast — like you're flicking water off your fingers.",
+        "Now let that shake travel up your arms, into your shoulders, your whole body. Wiggle everything!",
+        "Jump up and down five times. Feelings are energy — moving your body helps them move through you. How does that feel?"
+      ]
+    },
+    quiet: {
+      title: "You're allowed to take some space 🤫",
+      steps: [
+        "Find somewhere you feel safe and comfortable — your room, a quiet corner, outside. Anywhere that's yours.",
+        "Sit down and let your shoulders drop. Let your jaw relax. Let your hands be still.",
+        "You don't have to explain yourself or talk to anyone right now. This space is just for you."
+      ]
+    },
+    rest: {
+      title: "Let your body rest 💤",
+      steps: [
+        "Find somewhere you can lie down or curl up — your bed, a couch, the floor with a cushion.",
+        "Let your whole body go heavy. Imagine you're sinking slowly into the ground, soft and safe.",
+        "Close your eyes. Even five minutes of stillness can help reset everything. Your body is wise for asking."
+      ]
+    },
+    write: {
+      title: "Let the words come out ✏️",
+      steps: [
+        "There's a writing space coming up in a moment — just for you. No one else sees it.",
+        "You can write anything: feelings, thoughts, random words. You can even draw with words.",
+        "There's no spelling check, no right or wrong. Just start with: <em>'Right now I feel...'</em>"
+      ]
+    }
   };
 
   const msgs = {
@@ -772,13 +861,17 @@
   function pickNeed(btn) {
     document.querySelectorAll('.need-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
-    const sugg = document.getElementById('needSugg');
+    const guide = needGuides[btn.dataset.need];
+    const guideEl = document.getElementById('needGuide');
     const invite = document.getElementById('breathInvite');
-    const key = btn.dataset.need;
-    if (needSuggestions[key]) {
-      sugg.textContent = needSuggestions[key];
-      sugg.classList.add('visible');
+    if (guide) {
+      document.getElementById('guideTitle').textContent = guide.title;
+      document.getElementById('guideSteps').innerHTML = guide.steps
+        .map((s, i) => `<div class="guide-step"><div class="gnum">${i + 1}</div><div class="gtxt">${s}</div></div>`)
+        .join('');
+      guideEl.classList.add('visible');
       invite.style.display = 'block';
+      setTimeout(() => guideEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
     }
     enable('n5');
   }
@@ -848,9 +941,9 @@
     ['n1','n2','n3','n5','n6'].forEach(id => {
       document.getElementById(id).classList.add('btn-disabled');
     });
-    const sugg = document.getElementById('needSugg');
-    sugg.textContent = '';
-    sugg.classList.remove('visible');
+    const guideEl = document.getElementById('needGuide');
+    guideEl.classList.remove('visible');
+    document.getElementById('guideSteps').innerHTML = '';
     const invite = document.getElementById('breathInvite');
     if (invite) invite.style.display = 'none';
     const rt = document.getElementById('reflectText');
