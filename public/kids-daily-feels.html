@@ -715,9 +715,9 @@
 <!-- S7: Affirmations -->
 <div class="step" id="s7">
   <div class="card" style="text-align:center;">
-    <p class="step-hint" style="text-align:center; margin-bottom:24px;">A few things that are true about you right now ✨</p>
+    <p class="v-label" style="margin-bottom:6px;">Choose one that feels true for you</p>
+    <p class="step-hint" style="text-align:center; margin-bottom:24px;">Tap it to take it with you ✨</p>
     <div id="affirmCards"></div>
-    <button class="btn-main" style="margin-top:28px;" onclick="goTo(8)">I'm taking these with me →</button>
     <button class="btn-back" onclick="goTo(6)">← Back</button>
   </div>
 </div>
@@ -727,11 +727,30 @@
   <div class="close-card">
     <span class="close-star">⭐</span>
     <h2>You did something brave today.</h2>
-    <p>Checking in with your feelings is one of the most important things you can do. A lot of people go their whole lives without learning this. You're doing it now.</p>
+    <div id="chosenAffirm" style="
+      font-family:'Playfair Display',serif;
+      font-size:20px;
+      font-style:italic;
+      color:rgba(255,255,255,0.95);
+      background:rgba(255,255,255,0.12);
+      border-radius:16px;
+      padding:18px 22px;
+      margin:18px 0;
+      line-height:1.5;
+    "></div>
+    <button id="repeatBtn" onclick="pulseAffirm()" style="
+      background:rgba(255,255,255,0.15);
+      border:2px solid rgba(255,255,255,0.4);
+      color:white;
+      border-radius:30px;
+      padding:10px 28px;
+      font-size:15px;
+      cursor:pointer;
+    ">Say it again 🔁</button>
   </div>
   <div class="card" style="text-align:center;">
     <p style="font-size:16px;line-height:1.8;color:var(--muted);margin-bottom:20px;">
-      Come back tomorrow and do this again. The more you notice your feelings, the easier they are to handle.<br><br>
+      Come back tomorrow and check in again. The more you notice your feelings, the easier they are to handle.<br><br>
       <span style="color:var(--rose);font-family:'Playfair Display',serif;font-size:18px;font-style:italic;">Big love 🌸</span>
     </p>
     <button class="btn-ghost" onclick="restart()">Check in again 🔄</button>
@@ -746,30 +765,49 @@
   const MAX_B = 3;
 
   const affirmations = [
-    "My feelings are not wrong. They are messengers.",
+    "I am enough, just as I am.",
+    "My feelings are safe with me.",
     "I am allowed to take up space.",
-    "I can feel big feelings and still be okay.",
-    "I am brave for checking in with how I feel.",
-    "I deserve kindness, especially from myself."
+    "I deserve kindness.",
+    "I can do hard things."
   ];
 
   function renderAffirmations() {
     const el = document.getElementById('affirmCards');
     el.innerHTML = affirmations.map((a, i) => `
-      <div style="
+      <button onclick="pickAffirm(this)" data-affirm="${a}" style="
+        display: block;
+        width: 100%;
         background: linear-gradient(135deg, var(--soft-pink), #fff);
         border: 2px solid var(--pink);
         border-radius: 18px;
         padding: 20px 22px;
         margin-bottom: 12px;
         font-family: 'Playfair Display', serif;
-        font-size: 17px;
+        font-size: 18px;
         color: var(--burg);
         line-height: 1.5;
         opacity: 0;
         animation: fadeUp 0.5s ease ${i * 0.18}s forwards;
-      ">"${a}"</div>
+        cursor: pointer;
+        text-align: center;
+        transition: transform 0.15s, box-shadow 0.15s;
+      " onmousedown="this.style.transform='scale(0.97)'" onmouseup="this.style.transform='scale(1)'">"${a}"</button>
     `).join('');
+  }
+
+  function pickAffirm(btn) {
+    const chosen = btn.dataset.affirm;
+    document.getElementById('chosenAffirm').textContent = '"' + chosen + '"';
+    goTo(8);
+  }
+
+  function pulseAffirm() {
+    const el = document.getElementById('chosenAffirm');
+    el.style.transition = 'transform 0.15s, opacity 0.15s';
+    el.style.transform = 'scale(1.04)';
+    el.style.opacity = '0.7';
+    setTimeout(() => { el.style.transform = 'scale(1)'; el.style.opacity = '1'; }, 200);
   }
 
   const needGuides = {
