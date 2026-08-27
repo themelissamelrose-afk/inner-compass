@@ -952,9 +952,54 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  let bToneTimers = [];
+  let audioCtx = null;
+
+  function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+  }
+
+  function playTone(freq, volume = 0.18, duration = 0.6) {
+    try {
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(volume, ctx.currentTime + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + duration);
+    } catch(e) {}
+  }
+
+  function scheduleInhaleTones() {
+    const freqs = [523, 587, 659, 784];
+    freqs.forEach((f, i) => {
+      bToneTimers.push(setTimeout(() => playTone(f), i * 1000));
+    });
+  }
+
+  function scheduleExhaleTones() {
+    const freqs = [740, 659, 587, 523, 440];
+    freqs.forEach((f, i) => {
+      bToneTimers.push(setTimeout(() => playTone(f, 0.12), i * 1000));
+    });
+  }
+
+  function clearToneTimers() {
+    bToneTimers.forEach(t => clearTimeout(t));
+    bToneTimers = [];
+  }
+
   function resetBreath() {
     bActive = false; bCount = 0;
     if (bTimer) clearTimeout(bTimer);
+    clearToneTimers();
     const ring = document.getElementById('bRing');
     ring.className = 'breath-ring';
     ring.innerHTML = 'Tap to<br>begin';
@@ -967,6 +1012,7 @@
 
   function beginBreath() {
     if (bActive) return;
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
     bActive = true;
     bCount = 0;
     doCycle();
@@ -980,6 +1026,7 @@
       ring.onclick = null;
       document.getElementById('bMsg').textContent = 'Well done.';
       document.getElementById('bSub').textContent = '';
+      playTone(784, 0.22, 1.2);
       enable('n6');
       bActive = false;
       return;
@@ -993,17 +1040,22 @@
     ring.innerHTML = '😮‍💨<br>Breathe in';
     msg.textContent = 'Breathe in slowly...';
     sub.textContent = `Breath ${bCount + 1} of ${MAX_B}`;
+    scheduleInhaleTones();
 
     bTimer = setTimeout(() => {
+      clearToneTimers();
       ring.innerHTML = '⏸️<br>Hold it';
       msg.textContent = 'Hold...';
+      playTone(523, 0.1, 0.8);
 
       bTimer = setTimeout(() => {
         ring.className = 'breath-ring exhale';
         ring.innerHTML = '🌬️<br>Breathe out';
         msg.textContent = 'Breathe all the way out...';
+        scheduleExhaleTones();
 
         bTimer = setTimeout(() => {
+          clearToneTimers();
           bCount++;
           doCycle();
         }, 5000);
