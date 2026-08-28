@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open and Connected · Full Moon Pisces Meditation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --deep: #0d1b2a;
+    --ocean: #1e3a5f;
+    --silver: #c8d6e5;
+    --lilac: #b8a9d4;
+    --gold: #d4a843;
+    --muted: rgba(200,214,229,0.65);
+    --white: #ffffff;
+  }
+
+  body {
+    background: var(--deep);
+    background-image:
+      radial-gradient(ellipse at 50% -10%, rgba(30,58,95,0.9) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 100%, rgba(184,169,212,0.12) 0%, transparent 50%);
+    font-family: 'Lato', sans-serif;
+    color: var(--silver);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-x: hidden;
+  }
+
+  /* Stars */
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .star { position: absolute; border-radius: 50%; background: white; animation: twinkle var(--d) ease-in-out infinite; }
+  @keyframes twinkle { 0%,100%{opacity:var(--lo);} 50%{opacity:var(--hi);} }
+
+  .wrap { position: relative; z-index: 1; text-align: center; max-width: 520px; width: 100%; }
+
+  /* Moon */
+  .moon {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #f5f0e8, #c8c0a8 60%, #8a7e6a);
+    box-shadow: 0 0 40px 10px rgba(212,168,67,0.2), 0 0 80px 25px rgba(184,169,212,0.1), inset -10px -7px 18px rgba(0,0,0,0.3);
+    margin: 0 auto 24px;
+    animation: moonGlow 4s ease-in-out infinite;
+    position: relative;
+  }
+  .moon::after { content:''; position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 65% 60%, rgba(0,0,0,0.4) 0%, transparent 55%); }
+  @keyframes moonGlow {
+    0%,100% { box-shadow: 0 0 40px 10px rgba(212,168,67,0.2), 0 0 80px 25px rgba(184,169,212,0.1), inset -10px -7px 18px rgba(0,0,0,0.3); }
+    50%      { box-shadow: 0 0 55px 18px rgba(212,168,67,0.3), 0 0 100px 40px rgba(184,169,212,0.15), inset -10px -7px 18px rgba(0,0,0,0.3); }
+  }
+
+  .label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; opacity: 0.85; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 5vw, 38px); font-weight: 400; color: var(--white); line-height: 1.25; margin-bottom: 10px; }
+  .sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: var(--muted); margin-bottom: 40px; line-height: 1.6; }
+
+  /* Water ripple */
+  .water-wrap {
+    position: relative; width: 220px; height: 220px;
+    margin: 0 auto 32px;
+  }
+  .ripple {
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 1px solid rgba(184,169,212,0.25);
+    animation: rippleOut 3s ease-out infinite;
+    opacity: 0;
+  }
+  .ripple:nth-child(2) { animation-delay: 1s; }
+  .ripple:nth-child(3) { animation-delay: 2s; }
+  @keyframes rippleOut {
+    0%   { transform: scale(0.6); opacity: 0.5; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+  .ripple.paused { animation-play-state: paused; }
+
+  /* Play button */
+  .play-btn {
+    position: absolute; inset: 0;
+    margin: auto;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, rgba(184,169,212,0.45), rgba(30,58,95,0.8));
+    border: 1.5px solid rgba(200,214,229,0.3);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(184,169,212,0.2);
+  }
+  .play-btn:hover { transform: scale(1.06); box-shadow: 0 0 45px rgba(184,169,212,0.35); }
+  .play-btn svg { width: 36px; height: 36px; fill: white; margin-left: 4px; transition: opacity 0.2s; }
+  .play-btn.playing svg.icon-play { display: none; }
+  .play-btn.playing svg.icon-pause { display: block !important; margin-left: 0; }
+
+  /* Progress */
+  .progress-wrap { margin-bottom: 28px; }
+  .progress-bar-bg {
+    width: 100%; height: 3px; background: rgba(255,255,255,0.08);
+    border-radius: 2px; overflow: hidden; margin-bottom: 10px; cursor: pointer;
+  }
+  .progress-bar-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--lilac), var(--gold));
+    border-radius: 2px;
+    transition: width 0.5s linear;
+  }
+  .time-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+
+  /* State text */
+  .state-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--silver);
+    min-height: 28px;
+    margin-bottom: 32px;
+    transition: opacity 0.5s;
+    line-height: 1.6;
+  }
+
+  /* Volume */
+  .vol-row { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 32px; }
+  .vol-label { font-size: 12px; color: var(--muted); min-width: 70px; text-align: right; }
+  input[type=range] {
+    -webkit-appearance: none; width: 120px; height: 3px;
+    background: rgba(255,255,255,0.12); border-radius: 2px; outline: none; cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--lilac); cursor: pointer;
+  }
+
+  /* Links */
+  .links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .link-btn {
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    border: 1px solid rgba(200,214,229,0.15); border-radius: 30px;
+    padding: 8px 18px; transition: all 0.2s; background: none; cursor: pointer;
+    font-family: 'Lato', sans-serif;
+  }
+  .link-btn:hover { color: var(--white); border-color: rgba(200,214,229,0.35); }
+
+  /* Finished state */
+  .finished-card {
+    display: none;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 20px;
+    padding: 28px 24px;
+    margin-bottom: 28px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--silver);
+    line-height: 1.8;
+  }
+  .finished-card.show { display: block; animation: fadeUp 0.6s ease; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="wrap">
+  <div class="moon"></div>
+  <div class="label">Full Moon · Pisces · August 2026</div>
+  <h1>Open and Connected</h1>
+  <p class="sub">A guided meditation with Sacred Six Breath<br>led by Melissa Melrose</p>
+
+  <div class="water-wrap">
+    <div class="ripple" id="r1"></div>
+    <div class="ripple" id="r2"></div>
+    <div class="ripple" id="r3"></div>
+    <div class="play-btn" id="playBtn" onclick="togglePlay()">
+      <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" style="display:none;" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </div>
+  </div>
+
+  <div class="state-text" id="stateText">Press play whenever you are ready.</div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg" id="progressBg" onclick="seek(event)">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <div class="time-row">
+      <span id="timeNow">0:00</span>
+      <span id="timeTotal">8:14</span>
+    </div>
+  </div>
+
+  <div class="vol-row">
+    <span class="vol-label">Music volume</span>
+    <input type="range" id="musicVol" min="0" max="100" value="18" oninput="setMusicVol(this.value)">
+  </div>
+
+  <div class="finished-card" id="finishedCard">
+    You have done something beautiful for yourself today.<br><br>
+    Sit here as long as you need.<br><br>
+    <span style="color:var(--gold);">Big love, Melissa x</span>
+  </div>
+
+  <div class="links">
+    <a class="link-btn" href="/full-moon-pisces">Full Moon Ceremony →</a>
+    <a class="link-btn" href="/app">Inner Compass</a>
+  </div>
+</div>
+
+<!-- Audio elements -->
+<audio id="voiceAudio" preload="auto">
+  <source src="/Meditation%20and%20Audio%20/Pisces%20full%20moon%20meditation.m4a" type="audio/mp4">
+</audio>
+<audio id="musicAudio" preload="auto" loop>
+  <source src="/Meditation%20and%20Audio%20/music-ambient.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // Stars
+  (function(){
+    const w = document.getElementById('stars');
+    for(let i=0;i<70;i++){
+      const s=document.createElement('div'); s.className='star';
+      const sz=Math.random()*2+0.5;
+      const lo=(Math.random()*0.15+0.04).toFixed(2);
+      const hi=(Math.random()*0.5+0.25).toFixed(2);
+      s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+(Math.random()*100)+'%;left:'+(Math.random()*100)+'%;--d:'+(Math.random()*4+2).toFixed(1)+'s;--lo:'+lo+';--hi:'+hi+';animation-delay:'+(Math.random()*6).toFixed(1)+'s;';
+      w.appendChild(s);
+    }
+  })();
+
+  const voice = document.getElementById('voiceAudio');
+  const music = document.getElementById('musicAudio');
+  const btn   = document.getElementById('playBtn');
+  const fill  = document.getElementById('progressFill');
+  const nowEl = document.getElementById('timeNow');
+  const stateEl = document.getElementById('stateText');
+  let started = false, tick = null;
+
+  music.volume = 0.18;
+
+  const STATES = [
+    { at: 0,   text: 'Find a comfortable position and close your eyes.' },
+    { at: 30,  text: 'Place one hand on your heart.' },
+    { at: 75,  text: 'Breathing with the Sacred Six.' },
+    { at: 180, text: 'Breathe in. Hold. Breathe out. Rest.' },
+    { at: 270, text: 'Let the water energy soften your heart.' },
+    { at: 360, text: 'You are open. You are connected.' },
+    { at: 420, text: 'Gently returning.' },
+    { at: 470, text: 'Open your eyes whenever you feel ready.' },
+  ];
+  let stateIdx = 0;
+
+  function fmt(s) {
+    const m = Math.floor(s/60), sec = Math.floor(s%60);
+    return m + ':' + (sec<10?'0':'') + sec;
+  }
+
+  function togglePlay() {
+    if (!started) {
+      started = true;
+      voice.play();
+      music.play();
+      startTick();
+    } else if (voice.paused) {
+      voice.play();
+      music.play();
+      startTick();
+    } else {
+      voice.pause();
+      music.pause();
+      clearInterval(tick);
+    }
+    btn.classList.toggle('playing', !voice.paused);
+    pauseRipples(voice.paused);
+  }
+
+  function startTick() {
+    clearInterval(tick);
+    tick = setInterval(() => {
+      const t = voice.currentTime, dur = voice.duration || 494;
+      fill.style.width = (t / dur * 100) + '%';
+      nowEl.textContent = fmt(t);
+      updateState(t);
+      if (voice.ended) onEnded();
+    }, 500);
+  }
+
+  function updateState(t) {
+    let next = stateIdx;
+    for (let i = STATES.length - 1; i >= 0; i--) {
+      if (t >= STATES[i].at) { next = i; break; }
+    }
+    if (next !== stateIdx) {
+      stateIdx = next;
+      stateEl.style.opacity = 0;
+      setTimeout(() => {
+        stateEl.textContent = STATES[stateIdx].text;
+        stateEl.style.opacity = 1;
+      }, 300);
+    }
+  }
+
+  function onEnded() {
+    clearInterval(tick);
+    music.pause();
+    btn.classList.remove('playing');
+    fill.style.width = '100%';
+    stateEl.textContent = '';
+    document.getElementById('finishedCard').classList.add('show');
+  }
+
+  function seek(e) {
+    if (!started) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct  = (e.clientX - rect.left) / rect.width;
+    const dur  = voice.duration || 494;
+    voice.currentTime = pct * dur;
+    music.currentTime = (pct * dur) % (music.duration || 180);
+  }
+
+  function setMusicVol(v) { music.volume = v / 100; }
+
+  function pauseRipples(paused) {
+    ['r1','r2','r3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (paused) el.classList.add('paused');
+      else el.classList.remove('paused');
+    });
+  }
+
+  voice.addEventListener('ended', onEnded);
+
+  // Start ripples paused
+  pauseRipples(true);
+</script>
+</body>
+</html>
