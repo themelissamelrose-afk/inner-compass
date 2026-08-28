@@ -15,7 +15,6 @@
     --silver: #c8d6e5;
     --lilac: #b8a9d4;
     --gold: #d4a843;
-    --rose: #C4786A;
     --muted: rgba(200,214,229,0.6);
     --white: #ffffff;
   }
@@ -29,82 +28,58 @@
     padding-bottom: 80px;
   }
 
-  /* Stars */
   .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
   .star { position: absolute; border-radius: 50%; background: white; animation: twinkle var(--d) ease-in-out infinite; }
   @keyframes twinkle { 0%,100%{opacity:var(--lo);} 50%{opacity:var(--hi);} }
 
-  /* Header */
   .header {
     position: relative; z-index: 1;
     text-align: center;
     padding: 52px 24px 36px;
-    max-width: 680px;
+    max-width: 660px;
     margin: 0 auto;
   }
   .moon-label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; opacity: 0.85; display: block; }
   .moon { width: 64px; height: 64px; border-radius: 50%; background: radial-gradient(circle at 38% 35%, #f5f0e8, #c8c0a8 60%, #8a7e6a); box-shadow: 0 0 30px 8px rgba(212,168,67,0.2), inset -8px -6px 14px rgba(0,0,0,0.3); margin: 0 auto 20px; position: relative; animation: glow 4s ease-in-out infinite; }
   .moon::after { content:''; position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 65% 60%, rgba(0,0,0,0.35) 0%, transparent 55%); }
-  @keyframes glow { 0%,100%{ box-shadow: 0 0 30px 8px rgba(212,168,67,0.2), inset -8px -6px 14px rgba(0,0,0,0.3); } 50%{ box-shadow: 0 0 50px 16px rgba(212,168,67,0.3), inset -8px -6px 14px rgba(0,0,0,0.3); } }
+  @keyframes glow { 0%,100%{ box-shadow:0 0 30px 8px rgba(212,168,67,0.2),inset -8px -6px 14px rgba(0,0,0,0.3); } 50%{ box-shadow:0 0 50px 16px rgba(212,168,67,0.3),inset -8px -6px 14px rgba(0,0,0,0.3); } }
   h1 { font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,38px); font-weight: 400; color: var(--white); line-height: 1.25; margin-bottom: 16px; }
-  .intro { font-family: 'Playfair Display', serif; font-style: italic; font-size: 17px; color: var(--muted); line-height: 1.8; max-width: 560px; margin: 0 auto 12px; }
+  .intro { font-family: 'Playfair Display', serif; font-style: italic; font-size: 17px; color: var(--muted); line-height: 1.8; max-width: 520px; margin: 0 auto; }
 
-  /* Print button */
-  .print-row { text-align: center; margin-bottom: 36px; position: relative; z-index: 1; }
+  .print-row { text-align: center; margin: 24px 0 36px; position: relative; z-index: 1; }
   .print-btn { background: none; border: 1px solid rgba(200,214,229,0.2); color: var(--muted); border-radius: 30px; padding: 8px 20px; font-size: 13px; font-family: 'Lato', sans-serif; cursor: pointer; transition: all 0.2s; }
   .print-btn:hover { border-color: rgba(200,214,229,0.4); color: var(--white); }
 
-  /* Sections */
-  .section { position: relative; z-index: 1; max-width: 680px; margin: 0 auto 20px; padding: 0 20px; }
+  .section { position: relative; z-index: 1; max-width: 660px; margin: 0 auto 16px; padding: 0 20px; }
 
-  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-  .section-num { width: 36px; height: 36px; border-radius: 50%; background: rgba(212,168,67,0.12); border: 1px solid rgba(212,168,67,0.25); display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--gold); font-weight: 700; flex-shrink: 0; }
-  .section-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); font-weight: 400; line-height: 1.2; }
-  .section-sub { font-size: 14px; color: var(--muted); margin-top: 3px; font-style: italic; }
+  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .section-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.22); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); font-weight: 400; }
+  .section-sub { font-size: 13px; color: var(--muted); margin-top: 2px; font-style: italic; }
 
-  /* Card */
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px 28px; margin-bottom: 12px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px 28px; }
 
-  /* Prompt */
+  .pull { background: rgba(184,169,212,0.07); border-left: 3px solid var(--lilac); border-radius: 0 12px 12px 0; padding: 14px 20px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: var(--silver); margin-bottom: 24px; line-height: 1.7; }
+
   .prompt { margin-bottom: 24px; }
   .prompt:last-child { margin-bottom: 0; }
-  .prompt-q {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
-    color: var(--silver);
-    line-height: 1.6;
-    margin-bottom: 12px;
-    font-style: italic;
-  }
+  .prompt-q { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--silver); line-height: 1.6; margin-bottom: 12px; font-style: italic; }
   .prompt-q::before { content: '✦  '; color: var(--gold); font-style: normal; font-size: 12px; }
+
   textarea {
-    width: 100%;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(200,214,229,0.12);
-    border-radius: 12px;
-    padding: 14px 16px;
-    font-family: 'Lato', sans-serif;
-    font-size: 15px;
-    color: var(--silver);
-    resize: vertical;
-    min-height: 90px;
-    line-height: 1.7;
-    outline: none;
-    transition: border-color 0.2s;
+    width: 100%; background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(200,214,229,0.12); border-radius: 12px;
+    padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 15px;
+    color: var(--silver); resize: vertical; min-height: 100px;
+    line-height: 1.7; outline: none; transition: border-color 0.2s;
   }
   textarea:focus { border-color: rgba(212,168,67,0.35); }
-  textarea::placeholder { color: rgba(200,214,229,0.25); font-style: italic; }
+  textarea::placeholder { color: rgba(200,214,229,0.22); font-style: italic; }
 
-  /* Pull quote */
-  .pull { background: rgba(184,169,212,0.07); border-left: 3px solid var(--lilac); border-radius: 0 12px 12px 0; padding: 16px 20px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: var(--silver); margin: 0 0 20px; line-height: 1.7; }
+  .divider { width: 40px; height: 1px; background: var(--gold); margin: 28px auto; opacity: 0.3; position: relative; z-index: 1; }
 
-  /* Divider */
-  .divider { width: 40px; height: 1px; background: var(--gold); margin: 32px auto; opacity: 0.3; position: relative; z-index: 1; }
-
-  /* Closing */
-  .closing { max-width: 680px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
-  .closing-card { background: linear-gradient(135deg, rgba(26,42,63,0.7), rgba(13,27,42,0.9)); border: 1px solid rgba(212,168,67,0.18); border-radius: 24px; padding: 40px 32px; text-align: center; }
-  .closing-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--gold); margin-bottom: 20px; font-weight: 400; }
+  .closing { max-width: 660px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+  .closing-card { background: linear-gradient(135deg, rgba(26,42,63,0.7), rgba(13,27,42,0.9)); border: 1px solid rgba(212,168,67,0.18); border-radius: 24px; padding: 36px 28px; text-align: center; }
   .closing-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; line-height: 2; color: var(--silver); margin-bottom: 28px; }
   .links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .link-btn { font-size: 13px; color: var(--muted); text-decoration: none; border: 1px solid rgba(200,214,229,0.15); border-radius: 30px; padding: 8px 18px; transition: all 0.2s; }
@@ -114,11 +89,10 @@
     .stars, .print-row, .links { display: none; }
     body { background: white; color: #1a1a2e; }
     .card { border: 1px solid #ddd; background: white; }
-    textarea { border: 1px solid #ccc; background: #fafafa; color: #333; min-height: 120px; }
-    h1, .section-title, .closing-title { color: #1a1a2e; }
-    .prompt-q, .closing-text, .intro, .pull { color: #333; }
-    .section-num { background: #f0e8d5; border-color: #c8a840; }
-    .divider { background: #c8a840; }
+    textarea { border: 1px solid #ccc; background: #fafafa; color: #333; min-height: 130px; }
+    h1, .section-title { color: #1a1a2e; }
+    .prompt-q, .closing-text, .intro, .pull { color: #444; }
+    .section-icon { background: #f0e8d5; }
   }
 </style>
 </head>
@@ -130,152 +104,55 @@
   <span class="moon-label">For Melissa's 1:1 Clients · Full Moon · Pisces · August 2026</span>
   <div class="moon"></div>
   <h1>Full Moon Journal</h1>
-  <p class="intro">This is your space. No right answers. No performance. Just you, the page, and the honest truth of what is moving through you right now.</p>
-  <p class="intro" style="font-size:15px; margin-top:8px;">Take your time with each prompt. Let the body lead, not the mind.</p>
+  <p class="intro">No right answers. No performance. Just you, the page, and what is honestly moving through you tonight.</p>
 </div>
 
 <div class="print-row">
   <button class="print-btn" onclick="window.print()">Print this journal</button>
 </div>
 
-<!-- SECTION 1: Arriving -->
+<!-- SECTION 1 -->
 <div class="section">
   <div class="section-header">
-    <div class="section-num">1</div>
+    <div class="section-icon">🌊</div>
     <div>
-      <div class="section-title">Arriving in Your Body</div>
+      <div class="section-title">Arriving</div>
       <div class="section-sub">Before we go anywhere, we come home first.</div>
     </div>
   </div>
   <div class="card">
     <div class="pull">Place one hand on your heart. Take three slow breaths. Notice what is here, without trying to change it.</div>
     <div class="prompt">
-      <p class="prompt-q">What is your body holding right now? Not the story around it, not the explanation — just what do you feel, physically, when you check in?</p>
-      <textarea placeholder="A tightness in the chest. A heaviness in the shoulders. A quiet ache I have been ignoring..."></textarea>
+      <p class="prompt-q">What is your body holding right now? Not the story around it — just what do you feel, physically, when you check in?</p>
+      <textarea placeholder="A tightness. A heaviness. A quiet ache I have been moving around..."></textarea>
     </div>
     <div class="prompt">
       <p class="prompt-q">What has your nervous system been bracing for lately? What are you waiting for to be over?</p>
       <textarea placeholder="I keep waiting for..."></textarea>
     </div>
-    <div class="prompt">
-      <p class="prompt-q">If your body could send you one message right now, what would it say?</p>
-      <textarea placeholder="Slow down. Rest. Stop pretending you are fine..."></textarea>
-    </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- SECTION 2: The Pattern -->
+<!-- SECTION 2 -->
 <div class="section">
   <div class="section-header">
-    <div class="section-num">2</div>
+    <div class="section-icon">🌕</div>
     <div>
-      <div class="section-title">The Pattern That Is Completing</div>
-      <div class="section-sub">Eclipses accelerate what is already moving. Something is ready to end.</div>
+      <div class="section-title">What Is Ready to Release</div>
+      <div class="section-sub">Pisces asks us to surrender what we cannot fix, only release.</div>
     </div>
   </div>
   <div class="card">
-    <div class="pull">You are not broken. You are patterned. And this moon is asking which pattern has finally run its full course.</div>
+    <div class="pull">Eclipses illuminate what the ordinary dark hides. What has been underneath, waiting to be named?</div>
     <div class="prompt">
-      <p class="prompt-q">What pattern do you keep finding yourself in, even though part of you knows better? The relationship dynamic, the way you give until you have nothing left, the voice in your head that says you are too much or not enough.</p>
-      <textarea placeholder="The pattern I keep returning to is..."></textarea>
-    </div>
-    <div class="prompt">
-      <p class="prompt-q">Where did this pattern begin? Not in this chapter — but in the one before it. What was happening in your life when you first learned this was how things work?</p>
-      <textarea placeholder="I think it started when..."></textarea>
-    </div>
-    <div class="prompt">
-      <p class="prompt-q">What has this pattern been protecting you from? Underneath the behaviour, what is the fear that was being kept safe?</p>
-      <textarea placeholder="It was protecting me from feeling..."></textarea>
-    </div>
-    <div class="prompt">
-      <p class="prompt-q">What would you lose if this pattern ended? Be honest. Sometimes we hold onto what hurts us because the familiar feels safer than the unknown.</p>
-      <textarea placeholder="If this pattern ended I might have to face..."></textarea>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- SECTION 3: Inner Teen -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-num">3</div>
-    <div>
-      <div class="section-title">Your Inner Teen</div>
-      <div class="section-sub">She built the walls. She holds the door. She needs to be met first.</div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="pull">Your inner teen was not difficult. She was protecting something that needed to be protected. She built her walls because the world asked her to be something she was not, and she did the best she could with what she had.</div>
-    <div class="prompt">
-      <p class="prompt-q">Cast your mind back to your teenage years. What age comes up first — not the one you choose, the one that appears? What was life like for her? What was happening on the outside, and what was she feeling on the inside that no one knew about?</p>
-      <textarea placeholder="She was... years old. On the outside, life looked like... But on the inside she felt..."></textarea>
-    </div>
-    <div class="prompt">
-      <p class="prompt-q">What did she need that she did not receive? Not just practically — emotionally. What was she hungry for that was never offered?</p>
-      <textarea placeholder="She needed someone to..."></textarea>
-    </div>
-    <div class="prompt">
-      <p class="prompt-q">What mask did she build to survive? The one she wore at school, at home, in friendships — the version of herself she learned to perform so she would be accepted?</p>
-      <textarea placeholder="The mask she wore was..."></textarea>
-    </div>
-    <div class="prompt">
-      <p class="prompt-q">As your adult self, what do you want to say to her right now? Not to fix her or explain anything. Just to let her know she has been seen.</p>
-      <textarea placeholder="I see you. I want you to know..."></textarea>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- SECTION 4: Inner Child -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-num">4</div>
-    <div>
-      <div class="section-title">Your Inner Child</div>
-      <div class="section-sub">Beneath the teen, there is a younger one waiting to be found.</div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="pull">Your body already knows what your inner child needed. It has been carrying the memory. This is not about going back — it is about finally giving her what she always deserved.</div>
-    <div class="prompt">
-      <p class="prompt-q">When you picture your younger self — before the years of adapting, before the masks — what do you see? What is she doing, what does she love, what lights her up?</p>
-      <textarea placeholder="She loved... She came alive when..."></textarea>
-    </div>
-    <div class="prompt">
-      <p class="prompt-q">What did she believe about herself that was never true — a belief that was handed to her by someone who did not know how to love her well?</p>
-      <textarea placeholder="She was made to believe that she was..."></textarea>
-    </div>
-    <div class="prompt">
-      <p class="prompt-q">What can you give her right now that she has been waiting for? Not one day, not when things are better. Right now, today, what is the small act of reparenting you can offer her?</p>
-      <textarea placeholder="What I can give her right now is..."></textarea>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- SECTION 5: This Moon -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-num">5</div>
-    <div>
-      <div class="section-title">What This Moon Is Illuminating</div>
-      <div class="section-sub">Eclipse light shows what you have been unable to see in the ordinary dark.</div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="pull">Pisces is the final sign. It asks us to trust the release. Not to fix, not to understand — to surrender what is no longer alive in us, even when we cannot yet see what comes next.</div>
-    <div class="prompt">
-      <p class="prompt-q">What is this eclipse bringing into the light for you? Something you have been circling, sensing, but not quite letting yourself name directly.</p>
-      <textarea placeholder="What I have not been letting myself fully see is..."></textarea>
-    </div>
-    <div class="prompt">
-      <p class="prompt-q">What are you finally ready to release? Not what you think you should release — what your body and your soul are actually ready to put down?</p>
+      <p class="prompt-q">What are you finally ready to put down? Not what you think you should release — what your body is actually tired of carrying?</p>
       <textarea placeholder="I am ready to release..."></textarea>
+    </div>
+    <div class="prompt">
+      <p class="prompt-q">What story about yourself has run its full course? The one that kept you small, kept you safe, kept you from something?</p>
+      <textarea placeholder="The story I am done with is..."></textarea>
     </div>
     <div class="prompt">
       <p class="prompt-q">What have you been carrying that was never actually yours? Whose fear, whose wound, whose belief are you still holding?</p>
@@ -286,10 +163,10 @@
 
 <div class="divider"></div>
 
-<!-- SECTION 6: What Opens -->
+<!-- SECTION 3 -->
 <div class="section">
   <div class="section-header">
-    <div class="section-num">6</div>
+    <div class="section-icon">✨</div>
     <div>
       <div class="section-title">What Is Opening</div>
       <div class="section-sub">Every ending is the beginning of something truer.</div>
@@ -301,11 +178,11 @@
       <textarea placeholder="The version of me that is arriving is..."></textarea>
     </div>
     <div class="prompt">
-      <p class="prompt-q">What does life feel like in your body when you imagine yourself fully free of the pattern that is completing?</p>
+      <p class="prompt-q">What does your life feel like in your body when you imagine yourself free of what you are releasing?</p>
       <textarea placeholder="In that version of my life I feel..."></textarea>
     </div>
     <div class="prompt">
-      <p class="prompt-q">What is one honest step you can take this week toward that version of yourself? Not a plan. Not a goal. One step, from the body, that feels true.</p>
+      <p class="prompt-q">What is one honest step toward that version of yourself? Not a plan. One step, from the body, that feels true.</p>
       <textarea placeholder="My one honest step is..."></textarea>
     </div>
   </div>
@@ -313,24 +190,19 @@
 
 <div class="divider"></div>
 
-<!-- Closing -->
 <div class="closing">
   <div class="closing-card">
-    <div class="closing-title">✦ You showed up for yourself today. ✦</div>
     <p class="closing-text">
+      You showed up for yourself today.<br>
       That is not small.<br><br>
-      The pages you have filled are not just words.<br>
-      They are the parts of you that finally had room to speak.<br><br>
-      Take what came up today into our next session.<br>
-      Bring the questions that are still sitting with you.<br>
-      Bring the thing you wrote and then almost deleted.<br><br>
+      Bring what came up here into our next session.<br>
+      Especially the thing you wrote and then almost deleted.<br>
       That one is usually the most important.<br><br>
       <span style="color:var(--gold);">Big love, Melissa x</span>
     </p>
     <div class="links">
       <a class="link-btn" href="/full-moon-pisces">Full Moon Ceremony</a>
       <a class="link-btn" href="/pisces-meditation">Guided Meditation</a>
-      <a class="link-btn" href="/app">Inner Compass</a>
     </div>
   </div>
 </div>
