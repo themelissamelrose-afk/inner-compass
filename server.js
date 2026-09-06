@@ -443,6 +443,10 @@ const PRODUCT_TO_GROUP = {
   'prod_UaNlhV6PURnywD': '185537948466283638', // Inner Compass $150/yr → Inner Compass Members
   'prod_UYpi6VQVs97FsJ': '185537948466283638', // Inner Compass $79/yr → Inner Compass Members
   'prod_UYpiAsAZftWpTG': '185537948466283638', // Inner Compass $9/mo → Inner Compass Members
+  'prod_VCzmb4DYv49UAD': '183522536308344752', // Foundations of Self Full → Onboarding Foundations Student
+  'prod_VCzmjT2Cf7bMwb': '183522536308344752', // Foundations of Self Plan → Onboarding Foundations Student
+  'prod_VCzmnknITCpJtL': '183518348825331372', // Teacher Training Full → Onboarding Teacher Trainers
+  'prod_VCzmBUm72JB7Ot': '183518348825331372', // Teacher Training Plan → Onboarding Teacher Trainers
 };
 
 app.post('/api/webhook/sacred-sound', express.raw({ type: 'application/json' }), async (req, res) => {
