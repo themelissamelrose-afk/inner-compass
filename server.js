@@ -429,7 +429,22 @@ app.post('/api/webhook', express.raw({ type: 'application/json' }), (req, res) =
   res.json({ received: true });
 });
 
-// Sacred Sound & Breath — add buyer to MailerLite when Stripe payment completes
+// Universal purchase webhook — routes every Stripe purchase to the right MailerLite group
+const PRODUCT_TO_GROUP = {
+  'prod_VCu6T5QFkHNqa6': '197826596547069809', // Sacred Sound & Breath → Sacred Sound & Breath — October 9
+  'prod_V87PWCI84Rt4kX': '197841753089247125', // Bali 2027 Twin Share → Bali 2027 Booked
+  'prod_V87PWxOFoefTuc': '197841753089247125', // Bali 2027 Private Room → Bali 2027 Booked
+  'prod_V87PYwyyqoPtxS': '197841753089247125', // Bali 2027 Deposit → Bali 2027 Booked
+  'prod_V81B54cE9M25K3': '196913413065016352', // Mum and Me 6mo Full → Mum and Me Onboarding
+  'prod_V81BkJeldspHFA': '196913413065016352', // Mum and Me 6mo First → Mum and Me Onboarding
+  'prod_V81BlJo9sZMP5n': '196913413065016352', // Mum and Me 3mo Full → Mum and Me Onboarding
+  'prod_V81B42YD3be9fq': '196913413065016352', // Mum and Me 3mo First → Mum and Me Onboarding
+  'prod_HY3wCmRwrbvGc4': '183872755866797155', // 1:1 Coaching → Onboarding 1:1 Coaching Clients
+  'prod_UaNlhV6PURnywD': '185537948466283638', // Inner Compass $150/yr → Inner Compass Members
+  'prod_UYpi6VQVs97FsJ': '185537948466283638', // Inner Compass $79/yr → Inner Compass Members
+  'prod_UYpiAsAZftWpTG': '185537948466283638', // Inner Compass $9/mo → Inner Compass Members
+};
+
 app.post('/api/webhook/sacred-sound', express.raw({ type: 'application/json' }), async (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;
@@ -445,22 +460,22 @@ app.post('/api/webhook/sacred-sound', express.raw({ type: 'application/json' }),
     const name = session.customer_details?.name || '';
     if (email) {
       try {
-        const MAILERLITE_TOKEN = process.env.MAILERLITE_API_TOKEN;
-        const GROUP_ID = '197826596547069809';
-        await fetch('https://connect.mailerlite.com/api/subscribers', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${MAILERLITE_TOKEN}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email,
-            fields: { name },
-            groups: [GROUP_ID]
-          })
-        });
+        // Get line items to identify which product was purchased
+        const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { expand: ['data.price.product'] });
+        const productId = lineItems.data[0]?.price?.product?.id;
+        const groupId = PRODUCT_TO_GROUP[productId];
+        if (groupId) {
+          await fetch('https://connect.mailerlite.com/api/subscribers', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${process.env.MAILERLITE_API_TOKEN}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, fields: { name }, groups: [groupId] })
+          });
+        }
       } catch (e) {
-        console.error('MailerLite error:', e.message);
+        console.error('Purchase webhook error:', e.message);
       }
     }
   }
