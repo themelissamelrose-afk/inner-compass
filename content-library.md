@@ -751,3 +751,62 @@ If she is in either phase, help her use the moon as her rhythm. Ask: "Where are 
 Never treat menopause as decline. Treat it as a crossing into something new — one that deserves the same ritual, the same support, and the same reverence as any other threshold in a woman's life.
 
 
+
+---
+
+## MEL'S MONDAY MUSINGS — ON PATTERNS, THE BODY, AND WHY STRATEGIES KEEP US STUCK
+
+*Recorded while driving home from school drop off. Melissa's most natural, unfiltered teaching voice.*
+
+Oh hello, my loves. Well, welcome to little Mel's Monday musings. It's just been really interesting as I witness in myself, but also witness around me, just how unconscious people are to their patterning. They really don't get curious and ask the questions. They just live in this unconscious loop without really questioning it.
+
+I think everyone's getting more aware, and I think they understand that something's not working, but we're always looking for another strategy. Another thing to do. And I think that really does distract us from what's really going on inside of us. And the distraction then becomes this focus, which also then keeps us in the same emotional loop, because we're never really getting curious enough to ask the deeper questions.
+
+We never can really stay long enough with our own uncomfortable sensations in the body, because straight away that's the thing we try to avoid. The thing we have criticism about. The thing we don't want to feel. Because we actually feel that there's something wrong with us. When we are having a human experience, we're having a human emotion. We're actually completely valid in the experience. Maybe even not right, but valid in our own way that we feel in that moment. And I think a lot of us can't validate in a loving way and have curiosity of why we feel that way.
+
+Straight away we go into a certain reaction, and then we go straight into a behaviour to avoid that. Because most of us don't really know our beliefs. We don't really understand our nervous system, but we can look at our behaviour because it's patterned a certain way. And I think that's what we miss.
+
+So these patterns that we repeat so unconsciously in our everyday life are really reestablishing this connection to our beliefs. Beliefs that were created from a very young age, that unconsciously have created our identity. And so every time we want to step into a new job, a new relationship, more abundance — we really want something, we desire something — the 5% of what we desire is really dictated by the 95% of the capacity of our allowance to recognise what we don't believe could be true for us.
+
+Because most of us want and desire something more, which is our birthright. We deserve to have it. But then to lean into the uncomfortable of our beliefs and the way our body feels about that, none of us is on board with what we desire. Because we haven't experienced it, we haven't seen it. It hasn't been something in our reality. And what we believe to be true is what we're programmed in. It's how we've seen things as a child. How our parents thought. We've created understandings and ideas and programs around what was shown to us as children.
+
+So it's very hard to break those patterns and the ways that you have created behaviours to stay safe, to stay protected, to stay in the familiar. Because safety is familiar for us. It might not be comfortable, it might not be what we want, but it's familiar. And that's what our body is always trying to find. That balance of familiar so that we feel a certain level of familiarity. We know how happy we're going to be. We know how sad we're going to be. We know this experience, even though it's uncomfortable, we don't want it. But we're safe in it. We know it. There's not something unknown in this experience for us.
+
+But when we start to desire something more, we have to build that capacity. Especially when it comes to something that you've never had before. Or it may feel uncomfortable to want more. To start to step into a way of showing up for yourself first. So you're filling your cup before everybody else's.
+
+And all these little shifts have got adaptations, patterns that we've created in our behaviour to stay a certain way. Hence the overgiving, the people pleasing, the overfunctioning. All of those are behaviours. And we can recognise, truly, what we believe. Because there's a certain amount of control in that that we have to create, because we don't really trust that life would happen for us. It's just happening to us through what we know and how we expect and what has always been the end result.
+
+I have been pushing against some of my own really deep stuff around money. Money equals love to me. Money has equalled abandonment to me, because I used to see my father, for example, working hard to make money, and it meant abandonment of the family. So I can feel that in my body. And I'm someone that's taken on so much responsibility. It's that edge I'm pushing against. Because when I'm resourced I'll have choices, and I'll have freedom. But the problem is, my body and my mind will pull me back into these concepts of, but then you won't have that one-on-one time with your boys, they'll feel abandoned, and then you'll have more responsibility and you're going to feel more overwhelmed.
+
+So I have to really get curious. I have to keep allowing these understandings of why I have been so overresponsible my whole entire life. Why I feel so obligated to be there for everybody else. And I notice that when I'm stepping into edges in my business, I'll find all of these things I have to do for the boys, all of these things I have to do for everybody else. And then I can criticise myself. Oh, see, I can never get it done. This is why I can't do this. And the story starts.
+
+So I can witness that because I can feel it in my body, and I can hear the stories in my mind, and I'm witnessing my behaviour. And instead of criticising myself more for doing the thing, I lovingly come home. I lovingly go, it's okay. I know this doesn't feel safe, but you can create this time. My body is fine. We are safe. And I lovingly get curious of why I feel I need to do that right now, and can I bring myself back into presence and just be really kind to myself?
+
+Because I've really never had that kind presence of encouragement that it's okay to feel the way that I am. And there's fear in that too. Because there's some deeper feelings of abandonment, which feels like a death to me. My body and my unconscious are working together to keep me safe. So it's always pulling me into old behaviours. And unless you know your patterns and your behaviours and you can witness them, you're never really going to uncover those beliefs about yourself.
+
+You're never really going to see why you're doing the same thing over and over again, while you're on this emotional loop of repeat. Because you're in avoidance of how it feels in your body, which then keeps you distracted by the stories in your mind, which then creates the behaviour.
+
+Wherever you get to in these states, you really need to be able to lovingly pull yourself back into the present moment. To let yourself know that you're safe, that it's okay, that having these feelings in your body is completely normal. You're having a human experience.
+
+And the thing is, we deserve so much more than we allow ourselves to receive. And it's the receiving part that most of us are blocking. The receiving that we're actually worthy. Because most of us don't think we're worthy, we're good enough, we're loveable enough. And these are the things, the belief parts, that are really stopping our receiving. Because we're trying to control it with our behaviours.
+
+The more you put into your life and schedule more in because you think you have to do more, the further sometimes you can go away from actually feeling why, in the first place, this experience is happening to you. The mind wants to find something else to do, to fix it. And the thing is, it's not about fixing. It's about getting really curious about why your body and your unconscious are in alignment with your desire. So we have to be really clear, through being able to see firstly our behaviours, if we're in distraction. Witness the thoughts. But also to be able to come back to the body and to be really loving. To be really kind. Because most of us spend so much time in self-criticism and self-judgment, and it really validates those deep core wounds.
+
+We're not here to do the same as everybody else. We have a unique blueprint. We have a unique way of seeing in the world, thinking in the world, being through our own experience. And that creates a frequency. When we come into alignment, a frequency of alignment. When we stay misaligned, we keep creating the same thing.
+
+So we're really looking through a loving lens at ourselves. At the parts of us that we've deemed unloveable. That we're disconnected from. That we're overriding because it feels so deeply uncomfortable when it gets triggered. But we have to use those triggers, those portals from our past, our reactions, to dive a little deeper. Why am I doing that? Why does my body feel like this? Oh, I noticed I'm holding it in my gut right now.
+
+And that's the scariest part too. To be more successful, to receive more than our family line, because we're programmed not to. We're programmed in a way that we think and feel the same because we're programmed to the nervous system of our family. So we're breaking patterning. We're breaking behaviours. And we're turning on our receivership.
+
+So in our mind there's a reticular activating system, which holds us to the safety of what we know. And to expand that, we have to be able to feed it something new that's familiar. And that means the way that we show up for ourselves. The new thoughts that we put back in. And it can't be just not knowing. It's recognising when we're doing all the behaviours. We start to reprogram it in a way that we lovingly are opening the capacity within ourselves.
+
+Everyone wants it like yesterday, but no one wants to do the work. Ignorance is bliss. Because if we can stay in the loop that we know, that's familiar, and we can just blame and shame everything around us, it's so much easier. It's like, well, it's out of my hands, really. But if you truly want to change your life, whether it's business, relationships, relationship to your kids, the way you feel about yourself. It's all an inside game. And it all starts with that body mind connection.
+
+And the easiest way to start is recognising your behaviours. And in a loving way, start to get curious about your life. To start pulling yourself up in a loving way, to recognise what you're feeling, where that's coming from, to see those patterns. Because once you have that awareness, you will lovingly be able to recognise, no, that's not true. We're here. I deserve this.
+
+That is the only thing you need to do. To show up for yourself. That is your only responsibility. To change the frequency within you. To be in receivership of what is. And to change your life internally, to see the external start to unfold around you. Because your perception will be different. The way you show up for yourself will be different. The way you speak to yourself will be different. And life starts to move around that.
+
+Getting really comfortable in the uncomfortable. That will be your greatest gift.
+
+That moment before you open your eyes, and that moment before you go to sleep. Those two times are when you're moving into a different state and the unconscious is so much more easy to rewire in those moments. But not just through mindset. This has to be through a feeling. You're inviting something different into the body, which then opens up channels and pathways to really rewire what's laying in that unconscious, with the body and mind together.
+
