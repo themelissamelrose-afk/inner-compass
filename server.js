@@ -429,6 +429,44 @@ app.post('/api/webhook', express.raw({ type: 'application/json' }), (req, res) =
   res.json({ received: true });
 });
 
+// Sacred Sound & Breath — add buyer to MailerLite when Stripe payment completes
+app.post('/api/webhook/sacred-sound', express.raw({ type: 'application/json' }), async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, process.env.SACRED_SOUND_WEBHOOK_SECRET);
+  } catch (err) {
+    return res.status(400).send(`Webhook error: ${err.message}`);
+  }
+
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    const email = session.customer_details?.email || session.customer_email;
+    const name = session.customer_details?.name || '';
+    if (email) {
+      try {
+        const MAILERLITE_TOKEN = process.env.MAILERLITE_API_TOKEN;
+        const GROUP_ID = '197826596547069809';
+        await fetch('https://connect.mailerlite.com/api/subscribers', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${MAILERLITE_TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email,
+            fields: { name },
+            groups: [GROUP_ID]
+          })
+        });
+      } catch (e) {
+        console.error('MailerLite error:', e.message);
+      }
+    }
+  }
+  res.json({ received: true });
+});
+
 // Activate user after successful payment (called from subscribe page)
 app.post('/api/activate', async (req, res) => {
   const { email } = req.body;
