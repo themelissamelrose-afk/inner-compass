@@ -128,7 +128,7 @@ const PUBLIC_ROUTES = new Set([
   '/week4-nervous-system', '/week5-flip-it', '/week6-shame',
   '/kids-daily-feels', '/kids-hello-body',
   '/full-moon-pisces', '/pisces-meditation', '/full-moon-journal',
-  '/beneath-the-pattern',
+  '/beneath-the-pattern', '/reflect',
 ]);
 const PUBLIC_API_PREFIXES = ['/api/login', '/api/register', '/api/webinar-register', '/api/subscribe', '/api/webhook', '/api/activate', '/api/admin', '/api/quiz-register'];
 
@@ -862,6 +862,10 @@ app.get('/full-moon-journal', (req, res) => {
 
 app.get('/beneath-the-pattern', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'beneath-the-pattern.html'));
+});
+
+app.get('/reflect', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'reflect.html'));
 });
 
 app.get('/cycle', (req, res) => {
