@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Reset For When Rest Is Not Working | Melissa Melrose</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #faf5ee; font-family: 'Lato', sans-serif; color: #4a3728; min-height: 100vh; padding: 0 0 80px; line-height: 1.75; }
+
+    .wrap { max-width: 560px; margin: 0 auto; padding: 0 22px; }
+
+    .step { display: none; animation: fade .5s ease both; }
+    .step.on { display: block; }
+    @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    .tag { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: #c4967a; display: block; text-align: center; margin: 54px 0 18px; }
+    .ring { width: 88px; height: 88px; border-radius: 50%; border: 1.5px solid #c4967a; background: radial-gradient(circle, #f2e8d9 30%, #faf5ee 100%); margin: 0 auto 24px; animation: breathe 10s ease-in-out infinite; }
+    @keyframes breathe { 0%{transform:scale(.86)} 40%{transform:scale(1.12)} 100%{transform:scale(.86)} }
+
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 5vw, 2.6rem); color: #5c2318; line-height: 1.25; font-weight: 400; text-align: center; margin-bottom: 14px; }
+    .lede { text-align: center; color: #6b5144; font-size: 1rem; margin-bottom: 30px; }
+
+    .qcard { background: #fff; border-radius: 20px; padding: 26px 24px; box-shadow: 0 4px 32px rgba(92,35,24,0.07); margin-bottom: 16px; }
+    .qnum { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; margin-bottom: 8px; }
+    .qtext { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #5c2318; margin-bottom: 16px; line-height: 1.4; }
+    .opt { display: block; width: 100%; text-align: left; background: #fdfaf6; border: 1px solid #e8d9c4; border-radius: 12px; padding: 13px 16px; font-family: 'Lato', sans-serif; font-size: .95rem; color: #4a3728; cursor: pointer; margin-bottom: 9px; transition: all .16s; }
+    .opt:last-child { margin-bottom: 0; }
+    .opt:hover { border-color: #c4967a; }
+    .opt.on { background: #c4967a; border-color: #c4967a; color: #fff; }
+
+    .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 50px; font-family: 'Playfair Display', serif; font-size: 1.02rem; cursor: pointer; transition: background .2s, transform .1s; margin-top: 6px; }
+    .btn:hover { background: #7a2f21; }
+    .btn[disabled] { opacity: .4; cursor: default; }
+    .btn-soft { display: inline-block; padding: 12px 26px; background: transparent; border: 1.5px solid #c4967a; color: #5c2318; border-radius: 50px; font-size: .9rem; cursor: pointer; text-decoration: none; font-family: 'Lato', sans-serif; }
+    .btn-soft:hover { background: #c4967a; color: #fff; }
+
+    .field { width: 100%; background: #fff; border: 1px solid #e8d9c4; border-radius: 12px; padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 1rem; color: #4a3728; outline: none; margin-bottom: 10px; }
+    .field:focus { border-color: #c4967a; }
+    .fineprint { font-size: .8rem; color: #9a7d6e; text-align: center; margin-top: 12px; font-style: italic; }
+    .err { color: #b23b2e; font-size: .85rem; text-align: center; margin-top: 8px; min-height: 18px; }
+
+    .result-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: #c4967a; text-align: center; margin-bottom: 10px; }
+    .card { background: #fff; border-radius: 20px; padding: 28px 26px; box-shadow: 0 4px 32px rgba(92,35,24,0.07); margin-bottom: 18px; }
+    .card p { margin-bottom: 12px; }
+    .card p:last-child { margin-bottom: 0; }
+
+    .player { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 32px rgba(92,35,24,0.07); margin-bottom: 18px; text-align: center; }
+    .player .ptitle { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; margin-bottom: 4px; }
+    .player .psub { font-size: .85rem; color: #9a7d6e; font-style: italic; margin-bottom: 16px; }
+    audio { width: 100%; }
+
+    .offer { background: linear-gradient(135deg, #f6ede1, #faf5ee); border: 1px solid #e8d9c4; border-radius: 20px; padding: 30px 26px; text-align: center; }
+    .offer h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1.3rem; color: #5c2318; margin-bottom: 10px; }
+    .offer p { color: #6b5144; font-size: .96rem; margin-bottom: 18px; }
+    .sign { font-family: 'Playfair Display', serif; font-style: italic; color: #c4967a; text-align: center; margin-top: 22px; }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <!-- STEP 1 — QUIZ -->
+    <div class="step on" id="s1">
+      <span class="tag">A Reset Practice</span>
+      <div class="ring"></div>
+      <h1>What is your tired actually telling you?</h1>
+      <p class="lede">Five quick questions. Then a ten minute practice made for the kind of tired you carry.</p>
+      <div id="quiz"></div>
+      <button class="btn" id="toEmail" disabled>See what mine is telling me</button>
+    </div>
+
+    <!-- STEP 2 — EMAIL -->
+    <div class="step" id="s2">
+      <span class="tag">Almost there</span>
+      <div class="ring"></div>
+      <h1>Where shall I send your reset?</h1>
+      <p class="lede">Your result and the practice open on the next screen. I will also send you the free workshop that goes deeper.</p>
+      <div class="qcard">
+        <input class="field" id="fn" type="text" placeholder="First name" autocomplete="given-name">
+        <input class="field" id="em" type="email" placeholder="Email" autocomplete="email">
+        <button class="btn" id="submit">Show me my result</button>
+        <div class="err" id="err"></div>
+        <p class="fineprint">No spam. Leave any time.</p>
+      </div>
+    </div>
+
+    <!-- STEP 3 — RESULT + AUDIO + OFFER -->
+    <div class="step" id="s3">
+      <span class="tag">Your result</span>
+      <div class="result-name" id="rname"></div>
+      <div class="card" id="rbody"></div>
+
+      <div class="player">
+        <div class="ptitle">A Reset For When Rest Is Not Working</div>
+        <div class="psub">Ten minutes. Headphones if you have them. You do not need to do it well.</div>
+        <audio controls preload="none" src="/reset-practice.m4a"></audio>
+      </div>
+
+      <div class="offer">
+        <h2>When you are ready to go deeper</h2>
+        <p>This practice is a doorway. The free workshop, From Exhaustion to Embodied, is where the real work begins. Forty five minutes on why rest is not restoring you, and what actually changes it.</p>
+        <a class="btn-soft" href="/webinar">Watch the free workshop</a>
+      </div>
+
+      <p class="sign">Big love Melissa x</p>
+    </div>
+
+  </div>
+
+  <script>
+    var QUESTIONS = [
+      { q: "When you finally have an empty hour, you...", a: [
+        ["fill it doing something for someone else", "giver"],
+        ["tidy, organise, get ahead on things", "controller"],
+        ["check what everyone else needs first", "pleaser"],
+        ["start the next project", "achiever"],
+        ["cannot settle, feel you should be doing something", "braced"]
+      ]},
+      { q: "The thought that runs most often is...", a: [
+        ["if I do not do it, no one will", "controller"],
+        ["I do not want to let anyone down", "pleaser"],
+        ["I should be further along by now", "achiever"],
+        ["I am fine, I will rest later", "giver"],
+        ["something is about to go wrong", "braced"]
+      ]},
+      { q: "In a group, you are usually...", a: [
+        ["the one making sure everyone is okay", "giver"],
+        ["the one holding the plan together", "controller"],
+        ["the one adjusting to keep the peace", "pleaser"],
+        ["the one pushing things forward", "achiever"],
+        ["the one quietly on alert", "braced"]
+      ]},
+      { q: "Rest feels...", a: [
+        ["selfish, there is always someone who needs me", "giver"],
+        ["unsafe, things slip when I stop", "controller"],
+        ["like something I have to earn", "achiever"],
+        ["fine in theory, I just never get to it", "pleaser"],
+        ["impossible, my body will not switch off", "braced"]
+      ]},
+      { q: "At the end of a hard day, what is loudest...", a: [
+        ["the resentment I swallowed", "giver"],
+        ["the list of what is still not done", "controller"],
+        ["replaying a conversation, did I upset someone", "pleaser"],
+        ["I did not get enough done", "achiever"],
+        ["a tight chest, bracing for tomorrow", "braced"]
+      ]}
+    ];
+
+    var RESULTS = {
+      giver: {
+        name: "The Over Giver's Tired",
+        body: "<p>You are tired because you have been pouring yourself out, for everyone, for a long time, and quietly hoping someone would notice you were running low.</p><p>This is not generosity gone wrong. It is a pattern that learned early that your needs came second, and that being needed was the safest way to be loved. So you give, and give, and call the emptiness afterwards normal.</p><p>The practice below is ten minutes where nobody needs anything from you. Let that be the whole point.</p>"
+      },
+      controller: {
+        name: "The Controller's Tired",
+        body: "<p>You are tired because you are holding a great deal, and some part of you believes that if you put any of it down, it will fall.</p><p>That belief is old. Somewhere back down the line you learned that things were only safe if you were watching them. So your body never fully stops scanning, even when you are still.</p><p>The practice below asks nothing of you except to feel the ground hold you for ten minutes. It has been holding you the whole time.</p>"
+      },
+      pleaser: {
+        name: "The Pleaser's Tired",
+        body: "<p>You are tired because you spend your days reading every room, sensing what people need, and quietly becoming it, often before anyone has asked.</p><p>It kept you safe once. Being easy, being agreeable, being no trouble. But it means you are always slightly turned away from yourself, and that is exhausting in a way sleep cannot reach.</p><p>The practice below is ten minutes with no room to read. Just you, and your own breath, and permission to stop performing being fine.</p>"
+      },
+      achiever: {
+        name: "The Achiever's Tired",
+        body: "<p>You are tired because you reach the thing, and instead of landing, you are already scanning for the next one. You never quite arrive.</p><p>Underneath is a belief that rest has to be earned, and that your worth is tied to how much you produce. So even your stillness has a task in it.</p><p>The practice below has no outcome. Nothing to complete. Ten minutes where being here is enough, which might feel strange, and is exactly the point.</p>"
+      },
+      braced: {
+        name: "The Braced Tired",
+        body: "<p>You are tired because you wake up already tense. Before your eyes are open, your body is scanning for what might go wrong today.</p><p>This is a nervous system that has been on guard for a long time, holding a survival pattern it learned when the world did not feel safe. Rest cannot land on top of that bracing.</p><p>The practice below is ten minutes of teaching your body one moment of safety. Small, and repeated, is how the bracing softens.</p>"
+      }
+    };
+
+    // build quiz
+    var scores = {};
+    var picks = {};
+    var quizEl = document.getElementById('quiz');
+    QUESTIONS.forEach(function (item, qi) {
+      var c = document.createElement('div');
+      c.className = 'qcard';
+      var h = '<div class="qnum">Question ' + (qi + 1) + ' of 5</div><div class="qtext">' + item.q + '</div>';
+      item.a.forEach(function (opt, oi) {
+        h += '<button class="opt" data-q="' + qi + '" data-tag="' + opt[1] + '" data-oi="' + oi + '">' + opt[0] + '</button>';
+      });
+      c.innerHTML = h;
+      quizEl.appendChild(c);
+    });
+
+    quizEl.addEventListener('click', function (e) {
+      var b = e.target.closest('.opt');
+      if (!b) return;
+      var qi = b.dataset.q;
+      b.parentNode.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      picks[qi] = b.dataset.tag;
+      document.getElementById('toEmail').disabled = Object.keys(picks).length < QUESTIONS.length;
+    });
+
+    function show(id) {
+      document.querySelectorAll('.step').forEach(function (s) { s.classList.remove('on'); });
+      document.getElementById(id).classList.add('on');
+      window.scrollTo(0, 0);
+    }
+
+    document.getElementById('toEmail').addEventListener('click', function () {
+      if (Object.keys(picks).length < QUESTIONS.length) return;
+      show('s2');
+    });
+
+    function winner() {
+      var t = {};
+      Object.values(picks).forEach(function (tag) { t[tag] = (t[tag] || 0) + 1; });
+      var best = null, n = -1;
+      // preserve question order as tiebreak: first-picked leading tag wins
+      var order = ['giver', 'controller', 'pleaser', 'achiever', 'braced'];
+      order.forEach(function (k) { if ((t[k] || 0) > n) { n = t[k] || 0; best = k; } });
+      return best;
+    }
+
+    document.getElementById('submit').addEventListener('click', function () {
+      var fn = document.getElementById('fn').value.trim();
+      var em = document.getElementById('em').value.trim();
+      var err = document.getElementById('err');
+      if (!fn) { err.textContent = 'Your first name please.'; return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { err.textContent = 'That email does not look right.'; return; }
+      err.textContent = '';
+      this.disabled = true; this.textContent = 'One moment...';
+      var self = this;
+
+      var res = RESULTS[winner()];
+      document.getElementById('rname').textContent = res.name;
+      document.getElementById('rbody').innerHTML = res.body;
+
+      fetch('/api/webinar-register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName: fn, email: em })
+      }).then(function () {}).catch(function () {}).finally(function () {
+        show('s3');
+        self.disabled = false; self.textContent = 'Show me my result';
+      });
+    });
+  </script>
+</body>
+</html>
