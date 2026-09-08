@@ -136,7 +136,7 @@ function protectMemberContent(req, res, next) {
   if (PUBLIC_ROUTES.has(req.path)) return next();
   if (PUBLIC_API_PREFIXES.some(p => req.path.startsWith(p))) return next();
   // Allow static assets (images, audio, fonts, manifests — not HTML pages)
-  if (/\.(css|js|png|jpg|jpeg|gif|svg|ico|mp3|m4a|wav|woff|woff2|ttf|json|webmanifest)$/i.test(req.path)) return next();
+  if (/\.(css|js|png|jpg|jpeg|gif|svg|ico|mp3|m4a|wav|mp4|webm|mov|woff|woff2|ttf|json|webmanifest)$/i.test(req.path)) return next();
   requireAuth(req, res, next);
 }
 
