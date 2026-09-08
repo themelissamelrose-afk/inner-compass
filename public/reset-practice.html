@@ -66,7 +66,7 @@
       <span class="tag">A Reset Practice</span>
       <div class="ring"></div>
       <h1>What is your tired actually telling you?</h1>
-      <p class="lede">Five quick questions. Then a ten minute practice made for the kind of tired you carry.</p>
+      <p class="lede">Five quick questions to name the survival pattern underneath your exhaustion. Then a ten minute practice made for it.</p>
       <div id="quiz"></div>
       <button class="btn" id="toEmail" disabled>See what mine is telling me</button>
     </div>
@@ -112,62 +112,62 @@
   <script>
     var QUESTIONS = [
       { q: "When you finally have an empty hour, you...", a: [
-        ["fill it doing something for someone else", "giver"],
-        ["tidy, organise, get ahead on things", "controller"],
         ["check what everyone else needs first", "pleaser"],
+        ["do something for someone else with it", "giver"],
+        ["get ahead on things so nothing slips", "functioner"],
         ["start the next project", "achiever"],
-        ["cannot settle, feel you should be doing something", "braced"]
+        ["catch up on messages you have been meaning to explain properly", "explainer"]
       ]},
       { q: "The thought that runs most often is...", a: [
-        ["if I do not do it, no one will", "controller"],
         ["I do not want to let anyone down", "pleaser"],
-        ["I should be further along by now", "achiever"],
         ["I am fine, I will rest later", "giver"],
-        ["something is about to go wrong", "braced"]
+        ["if I do not hold it, it falls apart", "functioner"],
+        ["I should be further along by now", "achiever"],
+        ["I need to make sure they understood what I meant", "explainer"]
       ]},
       { q: "In a group, you are usually...", a: [
-        ["the one making sure everyone is okay", "giver"],
-        ["the one holding the plan together", "controller"],
-        ["the one adjusting to keep the peace", "pleaser"],
+        ["the one adjusting to keep everyone comfortable", "pleaser"],
+        ["the one making sure everyone is looked after", "giver"],
+        ["the one holding the plan together", "functioner"],
         ["the one pushing things forward", "achiever"],
-        ["the one quietly on alert", "braced"]
+        ["the one clarifying and smoothing what was said", "explainer"]
       ]},
-      { q: "Rest feels...", a: [
-        ["selfish, there is always someone who needs me", "giver"],
-        ["unsafe, things slip when I stop", "controller"],
-        ["like something I have to earn", "achiever"],
-        ["fine in theory, I just never get to it", "pleaser"],
-        ["impossible, my body will not switch off", "braced"]
+      { q: "What exhausts you most is...", a: [
+        ["being whatever everyone needs me to be", "pleaser"],
+        ["giving so much there is nothing left for me", "giver"],
+        ["carrying things that are not mine to carry", "functioner"],
+        ["reaching the goal and immediately needing the next", "achiever"],
+        ["the running commentary in my head defending myself", "explainer"]
       ]},
-      { q: "At the end of a hard day, what is loudest...", a: [
-        ["the resentment I swallowed", "giver"],
-        ["the list of what is still not done", "controller"],
-        ["replaying a conversation, did I upset someone", "pleaser"],
-        ["I did not get enough done", "achiever"],
-        ["a tight chest, bracing for tomorrow", "braced"]
+      { q: "Saying no, or leaving something unexplained, feels...", a: [
+        ["like I have let someone down", "pleaser"],
+        ["selfish, someone needs me", "giver"],
+        ["unsafe, I need to stay on top of it", "functioner"],
+        ["like I am falling behind", "achiever"],
+        ["like I will be misunderstood", "explainer"]
       ]}
     ];
 
     var RESULTS = {
-      giver: {
-        name: "The Over Giver's Tired",
-        body: "<p>You are tired because you have been pouring yourself out, for everyone, for a long time, and quietly hoping someone would notice you were running low.</p><p>This is not generosity gone wrong. It is a pattern that learned early that your needs came second, and that being needed was the safest way to be loved. So you give, and give, and call the emptiness afterwards normal.</p><p>The practice below is ten minutes where nobody needs anything from you. Let that be the whole point.</p>"
-      },
-      controller: {
-        name: "The Controller's Tired",
-        body: "<p>You are tired because you are holding a great deal, and some part of you believes that if you put any of it down, it will fall.</p><p>That belief is old. Somewhere back down the line you learned that things were only safe if you were watching them. So your body never fully stops scanning, even when you are still.</p><p>The practice below asks nothing of you except to feel the ground hold you for ten minutes. It has been holding you the whole time.</p>"
-      },
       pleaser: {
-        name: "The Pleaser's Tired",
-        body: "<p>You are tired because you spend your days reading every room, sensing what people need, and quietly becoming it, often before anyone has asked.</p><p>It kept you safe once. Being easy, being agreeable, being no trouble. But it means you are always slightly turned away from yourself, and that is exhausting in a way sleep cannot reach.</p><p>The practice below is ten minutes with no room to read. Just you, and your own breath, and permission to stop performing being fine.</p>"
+        name: "The People Pleaser",
+        body: "<p>You are tired because you spend your days sensing what everyone around you needs, and quietly becoming it, often before they have asked.</p><p>It is a strategy your nervous system built a long time ago. If you stay agreeable, easy, no trouble, you stay safe and you stay wanted. So you manage everyone's comfort and lose track of your own. It is a way of staying in control of whether you are loved.</p><p>The practice below is ten minutes with no room to read and no one to please. Just you and your own breath.</p>"
+      },
+      giver: {
+        name: "The Over Giver",
+        body: "<p>You are tired because you have been pouring yourself out, for everyone, for a long time, and quietly hoping someone would notice you were running low.</p><p>This is not generosity gone wrong. It is a strategy. Somewhere early you learned that your needs came second, and that being needed was the safest way to be loved. Giving is also a way to stay in control of the connection. If they need you, they will not leave.</p><p>The practice below is ten minutes where nobody needs anything from you. Let that be the whole point.</p>"
+      },
+      functioner: {
+        name: "The Over Functioner",
+        body: "<p>You are tired because you are holding a great deal, and some part of you believes that if you put any of it down, it will fall.</p><p>That belief is old. You learned that things were only safe when you were the one watching them. Functioning is control made into a habit. It has kept things from falling apart, and it has kept you from rest.</p><p>The practice below asks nothing of you except to feel the ground hold you for ten minutes. It has been holding you the whole time.</p>"
       },
       achiever: {
-        name: "The Achiever's Tired",
-        body: "<p>You are tired because you reach the thing, and instead of landing, you are already scanning for the next one. You never quite arrive.</p><p>Underneath is a belief that rest has to be earned, and that your worth is tied to how much you produce. So even your stillness has a task in it.</p><p>The practice below has no outcome. Nothing to complete. Ten minutes where being here is enough, which might feel strange, and is exactly the point.</p>"
+        name: "The High Achiever",
+        body: "<p>You are tired because you reach the thing, and instead of landing, you are already scanning for the next one. You never quite arrive.</p><p>Underneath is a belief that rest has to be earned, and that your worth is measured in what you produce. Achieving is a way to stay in control of your value. If you keep proving it, it cannot be taken.</p><p>The practice below has no outcome. Nothing to complete. Ten minutes where being here is enough.</p>"
       },
-      braced: {
-        name: "The Braced Tired",
-        body: "<p>You are tired because you wake up already tense. Before your eyes are open, your body is scanning for what might go wrong today.</p><p>This is a nervous system that has been on guard for a long time, holding a survival pattern it learned when the world did not feel safe. Rest cannot land on top of that bracing.</p><p>The practice below is ten minutes of teaching your body one moment of safety. Small, and repeated, is how the bracing softens.</p>"
+      explainer: {
+        name: "The Over Explainer",
+        body: "<p>You are tired because you are always making sure you have been understood. Adding the extra sentence. Softening it. Going back to clarify so no one can be upset with you.</p><p>It is a strategy. You learned that being misread or misjudged was not safe, so you narrate and justify and manage how you land in other people's minds. It is a way of trying to control what others think of you, and it runs long after the conversation is over.</p><p>The practice below is ten minutes where nothing needs explaining. Nobody is misreading you. You can put the commentary down.</p>"
       }
     };
 
@@ -212,7 +212,7 @@
       Object.values(picks).forEach(function (tag) { t[tag] = (t[tag] || 0) + 1; });
       var best = null, n = -1;
       // preserve question order as tiebreak: first-picked leading tag wins
-      var order = ['giver', 'controller', 'pleaser', 'achiever', 'braced'];
+      var order = ['pleaser', 'giver', 'functioner', 'achiever', 'explainer'];
       order.forEach(function (k) { if ((t[k] || 0) > n) { n = t[k] || 0; best = k; } });
       return best;
     }
