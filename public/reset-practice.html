@@ -234,7 +234,7 @@
       fetch('/api/webinar-register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName: fn, email: em })
+        body: JSON.stringify({ firstName: fn, email: em, pattern: res.name })
       }).then(function () {}).catch(function () {}).finally(function () {
         show('s3');
         self.disabled = false; self.textContent = 'Show me my result';

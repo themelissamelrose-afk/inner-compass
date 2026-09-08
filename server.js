@@ -88,11 +88,12 @@ app.get('/webinar', (req, res) => {
 
 // Webinar registration API
 app.post('/api/webinar-register', async (req, res) => {
-  const { firstName, email } = req.body;
+  const { firstName, email, pattern } = req.body;
   if (!firstName || !email) return res.status(400).json({ error: 'Missing fields' });
 
   try {
-    await addToMailerLite(firstName, email, 'MAILERLITE_WEBINAR_GROUP_ID');
+    const extra = pattern ? { pattern: String(pattern).slice(0, 60) } : {};
+    await addToMailerLite(firstName, email, 'MAILERLITE_WEBINAR_GROUP_ID', extra);
     res.json({ ok: true });
   } catch (e) {
     console.error('Webinar register error:', e.message);
@@ -535,7 +536,7 @@ app.get('/api/logout', (req, res) => {
 });
 
 // Add subscriber to MailerLite
-async function addToMailerLite(name, email, groupEnvKey) {
+async function addToMailerLite(name, email, groupEnvKey, extraFields = {}) {
   try {
     const firstName = name.split(' ')[0];
     const groupId = process.env[groupEnvKey] || process.env.MAILERLITE_GROUP_ID;
@@ -548,7 +549,7 @@ async function addToMailerLite(name, email, groupEnvKey) {
       },
       body: JSON.stringify({
         email,
-        fields: { name: firstName },
+        fields: { name: firstName, ...extraFields },
         groups,
       }),
     });
