@@ -853,8 +853,7 @@
       });
 
       if (res.ok) {
-        document.getElementById('formArea').style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
+        window.location.href = '/workshop';
       } else {
         alert('Something went wrong. Please try again.');
         btn.disabled = false;

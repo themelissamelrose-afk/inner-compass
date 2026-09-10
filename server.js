@@ -83,7 +83,7 @@ app.get('/subscribe', (req, res) => {
 
 // Webinar registration page (public)
 app.get('/webinar', (req, res) => {
-  res.redirect(301, '/workshop');
+  res.sendFile(path.join(__dirname, 'public', 'webinar.html'));
 });
 
 // Webinar registration API
