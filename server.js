@@ -129,7 +129,7 @@ const PUBLIC_ROUTES = new Set([
   '/week4-nervous-system', '/week5-flip-it', '/week6-shame',
   '/kids-daily-feels', '/kids-hello-body',
   '/full-moon-pisces', '/pisces-meditation', '/full-moon-journal',
-  '/beneath-the-pattern', '/reflect', '/reset', '/workshop',
+  '/beneath-the-pattern', '/reflect', '/reset', '/reset-audio', '/workshop',
 ]);
 const PUBLIC_API_PREFIXES = ['/api/login', '/api/register', '/api/webinar-register', '/api/subscribe', '/api/webhook', '/api/activate', '/api/admin', '/api/quiz-register'];
 
@@ -871,6 +871,10 @@ app.get('/reflect', (req, res) => {
 
 app.get('/reset', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'reset-practice.html'));
+});
+
+app.get('/reset-audio', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'reset-audio.html'));
 });
 
 app.get('/workshop', (req, res) => {
