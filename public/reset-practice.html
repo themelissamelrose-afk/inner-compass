@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Reset For When Rest Is Not Working | Melissa Melrose</title>
+  <title>Survival Pattern Quiz | Melissa Melrose</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +33,7 @@
     .btn { display: block; width: 100%; padding: 16px; background: #5c2318; color: #fff; border: none; border-radius: 50px; font-family: 'Playfair Display', serif; font-size: 1.02rem; cursor: pointer; transition: background .2s, transform .1s; margin-top: 6px; }
     .btn:hover { background: #7a2f21; }
     .btn[disabled] { opacity: .4; cursor: default; }
-    .btn-soft { display: inline-block; padding: 12px 26px; background: transparent; border: 1.5px solid #c4967a; color: #5c2318; border-radius: 50px; font-size: .9rem; cursor: pointer; text-decoration: none; font-family: 'Lato', sans-serif; }
+    .btn-soft { display: inline-block; padding: 13px 28px; background: transparent; border: 1.5px solid #c4967a; color: #5c2318; border-radius: 50px; font-size: .9rem; cursor: pointer; text-decoration: none; font-family: 'Lato', sans-serif; }
     .btn-soft:hover { background: #c4967a; color: #fff; }
 
     .field { width: 100%; background: #fff; border: 1px solid #e8d9c4; border-radius: 12px; padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 1rem; color: #4a3728; outline: none; margin-bottom: 10px; }
@@ -41,15 +41,13 @@
     .fineprint { font-size: .8rem; color: #9a7d6e; text-align: center; margin-top: 12px; font-style: italic; }
     .err { color: #b23b2e; font-size: .85rem; text-align: center; margin-top: 8px; min-height: 18px; }
 
-    .result-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: #c4967a; text-align: center; margin-bottom: 10px; }
+    .result-arch { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 5vw, 2.5rem); color: #5c2318; text-align: center; margin-bottom: 2px; }
+    .result-name { font-size: .8rem; letter-spacing: 3px; text-transform: uppercase; color: #c4967a; text-align: center; margin-bottom: 18px; }
     .card { background: #fff; border-radius: 20px; padding: 28px 26px; box-shadow: 0 4px 32px rgba(92,35,24,0.07); margin-bottom: 18px; }
     .card p { margin-bottom: 12px; }
     .card p:last-child { margin-bottom: 0; }
-
-    .player { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 32px rgba(92,35,24,0.07); margin-bottom: 18px; text-align: center; }
-    .player .ptitle { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #5c2318; margin-bottom: 4px; }
-    .player .psub { font-size: .85rem; color: #9a7d6e; font-style: italic; margin-bottom: 16px; }
-    audio { width: 100%; }
+    .guide { text-align: center; font-size: .9rem; margin-bottom: 22px; }
+    .guide a { color: #5c2318; }
 
     .offer { background: linear-gradient(135deg, #f6ede1, #faf5ee); border: 1px solid #e8d9c4; border-radius: 20px; padding: 30px 26px; text-align: center; }
     .offer h2 { font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1.3rem; color: #5c2318; margin-bottom: 10px; }
@@ -61,47 +59,41 @@
 
   <div class="wrap">
 
-    <!-- STEP 1 — QUIZ -->
+    <!-- STEP 1 — EMAIL -->
     <div class="step on" id="s1">
-      <span class="tag">A Reset Practice</span>
+      <span class="tag">Survival Pattern Quiz</span>
       <div class="ring"></div>
       <h1>What is your tired actually telling you?</h1>
-      <p class="lede">Five quick questions to name the survival pattern underneath your exhaustion. Then a ten minute practice made for it.</p>
-      <div id="quiz"></div>
-      <button class="btn" id="toEmail" disabled>See what mine is telling me</button>
-    </div>
-
-    <!-- STEP 2 — EMAIL -->
-    <div class="step" id="s2">
-      <span class="tag">Almost there</span>
-      <div class="ring"></div>
-      <h1>Where shall I send your reset?</h1>
-      <p class="lede">Your result and the practice open on the next screen. I will also send you the free workshop that goes deeper.</p>
+      <p class="lede">Five questions to name the survival pattern underneath your exhaustion. Enter your details and I will send your result, the free guide, and a ten minute reset practice.</p>
       <div class="qcard">
         <input class="field" id="fn" type="text" placeholder="First name" autocomplete="given-name">
         <input class="field" id="em" type="email" placeholder="Email" autocomplete="email">
-        <button class="btn" id="submit">Show me my result</button>
+        <button class="btn" id="startQuiz">Start the quiz</button>
         <div class="err" id="err"></div>
         <p class="fineprint">No spam. Leave any time.</p>
       </div>
     </div>
 
-    <!-- STEP 3 — RESULT + AUDIO + OFFER -->
+    <!-- STEP 2 — QUIZ -->
+    <div class="step" id="s2">
+      <span class="tag">Survival Pattern Quiz</span>
+      <div id="quiz"></div>
+      <button class="btn" id="seeResult" disabled>See my result</button>
+    </div>
+
+    <!-- STEP 3 — RESULT + REST PRACTICE -->
     <div class="step" id="s3">
       <span class="tag">Your result</span>
+      <div class="result-arch" id="rarch"></div>
       <div class="result-name" id="rname"></div>
       <div class="card" id="rbody"></div>
 
-      <div class="player">
-        <div class="ptitle">A Reset For When Rest Is Not Working</div>
-        <div class="psub">Ten minutes. Headphones if you have them. You do not need to do it well.</div>
-        <audio controls preload="none" src="/reset-practice.m4a"></audio>
-      </div>
+      <p class="guide">Your free guide: <a id="guideLink" href="https://drive.google.com/file/d/1dimd5D643aIho0w8YSqTzp8Kq-lSkhod/view" target="_blank" rel="noopener">The 5 Survival Patterns</a></p>
 
       <div class="offer">
-        <h2>When you are ready to go deeper</h2>
-        <p>This practice is a doorway. The free workshop, From Exhaustion to Embodied, is where the real work begins. Forty five minutes on why rest is not restoring you, and what actually changes it.</p>
-        <a class="btn-soft" href="/workshop">Watch the free workshop</a>
+        <h2>Now, your reset practice</h2>
+        <p>Ten minutes, my voice, made for exactly this kind of tired. It is the first step back into your body.</p>
+        <a class="btn-soft" href="/reset-audio">Go to the reset practice</a>
       </div>
 
       <p class="sign">Big love Melissa x</p>
@@ -150,29 +142,62 @@
 
     var RESULTS = {
       pleaser: {
-        name: "The People Pleaser",
-        body: "<p>You are tired because you spend your days sensing what everyone around you needs, and quietly becoming it, often before they have asked.</p><p>It is a strategy your nervous system built a long time ago. If you stay agreeable, easy, no trouble, you stay safe and you stay wanted. So you manage everyone's comfort and lose track of your own. It is a way of staying in control of whether you are loved.</p><p>The practice below is ten minutes with no room to read and no one to please. Just you and your own breath.</p>"
+        arch: "The Harmoniser",
+        name: "People Pleaser",
+        body: "<p>You are tired because you spend your days sensing what everyone around you needs, and quietly becoming it, often before they have asked.</p><p>It is a strategy your nervous system built a long time ago. If you stay agreeable, easy, no trouble, you stay safe and you stay wanted. So you manage everyone's comfort and lose track of your own. It is a way of staying in control of whether you are loved.</p><p>The reset practice is ten minutes with no room to read and no one to please. Just you and your own breath.</p>"
       },
       giver: {
-        name: "The Over Giver",
-        body: "<p>You are tired because you have been pouring yourself out, for everyone, for a long time, and quietly hoping someone would notice you were running low.</p><p>This is not generosity gone wrong. It is a strategy. Somewhere early you learned that your needs came second, and that being needed was the safest way to be loved. Giving is also a way to stay in control of the connection. If they need you, they will not leave.</p><p>The practice below is ten minutes where nobody needs anything from you. Let that be the whole point.</p>"
+        arch: "The Nurturer",
+        name: "Over Giver",
+        body: "<p>You are tired because you have been pouring yourself out, for everyone, for a long time, and quietly hoping someone would notice you were running low.</p><p>This is not generosity gone wrong. It is a strategy. Somewhere early you learned that your needs came second, and that being needed was the safest way to be loved. Giving is also a way to stay in control of the connection. If they need you, they will not leave.</p><p>The reset practice is ten minutes where nobody needs anything from you. Let that be the whole point.</p>"
       },
       functioner: {
-        name: "The Over Functioner",
-        body: "<p>You are tired because you are holding a great deal, and some part of you believes that if you put any of it down, it will fall.</p><p>That belief is old. You learned that things were only safe when you were the one watching them. Functioning is control made into a habit. It has kept things from falling apart, and it has kept you from rest.</p><p>The practice below asks nothing of you except to feel the ground hold you for ten minutes. It has been holding you the whole time.</p>"
+        arch: "The Protector",
+        name: "Over Functioner",
+        body: "<p>You are tired because you are holding a great deal, and some part of you believes that if you put any of it down, it will fall.</p><p>That belief is old. You learned that things were only safe when you were the one watching them. Functioning is control made into a habit. It has kept things from falling apart, and it has kept you from rest.</p><p>The reset practice asks nothing of you except to feel the ground hold you for ten minutes. It has been holding you the whole time.</p>"
       },
       achiever: {
-        name: "The High Achiever",
-        body: "<p>You are tired because you reach the thing, and instead of landing, you are already scanning for the next one. You never quite arrive.</p><p>Underneath is a belief that rest has to be earned, and that your worth is measured in what you produce. Achieving is a way to stay in control of your value. If you keep proving it, it cannot be taken.</p><p>The practice below has no outcome. Nothing to complete. Ten minutes where being here is enough.</p>"
+        arch: "The Achiever",
+        name: "High Achiever",
+        body: "<p>You are tired because you reach the thing, and instead of landing, you are already scanning for the next one. You never quite arrive.</p><p>Underneath is a belief that rest has to be earned, and that your worth is measured in what you produce. Achieving is a way to stay in control of your value. If you keep proving it, it cannot be taken.</p><p>The reset practice has no outcome. Nothing to complete. Ten minutes where being here is enough.</p>"
       },
       explainer: {
-        name: "The Over Explainer",
-        body: "<p>You are tired because you are always making sure you have been understood. Adding the extra sentence. Softening it. Going back to clarify so no one can be upset with you.</p><p>It is a strategy. You learned that being misread or misjudged was not safe, so you narrate and justify and manage how you land in other people's minds. It is a way of trying to control what others think of you, and it runs long after the conversation is over.</p><p>The practice below is ten minutes where nothing needs explaining. Nobody is misreading you. You can put the commentary down.</p>"
+        arch: "The Justifier",
+        name: "Over Explainer",
+        body: "<p>You are tired because you are always making sure you have been understood. Adding the extra sentence. Softening it. Going back to clarify so no one can be upset with you.</p><p>It is a strategy. You learned that being misread or misjudged was not safe, so you narrate and justify and manage how you land in other people's minds. It is a way of trying to control what others think of you, and it runs long after the conversation is over.</p><p>The reset practice is ten minutes where nothing needs explaining. Nobody is misreading you. You can put the commentary down.</p>"
       }
     };
 
-    // build quiz
-    var scores = {};
+    var lead = { fn: '', em: '' };
+
+    function show(id) {
+      document.querySelectorAll('.step').forEach(function (s) { s.classList.remove('on'); });
+      document.getElementById(id).classList.add('on');
+      window.scrollTo(0, 0);
+    }
+
+    function register(extra) {
+      fetch('/api/webinar-register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({ firstName: lead.fn, email: lead.em }, extra || {}))
+      }).catch(function () {});
+    }
+
+    // STEP 1 — capture email, then start the quiz
+    document.getElementById('startQuiz').addEventListener('click', function () {
+      var fn = document.getElementById('fn').value.trim();
+      var em = document.getElementById('em').value.trim();
+      var err = document.getElementById('err');
+      if (!fn) { err.textContent = 'Your first name please.'; return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { err.textContent = 'That email does not look right.'; return; }
+      err.textContent = '';
+      lead.fn = fn; lead.em = em;
+      register();
+      show('s2');
+    });
+
+    // STEP 2 — build the quiz
     var picks = {};
     var quizEl = document.getElementById('quiz');
     QUESTIONS.forEach(function (item, qi) {
@@ -189,56 +214,30 @@
     quizEl.addEventListener('click', function (e) {
       var b = e.target.closest('.opt');
       if (!b) return;
-      var qi = b.dataset.q;
       b.parentNode.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('on'); });
       b.classList.add('on');
-      picks[qi] = b.dataset.tag;
-      document.getElementById('toEmail').disabled = Object.keys(picks).length < QUESTIONS.length;
-    });
-
-    function show(id) {
-      document.querySelectorAll('.step').forEach(function (s) { s.classList.remove('on'); });
-      document.getElementById(id).classList.add('on');
-      window.scrollTo(0, 0);
-    }
-
-    document.getElementById('toEmail').addEventListener('click', function () {
-      if (Object.keys(picks).length < QUESTIONS.length) return;
-      show('s2');
+      picks[b.dataset.q] = b.dataset.tag;
+      document.getElementById('seeResult').disabled = Object.keys(picks).length < QUESTIONS.length;
     });
 
     function winner() {
       var t = {};
       Object.values(picks).forEach(function (tag) { t[tag] = (t[tag] || 0) + 1; });
-      var best = null, n = -1;
-      // preserve question order as tiebreak: first-picked leading tag wins
       var order = ['pleaser', 'giver', 'functioner', 'achiever', 'explainer'];
+      var best = null, n = -1;
       order.forEach(function (k) { if ((t[k] || 0) > n) { n = t[k] || 0; best = k; } });
       return best;
     }
 
-    document.getElementById('submit').addEventListener('click', function () {
-      var fn = document.getElementById('fn').value.trim();
-      var em = document.getElementById('em').value.trim();
-      var err = document.getElementById('err');
-      if (!fn) { err.textContent = 'Your first name please.'; return; }
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { err.textContent = 'That email does not look right.'; return; }
-      err.textContent = '';
-      this.disabled = true; this.textContent = 'One moment...';
-      var self = this;
-
+    // STEP 3 — show result, save the pattern
+    document.getElementById('seeResult').addEventListener('click', function () {
+      if (Object.keys(picks).length < QUESTIONS.length) return;
       var res = RESULTS[winner()];
+      document.getElementById('rarch').textContent = res.arch;
       document.getElementById('rname').textContent = res.name;
       document.getElementById('rbody').innerHTML = res.body;
-
-      fetch('/api/webinar-register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName: fn, email: em, pattern: res.name })
-      }).then(function () {}).catch(function () {}).finally(function () {
-        show('s3');
-        self.disabled = false; self.textContent = 'Show me my result';
-      });
+      register({ pattern: res.arch + ' (' + res.name + ')' });
+      show('s3');
     });
   </script>
 </body>
