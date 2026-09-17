@@ -475,7 +475,7 @@ app.post('/api/webhook/sacred-sound', express.raw({ type: 'application/json' }),
           await fetch('https://connect.mailerlite.com/api/subscribers', {
             method: 'POST',
             headers: {
-              'Authorization': `Bearer ${process.env.MAILERLITE_API_TOKEN}`,
+              'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({ email, fields: { name }, groups: [groupId] })
