@@ -584,6 +584,31 @@ app.post('/api/admin/login', (req, res) => {
   res.json({ success: true, token });
 });
 
+// Admin — book a cash-paying Sacred Sound & Breath guest into the same MailerLite group as Stripe buyers
+app.post('/api/admin/sacred-sound-cash', requireAdmin, async (req, res) => {
+  const { name, email } = req.body;
+  if (!name || !email) return res.json({ error: 'Name and email required.' });
+
+  try {
+    await fetch('https://connect.mailerlite.com/api/subscribers', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        fields: { name, payment_method: 'cash' },
+        groups: ['197826596547069809'], // Sacred Sound & Breath — October 9
+      }),
+    });
+    res.json({ success: true });
+  } catch (e) {
+    console.error('Sacred Sound cash booking error:', e.message);
+    res.json({ error: 'Something went wrong.' });
+  }
+});
+
 // Admin — grant free access
 app.post('/api/admin/grant', requireAdmin, async (req, res) => {
   const { name, email } = req.body;

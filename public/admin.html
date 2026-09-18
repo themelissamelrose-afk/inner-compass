@@ -107,6 +107,19 @@
     <h1>The Inner Compass — Admin</h1>
     <p class="subtitle">Manage client access</p>
 
+    <!-- Sacred Sound & Breath cash booking -->
+    <div class="card">
+      <h2>Sacred Sound & Breath — Cash Booking</h2>
+      <p class="subtitle" style="margin-bottom:0;">For someone paying cash in person. Adds them to the same list as everyone who paid through Stripe.</p>
+      <label>Guest Name</label>
+      <input type="text" id="cash-name" placeholder="e.g. Sarah" />
+      <label>Guest Email</label>
+      <input type="email" id="cash-email" placeholder="guest@email.com" />
+      <br>
+      <button class="btn" id="cash-btn" onclick="bookCashGuest()">Add Booking</button>
+      <p id="cash-msg" class="msg"></p>
+    </div>
+
     <!-- Give free access -->
     <div class="card">
       <h2>Give Free Access to a Client</h2>
@@ -169,6 +182,38 @@
   document.getElementById('admin-pass').addEventListener('keydown', e => {
     if (e.key === 'Enter') adminLogin();
   });
+
+  async function bookCashGuest() {
+    const name = document.getElementById('cash-name').value;
+    const email = document.getElementById('cash-email').value;
+    const btn = document.getElementById('cash-btn');
+    const msg = document.getElementById('cash-msg');
+
+    if (!name || !email) { msg.className = 'msg error'; msg.textContent = 'Please fill in both fields.'; return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Adding...';
+    msg.textContent = '';
+
+    const res = await fetch('/api/admin/sacred-sound-cash', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}` },
+      body: JSON.stringify({ name, email }),
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      msg.className = 'msg success';
+      msg.textContent = 'Booking added!';
+      document.getElementById('cash-name').value = '';
+      document.getElementById('cash-email').value = '';
+    } else {
+      msg.className = 'msg error';
+      msg.textContent = data.error || 'Something went wrong.';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Add Booking';
+  }
 
   async function grantAccess() {
     const name = document.getElementById('grant-name').value;
