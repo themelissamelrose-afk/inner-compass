@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Harvest Moon · Aries Ceremony</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --deep: #120808;
+    --dark2: #1e0e08;
+    --ember: #8B2500;
+    --copper: #c4681a;
+    --gold: #d4943a;
+    --cream: #f0e8d8;
+    --flame: #e8791a;
+    --muted: rgba(240, 220, 190, 0.65);
+    --white: #ffffff;
+  }
+
+  body {
+    background: var(--deep);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(139,37,0,0.45) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(212,148,58,0.12) 0%, transparent 50%);
+    font-family: 'Lato', sans-serif;
+    color: var(--cream);
+    min-height: 100vh;
+  }
+
+  .header {
+    text-align: center;
+    padding: 52px 24px 40px;
+    position: relative;
+  }
+  .moon-badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0.9;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .header .sub {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  .moon-wrap { text-align: center; margin: 8px 0 32px; }
+  .moon {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #f5ede0, #d4a87a 60%, #8a6240);
+    box-shadow:
+      0 0 40px 12px rgba(212,148,58,0.35),
+      0 0 80px 30px rgba(196,104,26,0.18),
+      inset -12px -8px 20px rgba(0,0,0,0.3);
+    animation: moonGlow 4s ease-in-out infinite;
+    position: relative;
+  }
+  .moon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 65% 60%, rgba(0,0,0,0.35) 0%, transparent 55%);
+  }
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 40px 12px rgba(212,148,58,0.35), 0 0 80px 30px rgba(196,104,26,0.18), inset -12px -8px 20px rgba(0,0,0,0.3); }
+    50%       { box-shadow: 0 0 60px 20px rgba(212,148,58,0.5), 0 0 110px 45px rgba(196,104,26,0.25), inset -12px -8px 20px rgba(0,0,0,0.3); }
+  }
+
+  .step { display: none; max-width: 640px; margin: 0 auto; padding: 0 20px 60px; animation: fadeUp 0.5s ease; }
+  .step.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(240,220,190,0.12);
+    border-radius: 24px;
+    padding: 36px 32px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
+  }
+  .step-num {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    opacity: 0.8;
+  }
+  .step-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--white);
+    font-weight: 400;
+    margin-bottom: 16px;
+    line-height: 1.35;
+  }
+  .step-body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .highlight {
+    background: rgba(212,148,58,0.1);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--cream);
+    margin: 20px 0;
+    line-height: 1.65;
+  }
+  .prompt-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 10px;
+    opacity: 0.85;
+  }
+  textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(240,220,190,0.18);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    color: var(--cream);
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.65;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 20px;
+  }
+  textarea:focus { border-color: rgba(212,148,58,0.5); }
+  textarea::placeholder { color: rgba(240,220,190,0.3); }
+
+  .candle-wrap { text-align: center; margin: 24px 0; }
+  .candle { display: inline-block; position: relative; width: 24px; }
+  .candle-body { width: 24px; height: 80px; background: linear-gradient(to bottom, #f0e6d0, #d4c4a0); border-radius: 4px 4px 2px 2px; margin: 0 auto; }
+  .candle-wick { width: 2px; height: 12px; background: #6b5040; margin: 0 auto; border-radius: 1px; position: relative; top: 0; }
+  .flame { width: 14px; height: 22px; margin: 0 auto; position: relative; top: -2px; }
+  .flame::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 14px; height: 22px;
+    background: radial-gradient(ellipse at 50% 80%, #fff5a0 0%, #ffb830 40%, #ff7b1c 70%, transparent 100%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: flicker 1.8s ease-in-out infinite alternate;
+    filter: blur(1px);
+  }
+  @keyframes flicker {
+    0%   { transform: translateX(-50%) scaleX(1) scaleY(1) rotate(-1deg); opacity: 1; }
+    25%  { transform: translateX(-50%) scaleX(0.92) scaleY(1.05) rotate(1deg); opacity: 0.95; }
+    50%  { transform: translateX(-50%) scaleX(1.05) scaleY(0.95) rotate(-2deg); opacity: 1; }
+    75%  { transform: translateX(-50%) scaleX(0.95) scaleY(1.08) rotate(1deg); opacity: 0.97; }
+    100% { transform: translateX(-50%) scaleX(1) scaleY(1) rotate(0deg); opacity: 1; }
+  }
+
+  .breath-ring {
+    width: 150px; height: 150px; border-radius: 50%;
+    margin: 8px auto 48px;
+    background: radial-gradient(circle at 35% 35%, var(--copper), var(--ember));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: white; text-align: center;
+    cursor: pointer; transition: transform 4s ease-in-out, box-shadow 0.3s;
+    box-shadow: 0 0 40px rgba(212,148,58,0.3); line-height: 1.4;
+  }
+  .breath-ring.inhale { transform: scale(1.3); box-shadow: 0 0 60px rgba(232,121,26,0.5); }
+  .breath-ring.exhale { transform: scale(1.0); box-shadow: 0 0 40px rgba(212,148,58,0.2); }
+  .breath-count { font-size: 48px; font-weight: 700; color: var(--gold); font-family: 'Playfair Display', serif; text-align: center; min-height: 60px; line-height: 1; margin-bottom: 4px; }
+  .breath-msg { font-size: 18px; color: var(--cream); font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 6px; min-height: 26px; font-style: italic; }
+  .breath-sub { font-size: 13px; color: var(--muted); text-align: center; min-height: 18px; }
+
+  .signs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+  @media (min-width: 480px) { .signs-grid { grid-template-columns: repeat(4, 1fr); } }
+  .sign-btn {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(240,220,190,0.15);
+    border-radius: 14px; padding: 12px 8px; text-align: center; cursor: pointer;
+    transition: all 0.2s; font-family: 'Lato', sans-serif; color: var(--cream);
+    font-size: 13px; font-weight: 700;
+  }
+  .sign-btn .sign-glyph { font-size: 22px; display: block; margin-bottom: 4px; }
+  .sign-btn:hover, .sign-btn.chosen { background: rgba(212,148,58,0.14); border-color: rgba(212,148,58,0.45); color: var(--white); }
+  .sign-message {
+    display: none;
+    background: rgba(196,104,26,0.08);
+    border: 1px solid rgba(212,148,58,0.22);
+    border-radius: 18px; padding: 24px 24px; margin-top: 20px;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 16px; color: var(--cream); line-height: 1.75;
+    animation: fadeUp 0.4s ease;
+  }
+  .sign-message.open { display: block; }
+  .sign-message-name { font-style: normal; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 10px; opacity: 0.85; }
+  .reflection-box {
+    margin-top: 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,148,58,0.2);
+    border-radius: 14px; padding: 16px 18px;
+  }
+  .reflection-box .prompt-label { margin-bottom: 8px; }
+  .reflection-box textarea { margin-bottom: 0; }
+
+  .blessing {
+    background: linear-gradient(135deg, rgba(30,14,8,0.9), rgba(18,8,8,0.95));
+    border: 1px solid rgba(212,148,58,0.25);
+    border-radius: 24px; padding: 36px 32px;
+    text-align: center; margin-bottom: 20px;
+  }
+  .blessing-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--gold); margin-bottom: 20px; font-weight: 400; }
+  .blessing-text { font-family: 'Playfair Display', serif; font-size: 17px; line-height: 2; color: var(--cream); font-style: italic; }
+
+  .btn-main {
+    display: block; width: 100%;
+    background: linear-gradient(135deg, rgba(196,104,26,0.3), rgba(139,37,0,0.5));
+    border: 1px solid rgba(240,220,190,0.28);
+    color: white; border-radius: 50px; padding: 20px 32px;
+    font-size: 16px; font-weight: 700; font-family: 'Lato', sans-serif;
+    cursor: pointer; transition: all 0.2s; margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  .btn-main:hover { background: linear-gradient(135deg, rgba(196,104,26,0.42), rgba(139,37,0,0.65)); }
+  .btn-disabled { opacity: 0.3; pointer-events: none; }
+  .btn-back {
+    display: block; text-align: center; font-size: 13px;
+    color: var(--muted); cursor: pointer; background: none;
+    border: none; font-family: 'Lato', sans-serif; padding: 8px 0; width: 100%;
+  }
+  .back-link { display: block; text-align: center; margin-top: 16px; font-size: 13px; color: var(--muted); text-decoration: none; }
+  .divider { width: 40px; height: 1px; background: var(--gold); margin: 20px auto; opacity: 0.4; }
+
+  .stars { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .star { position: absolute; border-radius: 50%; background: white; animation: twinkle var(--d) ease-in-out infinite; }
+  @keyframes twinkle { 0%, 100% { opacity: var(--lo); } 50% { opacity: var(--hi); } }
+
+  .header, .step { position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="header">
+  <div class="moon-badge">September 2026 · Full Harvest Moon · Aries</div>
+  <div class="moon-wrap">
+    <div class="moon"></div>
+  </div>
+  <h1>Full Harvest Moon<br>Aries Ceremony</h1>
+  <p class="sub">I don't abandon myself to create the WE. A ceremony for claiming what is mine.</p>
+</div>
+
+<!-- S0: Welcome -->
+<div class="step active" id="s0">
+  <div class="card">
+    <div class="step-num">Opening</div>
+    <h2 class="step-q">The Harvest Moon is asking a different question this time.</h2>
+    <p class="step-body">
+      Not "what else do I need to make happen?" But something quieter and more honest.<br><br>
+      What has already grown? What is ready to be received? What am I finally willing to stop carrying forward?<br><br>
+      This is a Full Moon in Aries. Aries is the sign of the self. Of desire. Of what is mine to initiate. And with the Libra Sun opposite, the axis that holds this ceremony is one of the most personal questions we can ask: have I been abandoning myself to create the WE?<br><br>
+      This is not a ceremony for releasing other people. It is a ceremony for coming back to yourself.
+    </p>
+    <div class="highlight">"I don't create to be chosen. I create because it is true for me. And I allow what can meet me, to meet me."</div>
+    <button class="btn-main" onclick="goTo(1)">Begin the ceremony →</button>
+  </div>
+</div>
+
+<!-- S1: Set your space -->
+<div class="step" id="s1">
+  <div class="card">
+    <div class="step-num">Step 1 of 7</div>
+    <h2 class="step-q">Create your space.</h2>
+    <p class="step-body">
+      This does not need to be elaborate. It just needs to feel intentional.<br><br>
+      If you can, light a candle. Aries is a fire sign. The flame is your witness tonight.<br><br>
+      Place your feet on the ground. Let your shoulders drop. Close the apps. You are here now.
+    </p>
+    <div class="candle-wrap">
+      <div class="candle">
+        <div class="flame"></div>
+        <div class="candle-wick"></div>
+        <div class="candle-body"></div>
+      </div>
+    </div>
+    <p class="step-body" style="text-align:center; font-family:'Playfair Display',serif; font-style:italic; font-size:17px; color:var(--cream);">
+      Take one breath in.<br>Let it all the way out.<br>You have arrived.
+    </p>
+    <button class="btn-main" onclick="goTo(2)">I am here →</button>
+    <button class="btn-back" onclick="goTo(0)">← Back</button>
+  </div>
+</div>
+
+<!-- S2: The Harvest -->
+<div class="step" id="s2">
+  <div class="card">
+    <div class="step-num">Step 2 of 7</div>
+    <h2 class="step-q">The harvest. What has already grown?</h2>
+    <p class="step-body">
+      Harvest Moon energy is not about striving. It is about receiving what has already come.<br><br>
+      Before you look at what needs to change, first look at what has. The growth you have done, even quietly. Even in ways you have not named out loud.
+    </p>
+    <div class="highlight">What did I do this year that I didn't think I could?</div>
+    <div class="highlight">What shifted inside me, even if nothing outside changed?</div>
+    <div class="highlight">What am I no longer doing that used to exhaust me?</div>
+    <div class="divider"></div>
+    <div class="prompt-label">Write what has grown in you</div>
+    <textarea placeholder="Don't rush this part. Honour what is here."></textarea>
+    <button class="btn-main" onclick="goTo(3)">I have named it →</button>
+    <button class="btn-back" onclick="goTo(1)">← Back</button>
+  </div>
+</div>
+
+<!-- S3: The Release -->
+<div class="step" id="s3">
+  <div class="card">
+    <div class="step-num">Step 3 of 7</div>
+    <h2 class="step-q">What am I no longer willing to carry forward?</h2>
+    <p class="step-body">
+      The Aries and Libra axis asks us to look honestly at the places we have been doing the work of two. Creating connection where it wasn't being created back. Pursuing what wasn't pursuing us. Initiating where there was no reciprocation.<br><br>
+      This is not about blame. It is about honest witnessing.
+    </p>
+    <div class="highlight">"What am I ready to stop creating, chasing or carrying because it can only become real when two people participate?"</div>
+    <div class="prompt-label">Write what you are ready to put down</div>
+    <textarea placeholder="Be honest. This is just between you and you."></textarea>
+    <button class="btn-main" onclick="goTo(4)">I have named it →</button>
+    <button class="btn-back" onclick="goTo(2)">← Back</button>
+  </div>
+</div>
+
+<!-- S4: What Is Mine -->
+<div class="step" id="s4">
+  <div class="card">
+    <div class="step-num">Step 4 of 7</div>
+    <h2 class="step-q">What do I want to create simply because it is mine?</h2>
+    <p class="step-body">
+      This is the Aries question. Not "what will they want?" Not "what will work?" Not "what will make them stay?"<br><br>
+      What do you actually want? What is yours to initiate? Where have you been holding back your desire, your creativity, your sensuality, your voice, because you were waiting for permission, or waiting to feel chosen first?<br><br>
+      Aries doesn't wait. Aries creates.
+    </p>
+    <div class="highlight">I open the door. I take aligned action. Then I stop pushing. I watch what comes toward me.</div>
+    <div class="prompt-label">What is mine to create, desire, or initiate?</div>
+    <textarea placeholder="Let it be big. Let it be honest. Let it be entirely yours."></textarea>
+    <div class="prompt-label">Where am I ready to act from desire rather than from trying to secure a response?</div>
+    <textarea placeholder="One honest thing..."></textarea>
+    <button class="btn-main" onclick="goTo(5)">I have named what is mine →</button>
+    <button class="btn-back" onclick="goTo(3)">← Back</button>
+  </div>
+</div>
+
+<!-- S5: Fire Breath -->
+<div class="step" id="s5">
+  <div class="card">
+    <div class="step-num">Step 5 of 7</div>
+    <h2 class="step-q">Fire breath.</h2>
+    <p class="step-body" style="text-align:center;">
+      Aries is ruled by Mars. There is fire here. Let it move through you.<br>
+      Three rounds. Breathe in to build. Breathe out to release.<br>
+      Tap the circle to begin.
+    </p>
+    <div style="text-align:center; margin: 8px 0 12px;">
+      <div class="breath-ring" id="bRing" onclick="beginBreath()">Tap to<br>begin</div>
+      <p class="breath-count" id="bCountNum"></p>
+      <p class="breath-msg" id="bMsg"></p>
+      <p class="breath-sub" id="bSub"></p>
+    </div>
+    <button class="btn-main btn-disabled" id="nBreath" onclick="goTo(6)">I have breathed →</button>
+    <button class="btn-back" onclick="goTo(4)">← Back</button>
+  </div>
+</div>
+
+<!-- S6: Your sign -->
+<div class="step" id="s6">
+  <div class="card">
+    <div class="step-num">Step 6 of 7</div>
+    <h2 class="step-q">How this Full Moon is landing for you personally.</h2>
+    <p class="step-body">
+      Tap your <strong style="color:var(--gold);">Sun sign</strong> (your birthday month) or your <strong style="color:var(--copper);">Rising sign</strong> if you know it. Your rising sign tends to be even more precise because it describes which part of your chart this Full Moon is activating.<br><br>
+      Your message will show you where the ME/WE axis is asking for your attention right now.
+    </p>
+    <div class="signs-grid" id="signsGrid"></div>
+    <div class="sign-message" id="signMessage">
+      <span class="sign-message-name" id="signName"></span>
+      <div id="signText"></div>
+    </div>
+    <button class="btn-main btn-disabled" id="nSign" onclick="goTo(7)" style="margin-top:20px;">Continue →</button>
+    <button class="btn-back" onclick="goTo(5)">← Back</button>
+  </div>
+</div>
+
+<!-- S7: Closing -->
+<div class="step" id="s7">
+  <div class="blessing">
+    <div class="blessing-title">✦ Closing Intention ✦</div>
+    <p class="blessing-text">
+      I have shown up for myself tonight.<br><br>
+      I have named what has grown.<br>
+      I have named what I am ready to put down.<br>
+      I have named what is mine.<br><br>
+      I do not abandon myself to create the WE.<br><br>
+      I open the door.<br>
+      I take aligned action.<br>
+      Then I stop pushing.<br>
+      I let life show me what is capable of meeting me.<br><br>
+      I don't create to be chosen.<br>
+      I create because it is true for me.<br>
+      And I allow what can meet me, to meet me.<br><br>
+      And so it is. ✦
+    </p>
+  </div>
+  <div class="card" style="text-align:center;">
+    <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:16px; color:var(--muted); line-height:1.8; margin-bottom:20px;">
+      Sit with the intention as long as you need.<br>
+      You have done the work tonight.<br><br>
+      <span style="color:var(--gold);">Big love, Melissa x</span>
+    </p>
+    <button class="btn-main" onclick="goTo(0)">Begin again 🌕</button>
+    <a class="back-link" href="/app">← Back to Inner Compass</a>
+  </div>
+</div>
+
+<script>
+const SIGNS = [
+  {
+    name: 'Aries', glyph: '♈',
+    area: 'Identity, self, and what you need from your closest relationships.',
+    message: `This Full Moon is landing in your first house, the house of self, identity, and the body you move through the world in. It doesn't get more personal than this. With the Libra Sun in your seventh house, the axis is between who you are when you are alone with yourself, and who you become in the presence of others. The question this season holds for you is one of the most essential ones there is: are those two people the same?
+
+You have likely been doing the work this year, even when you couldn't articulate what the work was. The Aries energy here asks you to own it. To name what you have actually shifted in yourself. Not to perform the growth but to feel where you genuinely stand differently. Where you no longer reach for things that used to feel like home, because you have built a different home inside.
+
+The releasing piece for you this moon is not dramatic. It is the part of you that still adjusts, softens, makes smaller, or tries harder in the presence of someone who cannot meet you fully. You don't have to announce it. You just have to notice when you're doing it, and choose differently.`,
+    reflection: 'Where are you still adapting yourself to be acceptable, and to whom?'
+  },
+  {
+    name: 'Taurus', glyph: '♉',
+    area: 'What you carry privately, and the daily life that holds it.',
+    message: `This Full Moon is in your twelfth house, the house of endings, the hidden, and everything that moves beneath the surface of your visible life. Something completing in the part of you that nobody else can see. Something that has been carried privately, perhaps for a long time, is reaching its natural end.
+
+With the Libra Sun in your sixth house, the house of daily life and routines, the axis here is between what you carry alone and what shows up in the texture of your days. Have you noticed that exhaustion that doesn't quite lift? The sense that you are functioning well enough, doing everything right, and yet something underneath is tired in a way that a weekend won't fix? That is the twelfth house asking for attention.
+
+The harvest for Taurus rising this season is not about more rest, although rest matters. It is about acknowledgement. Something you have been holding privately, a grief, a fear, a truth about yourself, is ready to be seen by you. Not fixed. Just seen. That act of witnessing is the release.`,
+    reflection: 'What are you carrying privately that has never been spoken out loud, and what would it feel like to finally name it?'
+  },
+  {
+    name: 'Gemini', glyph: '♊',
+    area: 'Your community and creative voice.',
+    message: `This Full Moon lands in your eleventh house, the house of community, friendship, and the future you are building toward. Something in your wider world is completing. A friendship, a group, a shared goal, a community you have been loyal to, is being seen clearly now. The harvest moon is asking you to look honestly at what is actually flourishing in your social world versus what you have been maintaining out of familiarity.
+
+With the Libra Sun in your fifth house bringing joy and creativity into sharp focus, the ME/WE axis for you is this: have you been so focused on the collective, on being useful, on holding the group, that your own creative voice has gone quiet? Have you been so engaged with what others need that you have forgotten to ask what you actually want to make?
+
+The harvest here is your own expression. Not the version that serves or translates for others. The version that creates because it wants to. That creative work. That impulse that has no practical reason behind it, it just lights you up.`,
+    reflection: 'What would you be creating right now if you weren't thinking about what it would give to or mean for anyone else?'
+  },
+  {
+    name: 'Cancer', glyph: '♋',
+    area: 'Your public life and your inner home.',
+    message: `This Full Moon in Aries is lighting up your tenth house, the house of career, public life, and the way you are known in the world. Something in your professional life or your public identity is reaching a point of clarity. A chapter is completing, or a truth about what you actually want your work to feel like is surfacing with more force than usual.
+
+With the Libra Sun in your fourth house, the axis is between your outer life and your inner home. Between what you show the world and what you feel at the end of the day when you close the door. The harvest question for Cancer rising is whether the life you are building publicly is aligned with what you actually need to feel safe and held inside. Or whether you have been building outwardly, in the direction of approval or external success, while something fundamental within yourself has been asking for attention.
+
+The Aries energy in your tenth house is asking you to initiate something. Not for anyone else's approval. Not because it looks right. But because it is the true direction of your calling.`,
+    reflection: 'What would your career or public life look like if you built it entirely from your own definition of success?'
+  },
+  {
+    name: 'Leo', glyph: '♌',
+    area: 'Your beliefs, and the words you use to share them.',
+    message: `This Full Moon lands in your ninth house, the house of beliefs, philosophy, expansion, and the stories that guide your life. Something you have believed deeply, perhaps for years, is reaching a completion point. Not because it was wrong, but because you have grown beyond it. The beliefs that once kept you safe or motivated are being asked to update.
+
+With the Libra Sun in your third house, the house of communication and the way you share ideas, the axis here is between the big picture and the daily words. Have you been softening or qualifying what you actually know? Have you been speaking in smaller terms than you mean because the room seemed too conventional for your real vision?
+
+The harvest here is permission. Permission to let your worldview be as large as it actually is. To stop citing other people's frameworks and speak from your own. To be the one who holds a different kind of knowing, and to say so.`,
+    reflection: 'What do you know to be true, that you have been speaking as a question rather than a statement?'
+  },
+  {
+    name: 'Virgo', glyph: '♍',
+    area: 'Depth, shared resources, and what you actually deserve to receive.',
+    message: `This Full Moon falls in your eighth house, the house of transformation, depth, and the places where your life has merged with someone else's. This is one of the more confronting placements because the eighth house does not do surface level. It asks about power, about what you share, about where you have given access to your depth without receiving the same in return.
+
+With the Libra Sun in your second house, the house of self-worth and money, the axis is about worth on both sides. Where have you been giving your depth, your insight, your time, or your energy to something that cannot meet you there? Where have you been undervaluing yourself in order to stay in a connection or a story that felt important?
+
+The harvest for Virgo rising is simple to name and harder to live: your worth is not earned through what you give. It is not a result of how useful, thorough, or necessary you are. It is a baseline. The people and situations that match that baseline will find you. The ones that don't are being released.`,
+    reflection: 'Where are you still performing worth rather than simply inhabiting it?'
+  },
+  {
+    name: 'Libra', glyph: '♎',
+    area: 'Relationship, reciprocity, and who you are outside of partnership.',
+    message: `You are at the exact axis of this lunation. The Aries Full Moon is in your seventh house, the house of partnership and the people who mirror you most directly. The Libra Sun is in your first house, the house of self and identity. This is as personal as it gets. The full moon is shining its light on every significant relationship in your life and asking one question: is this actually reciprocal?
+
+The Aries energy here is asking you to find your own centre before you reach toward anyone else. To ask what you actually want, who you actually are, what you genuinely need. Not as a partner, not in relation to anyone else, but as a self. This might feel unfamiliar. It might even feel selfish to someone who has spent years being attentive to others. But this is the work.
+
+The harvest for Libra rising is the moment you stop interpreting yourself through someone else's eyes. Stop asking what they need. Stop adjusting. Just be the full version of you, and see what is still standing.`,
+    reflection: 'Who are you when there is no one to consider?'
+  },
+  {
+    name: 'Scorpio', glyph: '♏',
+    area: 'Your daily routines and what you carry silently beneath them.',
+    message: `This Full Moon in Aries is illuminating your sixth house, the house of health, daily work, and the small ways you take care of yourself day to day. Something in your daily structure is completing. A work pattern, a health habit, a way you have been organising your time and energy, is being asked to be seen honestly.
+
+With the Libra Sun in your twelfth house, the house of the hidden and things you carry alone, the axis here is between what is visible in your daily life and what is quietly running underneath. Are your daily routines in service of the person you actually want to be? Or are you functioning on the surface while carrying something much heavier, something that never quite makes it into the visible part of your life?
+
+The harvest for Scorpio rising this season is a simpler daily life. Not emptied of meaning, but freed from the weight of what you have been silently managing. One thing you stop maintaining. One thing you start doing that is genuinely for you.`,
+    reflection: 'What are you maintaining in your daily life that is costing you more than it is giving you?'
+  },
+  {
+    name: 'Sagittarius', glyph: '♐',
+    area: 'Creativity, joy, and creating because you want to, not to be chosen.',
+    message: `This Full Moon falls in your fifth house, the house of creativity, joy, pleasure, and the things you make simply because they light you up. Something creative is completing or beginning. A project that has been on hold until conditions felt right. A version of yourself that creates without needing a reason. This is its moment.
+
+With the Libra Sun in your eleventh house, the house of community and the future you are building toward, the axis is between creating for the audience and creating from the inside. Have you been calibrating your creativity to what performs, what fits, what will land well, instead of what is actually true and alive in you?
+
+The harvest for Sagittarius rising is simple and potent: joy that doesn't need to be useful. Creative work that belongs entirely to you. The project that has no practical reason behind it, except that it makes you feel most like yourself.`,
+    reflection: 'What would you create if you knew no one would see it, and how would that feel?'
+  },
+  {
+    name: 'Capricorn', glyph: '♑',
+    area: 'Your inner home and how it connects to your outer life.',
+    message: `The Full Moon in Aries lands in your fourth house, the house of home, family, roots, and your private emotional world. Something here is completing. A chapter in how you relate to your sense of home, your family of origin, or the inner world you carry but rarely show, is reaching a natural end.
+
+With the Libra Sun in your tenth house, the house of career and public life, the axis is between what you hold privately and what you show the world. The harvest question for Capricorn rising is honest and sometimes hard: have you been performing stability outwardly while something private has needed tending? Have you been building publicly while the foundation, the actual home of yourself inside, has been asking for attention?
+
+The Aries energy in your fourth house is asking you to initiate something in your inner world. Not to fix it, announce it, or make it productive. Just to meet it. To give the private parts of your life the same quality of attention you give to everything the world can see.`,
+    reflection: 'What would your inner life look like if you invested in it as carefully as you invest in what others see?'
+  },
+  {
+    name: 'Aquarius', glyph: '♒',
+    area: 'Your voice, your ideas, and saying what you mean in full.',
+    message: `This Full Moon is in your third house, the house of communication, writing, and the way you process and share your thoughts. Something in how you communicate is ready. A message you have been holding back, a creative work in words, a conversation you have been circling but not starting. It is time.
+
+With the Libra Sun in your ninth house, the house of beliefs and the bigger picture, the axis is between what you know and what you say. Between the idea that has been living in your mind and the version of it you have been putting out into the world. Have you been softening your truth? Writing smaller than you mean? Saying things in half-measures to make them more palatable?
+
+The harvest here is direct. Stop qualifying. Stop hedging. Say the thing as fully as you actually mean it. The people who are meant to receive it will, and the ones who aren't were never your audience.`,
+    reflection: 'What have you been saying in smaller words than you mean, and what would it look like to say it in full?'
+  },
+  {
+    name: 'Pisces', glyph: '♓',
+    area: 'Self-worth, receiving, and what you are allowed to ask for.',
+    message: `This Full Moon lands in your second house, the house of money, self-worth, values, and the material resources you have been building. Something in your relationship to what you deserve, what you allow yourself to receive, what you charge, what you ask for, is reaching a turning point.
+
+With the Libra Sun in your eighth house, the house of depth and shared resources, the axis is about worth on both sides. Have you been giving more than you receive? Undervaluing yourself in order to be chosen or accepted? Offering your depth to situations that cannot offer equivalent depth in return?
+
+The harvest for Pisces rising is the quiet grounded recognition that you are allowed to receive. Not after you have proven yourself. Not once you have given enough. Not when you have earned it. Now. You are allowed to receive now.`,
+    reflection: 'Where are you undercharging, undervaluing, or under-receiving, and what would actually change if you simply stopped?'
+  }
+];
+
+function goTo(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('s' + n).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Stars
+(function() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    const lo = (Math.random() * 0.2 + 0.05).toFixed(2);
+    const hi = (Math.random() * 0.5 + 0.3).toFixed(2);
+    const d = (Math.random() * 4 + 2).toFixed(1) + 's';
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${d};--lo:${lo};--hi:${hi};animation-delay:${(Math.random()*4).toFixed(1)}s`;
+    container.appendChild(s);
+  }
+})();
+
+// Signs grid
+(function() {
+  const grid = document.getElementById('signsGrid');
+  SIGNS.forEach((sign, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sign-btn';
+    btn.innerHTML = `<span class="sign-glyph">${sign.glyph}</span>${sign.name}`;
+    btn.onclick = () => pickSign(btn, i);
+    grid.appendChild(btn);
+  });
+})();
+
+function pickSign(btn, i) {
+  document.querySelectorAll('.sign-btn').forEach(b => b.classList.remove('chosen'));
+  btn.classList.add('chosen');
+  const sign = SIGNS[i];
+  const msg = document.getElementById('signMessage');
+  document.getElementById('signName').textContent = sign.name + ' Rising / Sun';
+  const paras = sign.message.split('\n\n').map(p => `<p style="margin-bottom:16px;">${p}</p>`).join('');
+  document.getElementById('signText').innerHTML = `
+    <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:0.75;margin-bottom:12px;font-style:normal;">${sign.area}</p>
+    ${paras}
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(212,148,58,0.2);">
+      <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--copper);opacity:0.85;margin-bottom:10px;font-style:normal;">Your reflection</p>
+      <p style="font-style:italic;color:var(--gold);">${sign.reflection}</p>
+      <textarea placeholder="Write what arises..." style="margin-top:12px;"></textarea>
+    </div>
+  `;
+  msg.classList.add('open');
+  document.getElementById('nSign').classList.remove('btn-disabled');
+}
+
+// Breath
+let breathRunning = false;
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let actx;
+
+function tone(freq, dur, vol) {
+  if (!actx) actx = new AudioCtx();
+  const o = actx.createOscillator();
+  const g = actx.createGain();
+  o.connect(g); g.connect(actx.destination);
+  o.frequency.value = freq;
+  o.type = 'sine';
+  g.gain.setValueAtTime(0, actx.currentTime);
+  g.gain.linearRampToValueAtTime(vol, actx.currentTime + 0.05);
+  g.gain.linearRampToValueAtTime(0, actx.currentTime + dur - 0.05);
+  o.start(actx.currentTime);
+  o.stop(actx.currentTime + dur);
+}
+
+function beginBreath() {
+  if (breathRunning) return;
+  breathRunning = true;
+  const ring = document.getElementById('bRing');
+  ring.onclick = null;
+
+  const INHALE = 4, EXHALE = 4, ROUNDS = 3;
+  const msg = document.getElementById('bMsg');
+  const cnt = document.getElementById('bCountNum');
+  const sub = document.getElementById('bSub');
+
+  let round = 0;
+
+  function countDown(from, label, cls, nextFn) {
+    ring.className = 'breath-ring ' + cls;
+    msg.textContent = label;
+    let n = from;
+    cnt.textContent = n;
+    const iv = setInterval(() => {
+      n--;
+      if (n <= 0) { clearInterval(iv); cnt.textContent = ''; nextFn(); }
+      else cnt.textContent = n;
+    }, 1000);
+  }
+
+  function doRound() {
+    round++;
+    sub.textContent = 'Round ' + round + ' of ' + ROUNDS;
+    tone(396, 0.3, 0.12);
+    countDown(INHALE, 'Breathe in', 'inhale', () => {
+      tone(285, 0.3, 0.1);
+      countDown(EXHALE, 'Breathe out', 'exhale', () => {
+        if (round < ROUNDS) {
+          setTimeout(doRound, 600);
+        } else {
+          ring.className = 'breath-ring';
+          ring.innerHTML = 'Done ✦';
+          msg.textContent = 'Well done.';
+          cnt.textContent = '';
+          sub.textContent = '';
+          document.getElementById('nBreath').classList.remove('btn-disabled');
+        }
+      });
+    });
+  }
+
+  doRound();
+}
+</script>
+
+</body>
+</html>
