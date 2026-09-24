@@ -129,7 +129,7 @@ const PUBLIC_ROUTES = new Set([
   '/week4-nervous-system', '/week5-flip-it', '/week6-shame',
   '/kids-daily-feels', '/kids-hello-body',
   '/full-moon-pisces', '/pisces-meditation', '/full-moon-journal',
-  '/full-moon-aries',
+  '/full-moon-aries', '/heart-awakening',
   '/beneath-the-pattern', '/reflect', '/reset', '/reset-audio', '/workshop',
   '/survival-pattern-quiz',
 ]);
@@ -890,7 +890,7 @@ app.get('/full-moon-journal', (req, res) => {
 app.get('/full-moon-aries', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'full-moon-aries.html'));
 });
-app.get('/heart-awakening', requireAuth, (req, res) => {
+app.get('/heart-awakening', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'heart-awakening.html'));
 });
 
