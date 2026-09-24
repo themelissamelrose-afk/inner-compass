@@ -46,10 +46,11 @@
     padding: 6px 16px;
     border-radius: 20px;
   }
-  .eye-icon {
-    font-size: 44px;
+  .pattern-icon {
     display: block;
-    margin: 0 auto 16px;
+    margin: 0 auto 20px;
+    width: 72px;
+    height: 72px;
   }
   .header h1 {
     font-family: 'Playfair Display', serif;
@@ -278,7 +279,19 @@
 
 <div class="header">
   <div class="course-badge">Foundations of Self · Module One · Reveal Your Patterns</div>
-  <span class="eye-icon">🌿</span>
+  <svg class="pattern-icon" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Outer ring -->
+    <circle cx="36" cy="36" r="34" stroke="#C4786A" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.35"/>
+    <!-- Middle ring -->
+    <circle cx="36" cy="36" r="24" stroke="#B5614E" stroke-width="1.4" opacity="0.55"/>
+    <!-- Inner ring -->
+    <circle cx="36" cy="36" r="14" stroke="#C4786A" stroke-width="1.6" opacity="0.75"/>
+    <!-- Centre dot -->
+    <circle cx="36" cy="36" r="4" fill="#B5614E" opacity="0.9"/>
+    <!-- Subtle cross lines -->
+    <line x1="36" y1="6" x2="36" y2="66" stroke="#C4786A" stroke-width="0.6" opacity="0.18"/>
+    <line x1="6" y1="36" x2="66" y2="36" stroke="#C4786A" stroke-width="0.6" opacity="0.18"/>
+  </svg>
   <h1>Reveal Your Patterns<br>Meditation</h1>
   <p class="sub">Breathwork, nervous system settling, and a gentle return to yourself.</p>
 </div>
