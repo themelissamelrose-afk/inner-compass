@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heart Awakening Meditation · Foundations of Self</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --linen: #F6EFE4;
+    --sand: #EDE4D6;
+    --rose: #C4786A;
+    --terra: #B5614E;
+    --pink: #E8B4A8;
+    --blush: #F2DDD8;
+    --burg: #7A3B3B;
+    --gold: #c4906a;
+    --muted: rgba(90,55,50,0.65);
+    --text: #4a2e2a;
+  }
+
+  body {
+    background: var(--linen);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(196,120,106,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(232,180,168,0.2) 0%, transparent 50%);
+    font-family: 'Lato', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .header {
+    text-align: center;
+    padding: 52px 24px 36px;
+  }
+  .course-badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 18px;
+    opacity: 0.85;
+    border: 1px solid rgba(196,120,106,0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+  .heart-icon {
+    font-size: 48px;
+    display: block;
+    margin: 0 auto 16px;
+    animation: heartbeat 3s ease-in-out infinite;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 400;
+    color: var(--burg);
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .header .sub {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0 20px 60px; }
+
+  .card {
+    background: rgba(255,255,255,0.65);
+    border: 1px solid rgba(196,120,106,0.15);
+    border-radius: 24px;
+    padding: 36px 32px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
+  }
+
+  .intro-text {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .intro-text + .intro-text { margin-top: 0; }
+
+  .pull-quote {
+    background: rgba(196,120,106,0.08);
+    border-left: 3px solid var(--rose);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--burg);
+    margin: 24px 0;
+    line-height: 1.65;
+  }
+
+  .recommend {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+    letter-spacing: 0.3px;
+  }
+
+  /* PLAYER */
+  .player-card {
+    background: linear-gradient(135deg, rgba(122,59,59,0.06), rgba(196,120,106,0.1));
+    border: 1px solid rgba(196,120,106,0.22);
+    border-radius: 24px;
+    padding: 36px 32px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .player-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--burg);
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+  .player-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .ripple-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 28px;
+    cursor: pointer;
+  }
+  .ripple {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(196,120,106,0.35);
+    animation: rippleOut 3s ease-out infinite;
+  }
+  .ripple:nth-child(2) { animation-delay: 1s; }
+  .ripple:nth-child(3) { animation-delay: 2s; }
+  @keyframes rippleOut {
+    0%   { transform: scale(0.85); opacity: 0.6; }
+    100% { transform: scale(1.6);  opacity: 0; }
+  }
+  .ripple-wrap.playing .ripple { animation-duration: 1.8s; }
+  .play-btn {
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose), var(--terra));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(196,120,106,0.35);
+    transition: transform 0.2s;
+  }
+  .play-btn:hover { transform: scale(1.05); }
+  .play-btn svg { width: 28px; height: 28px; fill: white; }
+
+  .state-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--burg);
+    min-height: 28px;
+    margin-bottom: 20px;
+    transition: opacity 0.6s ease;
+    line-height: 1.5;
+  }
+
+  .time-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .time-label {
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 38px;
+    font-variant-numeric: tabular-nums;
+  }
+  .time-label.right { text-align: right; }
+  .progress-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(196,120,106,0.2);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--rose), var(--terra));
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.5s linear;
+    pointer-events: none;
+  }
+
+  .vol-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    justify-content: center;
+  }
+  .vol-label { font-size: 12px; color: var(--muted); }
+  input[type=range] {
+    width: 100px;
+    accent-color: var(--rose);
+    cursor: pointer;
+  }
+
+  .closing-card {
+    display: none;
+    background: linear-gradient(135deg, rgba(122,59,59,0.08), rgba(232,180,168,0.2));
+    border: 1px solid rgba(196,120,106,0.25);
+    border-radius: 20px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--burg);
+    line-height: 1.8;
+    animation: fadeUp 0.6s ease;
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* DOWNLOAD */
+  .download-card {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(196,120,106,0.18);
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .download-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--burg);
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .download-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .btn-download {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rose), var(--terra));
+    color: white;
+    border-radius: 50px;
+    padding: 16px 36px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .btn-download:hover { opacity: 0.88; }
+
+  .divider { width: 40px; height: 1px; background: var(--rose); margin: 24px auto; opacity: 0.3; }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="course-badge">Foundations of Self · Module Two · Become the Observer</div>
+  <span class="heart-icon">🤍</span>
+  <h1>Heart Awakening<br>Meditation</h1>
+  <p class="sub">A guided practice to open, soften, and return home to yourself.</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <p class="intro-text">
+      Self-love is one of the most powerful, life-changing gifts. But it is also one of the most elusive and challenging to fully embrace. It cannot be given. It can only be felt as you journey within.
+    </p>
+    <p class="intro-text">
+      When you become self-responsible, embody every aspect of yourself, and let go of negative self-talk, limiting beliefs, and judgment, you open the door to true self-love. This practice is about owning your truth, releasing the past, and stepping into the present as your own best friend.
+    </p>
+    <div class="pull-quote">
+      Self-love cannot be given. It can only be felt as you journey within.
+    </div>
+    <p class="recommend">Recommended: daily, to gradually move from the head to the heart.</p>
+  </div>
+
+  <div class="card">
+    <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:16px;opacity:0.8;">The Practice</div>
+
+    <div style="display:flex;flex-direction:column;gap:18px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(196,120,106,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--rose);flex-shrink:0;">1</div>
+        <div>
+          <div style="font-weight:700;font-size:14px;color:var(--burg);margin-bottom:4px;">Connect with your breath</div>
+          <div style="font-size:14px;line-height:1.7;color:var(--muted);">Sit comfortably, close your eyes, and begin by focusing on your breath. Inhale for six counts, hold for six, exhale for six, and hold for six before your next inhale. Repeat until you feel calm and relaxed.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(196,120,106,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--rose);flex-shrink:0;">2</div>
+        <div>
+          <div style="font-weight:700;font-size:14px;color:var(--burg);margin-bottom:4px;">Visualise love</div>
+          <div style="font-size:14px;line-height:1.7;color:var(--muted);">Once connected to this calm state, imagine someone or a group of people you deeply value and love. Let their presence fill you with warmth.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(196,120,106,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--rose);flex-shrink:0;">3</div>
+        <div>
+          <div style="font-weight:700;font-size:14px;color:var(--burg);margin-bottom:4px;">Soften your heart</div>
+          <div style="font-size:14px;line-height:1.7;color:var(--muted);">Draw the feeling of love into your heart area. Notice if your heart feels soft or hard, and with each exhale, feel it soften a little more.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(196,120,106,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--rose);flex-shrink:0;">4</div>
+        <div>
+          <div style="font-weight:700;font-size:14px;color:var(--burg);margin-bottom:4px;">Expand your compassion</div>
+          <div style="font-size:14px;line-height:1.7;color:var(--muted);">Return to visualising the person you love. Let the feeling grow and expand in your heart, blessing them with words of gratitude and love. If forgiveness is needed, gently say, "I forgive you," or "I understand you're doing the best you can."</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(196,120,106,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--rose);flex-shrink:0;">5</div>
+        <div>
+          <div style="font-weight:700;font-size:14px;color:var(--burg);margin-bottom:4px;">Extend love to others</div>
+          <div style="font-size:14px;line-height:1.7;color:var(--muted);">Let the heart feelings expand by inviting others into your mind's eye. Feel for them, bless them, and if necessary, forgive them.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(196,120,106,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--rose);flex-shrink:0;">6</div>
+        <div>
+          <div style="font-weight:700;font-size:14px;color:var(--burg);margin-bottom:4px;">Turn the love inward</div>
+          <div style="font-size:14px;line-height:1.7;color:var(--muted);">Direct that deep love toward your own body, honouring your organs, muscles and spine. Extend that same energy to the parts of you that you criticise or hide, forgiving yourself and embracing every part with unconditional love. Tell yourself, "I see you, and I forgive you."</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(196,120,106,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--rose);flex-shrink:0;">7</div>
+        <div>
+          <div style="font-weight:700;font-size:14px;color:var(--burg);margin-bottom:4px;">Reconnect with your breath</div>
+          <div style="font-size:14px;line-height:1.7;color:var(--muted);">Slowly bring your focus back to your breath, affirming: "I respect you, I forgive you, I am doing my best and I love myself for that."</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(196,120,106,0.15);font-size:13px;color:var(--muted);line-height:1.7;font-style:italic;text-align:center;">
+      Consider journaling about your experience afterwards. Noting your feelings can deepen your practice and help you recognise shifts in how you feel toward yourself and others.
+    </div>
+  </div>
+
+  <div class="player-card">
+    <div class="player-title">Heart Awakening Meditation</div>
+    <div class="player-sub">Guided by Melissa Melrose</div>
+
+    <div class="ripple-wrap" id="rippleWrap" onclick="togglePlay()">
+      <div class="ripple"></div>
+      <div class="ripple"></div>
+      <div class="ripple"></div>
+      <div class="play-btn" id="playBtn">
+        <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+
+    <div class="state-text" id="stateText">Tap to begin</div>
+
+    <div class="time-row">
+      <span class="time-label" id="timeCurrent">0:00</span>
+      <div class="progress-bar" id="progressBar" onclick="seekAudio(event)">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="time-label right" id="timeDuration">--:--</span>
+    </div>
+
+    <div class="vol-row">
+      <span class="vol-label">Music</span>
+      <input type="range" id="volSlider" min="0" max="100" value="18" oninput="setMusicVol(this.value)">
+    </div>
+
+    <div class="closing-card" id="closingCard">
+      "I respect you. I forgive you.<br>
+      I am doing my best and I love myself for that."<br><br>
+      Take a moment to journal what you felt.<br>
+      You have done something beautiful for yourself today.<br><br>
+      <span style="color:var(--rose);">Big love, Melissa x</span>
+    </div>
+  </div>
+
+  <div class="download-card">
+    <div class="download-title">Take this with you</div>
+    <div class="download-sub">
+      Download the meditation to your phone or device so you can access it any time, without needing to be online.
+    </div>
+    <a class="btn-download" href="/Meditation%20and%20Audio%20/audio-heart-meditation.m4a" download="Heart-Awakening-Meditation-Melissa-Melrose.m4a">
+      Download meditation ↓
+    </a>
+  </div>
+
+  <a class="back-link" href="/app">← Back to Inner Compass</a>
+
+</div>
+
+<audio id="voiceAudio" preload="metadata">
+  <source src="/Meditation%20and%20Audio%20/audio-heart-meditation.m4a" type="audio/mp4">
+</audio>
+<audio id="musicAudio" loop preload="metadata">
+  <source src="/Meditation%20and%20Audio%20/music-ambient.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const voice = document.getElementById('voiceAudio');
+const music = document.getElementById('musicAudio');
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+const rippleWrap = document.getElementById('rippleWrap');
+const stateText = document.getElementById('stateText');
+const progressFill = document.getElementById('progressFill');
+const timeCurrent = document.getElementById('timeCurrent');
+const timeDuration = document.getElementById('timeDuration');
+
+const PLAY_SVG = '<path d="M8 5v14l11-7z"/>';
+const PAUSE_SVG = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+
+const STATES = [
+  { at: 0,   text: 'Sit comfortably. Close your eyes.' },
+  { at: 15,  text: 'Connecting with the breath. Inhale for six.' },
+  { at: 60,  text: 'Visualise someone you deeply love.' },
+  { at: 120, text: 'Draw that feeling of love into your heart.' },
+  { at: 180, text: 'With each exhale, let your heart soften.' },
+  { at: 240, text: 'Expand the love. Bless them. Forgive.' },
+  { at: 300, text: 'Now extend that love to others.' },
+  { at: 360, text: 'Turn the love inward. Toward your own body.' },
+  { at: 420, text: '"I see you. And I forgive you."' },
+  { at: 460, text: 'Gently returning to your breath.' },
+];
+
+music.volume = 0.18;
+let playing = false;
+
+function fmt(s) {
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+function togglePlay() {
+  if (playing) {
+    voice.pause(); music.pause();
+    playIcon.innerHTML = PLAY_SVG;
+    rippleWrap.classList.remove('playing');
+    playing = false;
+  } else {
+    voice.play();
+    music.play().catch(() => {});
+    playIcon.innerHTML = PAUSE_SVG;
+    rippleWrap.classList.add('playing');
+    playing = true;
+  }
+}
+
+voice.addEventListener('loadedmetadata', () => {
+  timeDuration.textContent = fmt(voice.duration);
+});
+
+voice.addEventListener('timeupdate', () => {
+  const t = voice.currentTime;
+  const d = voice.duration || 1;
+  progressFill.style.width = (t / d * 100) + '%';
+  timeCurrent.textContent = fmt(t);
+
+  for (let i = STATES.length - 1; i >= 0; i--) {
+    if (t >= STATES[i].at) {
+      stateText.textContent = STATES[i].text;
+      break;
+    }
+  }
+});
+
+voice.addEventListener('ended', () => {
+  playIcon.innerHTML = PLAY_SVG;
+  rippleWrap.classList.remove('playing');
+  playing = false;
+  stateText.textContent = '';
+  progressFill.style.width = '100%';
+  document.getElementById('closingCard').style.display = 'block';
+  music.pause();
+  music.currentTime = 0;
+});
+
+function seekAudio(e) {
+  if (!voice.duration) return;
+  const rect = document.getElementById('progressBar').getBoundingClientRect();
+  const ratio = (e.clientX - rect.left) / rect.width;
+  voice.currentTime = ratio * voice.duration;
+  if (!playing) {
+    voice.play(); music.play().catch(() => {});
+    playIcon.innerHTML = PAUSE_SVG;
+    rippleWrap.classList.add('playing');
+    playing = true;
+  }
+}
+
+function setMusicVol(v) {
+  music.volume = v / 100;
+}
+</script>
+
+</body>
+</html>

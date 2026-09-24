@@ -890,6 +890,9 @@ app.get('/full-moon-journal', (req, res) => {
 app.get('/full-moon-aries', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'full-moon-aries.html'));
 });
+app.get('/heart-awakening', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'heart-awakening.html'));
+});
 
 app.get('/beneath-the-pattern', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'beneath-the-pattern.html'));
