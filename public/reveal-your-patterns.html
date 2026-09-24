@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reveal Your Patterns Meditation · Foundations of Self</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --linen: #F6EFE4;
+    --sand: #EDE4D6;
+    --rose: #C4786A;
+    --terra: #B5614E;
+    --pink: #E8B4A8;
+    --burg: #7A3B3B;
+    --gold: #c4906a;
+    --muted: rgba(90,55,50,0.65);
+    --text: #4a2e2a;
+  }
+
+  body {
+    background: var(--linen);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(181,97,78,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 100%, rgba(196,120,106,0.12) 0%, transparent 50%);
+    font-family: 'Lato', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .header {
+    text-align: center;
+    padding: 52px 24px 36px;
+  }
+  .course-badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 18px;
+    opacity: 0.85;
+    border: 1px solid rgba(196,120,106,0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+  .eye-icon {
+    font-size: 44px;
+    display: block;
+    margin: 0 auto 16px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 400;
+    color: var(--burg);
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .header .sub {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0 20px 60px; }
+
+  .card {
+    background: rgba(255,255,255,0.65);
+    border: 1px solid rgba(196,120,106,0.15);
+    border-radius: 24px;
+    padding: 36px 32px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
+  }
+  .intro-text {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .pull-quote {
+    background: rgba(196,120,106,0.08);
+    border-left: 3px solid var(--rose);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--burg);
+    margin: 24px 0;
+    line-height: 1.65;
+  }
+  .recommend {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+  }
+
+  /* PLAYER */
+  .player-card {
+    background: linear-gradient(135deg, rgba(122,59,59,0.06), rgba(181,97,78,0.1));
+    border: 1px solid rgba(196,120,106,0.22);
+    border-radius: 24px;
+    padding: 36px 32px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .player-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--burg);
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+  .player-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .ripple-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 28px;
+    cursor: pointer;
+  }
+  .ripple {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(196,120,106,0.35);
+    animation: rippleOut 3s ease-out infinite;
+  }
+  .ripple:nth-child(2) { animation-delay: 1s; }
+  .ripple:nth-child(3) { animation-delay: 2s; }
+  @keyframes rippleOut {
+    0%   { transform: scale(0.85); opacity: 0.6; }
+    100% { transform: scale(1.6);  opacity: 0; }
+  }
+  .ripple-wrap.playing .ripple { animation-duration: 1.8s; }
+  .play-btn {
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose), var(--terra));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(196,120,106,0.35);
+    transition: transform 0.2s;
+  }
+  .play-btn:hover { transform: scale(1.05); }
+  .play-btn svg { width: 28px; height: 28px; fill: white; }
+
+  .state-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--burg);
+    min-height: 28px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .time-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .time-label {
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 38px;
+    font-variant-numeric: tabular-nums;
+  }
+  .time-label.right { text-align: right; }
+  .progress-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(196,120,106,0.2);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--rose), var(--terra));
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.5s linear;
+    pointer-events: none;
+  }
+
+  .vol-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    justify-content: center;
+  }
+  .vol-label { font-size: 12px; color: var(--muted); }
+  input[type=range] { width: 100px; accent-color: var(--rose); cursor: pointer; }
+
+  .closing-card {
+    display: none;
+    background: linear-gradient(135deg, rgba(122,59,59,0.08), rgba(232,180,168,0.2));
+    border: 1px solid rgba(196,120,106,0.25);
+    border-radius: 20px;
+    padding: 28px 24px;
+    margin-top: 20px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--burg);
+    line-height: 1.8;
+    animation: fadeUp 0.6s ease;
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* DOWNLOAD */
+  .download-card {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(196,120,106,0.18);
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .download-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--burg);
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .download-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .btn-download {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rose), var(--terra));
+    color: white;
+    border-radius: 50px;
+    padding: 16px 36px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .btn-download:hover { opacity: 0.88; }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="course-badge">Foundations of Self · Module One · Reveal Your Patterns</div>
+  <span class="eye-icon">🌿</span>
+  <h1>Reveal Your Patterns<br>Meditation</h1>
+  <p class="sub">Breathwork, nervous system settling, and a gentle return to yourself.</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <p class="intro-text">
+      Before anything can shift, you have to see it. Not to judge it. Not to fix it. Just to see it, clearly, with curiosity and without shame.
+    </p>
+    <p class="intro-text">
+      This is where the journey begins. Module One is not about changing anything yet. It is about becoming the witness. Noticing what has been running quietly in the background of your life, the patterns, the behaviours, the beliefs that were formed long before you had words for them.
+    </p>
+    <div class="pull-quote">
+      The moment you can observe a pattern, you are no longer inside it. That space is where everything becomes possible.
+    </div>
+    <p class="intro-text">
+      This meditation will guide you back into your body, settle your nervous system, and begin to open the door to what is underneath. Come with curiosity. Come without expectation. Come exactly as you are.
+    </p>
+    <p class="recommend">Recommended: at the start of each module, or any time you need to ground before a session.</p>
+  </div>
+
+  <div class="player-card">
+    <div class="player-title">Reveal Your Patterns</div>
+    <div class="player-sub">Guided by Melissa Melrose · 9 min</div>
+
+    <div class="ripple-wrap" id="rippleWrap" onclick="togglePlay()">
+      <div class="ripple"></div>
+      <div class="ripple"></div>
+      <div class="ripple"></div>
+      <div class="play-btn" id="playBtn">
+        <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+
+    <div class="state-text" id="stateText">Tap to begin</div>
+
+    <div class="time-row">
+      <span class="time-label" id="timeCurrent">0:00</span>
+      <div class="progress-bar" id="progressBar" onclick="seekAudio(event)">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="time-label right">9:22</span>
+    </div>
+
+    <div class="vol-row">
+      <span class="vol-label">Music</span>
+      <input type="range" id="volSlider" min="0" max="100" value="18" oninput="setMusicVol(this.value)">
+    </div>
+
+    <div class="closing-card" id="closingCard">
+      You have taken the first step.<br><br>
+      Notice what came up. Stay curious, not critical.<br>
+      Everything you saw is a doorway, not a judgement.<br><br>
+      <span style="color:var(--rose);">Big love, Melissa x</span>
+    </div>
+  </div>
+
+  <div class="download-card">
+    <div class="download-title">Take this with you</div>
+    <div class="download-sub">
+      Download to your phone so you can return to this practice any time, wherever you are.
+    </div>
+    <a class="btn-download" href="/reset-practice.m4a" download="Reveal-Your-Patterns-Meditation-Melissa-Melrose.m4a">
+      Download meditation ↓
+    </a>
+  </div>
+
+  <a class="back-link" href="/app">← Back to Inner Compass</a>
+
+</div>
+
+<audio id="voiceAudio" preload="metadata">
+  <source src="/reset-practice.m4a" type="audio/mp4">
+</audio>
+<audio id="musicAudio" loop preload="metadata">
+  <source src="/Meditation%20and%20Audio%20/music-ambient.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const voice = document.getElementById('voiceAudio');
+const music = document.getElementById('musicAudio');
+const playIcon = document.getElementById('playIcon');
+const rippleWrap = document.getElementById('rippleWrap');
+const stateText = document.getElementById('stateText');
+const progressFill = document.getElementById('progressFill');
+const timeCurrent = document.getElementById('timeCurrent');
+
+const STOP_AT = 9 * 60 + 22; // 9:22
+
+const PLAY_SVG = '<path d="M8 5v14l11-7z"/>';
+const PAUSE_SVG = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+
+const STATES = [
+  { at: 0,   text: 'Find a comfortable position. Close your eyes.' },
+  { at: 20,  text: 'Beginning to breathe together.' },
+  { at: 60,  text: 'Letting your nervous system settle.' },
+  { at: 150, text: 'Noticing what is here, without judgment.' },
+  { at: 260, text: 'You are becoming the witness.' },
+  { at: 370, text: 'What you can observe, you can begin to change.' },
+  { at: 470, text: 'Staying with what is here.' },
+  { at: 530, text: 'Gently returning now.' },
+];
+
+music.volume = 0.18;
+let playing = false;
+
+function fmt(s) {
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+function endMeditation() {
+  voice.pause();
+  playIcon.innerHTML = PLAY_SVG;
+  rippleWrap.classList.remove('playing');
+  playing = false;
+  stateText.textContent = '';
+  progressFill.style.width = '100%';
+
+  // Let music play on for ~10 seconds then fade out
+  let vol = music.volume;
+  const fadeSteps = 20;
+  const stepDelay = 500; // 10 seconds total fade
+  setTimeout(() => {
+    const iv = setInterval(() => {
+      vol = Math.max(0, vol - (music.volume / fadeSteps));
+      music.volume = vol;
+      if (vol <= 0) {
+        clearInterval(iv);
+        music.pause();
+        music.currentTime = 0;
+      }
+    }, stepDelay);
+  }, 3000); // 3 second pause before fade starts
+
+  document.getElementById('closingCard').style.display = 'block';
+}
+
+function togglePlay() {
+  if (playing) {
+    voice.pause(); music.pause();
+    playIcon.innerHTML = PLAY_SVG;
+    rippleWrap.classList.remove('playing');
+    playing = false;
+  } else {
+    if (voice.currentTime >= STOP_AT) voice.currentTime = 0;
+    voice.play();
+    music.play().catch(() => {});
+    playIcon.innerHTML = PAUSE_SVG;
+    rippleWrap.classList.add('playing');
+    playing = true;
+  }
+}
+
+voice.addEventListener('timeupdate', () => {
+  const t = voice.currentTime;
+
+  if (t >= STOP_AT) {
+    endMeditation();
+    return;
+  }
+
+  progressFill.style.width = (t / STOP_AT * 100) + '%';
+  timeCurrent.textContent = fmt(t);
+
+  for (let i = STATES.length - 1; i >= 0; i--) {
+    if (t >= STATES[i].at) {
+      stateText.textContent = STATES[i].text;
+      break;
+    }
+  }
+});
+
+voice.addEventListener('ended', endMeditation);
+
+function seekAudio(e) {
+  const rect = document.getElementById('progressBar').getBoundingClientRect();
+  const ratio = (e.clientX - rect.left) / rect.width;
+  voice.currentTime = Math.min(ratio * STOP_AT, STOP_AT - 1);
+  if (!playing) {
+    voice.play(); music.play().catch(() => {});
+    playIcon.innerHTML = PAUSE_SVG;
+    rippleWrap.classList.add('playing');
+    playing = true;
+  }
+}
+
+function setMusicVol(v) {
+  music.volume = v / 100;
+}
+</script>
+
+</body>
+</html>
