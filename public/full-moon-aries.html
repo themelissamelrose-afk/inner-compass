@@ -727,44 +727,60 @@ function beginBreath() {
   const ring = document.getElementById('bRing');
   ring.onclick = null;
 
-  const INHALE = 4, EXHALE = 4, ROUNDS = 3;
+  const ROUNDS = 3;
   const msg = document.getElementById('bMsg');
   const cnt = document.getElementById('bCountNum');
   const sub = document.getElementById('bSub');
 
   let round = 0;
 
-  function countDown(from, label, cls, nextFn) {
-    ring.className = 'breath-ring ' + cls;
-    msg.textContent = label;
-    let n = from;
-    cnt.textContent = n;
-    const iv = setInterval(() => {
-      n--;
-      if (n <= 0) { clearInterval(iv); cnt.textContent = ''; nextFn(); }
-      else cnt.textContent = n;
-    }, 1000);
-  }
-
   function doRound() {
     round++;
     sub.textContent = 'Round ' + round + ' of ' + ROUNDS;
-    tone(396, 0.3, 0.12);
-    countDown(INHALE, 'Breathe in', 'inhale', () => {
-      tone(285, 0.3, 0.1);
-      countDown(EXHALE, 'Breathe out', 'exhale', () => {
-        if (round < ROUNDS) {
-          setTimeout(doRound, 600);
-        } else {
-          ring.className = 'breath-ring';
-          ring.innerHTML = 'Done ✦';
-          msg.textContent = 'Well done.';
-          cnt.textContent = '';
-          sub.textContent = '';
-          document.getElementById('nBreath').classList.remove('btn-disabled');
-        }
-      });
-    });
+
+    // First sharp inhale
+    ring.className = 'breath-ring inhale';
+    msg.textContent = 'Inhale...';
+    cnt.textContent = '';
+    tone(396, 0.25, 0.14);
+
+    setTimeout(() => {
+      // Second sharp inhale — ring pulses bigger
+      ring.className = 'breath-ring';
+      setTimeout(() => {
+        ring.className = 'breath-ring inhale';
+        msg.textContent = '& Inhale...';
+        tone(440, 0.25, 0.14);
+      }, 80);
+
+      setTimeout(() => {
+        // Long Haaaaa exhale — count down from 4
+        ring.className = 'breath-ring exhale';
+        msg.textContent = 'Haaaaaaaa...';
+        tone(285, 0.5, 0.1);
+        let n = 4;
+        cnt.textContent = n;
+        const iv = setInterval(() => {
+          n--;
+          if (n <= 0) {
+            clearInterval(iv);
+            cnt.textContent = '';
+            if (round < ROUNDS) {
+              setTimeout(doRound, 700);
+            } else {
+              ring.className = 'breath-ring';
+              ring.innerHTML = 'Done ✦';
+              msg.textContent = 'Let that fire land.';
+              cnt.textContent = '';
+              sub.textContent = '';
+              document.getElementById('nBreath').classList.remove('btn-disabled');
+            }
+          } else {
+            cnt.textContent = n;
+          }
+        }, 1000);
+      }, 1500);
+    }, 1500);
   }
 
   doRound();
