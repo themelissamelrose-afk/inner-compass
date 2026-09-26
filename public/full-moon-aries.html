@@ -219,6 +219,55 @@
     animation: fadeUp 0.4s ease;
   }
   .sign-message.open { display: block; }
+
+  /* Meditation player (Step 7) */
+  .med-player {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,148,58,0.2);
+    border-radius: 20px;
+    padding: 32px 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .med-play-btn {
+    width: 72px; height: 72px; border-radius: 50%;
+    border: 1.5px solid rgba(212,148,58,0.5);
+    background: rgba(212,148,58,0.1);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px; transition: all 0.25s;
+    position: relative;
+  }
+  .med-play-btn:hover { background: rgba(212,148,58,0.2); border-color: var(--gold); }
+  .med-play-btn svg { width: 28px; height: 28px; fill: var(--gold); }
+  .med-ripple { position: absolute; inset: -10px; border-radius: 50%; pointer-events: none; }
+  .med-ripple.playing::before, .med-ripple.playing::after {
+    content: '';
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 1px solid rgba(212,148,58,0.4);
+    animation: ripple 2.4s ease-out infinite;
+  }
+  .med-ripple.playing::after { animation-delay: 1.2s; }
+  @keyframes ripple {
+    0%   { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  .med-progress {
+    width: 100%; height: 2px;
+    background: rgba(240,220,190,0.12);
+    cursor: pointer; margin-bottom: 10px;
+  }
+  .med-progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--ember), var(--gold));
+    transition: width 0.5s linear; pointer-events: none;
+  }
+  .med-time-row {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: rgba(240,220,190,0.35);
+    letter-spacing: 1px; margin-bottom: 16px;
+  }
+  .med-state { font-size: 13px; color: rgba(240,220,190,0.5); font-style: italic; min-height: 18px; }
   .sign-message-name { font-style: normal; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 10px; opacity: 0.85; }
   .reflection-box {
     margin-top: 20px;
@@ -296,7 +345,7 @@
 <!-- S1: Set your space -->
 <div class="step" id="s1">
   <div class="card">
-    <div class="step-num">Step 1 of 7</div>
+    <div class="step-num">Step 1 of 8</div>
     <h2 class="step-q">Create your space.</h2>
     <p class="step-body">
       This does not need to be elaborate. It just needs to feel intentional.<br><br>
@@ -321,7 +370,7 @@
 <!-- S2: The Harvest -->
 <div class="step" id="s2">
   <div class="card">
-    <div class="step-num">Step 2 of 7</div>
+    <div class="step-num">Step 2 of 8</div>
     <h2 class="step-q">The harvest. What has already grown?</h2>
     <p class="step-body">
       Harvest Moon energy is not about striving. It is about receiving what has already come.<br><br>
@@ -341,7 +390,7 @@
 <!-- S3: The Release -->
 <div class="step" id="s3">
   <div class="card">
-    <div class="step-num">Step 3 of 7</div>
+    <div class="step-num">Step 3 of 8</div>
     <h2 class="step-q">What am I no longer willing to carry forward?</h2>
     <p class="step-body">
       The Aries and Libra axis asks us to look honestly at the places we have been doing the work of two. Creating connection where it wasn't being created back. Pursuing what wasn't pursuing us. Initiating where there was no reciprocation.<br><br>
@@ -358,7 +407,7 @@
 <!-- S4: What Is Mine -->
 <div class="step" id="s4">
   <div class="card">
-    <div class="step-num">Step 4 of 7</div>
+    <div class="step-num">Step 4 of 8</div>
     <h2 class="step-q">What do I want to create simply because it is mine?</h2>
     <p class="step-body">
       This is the Aries question. Not "what will they want?" Not "what will work?" Not "what will make them stay?"<br><br>
@@ -378,7 +427,7 @@
 <!-- S5: Fire Breath -->
 <div class="step" id="s5">
   <div class="card">
-    <div class="step-num">Step 5 of 7</div>
+    <div class="step-num">Step 5 of 8</div>
     <h2 class="step-q">Fire breath.</h2>
     <p class="step-body" style="text-align:center;">
       Aries is ruled by Mars. There is fire here. Let it move through you.<br>
@@ -399,7 +448,7 @@
 <!-- S6: Your sign -->
 <div class="step" id="s6">
   <div class="card">
-    <div class="step-num">Step 6 of 7</div>
+    <div class="step-num">Step 6 of 8</div>
     <h2 class="step-q">How this Full Moon is landing for you personally.</h2>
     <p class="step-body">
       Tap your <strong style="color:var(--gold);">Sun sign</strong> (your birthday month) or your <strong style="color:var(--copper);">Rising sign</strong> if you know it. Your rising sign tends to be even more precise because it describes which part of your chart this Full Moon is activating.<br><br>
@@ -410,13 +459,42 @@
       <span class="sign-message-name" id="signName"></span>
       <div id="signText"></div>
     </div>
-    <button class="btn-main btn-disabled" id="nSign" onclick="goTo(7)" style="margin-top:20px;">Continue →</button>
+    <button class="btn-main btn-disabled" id="nSign" onclick="goTo(7)" style="margin-top:20px;">Continue to meditation →</button>
     <button class="btn-back" onclick="goTo(5)">← Back</button>
   </div>
 </div>
 
-<!-- S7: Closing -->
+<!-- S7: Meditation -->
 <div class="step" id="s7">
+  <div class="card">
+    <div class="step-num">Step 7 of 8</div>
+    <h2 class="step-q">A short meditation to settle what you have named.</h2>
+    <p class="step-body" style="text-align:center; margin-bottom:28px;">
+      Press play, close your eyes, and let Melissa guide you through a short practice to receive your harvest and ground the intention you have set tonight.
+    </p>
+    <div class="med-player">
+      <div style="position:relative; width:72px; margin:0 auto 24px;">
+        <button class="med-play-btn" id="medPlayBtn" aria-label="Play meditation">
+          <div class="med-ripple" id="medRipple"></div>
+          <svg viewBox="0 0 24 24" id="medPlayIcon"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="med-progress" id="medProgressBar">
+        <div class="med-progress-fill" id="medProgressFill"></div>
+      </div>
+      <div class="med-time-row">
+        <span id="medElapsed">0:00</span>
+        <span id="medDuration">--:--</span>
+      </div>
+      <div class="med-state" id="medState"></div>
+    </div>
+    <button class="btn-main btn-disabled" id="nMed" onclick="goTo(8)">I am ready for the closing →</button>
+    <button class="btn-back" onclick="goTo(6)">← Back</button>
+  </div>
+</div>
+
+<!-- S8: Closing -->
+<div class="step" id="s8">
   <div class="blessing">
     <div class="blessing-title">✦ Closing Intention ✦</div>
     <p class="blessing-text">
@@ -441,6 +519,7 @@
       You have done the work tonight.<br><br>
       <span style="color:var(--gold);">Big love, Melissa x</span>
     </p>
+    <button class="btn-back" onclick="goTo(7)" style="margin-bottom:16px;">← Back to meditation</button>
     <button class="btn-main" onclick="goTo(0)">Begin again 🌕</button>
     <a class="back-link" href="/app">← Back to Inner Compass</a>
   </div>
@@ -690,6 +769,93 @@ function beginBreath() {
 
   doRound();
 }
+
+// Meditation player (Step 7)
+(function() {
+  const medVoice = document.createElement('audio');
+  medVoice.id = 'medVoice';
+  medVoice.preload = 'metadata';
+  medVoice.src = '/Meditation%20and%20Audio%20/Aires%20harvest%20moon.m4a';
+  document.body.appendChild(medVoice);
+
+  const medMusic = document.createElement('audio');
+  medMusic.id = 'medMusic';
+  medMusic.preload = 'metadata';
+  medMusic.loop = true;
+  medMusic.src = '/Meditation%20and%20Audio%20/music-ambient.mp3';
+  medMusic.volume = 0.18;
+  document.body.appendChild(medMusic);
+
+  const playBtn   = document.getElementById('medPlayBtn');
+  const playIcon  = document.getElementById('medPlayIcon');
+  const ripple    = document.getElementById('medRipple');
+  const progBar   = document.getElementById('medProgressBar');
+  const progFill  = document.getElementById('medProgressFill');
+  const elapsed   = document.getElementById('medElapsed');
+  const duration  = document.getElementById('medDuration');
+  const stateEl   = document.getElementById('medState');
+  const nextBtn   = document.getElementById('nMed');
+
+  const PLAY  = '<path d="M8 5v14l11-7z"/>';
+  const PAUSE = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+  let playing = false;
+
+  function fmt(s) {
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+
+  medVoice.addEventListener('loadedmetadata', () => {
+    duration.textContent = fmt(medVoice.duration);
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (playing) {
+      medVoice.pause(); medMusic.pause();
+      playIcon.innerHTML = PLAY;
+      ripple.classList.remove('playing');
+      playing = false;
+    } else {
+      medVoice.play(); medMusic.play();
+      playIcon.innerHTML = PAUSE;
+      ripple.classList.add('playing');
+      playing = true;
+      stateEl.textContent = 'Breathe and receive...';
+    }
+  });
+
+  medVoice.addEventListener('timeupdate', () => {
+    if (!medVoice.duration) return;
+    const pct = (medVoice.currentTime / medVoice.duration) * 100;
+    progFill.style.width = pct + '%';
+    elapsed.textContent = fmt(medVoice.currentTime);
+  });
+
+  progBar.addEventListener('click', e => {
+    if (!medVoice.duration) return;
+    medVoice.currentTime = (e.offsetX / progBar.offsetWidth) * medVoice.duration;
+  });
+
+  medVoice.addEventListener('ended', () => {
+    playIcon.innerHTML = PLAY;
+    ripple.classList.remove('playing');
+    playing = false;
+    stateEl.textContent = 'The harvest is already here.';
+    progFill.style.width = '100%';
+    nextBtn.classList.remove('btn-disabled');
+    // Fade music out after 3 seconds
+    let vol = medMusic.volume;
+    const steps = 20;
+    setTimeout(() => {
+      const iv = setInterval(() => {
+        vol = Math.max(0, vol - (0.18 / steps));
+        medMusic.volume = Math.max(0, vol);
+        if (vol <= 0) { clearInterval(iv); medMusic.pause(); medMusic.currentTime = 0; }
+      }, 500);
+    }, 3000);
+  });
+})();
 </script>
 
 </body>
