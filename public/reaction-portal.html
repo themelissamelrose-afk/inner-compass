@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Reaction Portal · Inner Compass</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --linen:  #F6EFE4;
+    --sand:   #EDE4D6;
+    --rose:   #C4786A;
+    --terra:  #B5614E;
+    --pink:   #E8B4A8;
+    --blush:  #F2DDD8;
+    --burg:   #7A3B3B;
+    --gold:   #c4906a;
+    --muted:  rgba(90,55,50,0.6);
+    --text:   #4a2e2a;
+  }
+
+  body {
+    background: var(--linen);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(196,120,106,0.1) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 95%, rgba(232,180,168,0.15) 0%, transparent 45%);
+    font-family: 'Lato', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+  }
+
+  .screen { display: none; max-width: 540px; margin: 0 auto; padding: 52px 24px 80px; animation: fadeUp 0.45s ease both; }
+  .screen.active { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Progress dots */
+  .dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(196,120,106,0.2); transition: background 0.3s; }
+  .dot.done { background: var(--rose); }
+  .dot.active { background: var(--terra); transform: scale(1.25); }
+
+  .tag { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); opacity: 0.8; margin-bottom: 14px; display: block; }
+
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic; font-weight: 400;
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    color: var(--burg); line-height: 1.25;
+    margin-bottom: 10px;
+  }
+
+  .sub {
+    font-size: 0.9rem; line-height: 1.85; color: var(--muted);
+    margin-bottom: 28px; max-width: 420px;
+  }
+
+  textarea {
+    width: 100%;
+    background: white;
+    border: 1px solid rgba(196,120,106,0.25);
+    border-radius: 16px;
+    padding: 18px 20px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    resize: vertical; min-height: 120px;
+    line-height: 1.75; outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 24px;
+  }
+  textarea:focus { border-color: var(--rose); }
+  textarea::placeholder { color: rgba(90,55,50,0.3); }
+
+  /* Reaction tiles */
+  .tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px; }
+  @media (min-width: 400px) { .tiles { grid-template-columns: repeat(3, 1fr); } }
+  .tile {
+    background: white; border: 1.5px solid rgba(196,120,106,0.2);
+    border-radius: 14px; padding: 14px 10px;
+    text-align: center; cursor: pointer;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--text); transition: all 0.18s;
+    user-select: none;
+  }
+  .tile .tile-icon { font-size: 1.4rem; display: block; margin-bottom: 6px; }
+  .tile:hover { background: var(--blush); border-color: var(--rose); }
+  .tile.chosen { background: var(--blush); border-color: var(--terra); color: var(--burg); }
+
+  /* Body map */
+  .body-wrap { display: flex; justify-content: center; margin-bottom: 20px; }
+  .body-svg { width: 180px; cursor: pointer; }
+  .body-zone { fill: rgba(196,120,106,0.08); stroke: rgba(196,120,106,0.3); stroke-width: 1; transition: fill 0.2s; cursor: pointer; }
+  .body-zone:hover { fill: rgba(196,120,106,0.22); }
+  .body-zone.chosen { fill: rgba(181,97,78,0.35); stroke: var(--terra); }
+
+  .body-labels { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
+  .body-label {
+    padding: 8px 16px; border-radius: 30px;
+    border: 1px solid rgba(196,120,106,0.25);
+    font-size: 0.8rem; cursor: pointer;
+    background: white; color: var(--text);
+    transition: all 0.18s; user-select: none;
+  }
+  .body-label:hover { background: var(--blush); border-color: var(--rose); }
+  .body-label.chosen { background: var(--blush); border-color: var(--terra); color: var(--burg); font-weight: 700; }
+
+  /* Breath */
+  .breath-outer {
+    display: flex; flex-direction: column; align-items: center;
+    margin: 8px 0 32px;
+  }
+  .breath-ring {
+    width: 160px; height: 160px; border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, var(--pink), var(--rose));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: white; text-align: center;
+    cursor: pointer; line-height: 1.5;
+    transition: transform 4s ease-in-out, box-shadow 0.4s;
+    box-shadow: 0 0 30px rgba(196,120,106,0.25);
+  }
+  .breath-ring.inhale  { transform: scale(1.28); box-shadow: 0 0 50px rgba(196,120,106,0.4); }
+  .breath-ring.hold    { transform: scale(1.28); box-shadow: 0 0 50px rgba(196,120,106,0.35); }
+  .breath-ring.exhale  { transform: scale(1.0);  box-shadow: 0 0 30px rgba(196,120,106,0.2); }
+  .breath-count { font-size: 52px; font-weight: 400; color: var(--terra); font-family: 'Playfair Display', serif; text-align: center; min-height: 64px; line-height: 1; margin: 12px 0 4px; }
+  .breath-phase { font-size: 15px; color: var(--burg); font-family: 'Playfair Display', serif; font-style: italic; text-align: center; min-height: 24px; margin-bottom: 4px; }
+  .breath-round { font-size: 12px; color: var(--muted); text-align: center; min-height: 18px; letter-spacing: 0.06em; }
+  .breath-hand { font-size: 0.85rem; color: var(--muted); text-align: center; font-style: italic; margin-top: 16px; line-height: 1.7; }
+
+  /* Closing card */
+  .closing-card {
+    background: linear-gradient(135deg, rgba(122,59,59,0.06), rgba(196,120,106,0.08));
+    border: 1px solid rgba(196,120,106,0.2);
+    border-radius: 24px; padding: 40px 32px;
+    text-align: center; margin-bottom: 24px;
+  }
+  .closing-card p {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic; font-weight: 300;
+    font-size: clamp(1.1rem, 2.8vw, 1.35rem);
+    color: var(--burg); line-height: 2;
+  }
+
+  .divider { width: 36px; height: 1px; background: rgba(196,120,106,0.3); margin: 20px auto; }
+
+  /* Buttons */
+  .btn {
+    display: block; width: 100%;
+    background: linear-gradient(135deg, rgba(196,120,106,0.15), rgba(181,97,78,0.22));
+    border: 1px solid rgba(196,120,106,0.35);
+    color: var(--burg); border-radius: 50px; padding: 17px 28px;
+    font-size: 0.9rem; font-weight: 700; font-family: 'Lato', sans-serif;
+    cursor: pointer; transition: all 0.2s; margin-bottom: 12px;
+    letter-spacing: 0.03em;
+  }
+  .btn:hover { background: linear-gradient(135deg, rgba(196,120,106,0.25), rgba(181,97,78,0.35)); }
+  .btn:disabled { opacity: 0.3; pointer-events: none; }
+  .btn-ghost {
+    display: block; text-align: center; font-size: 0.8rem;
+    color: var(--muted); cursor: pointer; background: none;
+    border: none; font-family: 'Lato', sans-serif; padding: 6px 0; width: 100%;
+  }
+  .btn-save {
+    display: block; width: 100%;
+    background: white;
+    border: 1px solid rgba(196,120,106,0.3);
+    color: var(--rose); border-radius: 50px; padding: 15px 28px;
+    font-size: 0.85rem; font-weight: 700; font-family: 'Lato', sans-serif;
+    cursor: pointer; transition: all 0.2s; margin-bottom: 12px; letter-spacing: 0.03em;
+  }
+  .btn-save:hover { background: var(--blush); }
+
+  .footer { margin-top: 48px; text-align: center; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(90,55,50,0.3); }
+</style>
+</head>
+<body>
+
+<!-- Screen 1: What happened -->
+<div class="screen active" id="sc1">
+  <div class="dots" id="dots1"></div>
+  <span class="tag">Reaction Portal</span>
+  <h2>What just happened?</h2>
+  <p class="sub">Get it out of your head and onto the page. No filter. No editing. Just what happened.</p>
+  <textarea id="s1text" placeholder="Write it here..."></textarea>
+  <button class="btn" id="s1btn" onclick="goTo(2)" disabled>Continue →</button>
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<!-- Screen 2: Name the reaction -->
+<div class="screen" id="sc2">
+  <div class="dots" id="dots2"></div>
+  <span class="tag">Reaction Portal · Step 2</span>
+  <h2>What's the reaction?</h2>
+  <p class="sub">Tap what feels closest. You can choose more than one.</p>
+  <div class="tiles" id="tilesGrid"></div>
+  <div id="otherWrap" style="display:none; margin-bottom:24px;">
+    <textarea id="otherText" placeholder="Describe what you're feeling..." style="min-height:80px; margin-bottom:0;"></textarea>
+  </div>
+  <button class="btn" id="s2btn" onclick="goTo(3)" disabled>Continue →</button>
+  <button class="btn-ghost" onclick="goTo(1)">← Back</button>
+</div>
+
+<!-- Screen 3: Locate it -->
+<div class="screen" id="sc3">
+  <div class="dots" id="dots3"></div>
+  <span class="tag">Reaction Portal · Step 3</span>
+  <h2>Where does it sit in your body?</h2>
+  <p class="sub">Tap where you feel it most. Trust the first place that comes.</p>
+  <div class="body-labels" id="bodyLabels"></div>
+  <button class="btn" id="s3btn" onclick="goTo(4)" disabled>Continue →</button>
+  <button class="btn-ghost" onclick="goTo(2)">← Back</button>
+</div>
+
+<!-- Screen 4: Portal breath -->
+<div class="screen" id="sc4">
+  <div class="dots" id="dots4"></div>
+  <span class="tag">Reaction Portal · Step 4</span>
+  <h2>The portal breath.</h2>
+  <p class="sub">This breath is the doorway. It moves you from reaction into presence, so you can meet what is underneath.</p>
+  <div class="breath-outer">
+    <div class="breath-ring" id="bRing" onclick="startBreath()">Place a hand<br>where you feel it.<br><br>Tap to begin.</div>
+    <div class="breath-count" id="bCount"></div>
+    <div class="breath-phase" id="bPhase"></div>
+    <div class="breath-round" id="bRound"></div>
+    <p class="breath-hand" id="bHand"></p>
+  </div>
+  <button class="btn" id="s4btn" onclick="goTo(5)" disabled>I am here now →</button>
+  <button class="btn-ghost" onclick="goTo(3)">← Back</button>
+</div>
+
+<!-- Screen 5: What is it protecting -->
+<div class="screen" id="sc5">
+  <div class="dots" id="dots5"></div>
+  <span class="tag">Reaction Portal · Step 5</span>
+  <h2>What is this part of you trying to protect you from?</h2>
+  <p class="sub">There are no wrong answers here. Let whatever rises be the answer, even if it is not words.</p>
+  <textarea id="s5text" placeholder="Let it come without judgement..."></textarea>
+  <button class="btn" id="s5btn" onclick="goTo(6)" disabled>Continue →</button>
+  <button class="btn-ghost" onclick="goTo(4)">← Back</button>
+</div>
+
+<!-- Screen 6: Closing -->
+<div class="screen" id="sc6">
+  <div class="dots" id="dots6"></div>
+  <span class="tag">Reaction Portal · Closing</span>
+  <div class="closing-card">
+    <p>I see you.</p>
+    <p>You kept me safe once.</p>
+    <p>I am safe to feel this now.</p>
+  </div>
+  <div class="divider"></div>
+  <p style="font-size:0.85rem; color:var(--muted); text-align:center; line-height:1.8; margin-bottom:28px;">
+    Sit with this as long as you need.<br>You came all the way through.
+  </p>
+  <button class="btn-save" onclick="saveEntry()">Save this entry</button>
+  <button class="btn" onclick="startOver()">Begin again</button>
+  <a href="/app" style="display:block; text-align:center; margin-top:16px; font-size:0.75rem; color:var(--muted); text-decoration:none;">← Back to Inner Compass</a>
+  <div class="footer">Inner Compass · Melissa Melrose</div>
+</div>
+
+<script>
+const TOTAL = 6;
+
+const REACTIONS = [
+  { label: 'Anger',           icon: '🔥' },
+  { label: 'Shutdown',        icon: '🌫️' },
+  { label: 'Over-giving',     icon: '🤲' },
+  { label: 'Anxiety',         icon: '⚡' },
+  { label: 'Numbness',        icon: '🪨' },
+  { label: 'Snapping',        icon: '💢' },
+  { label: 'People-pleasing', icon: '🪞' },
+  { label: 'Other',           icon: '✦' },
+];
+
+const BODY_ZONES = ['Jaw', 'Throat', 'Chest', 'Heart', 'Stomach', 'Shoulders', 'Hands', 'Hips', 'Legs', 'Whole body'];
+
+let chosenReactions = new Set();
+let chosenBody = new Set();
+let breathDone = false;
+
+// Build dots
+function buildDots(screenId) {
+  const el = document.getElementById('dots' + screenId);
+  if (!el) return;
+  el.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i < screenId ? ' done' : i === screenId ? ' active' : '');
+    el.appendChild(d);
+  }
+}
+
+// Build reaction tiles
+(function() {
+  const grid = document.getElementById('tilesGrid');
+  REACTIONS.forEach(r => {
+    const t = document.createElement('div');
+    t.className = 'tile';
+    t.innerHTML = `<span class="tile-icon">${r.icon}</span>${r.label}`;
+    t.onclick = () => {
+      if (r.label === 'Other') {
+        t.classList.toggle('chosen');
+        const show = t.classList.contains('chosen');
+        document.getElementById('otherWrap').style.display = show ? 'block' : 'none';
+        if (show) chosenReactions.add('Other'); else chosenReactions.delete('Other');
+      } else {
+        t.classList.toggle('chosen');
+        if (t.classList.contains('chosen')) chosenReactions.add(r.label);
+        else chosenReactions.delete(r.label);
+      }
+      document.getElementById('s2btn').disabled = chosenReactions.size === 0;
+    };
+    grid.appendChild(t);
+  });
+})();
+
+// Build body labels
+(function() {
+  const wrap = document.getElementById('bodyLabels');
+  BODY_ZONES.forEach(z => {
+    const b = document.createElement('div');
+    b.className = 'body-label';
+    b.textContent = z;
+    b.onclick = () => {
+      b.classList.toggle('chosen');
+      if (b.classList.contains('chosen')) chosenBody.add(z); else chosenBody.delete(z);
+      document.getElementById('s3btn').disabled = chosenBody.size === 0;
+    };
+    wrap.appendChild(b);
+  });
+})();
+
+// Screen 1 — enable button when text entered
+document.getElementById('s1text').addEventListener('input', function() {
+  document.getElementById('s1btn').disabled = this.value.trim().length < 3;
+});
+
+// Screen 5 — enable button when text entered
+document.getElementById('s5text').addEventListener('input', function() {
+  document.getElementById('s5btn').disabled = this.value.trim().length < 3;
+});
+
+function goTo(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('sc' + n).classList.add('active');
+  buildDots(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Build initial dots
+buildDots(1);
+
+// Breath — 4 in, 4 hold, 6 out
+let breathRunning = false;
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let actx;
+
+function tone(freq, dur, vol) {
+  if (!actx) actx = new AudioCtx();
+  const o = actx.createOscillator(), g = actx.createGain();
+  o.connect(g); g.connect(actx.destination);
+  o.frequency.value = freq; o.type = 'sine';
+  g.gain.setValueAtTime(0, actx.currentTime);
+  g.gain.linearRampToValueAtTime(vol, actx.currentTime + 0.05);
+  g.gain.linearRampToValueAtTime(0, actx.currentTime + dur - 0.05);
+  o.start(actx.currentTime); o.stop(actx.currentTime + dur);
+}
+
+function startBreath() {
+  if (breathRunning) return;
+  breathRunning = true;
+  const ring    = document.getElementById('bRing');
+  const count   = document.getElementById('bCount');
+  const phase   = document.getElementById('bPhase');
+  const roundEl = document.getElementById('bRound');
+  const handEl  = document.getElementById('bHand');
+
+  ring.onclick = null;
+  ring.style.cursor = 'default';
+  handEl.textContent = 'Hand on your body. Breathe into where you feel it.';
+
+  const INHALE = 4, HOLD = 4, EXHALE = 6, ROUNDS = 5;
+  let round = 0;
+
+  function countdown(from, label, cls, next) {
+    ring.className = 'breath-ring ' + cls;
+    phase.textContent = label;
+    let n = from;
+    count.textContent = n;
+    const iv = setInterval(() => {
+      n--;
+      if (n <= 0) { clearInterval(iv); count.textContent = ''; next(); }
+      else count.textContent = n;
+    }, 1000);
+  }
+
+  function doRound() {
+    round++;
+    roundEl.textContent = 'Round ' + round + ' of ' + ROUNDS;
+    tone(396, 0.3, 0.1);
+    countdown(INHALE, 'Breathe in', 'inhale', () => {
+      tone(440, 0.2, 0.07);
+      countdown(HOLD, 'Hold', 'hold', () => {
+        tone(285, 0.3, 0.08);
+        countdown(EXHALE, 'Breathe out', 'exhale', () => {
+          if (round < ROUNDS) {
+            setTimeout(doRound, 800);
+          } else {
+            ring.className = 'breath-ring';
+            ring.innerHTML = '✦';
+            phase.textContent = 'You are here.';
+            count.textContent = '';
+            roundEl.textContent = '';
+            handEl.textContent = 'Stay with your breath for a moment before continuing.';
+            breathDone = true;
+            document.getElementById('s4btn').disabled = false;
+          }
+        });
+      });
+    });
+  }
+
+  doRound();
+}
+
+// Save entry
+function saveEntry() {
+  const lines = [];
+  const s1 = document.getElementById('s1text').value.trim();
+  const s5 = document.getElementById('s5text').value.trim();
+  const reactions = [...chosenReactions].join(', ');
+  const body = [...chosenBody].join(', ');
+
+  lines.push('REACTION PORTAL ENTRY');
+  lines.push(new Date().toLocaleString());
+  lines.push('');
+  lines.push('What happened:');
+  lines.push(s1);
+  lines.push('');
+  lines.push('Reaction: ' + (reactions || 'not noted'));
+  lines.push('Body location: ' + (body || 'not noted'));
+  lines.push('');
+  lines.push('What it was protecting:');
+  lines.push(s5);
+  lines.push('');
+  lines.push('Closing intention:');
+  lines.push('I see you. You kept me safe once. I am safe to feel this now.');
+
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'reaction-portal-' + Date.now() + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function startOver() {
+  document.getElementById('s1text').value = '';
+  document.getElementById('s5text').value = '';
+  document.getElementById('otherText').value = '';
+  document.getElementById('s1btn').disabled = true;
+  document.getElementById('s2btn').disabled = true;
+  document.getElementById('s3btn').disabled = true;
+  document.getElementById('s4btn').disabled = true;
+  document.getElementById('s5btn').disabled = true;
+  document.querySelectorAll('.tile.chosen, .body-label.chosen').forEach(el => el.classList.remove('chosen'));
+  document.getElementById('otherWrap').style.display = 'none';
+  chosenReactions.clear(); chosenBody.clear(); breathDone = false;
+  breathRunning = false;
+  const ring = document.getElementById('bRing');
+  ring.className = 'breath-ring';
+  ring.innerHTML = 'Place a hand<br>where you feel it.<br><br>Tap to begin.';
+  ring.onclick = startBreath;
+  ring.style.cursor = 'pointer';
+  document.getElementById('bCount').textContent = '';
+  document.getElementById('bPhase').textContent = '';
+  document.getElementById('bRound').textContent = '';
+  document.getElementById('bHand').textContent = '';
+  goTo(1);
+}
+</script>
+</body>
+</html>
