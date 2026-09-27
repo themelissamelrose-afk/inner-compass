@@ -880,3 +880,43 @@ There's a satisfaction, there's a meeting, there's a, wow, I did that. And that 
 
 Sending you all my love.
 
+
+
+---
+
+## Two Minds, One Body
+
+We have been taught to trust one mind. The one in our head.
+
+The one that analyses, plans, problem-solves, tells stories, makes meaning out of everything. The one that wakes you up at 2am running through every scenario. The one that says "be logical, be rational, don't be too emotional." The thinking mind. And it is not bad. It has kept you functioning. It has helped you navigate a world that required you to be smart, to adapt, to figure things out.
+
+But here is what most of us were never told.
+
+You have another mind. And it lives in your body.
+
+Your body is not just a vehicle your head rides around in. It is an intelligence. A whole system of knowing that has been running since before you had language. Before you could rationalise your experience. Before you knew the word for what you were feeling. Your nervous system was already recording it, storing it, responding to it.
+
+Your body mind does not think. It feels. It senses. It knows.
+
+It is the thing that makes your stomach drop before your head has caught up. It is the chest tightening in a room that looks fine on paper. It is the full body yes that bypasses all your reasons why not. It is the quiet pull away from something your thinking mind is still trying to convince you to stay with.
+
+This is your Inner Compass.
+
+Not a concept. Not a metaphor. An actual intelligence living inside you that you have likely been talking over, numbing, managing or ignoring for most of your life.
+
+And the reason we override it is not because we are broken. It is because we were shaped in environments that did not have room for what the body was saying. So we learned to shrink it. To manage it. To keep it quiet so we could keep going.
+
+Two minds. One body.
+
+The work is not about shutting the thinking mind off. It is about learning to hear the other one. The one that has been speaking underneath all along. The one that knows the difference between aligned and forced. Between genuine safety and performed calm. Between a yes that comes from desire and a yes that comes from fear of saying no.
+
+When you start working with both, something changes. The thinking mind stops having to carry everything alone. The body stops having to scream to be heard. And there is this place, this quieter, clearer place, where both are moving together.
+
+That is what it feels like to trust yourself.
+
+Not the version of trust that is confident all the time. The version that says, I know what I feel, and I am willing to let that be real information.
+
+Your body has been talking to you your whole life.
+
+The Inner Compass work is about learning to listen.
+
