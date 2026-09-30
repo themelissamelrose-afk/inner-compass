@@ -920,3 +920,117 @@ Your body has been talking to you your whole life.
 
 The Inner Compass work is about learning to listen.
 
+
+
+---
+
+## Mel's Musings — Is It Actually Hard? (Fire Shaper Session + Portal Breath Process)
+
+*A Mel's Musings episode recorded after a Fire Shaper group session.*
+
+Hello, my loves, welcome to Mel's Musings. I just wanted to share today a little conversation that I had with my group at Fire Shaper. And at the end of this, I also want to take you through a little process that I took them through, that I feel may help you move from reaction to a little more sense of connection to the body, in how to move from that mind space of reaction, and use that as a portal to come home to your body.
+
+What I was really interested in was the comment that one of the girls said as we finished up the 6 weeks. She said, this has worked really hard. You wonder why no one does this work. And I do agree on so many levels. But is it hard to stay where we are at? It is hard because we do not like our lives. It is hard because we end up back in the same emotional loop. It is hard because we are not happy. It is hard because we are constantly striving. It is hard because we are looking outside of ourselves.
+
+To me, that is hard. So when we are talking about hard, when we have to shift from what we know, is it hard? Or is it just uncomfortable?
+
+I think hard, to me, is staying where we are at. Staying in this loop where you constantly do the same thing and feel helpless. You feel unsupported. You are running on the unconscious patterns and feeling like you cannot change them. You have no control. Life is happening to you, not for you.
+
+So to me, in that helpless state, where you are sort of a victim to your own life, because you feel there is something outside of you that you need to figure out to create the change you want, but you are everything you need to be. You are already there. What we have to do now is unlearn what we built ourselves on. The foundation we are built on. We need to unlearn that. Because that is wired to our past. It is wired to perceptions of our childhood, it is wired on beliefs about ourselves, the way we perceived ourselves and our family environment when we were younger. Our nervous system and our unconscious mind are working together to keep us in that state.
+
+The 5% of what we have conscious awareness of, just 5%, is what we are trying to use to change all of this. Because we want to be better. We want to do better. We want to have a life that we desire. That is 5%, with a 95% running underneath us that wants to keep us safe and back in the past, where we know exactly how we are going to feel. We know how happy we are going to be, we know how sad we are going to be. We know the confines of the box we sit in, in what we are conditionally wired to. Because as much as we might not like it, we know it.
+
+And to me, that is harder.
+
+I think from a really young age I already knew I was wired to my parents' pain. I remember saying to my dad at 17, if you cannot accept who I am, the sensitive little person that I am and the way that I feel, I said, I have not even started on myself, because I feel like I am unravelling patterns that I have learnt from you. I started to date, I started to have relationships, and I recognised that a lot of the pain I was experiencing was also the pain I felt from my father and the ideas and concepts I had from my mother.
+
+And for some reason it was so apparent to me. And I spent time searching, at a really young age, for something outside of myself to give me the key. To figure out how I could stop looping in this. Stop protecting myself from the pain that was coming up, which I felt was not mine.
+
+And the funny thing is, it is hard. But is it harder? Staying in a place that you feel helpless? Unsupported, unloved, not good enough, not worthy. Is that harder than actually asking, why?
+
+I have never been scared of asking why. I have always been curious enough to go, what is it within me and why am I stuck here? Because this does not feel like it for me. There is something more for me. I have always known it.
+
+I tried to do all the deep inner child work, the shadow work. I did not have any fear about going into the darkness. I spent a lot of time in my darkness and my trauma. But I still was not out of the loop. I still felt like it was not complete. I was still repeating it in my life.
+
+Why is this happening? I am desiring something completely different. I know exactly where I want to go. But I feel like I am not getting there. I make little steps and then I feel like all of a sudden I get pulled right back to where I started.
+
+I never went back to where I started. I had way more awareness. But because I had more awareness, it would seem to be more shame. More reasons to blame my life for why I am not there yet. Instead of recognising how I was reacting to my own life.
+
+The reality of what I recognised in myself was the thing that maybe feels hard. Because now I realise, so it is me. The more and more I am trying to fix it and build another strategy and create something outside of myself, that is 5% of me in agreement with that. The other 95% is how my body, my nervous system, and my unconscious mind are running to keep me back where I know.
+
+All of this work, all of this awareness, all of this understanding, and I still felt burnt out in the idea of healing, thinking there was something wrong with me. That I was broken on some level. But then I knew I was not, because I had such a deep understanding. But I could not rewire my humanness. Because there was still part of me rejecting it like there was something wrong with it.
+
+And I think what we really have to recognise is what we are truly trying to do. We are trying to find deep compassion for our humanness and how it has been wired. Because it has just been keeping us alive in survival. Doing what we knew how to do to adapt to the circumstance, the environment, our parents' consciousness, as a little person who needed and relied solely on that environment and those people to feel loved and safe.
+
+And now that lays within us, searching for familiarity. Our unconscious is constantly looking for familiarity to keep us safe. And it is literally the opposite of what we want and desire.
+
+We are actually searching to be validated for the things we already know about ourselves. Not the things we desire, not the part of us that wants to step into our fullness, to be seen, to be loved, to be held, to show up in everything we know we are here to do. We are looking for the parts of us to be validated for our not enoughness, our not worthiness, the belief that we are not loveable. Even though we are actually desiring something completely opposite.
+
+Bringing up children taught me so much of this. My children gave me a distinct why. I do not want to pass my unconsciousness onto my children. And bringing up the boys and doing this work side by side, I would say, is gangster. It is the hardest thing you can do. But watching what they show you, being in the moment with what is, supporting that relationship by looking at yourself first. What is it showing me? Where is it bringing up something within me?
+
+Sometimes I have heard myself say something my parents said, and I have stopped and thought, what did that make me feel when someone said that to me? And is he reflecting a version of me that was too much for my parents? Am I minimising that expression of bigness in my own child? The things we miss. The emotional connection. It is not about doing more. It is about being willing to feel what our parents could not feel, so we can transmute it, break the pattern, and stop passing it on.
+
+And that does not just go to our children. It goes 7 generations down. And it goes 7 generations back.
+
+So it does feel heavy when we recognise how much we are holding. The weight of it. But that heaviness, that emotion, which is the energy we hold around what we feel, is not accepted. We adapted. We created behaviours around adapting so we do not show or express how we truly feel. So we suppress.
+
+Our behaviours run our patterns. And what drives those patterns? Unconscious beliefs. And what drives those unconscious beliefs? A nervous system reaction. Because it makes us feel a certain way in the body, and then the unconscious mind goes, red alert, hold on, this is something I do not know. This is unknown, this is fearful for me, even if it is what we desire. Let us abort mission, let us come back, let us find some behaviours that will distract us.
+
+A lot of us, by the time we actually have a big external reaction, we are about 20 reactions deep. We have been building for days, weeks, months. And then when it comes out, we shame ourselves for it and we blame the situation, the person, the relationship. We never really take responsibility for what that was showing us within us.
+
+If we can become more conscious of our unconscious, and what is triggering physically in our body, all of a sudden we recognise that internal team. Nervous system, unconscious mind, working together. Of course. It has a job. It is trying to keep us safe. It is trying to keep us in alignment with the environment from when we grew up, all those experiences that have become a wired version of us, our identity.
+
+But that is not the fullness of who you are. It is not the true expression of who you are. It is your personality, created through behaviours that has become your identity. Not being, because we are not conscious enough to be with what is. It is the way you have created to fit into the world.
+
+We cannot just do the mindset work. We cannot just do nervous system work to calm ourselves in the moment. We have to bring these two things together. We have to work with what we want to release. And that is why the foundational work is so important. Because if you jump straight into inner child work, without the foundation, it re-traumatises you. It feels hard and overwhelming. I did so much of it in the reverse.
+
+I did not have the ability to hold myself. I was still looking for someone to hold me. I was still looking for something outside of me to soothe me. I was still looking for a mother. I was still looking for a father, on some level, in my relationships. And always, what was I getting? What I knew.
+
+And every time I want to consciously step into this new version of myself that 5% believes in, I have to bring that 95% up to date. And that can only happen when we are willing to take responsibility for the unconscious version of ourselves. But we need to know how to meet that. We need to know how to work with the body and the unconscious mind in the moment to rewire it. Otherwise we are just repeating patterns so unconsciously that it does feel hard, because we end up back in the same place, doing the same thing, feeling the same way, even though we know more.
+
+What we really have to find is deep compassion for our humanness and how it has been wired, because it has just been keeping us alive. And when we build the capacity to be present with what is, there is also deeper layers that lay way back. But what we are doing is building capacity now. We start to split out of reaction and come back into the body. And that builds nervous system capacity.
+
+And when you know how to meet that fear, you know how to meet the feelings that are underneath it, you can reclaim that version of yourself, that aspect of you that is just feeling a little unsure as you step into the unknown. You can make that part of you feel safe, loved, that you are okay, that you are worthy. And not in a way that you have to change and fight and prove. You just are. Able to receive it. That you are worthy of receiving it.
+
+You know what it feels like when you build trust with yourself? You are unfuckable. No one can hurt you, because you know you will show up for those hurt places and spaces within yourself. You know you have your own back. You do not doubt that intuitive knowing of where your energy needs to be. What you need to do for yourself. Because you are not scared to feel anymore. You are in no fear of what is actually coming up when you feel it. And you can reflect and take self responsibility instead of blaming someone else or shaming yourself. You know exactly where to go.
+
+---
+
+### The Portal Breath Process
+
+*A guided process Melissa leads at the end of this Musings session to move from reaction into the body.*
+
+Close your eyes. Take a nice deep breath. Feel the shoulders fall away from the ears. Let the face soften. Let the jaw drop a little more. Inhaling through the nose. Exhaling out of the mouth. Just filling yourself here, right now. Present with what is.
+
+Bring your hands to your heart. Just a little pressure. With the awareness of your breath as you breathe into your heart, notice how your body is feeling. Take a nice deep breath in. A nice deep breath out. Just witnessing your heart underneath your hand.
+
+I want you to ask yourself, what has been triggering you lately? Could be something you have been criticising about yourself. Something around work. A reaction to your partner or children. Just let that be present. What are you reacting to? What is the thing triggering you the most that is consuming your mind right now?
+
+And ask yourself, with your hand on your chest, what is that making me feel? Could be frustration. Could be feeling controlled. Could be anger, disappointment, pissed off. Whatever that reactive feeling is, let that come into your awareness. And take a nice deep breath.
+
+Now I want you to let that feeling be in your body. Notice what it feels like. That frustration, that anger, that disappointment. I do not want you to judge it. I want you to allow it to be there.
+
+And then I want you to notice, where do you feel tension in the body? Is it in your stomach? Your throat? Your chest? Your shoulders? Move your hand to wherever you feel the tension. Take a nice deep breath with it. And on the exhale, feel it dissolving just a little bit. That tension melting slightly. You are being with it. You are holding space for it. Not changing it. Just staying present.
+
+And then ask yourself, what am I actually feeling? What does this frustration make me feel? What is this feeling in my body? Just listen. Allow your body to let you know exactly how you are feeling.
+
+And as you breathe and sit with it, the fear of experiencing this feeling starts to dissolve. Let that vulnerable part that is feeling right now be understood. Be met. Let yourself know that it is okay to feel this way. That you are safe to feel this way. Of course I understand that you feel this way. You are allowed to validate exactly what you are experiencing. Because that feeling, it might not be right, but it is valid to you. This is your experience. This is something you have been reacting over the top of because this feeling hurt you.
+
+So with that presence, take a nice deep breath with it. A soft, gentle breath. As you let that feeling be present. Let that feeling be okay. You do not need to fear this feeling. I am okay to feel this. I am allowing myself to witness myself. Hold that without trying to figure it out. Just letting it be there.
+
+And then, as you are now witnessing the feeling, giving yourself grace and loving grace right now, I want you to ask your body: what do I need to do right now? What do I need to do for myself? Now that I recognise I am experiencing this feeling instead of staying in reaction, what do I need?
+
+Listen. Allow. You may feel sadness move through the body. You may have a release. Just allow the body to soften into the listening of knowing now what you need.
+
+And when you can show up for that need, when you meet that need, that understanding of what you felt, when you show up for that for yourself, that creates aligned action. You do not need to force over the top of that. There is just such a beautiful presence of allowing what is to be there and knowing what you need.
+
+Taking a nice deep breath in. A nice deep breath out. And knowing now what your body has spoken to, I want you to commit to that. Allow that to be something that you give presence to in the coming days, weeks, whatever you need. Allow that to be present.
+
+Because right now we are just meeting the feeling. And then later we get to meet the deeper layers of ourselves. Where we can reclaim and bring that back into alignment and wholeness. Not the past version of ourselves. The whole version that is waiting for us. The one we know is on the other side that we just keep trying so hard with all our willpower to access.
+
+And what we need to access and come home to is a reality of how we are really feeling underneath. Working with that sensation, the body coming back. Understanding where to locate it, how to feel it, and then knowing what we need. And using that as our aligned action to move forward.
+
+When we come back to the moment to recognise what we truly feel instead of going into protection, the mind starts to soften. The unconscious mind goes, hold on, we are doing something different. We are coming back to recognise what we are feeling. And that breaks that cycle. That breaks that pattern in the present moment. And that is when you can start rewiring your nervous system in the present moment.
+
+That is building trust. And you know what it feels like when you build trust with yourself? You are unfuckable.
+
