@@ -125,7 +125,7 @@ const PUBLIC_ROUTES = new Set([
   '/daily-checkin', '/personal-lie-session', '/new-moon-cancer',
   '/future-self-journal', '/gratitude-activation', '/rewiring-22x11',
   '/inner-teen',
-  '/week1-observer', '/week2-personal-lie', '/week3-body-map',
+  '/become-observer', '/week1-observer', '/week2-personal-lie', '/week3-body', '/week3-body-map',
   '/week4-nervous-system', '/week5-flip-it', '/week6-shame',
   '/kids-daily-feels', '/kids-hello-body',
   '/full-moon-pisces', '/pisces-meditation', '/full-moon-journal',
