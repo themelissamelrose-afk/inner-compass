@@ -130,6 +130,7 @@ const PUBLIC_ROUTES = new Set([
   '/kids-daily-feels', '/kids-hello-body',
   '/full-moon-pisces', '/pisces-meditation', '/full-moon-journal',
   '/full-moon-aries', '/aries-harvest-meditation', '/heart-awakening', '/reveal-your-patterns',
+  '/new-moon-scorpio',
   '/reaction-portal', '/reactions-portal-meditation',
   '/sacred-presence-meditation', '/shame-work',
   '/beneath-the-pattern', '/reflect', '/reset', '/reset-audio', '/workshop',
@@ -903,6 +904,9 @@ app.get('/reactions-portal-meditation', (req, res) => {
 });
 app.get('/sacred-presence-meditation', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'sacred-presence-meditation.html'));
+});
+app.get('/new-moon-scorpio', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'new-moon-scorpio.html'));
 });
 app.get('/heart-awakening', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'heart-awakening.html'));
