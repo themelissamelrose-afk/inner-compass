@@ -391,9 +391,11 @@
       <textarea class="bay-textarea" id="bayText" placeholder="I am... I have... I live in a world where..."></textarea>
     </div>
     <div class="ash-msg" id="ashMsg">Your desire has been released to the universe. It is received. Trust the unfolding.</div>
-    <button class="btn" id="burnBtn" onclick="burnLeaf()">Release it to the universe 🔥</button>
-    <div style="margin-top:12px;">
-      <button class="btn-ghost" id="afterBurn" style="display:none;" onclick="goTo(7)">Continue →</button>
+    <div id="burnBtnWrap">
+      <button class="btn" id="burnBtn" onclick="burnLeaf()">Release it to the universe 🔥</button>
+    </div>
+    <div id="afterBurnWrap" style="display:none; margin-top:20px;">
+      <button class="btn" onclick="goTo(7)">Continue to mirror work →</button>
     </div>
   </div>
 </div>
@@ -539,18 +541,25 @@ function startPortalBreath(){
 
 // Bay leaf burn
 function burnLeaf(){
-  const txt=document.getElementById('bayText').value.trim();
-  if(!txt) return;
   const ta=document.getElementById('bayText');
   const btn=document.getElementById('burnBtn');
   btn.disabled=true;
-  ta.classList.add('burning');
-  setTimeout(()=>{
-    ta.style.display='none';
+  if(ta.value.trim()){
+    ta.classList.add('burning');
+    setTimeout(()=>{
+      ta.style.display='none';
+      document.getElementById('ashMsg').classList.add('show');
+      document.getElementById('burnBtnWrap').style.display='none';
+      document.getElementById('afterBurnWrap').style.display='block';
+      document.getElementById('afterBurnWrap').scrollIntoView({behavior:'smooth',block:'center'});
+    },2200);
+  } else {
+    document.getElementById('ashMsg').textContent='Your intention has been released. The universe receives you.';
     document.getElementById('ashMsg').classList.add('show');
-    document.getElementById('afterBurn').style.display='inline-block';
-    btn.style.display='none';
-  },2200);
+    document.getElementById('burnBtnWrap').style.display='none';
+    document.getElementById('afterBurnWrap').style.display='block';
+    document.getElementById('afterBurnWrap').scrollIntoView({behavior:'smooth',block:'center'});
+  }
 }
 </script>
 </body>
