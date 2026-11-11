@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11:11 Portal Ritual</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --void:   #05030a;
+    --depth:  #0d0818;
+    --gold:   #c8a040;
+    --amber:  #e8b84a;
+    --warm:   #f0d090;
+    --garnet: #6b2030;
+    --violet: #5a2080;
+    --cream:  #f0e8d4;
+    --muted:  rgba(240,224,196,0.6);
+    --white:  #ffffff;
+  }
+
+  body {
+    background: var(--void);
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(200,160,64,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 15% 50%, rgba(90,32,128,0.1) 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 80%, rgba(107,32,48,0.12) 0%, transparent 40%);
+    font-family: 'Lato', sans-serif;
+    color: var(--cream);
+    min-height: 100vh;
+  }
+
+  .stars { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .star {
+    position: absolute; border-radius: 50%; background: white; opacity: 0;
+    animation: twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);
+  }
+  @keyframes twinkle {
+    0%,100%{opacity:0;transform:scale(0.8);}
+    50%{opacity:var(--op,0.6);transform:scale(1);}
+  }
+
+  .header {
+    text-align: center; padding: 60px 24px 32px;
+    position: relative; z-index: 1;
+  }
+  .portal-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 10vw, 80px);
+    font-weight: 400; letter-spacing: 12px;
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(200,160,64,0.6), 0 0 80px rgba(200,160,64,0.3);
+    animation: numPulse 3s ease-in-out infinite;
+    display: block; margin-bottom: 8px;
+  }
+  @keyframes numPulse {
+    0%,100%{text-shadow:0 0 40px rgba(200,160,64,0.6),0 0 80px rgba(200,160,64,0.3);}
+    50%{text-shadow:0 0 60px rgba(200,160,64,0.9),0 0 120px rgba(200,160,64,0.5);}
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 34px); font-weight: 400;
+    color: var(--white); line-height: 1.3; margin-bottom: 12px;
+  }
+  .header .sub {
+    font-size: 15px; color: var(--muted);
+    font-style: italic; font-family: 'Playfair Display', serif;
+    max-width: 460px; margin: 0 auto; line-height: 1.7;
+  }
+
+  .step {
+    display: none; max-width: 640px; margin: 0 auto;
+    padding: 0 20px 70px; animation: fadeUp 0.6s ease;
+    position: relative; z-index: 1;
+  }
+  .step.active { display: block; }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(200,160,64,0.12);
+    border-radius: 24px; padding: 36px 32px;
+    margin-bottom: 20px; backdrop-filter: blur(8px);
+  }
+  .step-num {
+    font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px; opacity: 0.8;
+  }
+  .step-q {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 28px);
+    color: var(--white); font-weight: 400;
+    margin-bottom: 18px; line-height: 1.35;
+  }
+  .step-body { font-size: 15.5px; line-height: 1.85; color: var(--muted); margin-bottom: 20px; }
+  .highlight {
+    background: rgba(200,160,64,0.08);
+    border-left: 2px solid rgba(200,160,64,0.5);
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 17px; color: var(--warm);
+    margin: 22px 0; line-height: 1.7;
+  }
+  .speak-box {
+    background: rgba(200,160,64,0.06);
+    border: 1px solid rgba(200,160,64,0.2);
+    border-radius: 16px; padding: 24px 28px;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 16.5px; color: var(--warm);
+    line-height: 1.9; margin: 20px 0; text-align: center;
+  }
+  .speak-label {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 12px; opacity: 0.7; text-align: center;
+  }
+  .prompt-label {
+    font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px; opacity: 0.8;
+  }
+  textarea {
+    width: 100%; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,160,64,0.15);
+    border-radius: 14px; padding: 16px 18px;
+    font-family: 'Lato', sans-serif; font-size: 15px; color: var(--cream);
+    resize: vertical; min-height: 110px; line-height: 1.7;
+    outline: none; transition: border-color 0.2s; margin-bottom: 20px;
+  }
+  textarea:focus { border-color: rgba(200,160,64,0.4); }
+  textarea::placeholder { color: rgba(240,224,196,0.25); }
+
+  .btn {
+    background: linear-gradient(135deg, #7a5010, #4a3008);
+    border: 1px solid rgba(200,160,64,0.4);
+    color: var(--warm); padding: 16px 32px;
+    border-radius: 100px; font-size: 14px; letter-spacing: 1px;
+    cursor: pointer; font-family: 'Lato', sans-serif;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn:hover { background: linear-gradient(135deg, #9a6818, #6a4810); transform: translateY(-1px); }
+  .btn:disabled { opacity: 0.35; cursor: default; transform: none; }
+  .btn-ghost {
+    background: transparent; border: 1px solid rgba(200,160,64,0.2);
+    color: var(--muted); padding: 12px 24px; border-radius: 100px;
+    font-size: 13px; cursor: pointer; font-family: 'Lato', sans-serif;
+    transition: all 0.2s; display: inline-block; margin-top: 12px;
+  }
+  .btn-ghost:hover { border-color: rgba(200,160,64,0.4); color: var(--cream); }
+
+  /* Candle */
+  .candle-wrap { text-align: center; margin: 28px 0 20px; }
+  .candle { display: inline-block; position: relative; width: 28px; }
+  .candle-body { width: 28px; height: 90px; background: linear-gradient(to bottom, #f8f0e0, #e0d0b0); border-radius: 4px 4px 2px 2px; margin: 0 auto; }
+  .candle-wick { width: 2px; height: 14px; background: #503020; margin: 0 auto; border-radius: 1px; }
+  .flame { width: 16px; height: 26px; margin: 0 auto; position: relative; top: -2px; }
+  .flame::before {
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 16px; height: 26px;
+    background: radial-gradient(ellipse at 50% 80%, #fff8b0 0%, #ffc830 35%, #ff9020 65%, transparent 100%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: flicker 1.6s ease-in-out infinite alternate; filter: blur(1px);
+  }
+  @keyframes flicker {
+    0%   {transform:translateX(-50%) scaleX(1) scaleY(1) rotate(-1deg); opacity:1;}
+    30%  {transform:translateX(-50%) scaleX(0.9) scaleY(1.08) rotate(1.5deg); opacity:0.95;}
+    60%  {transform:translateX(-50%) scaleX(1.08) scaleY(0.94) rotate(-2deg); opacity:1;}
+    100% {transform:translateX(-50%) scaleX(0.95) scaleY(1.05) rotate(0.5deg); opacity:0.98;}
+  }
+  #unlitCandle .candle-wick { background: #7a6040; }
+  #unlitCandle .flame::before { display: none; }
+
+  /* Elements grid */
+  .elements-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+  .element-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(200,160,64,0.15);
+    border-radius: 16px; padding: 20px 18px; text-align: center; cursor: pointer;
+    transition: all 0.3s;
+  }
+  .element-card.called {
+    background: rgba(200,160,64,0.1); border-color: rgba(200,160,64,0.4);
+  }
+  .element-icon { font-size: 28px; margin-bottom: 8px; }
+  .element-name { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .element-words { font-size: 13.5px; color: var(--muted); line-height: 1.6; font-style: italic; }
+  .element-card.called .element-words { color: var(--warm); }
+
+  /* Portal breath */
+  .breath-ring {
+    width: 160px; height: 160px; border-radius: 50%;
+    margin: 12px auto 44px;
+    background: radial-gradient(circle at 38% 38%, #2a1a50, #0d0818);
+    border: 1px solid rgba(200,160,64,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 300; color: rgba(200,160,64,0.7); text-align: center;
+    cursor: pointer; transition: transform 1.5s ease-in-out, box-shadow 0.4s;
+    box-shadow: 0 0 40px rgba(200,160,64,0.15); line-height: 1.4;
+  }
+  .breath-ring.inhale1 { transform: scale(1.15); box-shadow: 0 0 50px rgba(200,160,64,0.3); }
+  .breath-ring.inhale2 { transform: scale(1.3); box-shadow: 0 0 70px rgba(200,160,64,0.5); }
+  .breath-ring.exhale  { transform: scale(1.0);  box-shadow: 0 0 25px rgba(200,160,64,0.1); }
+  .breath-count { font-size: 44px; font-weight: 300; color: var(--gold); font-family: 'Playfair Display', serif; text-align: center; min-height: 56px; line-height: 1; margin-bottom: 6px; }
+  .breath-msg { font-size: 17px; color: var(--cream); font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 6px; min-height: 28px; font-style: italic; }
+  .breath-round { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-align: center; opacity: 0.65; min-height: 20px; }
+
+  /* Bay leaf */
+  .bay-wrap { position: relative; margin: 20px 0; }
+  .bay-textarea {
+    width: 100%; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,160,64,0.2);
+    border-radius: 14px; padding: 16px 18px;
+    font-family: 'Playfair Display', sans-serif; font-style: italic;
+    font-size: 15px; color: var(--cream);
+    resize: none; height: 90px; line-height: 1.7;
+    outline: none; transition: all 0.5s; margin-bottom: 0;
+  }
+  .bay-textarea:focus { border-color: rgba(200,160,64,0.4); }
+  .bay-textarea::placeholder { color: rgba(240,224,196,0.2); }
+  .bay-textarea.burning {
+    animation: burnText 2s ease forwards;
+  }
+  @keyframes burnText {
+    0%   { opacity: 1; color: var(--cream); }
+    40%  { color: var(--amber); border-color: rgba(232,120,0,0.6); background: rgba(232,100,0,0.1); }
+    70%  { opacity: 0.5; filter: blur(2px); color: rgba(200,100,0,0.5); }
+    100% { opacity: 0; filter: blur(4px); }
+  }
+  .ash-msg {
+    display: none; text-align: center; padding: 20px;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    color: rgba(200,160,64,0.6); font-size: 15px; line-height: 1.7;
+  }
+  .ash-msg.show { display: block; animation: fadeUp 1s ease; }
+
+  /* Mirror */
+  .mirror-frame {
+    border: 1px solid rgba(200,160,64,0.3);
+    border-radius: 50% / 40%;
+    padding: 32px 28px;
+    background: radial-gradient(ellipse at 50% 40%, rgba(200,160,64,0.05) 0%, transparent 70%);
+    text-align: center; margin: 20px 0;
+    box-shadow: inset 0 0 40px rgba(200,160,64,0.04), 0 0 30px rgba(200,160,64,0.08);
+  }
+  .mirror-prompt {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 20px;
+  }
+
+  /* Closing affirmations */
+  .affirmation-row { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
+  .affirmation-line {
+    background: rgba(200,160,64,0.06);
+    border: 1px solid rgba(200,160,64,0.15);
+    border-radius: 14px; padding: 18px 22px;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 16px; color: var(--warm); line-height: 1.65; text-align: center;
+  }
+
+  .progress-dots {
+    display: flex; justify-content: center; gap: 8px;
+    margin: 0 0 32px; position: relative; z-index: 1;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(240,224,196,0.15); transition: all 0.3s; }
+  .dot.on { background: var(--gold); transform: scale(1.3); }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<header class="header">
+  <span class="portal-num">11:11</span>
+  <h1>The Portal Ritual</h1>
+  <p class="sub">Tonight the veil is thin, the numbers align, and the door is open. This ritual is an act of power. You are not wishing. You are claiming.</p>
+</header>
+
+<div class="progress-dots" id="dots"></div>
+
+<!-- Step 1: Light the candle -->
+<div class="step active" id="s1">
+  <div class="card">
+    <div class="step-num">Step 1 of 8 · Cast Your Circle</div>
+    <div class="step-q">Begin by creating sacred space.</div>
+    <div class="step-body">Before anything else, you need to draw a boundary between the ordinary world and the sacred one. This is what it means to cast a circle, you are declaring that this space, this moment, is set apart. What happens inside it is intentional.<br><br>Find a candle if you have one. Light it. If you do not have one, place your hand on your heart and feel its warmth. That flame is always inside you.</div>
+    <div class="highlight">When you light the candle, say aloud or in your heart: "I cast this circle in love and in power. Only what serves my highest good may enter here."</div>
+    <div class="candle-wrap">
+      <div class="candle" id="unlitCandle">
+        <div class="flame"></div>
+        <div class="candle-wick"></div>
+        <div class="candle-body"></div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <button class="btn" onclick="lightCandle()">My candle is lit →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 2: Call in elements -->
+<div class="step" id="s2">
+  <div class="card">
+    <div class="step-num">Step 2 of 8 · Call In the Elements</div>
+    <div class="step-q">Invite the four directions to witness.</div>
+    <div class="step-body">Witchcraft works with the intelligence of the natural world. The four elements hold ancient wisdom and they respond when called with intention. Tap each element to call it in. Speak the words aloud as you do.</div>
+    <div class="elements-grid">
+      <div class="element-card" id="el-earth" onclick="callElement(this,'earth')">
+        <div class="element-icon">🜃</div>
+        <div class="element-name">Earth · North</div>
+        <div class="element-words">"I call in the North, the element of Earth. Ground me in my truth. Anchor what I am calling in."</div>
+      </div>
+      <div class="element-card" id="el-air" onclick="callElement(this,'air')">
+        <div class="element-icon">🜁</div>
+        <div class="element-name">Air · East</div>
+        <div class="element-words">"I call in the East, the element of Air. Clear my mind. Carry my intentions to the universe."</div>
+      </div>
+      <div class="element-card" id="el-fire" onclick="callElement(this,'fire')">
+        <div class="element-icon">🜂</div>
+        <div class="element-name">Fire · South</div>
+        <div class="element-words">"I call in the South, the element of Fire. Activate my power. Burn away what no longer belongs."</div>
+      </div>
+      <div class="element-card" id="el-water" onclick="callElement(this,'water')">
+        <div class="element-icon">🜄</div>
+        <div class="element-name">Water · West</div>
+        <div class="element-words">"I call in the West, the element of Water. Open my heart. Flow me toward what is mine."</div>
+      </div>
+    </div>
+    <button class="btn" id="elementsBtn" onclick="goTo(3)" disabled>All four have been called →</button>
+  </div>
+</div>
+
+<!-- Step 3: 11:11 invocation -->
+<div class="step" id="s3">
+  <div class="card">
+    <div class="step-num">Step 3 of 8 · The Invocation</div>
+    <div class="step-q">Speak the portal open.</div>
+    <div class="step-body">Words spoken aloud carry a different frequency to words thought in the mind. Tonight you are not wishing. You are declaring. Read the invocation below aloud, slowly, feeling each line in your body.</div>
+    <div class="speak-label">Read this aloud</div>
+    <div class="speak-box">
+      I stand at the 11:11 portal, fully present and fully awake.<br><br>
+      I call in my highest timeline. I call in the version of my life that is already waiting for me to claim it.<br><br>
+      I am not asking for permission. I am not waiting to be chosen. I am stepping forward as the woman who already knows.<br><br>
+      The portal is open. I walk through with my whole self. Nothing held back.<br><br>
+      So it is.
+    </div>
+    <button class="btn" onclick="goTo(4)">I have spoken it →</button>
+  </div>
+</div>
+
+<!-- Step 4: Ancestor calling -->
+<div class="step" id="s4">
+  <div class="card">
+    <div class="step-num">Step 4 of 8 · The Lineage</div>
+    <div class="step-q">Call in the women who healed before you.</div>
+    <div class="step-body">The veil between worlds is still thin in Scorpio season. November holds the energy of ancestral connection, of those who came before, of the lineage that runs in your blood.<br><br>You are not doing this healing alone. There are women in your lineage who wanted this freedom and could not reach it. Women who carried what you carry, who passed it forward unconsciously, hoping one day someone in the line would stop and choose differently.<br><br>You are that woman. What you heal in yourself, you heal in them too.</div>
+    <div class="speak-label">Speak this aloud or feel it in your heart</div>
+    <div class="speak-box">
+      I call in the women of my lineage who healed and those who could not.<br><br>
+      I honour the strength it took to survive. I honour the love they carried even inside their pain.<br><br>
+      I am here now. I am choosing differently. What was passed to me in the dark, I am choosing to meet in the light.<br><br>
+      I heal for myself and I heal for them. The line changes here.
+    </div>
+    <div class="highlight">Take a moment in silence. If you feel something rise in your body, let it be there. This is the lineage responding.</div>
+    <button class="btn" onclick="goTo(5)">I have called them in →</button>
+  </div>
+</div>
+
+<!-- Step 5: Portal activation breath -->
+<div class="step" id="s5">
+  <div class="card">
+    <div class="step-num">Step 5 of 8 · Activate the Portal</div>
+    <div class="step-q">11 rounds to open the channel.</div>
+    <div class="step-body">This is an activation breath. Two short inhales through the nose to draw in power, then one long exhale through the mouth to release and expand. Eleven rounds for 11:11. This breath opens your nervous system and your energy field to receive what you are calling in.</div>
+    <div class="highlight">Double inhale through the nose, two short sniffs. Then one long slow exhale through the mouth. Feel the energy building with each round.</div>
+  </div>
+  <div class="breath-count" id="pCount"></div>
+  <div class="breath-msg" id="pMsg">Press the circle to begin</div>
+  <div class="breath-round" id="pRound"></div>
+  <div class="breath-ring" id="pRing" onclick="startPortalBreath()">Begin<br>Activation</div>
+  <button class="btn" id="pNext" style="display:none;" onclick="goTo(6)">Portal activated →</button>
+</div>
+
+<!-- Step 6: Bay leaf ritual -->
+<div class="step" id="s6">
+  <div class="card">
+    <div class="step-num">Step 6 of 8 · The Bay Leaf Ritual</div>
+    <div class="step-q">Write your desire and release it to the universe.</div>
+    <div class="step-body">The bay leaf ritual is one of the oldest forms of wish magic. You write your desire, then burn it, sending the energy and intention into the universe. The burning is not destruction, it is transformation. It is saying: I am not holding onto this with my grip. I am trusting the universe to receive it and return it.<br><br>Write your deepest desire for this new chapter. One thing, stated simply and clearly, written as if it is already true.</div>
+    <div class="speak-label">Write your desire as if it is already real</div>
+    <div class="bay-wrap">
+      <textarea class="bay-textarea" id="bayText" placeholder="I am... I have... I live in a world where..."></textarea>
+    </div>
+    <div class="ash-msg" id="ashMsg">Your desire has been released to the universe. It is received. Trust the unfolding.</div>
+    <button class="btn" id="burnBtn" onclick="burnLeaf()">Release it to the universe 🔥</button>
+    <div style="margin-top:12px;">
+      <button class="btn-ghost" id="afterBurn" style="display:none;" onclick="goTo(7)">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step 7: Mirror work -->
+<div class="step" id="s7">
+  <div class="card">
+    <div class="step-num">Step 7 of 8 · Mirror Work</div>
+    <div class="step-q">One truth, spoken to yourself.</div>
+    <div class="step-body">Mirror work is one of the most powerful and most confronting practices in witchcraft and in healing. To look into your own eyes and speak truth directly to yourself, without deflecting, without minimising, is an act of radical self-recognition.<br><br>If you have a mirror near you, look into your own eyes as you write this. If not, close your eyes and see yourself.<br><br>What is the one truth you have been avoiding saying to yourself? Not about what you have done wrong, but about who you actually are. What does the woman on the other side of this portal know about herself that the old version was afraid to claim?</div>
+    <div class="mirror-frame">
+      <div class="mirror-prompt">Look into your own eyes and say...</div>
+      <textarea id="mirrorText" placeholder="The truth I am claiming tonight is..." rows="3" style="text-align:center; font-style:italic;"></textarea>
+    </div>
+    <button class="btn" onclick="goTo(8)">I have spoken my truth →</button>
+  </div>
+</div>
+
+<!-- Step 8: Seal the portal -->
+<div class="step" id="s8">
+  <div class="card">
+    <div class="step-num">Step 8 of 8 · Seal the Portal</div>
+    <div class="step-q">Claim it. Close the circle.</div>
+    <div class="step-body">Every circle that is opened must be closed. Every ritual that begins must be sealed. This is not just ceremony, it is energetic completion. You have done the work. Now you seal it in with gratitude and with power.<br><br>Thank the elements for their witness. Thank your ancestors for their love. Thank the portal for opening. And step back into your ordinary life carrying everything you have claimed here.</div>
+    <div class="speak-label">Speak this as your closing</div>
+    <div class="speak-box">
+      I thank the Earth, the Air, the Fire and the Water for holding this space.<br><br>
+      I thank the women of my lineage for their witness and their love.<br><br>
+      I seal this intention in the highest good of all.<br><br>
+      This circle is open but never broken. The magic continues.<br><br>
+      So it is.
+    </div>
+    <div class="affirmation-row">
+      <div class="affirmation-line">The portal has received me. I am already on the other side.</div>
+      <div class="affirmation-line">I am not waiting to become her. I am her, choosing to remember.</div>
+      <div class="affirmation-line">What I claimed tonight, the universe already knows.</div>
+    </div>
+    <div class="candle-wrap">
+      <div class="candle" id="closingCandle">
+        <div class="flame"></div>
+        <div class="candle-wick"></div>
+        <div class="candle-body"></div>
+      </div>
+    </div>
+    <p style="font-size:14px; line-height:1.8; color:rgba(240,224,196,0.4); font-style:italic; text-align:center; margin-top:8px;">Blow out your candle when you are ready, releasing the energy into the world.</p>
+    <p style="font-size:14px; line-height:1.8; color:rgba(200,160,64,0.5); font-style:italic; text-align:center; margin-top:28px;">Big love Melissa x</p>
+  </div>
+  <div style="text-align:center; margin-top:16px;">
+    <button class="btn-ghost" onclick="location.reload()">Begin the ritual again</button>
+  </div>
+</div>
+
+<script>
+// Stars
+(function(){
+  const wrap=document.getElementById('stars');
+  for(let i=0;i<90;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.cssText=`width:${Math.random()*2+0.5}px;height:${Math.random()*2+0.5}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*5}s;--delay:${Math.random()*6}s;--op:${0.3+Math.random()*0.65}`;
+    wrap.appendChild(s);
+  }
+})();
+
+// Dots
+const TOTAL=8;
+const dotsWrap=document.getElementById('dots');
+for(let i=1;i<=TOTAL;i++){
+  const d=document.createElement('div');
+  d.className='dot'+(i===1?' on':'');
+  d.id='dot'+i; dotsWrap.appendChild(d);
+}
+function goTo(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.dot').forEach(d=>d.classList.remove('on'));
+  document.getElementById('s'+n).classList.add('active');
+  document.getElementById('dot'+n).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Candle light effect
+function lightCandle(){
+  const c=document.getElementById('unlitCandle');
+  c.querySelector('.candle-wick').style.background='#503020';
+  const f=c.querySelector('.flame::before');
+  // just re-add class to trigger the flame css
+  c.id='litCandle';
+  goTo(2);
+}
+
+// Elements
+let calledElements=new Set();
+function callElement(el,name){
+  el.classList.toggle('called');
+  if(el.classList.contains('called')) calledElements.add(name);
+  else calledElements.delete(name);
+  document.getElementById('elementsBtn').disabled = calledElements.size < 4;
+}
+
+// Portal activation breath (double inhale + exhale, 11 rounds)
+let portalRunning=false;
+function startPortalBreath(){
+  if(portalRunning) return;
+  portalRunning=true;
+  const ring=document.getElementById('pRing');
+  ring.style.cursor='default';
+  const totalRounds=11; let round=0;
+
+  function runRound(){
+    if(round>=totalRounds){
+      document.getElementById('pMsg').textContent='Channel open. Feel the activation.';
+      document.getElementById('pCount').textContent='✦';
+      document.getElementById('pRound').textContent='11 rounds complete';
+      document.getElementById('pNext').style.display='block';
+      ring.classList.remove('inhale1','inhale2','exhale');
+      return;
+    }
+    round++;
+    document.getElementById('pRound').textContent='Round '+round+' of '+totalRounds;
+    // Phase 1: first inhale
+    ring.classList.remove('exhale','inhale2');
+    ring.classList.add('inhale1');
+    document.getElementById('pMsg').textContent='Inhale — sniff';
+    document.getElementById('pCount').textContent='1';
+    setTimeout(()=>{
+      // Phase 2: second inhale
+      ring.classList.remove('inhale1');
+      ring.classList.add('inhale2');
+      document.getElementById('pMsg').textContent='Inhale again — deeper';
+      document.getElementById('pCount').textContent='2';
+      setTimeout(()=>{
+        // Phase 3: exhale
+        ring.classList.remove('inhale2');
+        ring.classList.add('exhale');
+        document.getElementById('pMsg').textContent='Exhale slowly through the mouth';
+        document.getElementById('pCount').textContent='';
+        setTimeout(()=>runRound(), 4000);
+      },800);
+    },800);
+  }
+  runRound();
+}
+
+// Bay leaf burn
+function burnLeaf(){
+  const txt=document.getElementById('bayText').value.trim();
+  if(!txt) return;
+  const ta=document.getElementById('bayText');
+  const btn=document.getElementById('burnBtn');
+  btn.disabled=true;
+  ta.classList.add('burning');
+  setTimeout(()=>{
+    ta.style.display='none';
+    document.getElementById('ashMsg').classList.add('show');
+    document.getElementById('afterBurn').style.display='inline-block';
+    btn.style.display='none';
+  },2200);
+}
+</script>
+</body>
+</html>
