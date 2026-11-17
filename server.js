@@ -455,6 +455,8 @@ const PRODUCT_TO_GROUP = {
   'prod_VCzmnknITCpJtL': '183518348825331372', // Teacher Training Full → Onboarding Teacher Trainers
   'prod_VCzmBUm72JB7Ot': '183518348825331372', // Teacher Training Plan → Onboarding Teacher Trainers
   'prod_VdXvvr1maUedAe': '204349106325292181', // The Blueprint Session ($150) → Blueprint (triggers confirmation email)
+  'prod_VKQCDmuBJ5GnEu': '204350101177501192', // The Reconnection Session ($299) → Reconnection Session (confirmation email + alert)
+  'prod_VKQCOOpGT2UMj2': '204350105917064802', // The Breathwork Experience ($400) → Breathwork Experience (confirmation email + alert)
 };
 
 app.post('/api/webhook/sacred-sound', express.raw({ type: 'application/json' }), async (req, res) => {
